@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="WaitTitleView">
+            <rect key="frame" x="0.0" y="0.0" width="230" height="20"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="等待00:00:00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ixs-Is-ofT">
+                    <rect key="frame" x="125" y="0.0" width="105" height="20"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="105" id="1Rl-FG-5oH"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                    <color key="textColor" red="0.94596684639999995" green="0.44383541980000002" blue="0.2541886216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="正在为您寻找车辆" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BId-lq-Zch">
+                    <rect key="frame" x="0.0" y="0.0" width="125" height="20"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.69999999999999996" colorSpace="calibratedRGB"/>
+            <constraints>
+                <constraint firstItem="BId-lq-Zch" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="0rF-1m-p3t"/>
+                <constraint firstItem="BId-lq-Zch" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="RLC-M8-2Kh"/>
+                <constraint firstAttribute="bottom" secondItem="BId-lq-Zch" secondAttribute="bottom" id="RQE-V3-0jZ"/>
+                <constraint firstItem="Ixs-Is-ofT" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="ZZ4-wk-Ei2"/>
+                <constraint firstItem="Ixs-Is-ofT" firstAttribute="leading" secondItem="BId-lq-Zch" secondAttribute="trailing" id="dKC-ie-g8w"/>
+                <constraint firstItem="Ixs-Is-ofT" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="vub-rX-CB5"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="Ixs-Is-ofT" secondAttribute="bottom" id="zTM-Yh-C3R"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="timeLabel" destination="Ixs-Is-ofT" id="wZg-HN-7xf"/>
+            </connections>
+        </view>
+    </objects>
+</document>
