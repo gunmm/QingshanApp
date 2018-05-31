@@ -30,7 +30,6 @@
 - (void)initView {
     [self initLabelIcon];
     [self initHeadView];
-
 }
 
 - (void)initLabelIcon {
@@ -44,18 +43,40 @@
     MyTableHeaderView *headView = [[[NSBundle mainBundle] loadNibNamed:@"MyTableHeaderView" owner:nil options:nil] lastObject];
     headView.frame = CGRectMake(0, 0, kDeviceWidth/5*4, 144);
     self.tableView.tableHeaderView = headView;
+    
+    //单击
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAct:)];
+    [headView addGestureRecognizer:tap];
+    
+}
+
+//点击方法
+- (void)tapAct:(UITapGestureRecognizer *)tap{
+    if (self.standLeftSelectBlock) {
+        self.standLeftSelectBlock(-1);
+    }
+}
+
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (_isDriver && indexPath.row == 0) {
+        return 0;
+    }
+    
+    return 44;
 }
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    
+    if (indexPath.row ==0) {
+        if (self.standLeftSelectBlock) {
+            self.standLeftSelectBlock(0);
+        }
+    }
     if (indexPath.row == 3) {
-//        [[Config shareConfig] cleanUserInfo];
-//        UIStoryboard *board = [UIStoryboard storyboardWithName:@"Login" bundle:nil];
-//        UIViewController *controller = [board instantiateViewControllerWithIdentifier:@"login_controller"];
-//        [self.view.window setRootViewController:controller];
         [Utils backToLogin];
-
-
     }
 }
 

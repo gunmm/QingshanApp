@@ -16,6 +16,10 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="147"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Qn-Ya-8fF">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="147"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MkE-w7-7rA">
                     <rect key="frame" x="16" y="58" width="288" height="81"/>
                     <subviews>
@@ -107,20 +111,24 @@
                     </connections>
                 </button>
             </subviews>
-            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
+                <constraint firstItem="7Qn-Ya-8fF" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="2JJ-Bi-XSm"/>
                 <constraint firstItem="6Hs-dc-y2n" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" constant="-30" id="3rp-Ca-mhV"/>
+                <constraint firstItem="7Qn-Ya-8fF" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="BqR-CE-yVg"/>
+                <constraint firstItem="7Qn-Ya-8fF" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="Gkp-bU-hV1"/>
                 <constraint firstItem="MkE-w7-7rA" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="RUD-mf-R4Q"/>
                 <constraint firstItem="6En-LR-WYh" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="20" id="UT4-cj-4dy"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="MkE-w7-7rA" secondAttribute="trailing" constant="16" id="UrD-uk-whD"/>
                 <constraint firstItem="6Hs-dc-y2n" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="20" id="aou-dm-6BV"/>
                 <constraint firstItem="6En-LR-WYh" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" constant="30" id="ewV-dn-byq"/>
                 <constraint firstItem="MkE-w7-7rA" firstAttribute="top" secondItem="6Hs-dc-y2n" secondAttribute="bottom" constant="8" id="kkK-LI-Ru1"/>
+                <constraint firstItem="7Qn-Ya-8fF" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="y4k-fD-W1T"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
                 <outlet property="appointBtn" destination="6En-LR-WYh" id="rqF-f8-ap9"/>
+                <outlet property="bgView" destination="7Qn-Ya-8fF" id="AWL-Xl-rPJ"/>
                 <outlet property="nowBtn" destination="6Hs-dc-y2n" id="hG1-mk-3FD"/>
                 <outlet property="receiveSignView" destination="Akb-Fb-OBL" id="tfz-A5-2AD"/>
                 <outlet property="receiveTextField" destination="iG6-Q8-6qt" id="KaF-LA-l41"/>

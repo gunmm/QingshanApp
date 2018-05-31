@@ -44,6 +44,9 @@
 
 - (IBAction)loginAct:(UIButton *)sender {
     
+    
+    [self.view endEditing:YES];
+    
     NSString *userName = _usernameTextField.text;
     if ([Utils isEmpty:userName])
     {
@@ -102,6 +105,10 @@
 }
 
 - (IBAction)passwordAct:(UIButton *)sender {
+    self.navigationController.navigationBar.hidden = NO;
+    RegisterViewController *registerVc = [[RegisterViewController alloc] init];
+    registerVc.isBackPassword = YES;
+    [self.navigationController pushViewController:registerVc animated:YES];
 }
 
 

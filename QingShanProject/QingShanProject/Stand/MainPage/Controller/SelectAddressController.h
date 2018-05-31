@@ -19,6 +19,8 @@ typedef void(^CellClickBlock)(NSString *name, NSString *address, CLLocationCoord
 
 @property (nonatomic, copy) NSString *beginSerchString;
 @property (nonatomic, assign) CLLocationCoordinate2D beginSerchPt;
+@property (nonatomic, copy) NSString *nowCityString;
+
 
 
 

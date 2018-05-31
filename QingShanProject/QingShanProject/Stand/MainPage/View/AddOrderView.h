@@ -24,6 +24,7 @@ typedef void(^TapActBlock)(void);
 
 @property (nonatomic, assign) BOOL isNow;
 
+@property (weak, nonatomic) IBOutlet UIView *bgView;
 
 
 @end

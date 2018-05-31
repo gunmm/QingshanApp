@@ -19,11 +19,6 @@
     _receiveSignView.layer.cornerRadius = 4;
     _receiveSignView.layer.masksToBounds = YES;
     
-    self.layer.backgroundColor = [UIColor whiteColor].CGColor;
-    self.layer.shadowColor = [UIColor blackColor].CGColor;
-    self.layer.shadowOpacity = 0.5f;
-    self.layer.shadowOffset = CGSizeMake(0,0);
-    self.layer.frame = self.bounds;
     _nowBtn.layer.cornerRadius = 15;
     _nowBtn.layer.masksToBounds = YES;
     _appointBtn.layer.cornerRadius = 15;
@@ -38,6 +33,24 @@
     UITapGestureRecognizer *tap2 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAct2:)];
     [_receiveTextField addGestureRecognizer:tap2];
     
+}
+
+- (void)layoutSubviews {
+    CALayer *sublayer =[CALayer layer];
+    sublayer.backgroundColor = [UIColor whiteColor].CGColor;
+    sublayer.shadowColor = [UIColor blackColor].CGColor;
+    sublayer.shadowOpacity = 0.3f;
+    sublayer.shadowRadius = 2.f;
+    sublayer.shadowOffset = CGSizeMake(0,0);
+    sublayer.frame = self.bounds;
+    [_bgView.layer addSublayer:sublayer];
+    [sublayer setNeedsDisplay];
+    CALayer *corLayer = [CALayer layer];
+    corLayer.frame = sublayer.bounds;
+    corLayer.cornerRadius = 2;
+    sublayer.cornerRadius = 2;
+    corLayer.masksToBounds = YES;
+    [sublayer addSublayer:corLayer];
 }
 
 - (void)tapAct1:(UITapGestureRecognizer *)tap {

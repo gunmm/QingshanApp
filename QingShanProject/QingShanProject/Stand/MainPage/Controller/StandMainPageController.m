@@ -15,6 +15,7 @@
 #import "SelectAddressController.h"
 #import "AddOrderController.h"
 #import "SeekViewController.h"
+#import "DriverOnWayController.h"
 
 
 @interface StandMainPageController () <BMKMapViewDelegate, BMKLocationServiceDelegate, BMKPoiSearchDelegate, BMKGeoCodeSearchDelegate>
@@ -36,6 +37,8 @@
 
 @property (nonatomic, copy) NSString *signSend;
 @property (nonatomic, assign) NSInteger resCount;
+@property (nonatomic, copy) NSString *nowCityString;
+
 
 
 
@@ -48,6 +51,7 @@
     // Do any additional setup after loading the view.
     [self initNavBar];
     [self initView];
+    
 }
 
 
@@ -110,6 +114,7 @@
         SelectAddressController *selectAddressVc = [[SelectAddressController alloc] init];
         selectAddressVc.beginSerchString = weakSelf.addOrderView.sendTextField.text;
         selectAddressVc.beginSerchPt = weakSelf.sendAddressPt;
+        selectAddressVc.nowCityString = weakSelf.nowCityString;
         [weakSelf.navigationController presentViewController:selectAddressVc animated:YES completion:nil];
         selectAddressVc.cellClickBlock = ^(NSString *name, NSString *address, CLLocationCoordinate2D pt) {
             weakSelf.addOrderView.sendTextField.text = name;
@@ -124,6 +129,8 @@
         SelectAddressController *selectAddressVc = [[SelectAddressController alloc] init];
         selectAddressVc.beginSerchString = weakSelf.addOrderView.receiveTextField.text;
         selectAddressVc.beginSerchPt = weakSelf.receiveAddressPt;
+        selectAddressVc.nowCityString = weakSelf.nowCityString;
+
         [weakSelf.navigationController presentViewController:selectAddressVc animated:YES completion:nil];
         selectAddressVc.cellClickBlock = ^(NSString *name, NSString *address, CLLocationCoordinate2D pt) {
             weakSelf.addOrderView.receiveTextField.text = name;
@@ -136,12 +143,25 @@
                 addOrderVc.receiveAddress = weakSelf.addOrderView.receiveTextField.text;
                 addOrderVc.isNow = weakSelf.addOrderView.isNow;
                 [weakSelf.navigationController presentViewController:addOrderVc animated:YES completion:nil];
-                addOrderVc.dismissBlock = ^(CLLocationCoordinate2D pt, long long createTime) {
+                addOrderVc.backDismissBlock = ^{
+                    weakSelf.addOrderView.receiveTextField.text = @"";
+                };
+                addOrderVc.dismissBlock = ^(CLLocationCoordinate2D pt, long long createTime, NSString *orderId) {
+                    weakSelf.addOrderView.receiveTextField.text = @"";
                     SeekViewController *seekViewController = [[SeekViewController alloc] init];
                     seekViewController.sendPt = pt;
                     seekViewController.createTime = createTime;
+                    seekViewController.orderId = orderId;
                     [weakSelf.navigationController pushViewController:seekViewController animated:YES];
+                    seekViewController.seekPopBlock = ^(NSString *orderId, NSString *orderType) {
+                        if ([orderType isEqualToString:@"1"]) {
+                            DriverOnWayController *onwayVc = [[DriverOnWayController alloc] init];
+                            onwayVc.orderId = orderId;
+                            [weakSelf.navigationController pushViewController:onwayVc animated:YES];
+                        }
+                    };
                 };
+                
                
             }
         };
@@ -215,6 +235,7 @@
             BMKPoiInfo *info = result.poiList[0];
             _addOrderView.sendTextField.text = info.name;
             _locationAddressName = info.name;
+            _nowCityString = result.addressDetail.city;
             NSLog(@"address:%@\n des:%@",result.address,result.sematicDescription);
         }
     }else {

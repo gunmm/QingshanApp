@@ -10,6 +10,9 @@
 #import "MapHeadView.h"
 #import "SelectAddressCell.h"
 #import "IQKeyboardManager.h"
+#import "SelectAddressHeadView.h"
+#import "GUNMMCityVC.h"
+
 
 
 
@@ -17,6 +20,7 @@
 {
     MapHeadView *mapheadView;
     NotHaveDataView *_notHaveView;
+    
 
 
 }
@@ -24,9 +28,7 @@
 @property (strong, nonatomic) BMKPoiSearch *poiSearch;
 @property (strong, nonatomic) UITableView *theTableView;
 @property (strong, nonatomic) NSArray *addressArray;
-
-
-
+@property (strong, nonatomic) SelectAddressHeadView *selectAddressHeadView;
 
 @end
 
@@ -104,11 +106,26 @@
     }else{
         [_notHaveView removeFromSuperview];
         _notHaveView = [[NotHaveDataView alloc] init];
-        _notHaveView.frame = CGRectMake(0, 0, kDeviceWidth, kDeviceHeight-STATUS_AND_NAVBAR_HEIGHT);
         _notHaveView.contentLabel.text = @"未检索到关键字";
-        _notHaveView.backgroundColor = [UIColor whiteColor];
+        [NavBgImage showIconFontForView:_notHaveView.iconLabel iconName:@"\U0000e647" color:[UIColor colorWithRed:66/255.0 green:67/255.0 blue:81/255.0 alpha:0.7] font:60];
+        _notHaveView.frame = CGRectMake(0, 50, kDeviceWidth, kDeviceHeight-STATUS_AND_NAVBAR_HEIGHT-50);
+
         [_theTableView addSubview:_notHaveView];
     }
+    
+    
+    _selectAddressHeadView = [[[NSBundle mainBundle] loadNibNamed:@"SelectAddressHeadView" owner:nil options:nil] lastObject];
+    _selectAddressHeadView.frame =CGRectMake(0, 0, kDeviceWidth, 50);
+    _theTableView.tableHeaderView = _selectAddressHeadView;
+    __weak SelectAddressController *weakSelf = self;
+    [_selectAddressHeadView.cityBtn setTitle:_nowCityString forState:UIControlStateNormal];
+    _selectAddressHeadView.cityBtnBlock = ^{
+        GUNMMCityVC *cityVc = [[GUNMMCityVC alloc] init];
+        [weakSelf presentViewController:cityVc animated:YES completion:nil];
+        [cityVc getBlock:^(NSString *cityName) {
+            [weakSelf.selectAddressHeadView.cityBtn setTitle:[NSString stringWithFormat:@"%@市", cityName] forState:UIControlStateNormal];
+        }];
+    };
 }
 
 - (void)initPoiSearch
@@ -121,7 +138,7 @@
     BMKCitySearchOption *option = [[BMKCitySearchOption alloc] init];
     option.pageIndex = 0;
     option.pageCapacity = 30;
-    option.city = @"北京市";
+    option.city = _selectAddressHeadView.cityBtn.titleLabel.text;
     option.keyword = address;
     
     BOOL result = [_poiSearch poiSearchInCity:option];
@@ -172,8 +189,9 @@
         }else{
             [_notHaveView removeFromSuperview];
             _notHaveView = [[NotHaveDataView alloc] init];
-            _notHaveView.frame = CGRectMake(0, 0, kDeviceWidth, kDeviceHeight-STATUS_AND_NAVBAR_HEIGHT);
             _notHaveView.contentLabel.text = @"未检索到关键字";
+            _notHaveView.frame = CGRectMake(0, 50, kDeviceWidth, kDeviceHeight-STATUS_AND_NAVBAR_HEIGHT-50);
+            [NavBgImage showIconFontForView:_notHaveView.iconLabel iconName:@"\U0000e647" color:[UIColor colorWithRed:66/255.0 green:67/255.0 blue:81/255.0 alpha:0.7] font:60];
             _notHaveView.backgroundColor = [UIColor whiteColor];
 
             [_theTableView addSubview:_notHaveView];

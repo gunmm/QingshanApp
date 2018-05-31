@@ -14,7 +14,7 @@
 
 
 
-//POST请求
+//POST添加进度请求
 + (void)postDataWithParameters:(NSDictionary *)paramets withUrl:(NSString *)urlstr withBlock:(SuccessBlock)block withFailedBlock:(FailedBlock)fBlock {
     
     NSMutableDictionary *head = [NSMutableDictionary dictionary];
@@ -54,6 +54,45 @@
         }
     }];
 }
+
+//POST背后请求
++ (void)bgPostDataWithParameters:(NSDictionary *)paramets withUrl:(NSString *)urlstr withBlock:(SuccessBlock)block withFailedBlock:(FailedBlock)fBlock {
+    
+    NSMutableDictionary *head = [NSMutableDictionary dictionary];
+    [head setObject:[[Config shareConfig] getUserId] forKey:@"userId"];
+    [head setObject:[[Config shareConfig] getToken] forKey:@"token"];
+    
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    [parameters setObject:head forKey:@"head"];
+    [parameters setObject:paramets forKey:@"body"];
+    
+    
+    //创建manger
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    
+    [manager POST:[NetWorking netUrlWithStr:urlstr] parameters:parameters progress:^(NSProgress * _Nonnull uploadProgress) {
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSString *runStatus = [responseObject objectForKey:@"result_code"];
+        NSString *reason = [responseObject objectForKey:@"reason"];
+        
+        if ([runStatus isEqualToString:@"1"]) {
+            block(responseObject);
+        }else {
+            fBlock(reason);
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSLog(@"error---%@",error);
+        if ([[error.userInfo allKeys]containsObject:@"NSLocalizedDescription"]) {
+            fBlock([error.userInfo objectForKey:@"NSLocalizedDescription"]);
+        }else{
+            fBlock(@"error");
+        }
+    }];
+}
+
+
 
 //Login页面POST请求
 + (void)loginPostDataWithParameters:(NSDictionary *)paramets withUrl:(NSString *)urlstr withBlock:(SuccessBlock)block withFailedBlock:(FailedBlock)fBlock {

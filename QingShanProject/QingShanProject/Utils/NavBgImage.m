@@ -7,6 +7,8 @@
 //
 
 #import "NavBgImage.h"
+#import <MMDrawerController/MMDrawerController.h>
+
 @implementation NavBgImage
 
 #pragma mark---------用颜色创建图片
@@ -55,7 +57,17 @@
         
         currentVC = [self getCurrentVCFrom:[(UINavigationController *)rootVC visibleViewController]];
         
-    } else {
+    } else if ([rootVC isKindOfClass:[MMDrawerController class]]){
+        // 根视图为MMDrawerController
+        if (((MMDrawerController *)rootVC).openSide == MMDrawerSideNone) {
+            currentVC = [self getCurrentVCFrom:((MMDrawerController *)rootVC).centerViewController];
+        }else if (((MMDrawerController *)rootVC).openSide == MMDrawerSideLeft){
+            currentVC = [self getCurrentVCFrom:((MMDrawerController *)rootVC).leftDrawerViewController];
+        }else{
+            currentVC = [self getCurrentVCFrom:((MMDrawerController *)rootVC).rightDrawerViewController];
+        }
+        
+    }else {
         // 根视图为非导航类
         
         currentVC = rootVC;
@@ -145,6 +157,41 @@
         [(UILabel *)view setFont:[UIFont fontWithName:@"iconfont" size:iconFont]];
         [(UILabel *)view setTextColor:iconColor];
     }
+}
+
+
+
++ (CGFloat)BMapSetPointCenterWithPoint11:(CLLocationCoordinate2D)point1 withPoint2:(CLLocationCoordinate2D)point2 {
+    int zoom = 13;
+    
+    int zooms[] = {50, 100, 200, 500, 1000, 2000, 5000, 10000, 20000, 25000, 50000,
+        100000, 200000, 500000, 1000000, 2000000};
+    BMKMapPoint dPoint1 = BMKMapPointForCoordinate(point1);
+    BMKMapPoint dPoint2 = BMKMapPointForCoordinate(point2);
+    CLLocationDistance distance = BMKMetersBetweenMapPoints(dPoint1, dPoint2);
+    
+    for (int i = 0; i < 16; i++) {
+        if ((zooms[i] - distance) > 0) {
+            zoom = 18 - i + 2;
+            break;
+        }
+    }
+    return zoom;
+    
+}
+
++ (CLLocationCoordinate2D)BMapGetCenterWithPoint11:(CLLocationCoordinate2D)point1 withPoint2:(CLLocationCoordinate2D)point2 {
+    double lat1 = point1.latitude;
+    double lng1 = point1.longitude;
+    
+    double lat2 = point2.latitude;
+    double lng2 = point2.longitude;
+    
+    double pointLng = (lng1 + lng2) / 2;
+    double pointLat = (lat1 + lat2) / 2;
+    
+    
+    return CLLocationCoordinate2DMake(pointLat, pointLng);
 }
 
 

@@ -6,11 +6,13 @@
 //  Copyright © 2018年 gunmm. All rights reserved.
 //
 
+
 #import <UIKit/UIKit.h>
 
 @interface NotHaveDataView : UIView
 
 @property (weak, nonatomic) IBOutlet UILabel *contentLabel;
+@property (weak, nonatomic) IBOutlet UILabel *iconLabel;
 
 
 - (instancetype)init;

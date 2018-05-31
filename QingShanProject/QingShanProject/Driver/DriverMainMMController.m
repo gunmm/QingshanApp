@@ -8,10 +8,14 @@
 
 #import "DriverMainMMController.h"
 #import "DriverMainPageController.h"
-#import "DriverLeftPageController.h"
+#import "StandLeftPageController.h"
 #import "BaseNavController.h"
+#import "DriverInfoController.h"
 
 @interface DriverMainMMController ()
+{
+    BaseNavController *mainNav;
+}
 
 @end
 
@@ -25,22 +29,28 @@
 
 - (instancetype)initDriverMainMMVC {
     
-    UIStoryboard *board = [UIStoryboard storyboardWithName:@"MyInfo" bundle:nil];
-    UIViewController *standLeftPageController = [board instantiateViewControllerWithIdentifier:@"my_main"];
-    BaseNavController *leftNav = [[BaseNavController alloc] initWithRootViewController:standLeftPageController];
-//    DriverLeftPageController *driverLeftPageController = [[DriverLeftPageController alloc] init];
-//    BaseNavController *leftNav = [[BaseNavController alloc] initWithRootViewController:driverLeftPageController];
     DriverMainPageController *driverMainPageController = [[DriverMainPageController alloc] init];
-    BaseNavController *mainNav = [[BaseNavController alloc] initWithRootViewController:driverMainPageController];
-
-    
-    
+    mainNav = [[BaseNavController alloc] initWithRootViewController:driverMainPageController];
     __weak DriverMainMMController *weakSelf = self;
     driverMainPageController.driverMainPageShowLeft = ^{
         [weakSelf openDrawerSide:MMDrawerSideLeft animated:YES completion:^(BOOL finished) {
             
         }];
     };
+    
+    
+    UIStoryboard *board = [UIStoryboard storyboardWithName:@"MyInfo" bundle:nil];
+    StandLeftPageController *standLeftPageController = [board instantiateViewControllerWithIdentifier:@"my_main"];
+    standLeftPageController.isDriver = YES;
+    BaseNavController *leftNav = [[BaseNavController alloc] initWithRootViewController:standLeftPageController];
+    standLeftPageController.standLeftSelectBlock = ^(NSInteger index) {
+        [weakSelf closeDrawerAnimated:NO completion:nil];
+        [weakSelf pushViewControllerWithIndex:index];
+    };
+    
+   
+    
+    
     self = [super initWithCenterViewController:mainNav leftDrawerViewController:leftNav];
     if (self) {
         //设置左侧滑得最大距离
@@ -53,6 +63,17 @@
         self.closeDrawerGestureModeMask = MMCloseDrawerGestureModeAll;
     }
     return self;
+}
+
+
+- (void)pushViewControllerWithIndex:(NSInteger)cellIndex {
+    if (cellIndex == -1) {
+        UIStoryboard *board = [UIStoryboard storyboardWithName:@"DriverInformation" bundle:nil];
+        DriverInfoController *driverInfoController = [board instantiateViewControllerWithIdentifier:@"driver_info"];
+        [mainNav pushViewController:driverInfoController animated:YES];
+    }else if (cellIndex == 1) {
+        
+    }
 }
 
 

@@ -13,6 +13,8 @@
 #import "SelectTableViewCell.h"
 #import "TextTableViewCell.h"
 #import "OrderConfirmView.h"
+#import "CarTypeModel.h"
+#import "CarTypeRes.h"
 
 
 
@@ -35,6 +37,14 @@
 
 @property (nonatomic, strong) OrderConfirmView *confirmView;
 
+@property (nonatomic, strong) NSArray *carTypeList;
+@property (nonatomic, strong) NSMutableArray *carTypeListTitle;
+
+@property (nonatomic, copy) NSString *carTypeValueStr;
+
+
+
+
 
 
 
@@ -52,6 +62,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [self loadDictionaryData];
     [self initNavBar];
     [self initView];
 
@@ -68,6 +79,33 @@
     [super viewWillDisappear:animated];
     _locService.delegate = nil;
     _mapView.delegate = nil;
+}
+
+- (void)loadDictionaryData {
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    [param setObject:@"车辆类型" forKey:@"name"];
+    
+    
+    [NetWorking postDataWithParameters:param withUrl:@"getDictionaryList" withBlock:^(id result) {
+        [CarTypeModel mj_setupReplacedKeyFromPropertyName:^NSDictionary *{
+            return @{
+                     @"desc" : @"description",
+                     };
+        }];
+        [CarTypeRes mj_setupObjectClassInArray:^NSDictionary *{
+            return @{
+                     @"object" : @"CarTypeModel",
+                     };
+        }];
+        CarTypeRes *carTypeRes = [CarTypeRes mj_objectWithKeyValues:result];
+        self.carTypeList = carTypeRes.object;
+        self.carTypeListTitle = [NSMutableArray array];
+        for (CarTypeModel *model in self.carTypeList) {
+            [self.carTypeListTitle addObject:model.desc];
+        }
+    } withFailedBlock:^(NSString *errorResult) {
+        
+    }];
 }
 
 
@@ -92,7 +130,10 @@
 }
 
 - (void)backAct {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    if (self.backDismissBlock) {
+        self.backDismissBlock();
+    }
+    [self dismissViewControllerAnimated:YES completion:^{}];
 }
 
 - (void)initView {
@@ -143,7 +184,7 @@
     [param setObject:_nameCell.contentTextF.text forKey:@"linkMan"];
     [param setObject:_phoneCell.contentTextF.text forKey:@"linkPhone"];
     
-    [param setObject:_typeSelectCell.contentLabel.text forKey:@"carType"];
+    [param setObject:_carTypeValueStr forKey:@"carType"];
     [param setObject:_remarkCell.contentTextF.text forKey:@"note"];
 
     
@@ -158,9 +199,10 @@
 
     [NetWorking postDataWithParameters:param withUrl:@"addOrder" withBlock:^(id result) {
         [HUDClass showHUDWithText:@"下单成功！"];
+        NSString *orderId = [result objectForKey:@"object"];
         [self dismissViewControllerAnimated:YES completion:^{
             if (self.dismissBlock) {
-                self.dismissBlock(self.sendPt,[[NSDate date] timeIntervalSince1970]);
+                self.dismissBlock(self.sendPt,[[NSDate date] timeIntervalSince1970] * 1000, orderId);
             }
         }];
     } withFailedBlock:^(NSString *errorResult) {
@@ -187,7 +229,6 @@
     _theTableView.layer.frame = _theTableView.frame;
     _theTableView.clipsToBounds = NO;
     [self.view addSubview:_theTableView];
-    
     
 }
 
@@ -442,15 +483,12 @@
 }
 
 - (void)selectType {
-    NSArray *titleArray = @[@"小面包车(800kg/1.8*1.2*1.1m/2.4m³)",
-                            @"中面包车(1.2t/2.8*1.5*1.3m/5.5m³)",
-                            @"小货车(1.5t/2.1*1.7*1.6m/5.7m³)",
-                            @"中货车(1.8t/4.3*2.1*1.8m/16.3m³)",
-                            @"大半挂车(∞t/∞m/∞m³)"
-                            ];
+   
     __weak AddOrderController *weakSelf = self;
-    [[CustomSelectAlertView alloc] initAlertWithTitleArray:[titleArray mutableCopy] withBtnSelectBlock:^(NSInteger tagg) {
-        weakSelf.typeSelectCell.contentLabel.text = titleArray[tagg-1];
+    [[CustomSelectAlertView alloc] initAlertWithTitleArray:self.carTypeListTitle withBtnSelectBlock:^(NSInteger tagg) {
+        weakSelf.typeSelectCell.contentLabel.text = weakSelf.carTypeListTitle[tagg-1];
+        CarTypeModel *model = weakSelf.carTypeList[tagg-1];
+        weakSelf.carTypeValueStr = model.keyText;
     }];
 }
 

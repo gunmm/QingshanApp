@@ -10,7 +10,9 @@
 #import <BaiduMapAPI_Map/BMKMapComponent.h>
 
 
-typedef void(^DismissBlock)(CLLocationCoordinate2D pt, long long createTime);
+typedef void(^DismissBlock)(CLLocationCoordinate2D pt, long long createTime, NSString *orderId);
+typedef void(^BackDismissBlock)(void);
+
 
 
 @interface AddOrderController : BaseViewController
@@ -25,6 +27,8 @@ typedef void(^DismissBlock)(CLLocationCoordinate2D pt, long long createTime);
 @property (nonatomic, assign) BOOL isNow;
 
 @property (nonatomic, copy) DismissBlock dismissBlock;
+@property (nonatomic, copy) BackDismissBlock backDismissBlock;
+
 
 
 

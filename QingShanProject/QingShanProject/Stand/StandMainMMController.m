@@ -10,10 +10,12 @@
 #import "StandLeftPageController.h"
 #import "StandMainPageController.h"
 #import "BaseNavController.h"
+#import "OrderListController.h"
+
 
 @interface StandMainMMController ()
 {
-
+    BaseNavController *mainNav;
 }
 
 
@@ -28,19 +30,28 @@
 
 
 - (instancetype)initStandMainMMVC {
-    UIStoryboard *board = [UIStoryboard storyboardWithName:@"MyInfo" bundle:nil];
-    UIViewController *standLeftPageController = [board instantiateViewControllerWithIdentifier:@"my_main"];
-    BaseNavController *leftNav = [[BaseNavController alloc] initWithRootViewController:standLeftPageController];
+    
     StandMainPageController *standMainPageController = [[StandMainPageController alloc] init];
-    BaseNavController *mainNav = [[BaseNavController alloc] initWithRootViewController:standMainPageController];
-    
-    
+    mainNav = [[BaseNavController alloc] initWithRootViewController:standMainPageController];
     __weak StandMainMMController *weakSelf = self;
     standMainPageController.standMainPageShowLeft = ^{
         [weakSelf openDrawerSide:MMDrawerSideLeft animated:YES completion:^(BOOL finished) {
-            
         }];
+        
     };
+    
+    
+    
+    UIStoryboard *board = [UIStoryboard storyboardWithName:@"MyInfo" bundle:nil];
+    StandLeftPageController *standLeftPageController = [board instantiateViewControllerWithIdentifier:@"my_main"];
+    BaseNavController *leftNav = [[BaseNavController alloc] initWithRootViewController:standLeftPageController];
+    standLeftPageController.standLeftSelectBlock = ^(NSInteger index) {
+        [weakSelf closeDrawerAnimated:NO completion:nil];
+       
+        [weakSelf pushViewControllerWithIndex:index];
+    };
+    
+    
     
     self = [super initWithCenterViewController:mainNav leftDrawerViewController:leftNav];
     if (self) {
@@ -52,14 +63,30 @@
         
         //设置关闭侧滑视图的出发手势类型
         self.closeDrawerGestureModeMask = MMCloseDrawerGestureModeAll;
+        
     }
     return self;
 }
+
+
+
+- (void)pushViewControllerWithIndex:(NSInteger)cellIndex {
+    if (cellIndex == -1) {
+       
+    }else if (cellIndex == 0) {
+        OrderListController *orderVc = [[OrderListController alloc] init];
+        [mainNav pushViewController:orderVc animated:YES];
+    }
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+
+
 
 
 @end

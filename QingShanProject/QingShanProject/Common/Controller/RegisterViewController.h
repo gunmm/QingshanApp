@@ -10,4 +10,7 @@
 
 @interface RegisterViewController : BaseViewController
 
+
+@property (nonatomic, assign) BOOL isBackPassword;
+
 @end

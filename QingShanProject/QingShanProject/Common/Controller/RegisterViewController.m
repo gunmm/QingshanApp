@@ -13,8 +13,6 @@
 
 @interface RegisterViewController () <UITableViewDelegate, UITableViewDataSource>
 {
-    NSTimer *timer;
-    NSInteger nowCount;
 }
 
 @property (strong, nonatomic) UITableView *theTableView;
@@ -23,7 +21,12 @@
 @property (nonatomic, strong) TextAndIconCell *typeCell;
 @property (nonatomic, strong) TextAndIconCell *passwordCell;
 @property (nonatomic, strong) TextAndIconCell *prePasswordCell;
+@property (nonatomic, strong) NSTimer *timer;
+@property (nonatomic, assign) NSInteger nowCount;
+
+
 @property (copy, nonatomic) NSString *securityCode;
+
 
 
 
@@ -44,11 +47,18 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.navigationController.navigationBar.hidden = NO;
-    
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [_timer invalidate];
 }
 
 - (void)initNavBar {
     self.title = @"注册";
+    if (_isBackPassword) {
+        self.title = @"设置密码";
+    }
     self.view.backgroundColor = [UIColor colorWithRed:236/255.0 green:235/255.0 blue:236/255.0 alpha:1];
 }
 
@@ -58,6 +68,7 @@
 
 - (void)initTableView {
     _theTableView = [[UITableView alloc] initWithFrame:CGRectMake(10, 10, kDeviceWidth-20, 220) style:UITableViewStylePlain];
+    
     _theTableView.delegate = self;
     _theTableView.dataSource = self;
     _theTableView.scrollEnabled = NO;
@@ -68,7 +79,12 @@
     [self.view addSubview:bgView];
     
     RegisterFooterView *footerView = [[[NSBundle mainBundle] loadNibNamed:@"RegisterFooterView" owner:nil options:nil] lastObject];
-    footerView.frame =CGRectMake(0, 0, kDeviceWidth, 141);
+    footerView.frame = CGRectMake(0, 0, kDeviceWidth, 141);
+    
+    if (_isBackPassword) {
+        _theTableView.frame = CGRectMake(10, 10, kDeviceWidth-20, 176);
+        [footerView.registerBtn setTitle:@"重置密码" forState:UIControlStateNormal];
+    }
     [bgView addSubview:footerView];
     __weak RegisterViewController *weakSelf = self;
     footerView.registerBtnBlock = ^{
@@ -77,6 +93,8 @@
 }
 
 - (void)registerBtnAct {
+    [self.view endEditing:YES];
+
     if (_phoneCell.contentText.text.length == 0) {
         [HUDClass showHUDWithText:@"请输入手机号码！"];
         return;
@@ -92,7 +110,7 @@
         return;
     }
     
-    if (_typeCell.contentText.text.length == 0) {
+    if (_typeCell.contentText.text.length == 0 && !_isBackPassword) {
         [HUDClass showHUDWithText:@"请选择角色！"];
         return;
     }
@@ -113,19 +131,28 @@
     }
     
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    NSString *urlStr = @"resetPassword";
+    if (!_isBackPassword) {
+        urlStr = @"register";
+        if ([_typeCell.contentText.text isEqualToString:@"货运站点"]) {
+            [param setObject:@"1" forKey:@"type"];
+            
+        }else{
+            [param setObject:@"2" forKey:@"type"];
+        }
+    }
     [param setObject:_phoneCell.contentText.text forKey:@"phoneNumber"];
     [param setObject:[Utils md5:_passwordCell.contentText.text] forKey:@"password"];
-    if ([_typeCell.contentText.text isEqualToString:@"货运站点"]) {
-        [param setObject:@"1" forKey:@"type"];
-
-    }else{
-        [param setObject:@"2" forKey:@"type"];
-    }
+    
 
     __weak RegisterViewController *weakSelf = self;
     
-    [NetWorking loginPostDataWithParameters:param withUrl:@"register" withBlock:^(id result) {
-        [HUDClass showHUDWithText:@"注册成功！"];
+    [NetWorking loginPostDataWithParameters:param withUrl:urlStr withBlock:^(id result) {
+        if (self.isBackPassword) {
+            [HUDClass showHUDWithText:@"修改密码成功！"];
+        }else{
+            [HUDClass showHUDWithText:@"注册成功！"];
+        }
         [weakSelf.navigationController popViewControllerAnimated:YES];
     } withFailedBlock:^(NSString *errorResult) {
     }];
@@ -170,6 +197,7 @@
         [NavBgImage showIconFontForView:cell.iconLabel iconName:@"\U0000e60e" color:mainColor font:22];
         
         cell.operationBtnBlock = ^{
+            
             [weakSelf sendCode];
         };
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -188,6 +216,7 @@
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
 
+        cell.clipsToBounds = YES;
         return cell;
     }else if (indexPath.row == 3) {
         if (_passwordCell) {
@@ -225,8 +254,18 @@
     return cell;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.row == 2 && _isBackPassword) {
+        return 0;
+    }
+    
+    return 44;
+}
+
 
 - (void)sendCode {
+    [self.view endEditing:YES];
+
     if (![Utils correctTel:_phoneCell.contentText.text]) {
         [HUDClass showHUDWithText:@"请输入正确的手机号码！"];
         return;
@@ -234,32 +273,33 @@
     
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
     [param setObject:_phoneCell.contentText.text forKey:@"phoneNumber"];
+    [param setObject:[NSString stringWithFormat:@"%@",_isBackPassword?@"1":@"0"] forKey:@"type"];
+
     __weak RegisterViewController *weakSelf = self;
 
+    
     [NetWorking loginPostDataWithParameters:param withUrl:@"getCode" withBlock:^(id result) {
         weakSelf.securityCode = [result objectForKey:@"object"];
         [HUDClass showHUDWithText:@"验证码发送成功！"];
+        self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(hiddenView) userInfo:nil repeats:YES];
+        self.nowCount = 60;
+        self.codeCell.operateBtn.userInteractionEnabled = NO;
+        self.codeCell.operateBtn.text = [NSString stringWithFormat:@"%ldS",self.nowCount];
+        self.codeCell.operateBtn.textColor = [UIColor grayColor];
+        
     } withFailedBlock:^(NSString *errorResult) {
     }];
-    
-    
-    timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(hiddenView) userInfo:nil repeats:YES];
-    nowCount = 60;
-    _codeCell.operateBtn.userInteractionEnabled = NO;
-    _codeCell.operateBtn.text = [NSString stringWithFormat:@"%ldS",nowCount];
-    _codeCell.operateBtn.textColor = [UIColor grayColor];
-
 }
 
 - (void)hiddenView {
-    nowCount --;
-    if (nowCount < 0) {
-        [timer invalidate];
+    _nowCount --;
+    if (_nowCount < 0) {
+        [_timer invalidate];
         _codeCell.operateBtn.userInteractionEnabled = YES;
         _codeCell.operateBtn.text = @"再次发送";
         _codeCell.operateBtn.textColor = mainColor;
     }else{
-        _codeCell.operateBtn.text = [NSString stringWithFormat:@"%ldS",nowCount];
+        _codeCell.operateBtn.text = [NSString stringWithFormat:@"%ldS",_nowCount];
     }
 }
 
