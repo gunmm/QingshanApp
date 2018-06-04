@@ -37,22 +37,22 @@
 
 - (void)receivedMsg:(NSNotification *)notification
 {
-    NSString *alertMsg = [notification.userInfo[@"aps"] objectForKey:@"alert"];
-    NSString *notifyType = notification.userInfo[@"notifyType"];
-    //    if ([notifyType isEqualToString:@"supplierOrderProcessCreate"] || [notifyType isEqualToString:@"hzsOrderProcessFinish"]) {
-    //
-    //
-    //    }
-    [AlertView alertViewWithTitle:@"新消息" withMessage:alertMsg withType:UIAlertControllerStyleAlert withConfirmBlock:^{
-        //        @try{
-        //            [[HttpClient shareClient] bgPost:READ_MESSAGE parameters:@{@"msgId":notification.userInfo[@"messageId"]} success:^(NSURLSessionDataTask *task, id responseObject) {
-        //            } failure:^(NSURLSessionDataTask *task, NSError *errr, Fail_Type failType) {
-        //            }];            }
-        //        @catch(NSException *exception){
-        //            NSLog(@"%@",exception.reason);
-        //        }
-        
-    }];
+//    NSString *alertMsg = [notification.userInfo[@"aps"] objectForKey:@"alert"];
+//    NSString *notifyType = notification.userInfo[@"notifyType"];
+//    //    if ([notifyType isEqualToString:@"supplierOrderProcessCreate"] || [notifyType isEqualToString:@"hzsOrderProcessFinish"]) {
+//    //
+//    //
+//    //    }
+//    [AlertView alertViewWithTitle:@"新消息" withMessage:alertMsg withType:UIAlertControllerStyleAlert withConfirmBlock:^{
+//        //        @try{
+//        //            [[HttpClient shareClient] bgPost:READ_MESSAGE parameters:@{@"msgId":notification.userInfo[@"messageId"]} success:^(NSURLSessionDataTask *task, id responseObject) {
+//        //            } failure:^(NSURLSessionDataTask *task, NSError *errr, Fail_Type failType) {
+//        //            }];            }
+//        //        @catch(NSException *exception){
+//        //            NSLog(@"%@",exception.reason);
+//        //        }
+//        
+//    }];
     //    else {
     //
     //    }

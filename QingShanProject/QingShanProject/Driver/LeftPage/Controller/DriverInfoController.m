@@ -11,6 +11,7 @@
 #import "CarTypeModel.h"
 #import "CarTypeRes.h"
 #import "WMPhotoBrowser.h"
+#import "ImagePreController.h"
 
 @interface DriverInfoController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, ImageCropperDelegate>
 
@@ -38,8 +39,18 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self initNavBar];
+    [self initStrData];
     [self initView];
     [self loadDictionaryData];
+}
+
+- (void)initStrData {
+    _headImageStr = @"";
+    _card1ImageStr = @"";
+    _card2ImageStr = @"";
+    _card3ImageStr = @"";
+    _carTypeValueStr = @"";
+
 }
 
 - (void)initNavBar {
@@ -51,29 +62,87 @@
 }
 
 - (void)saveBtnClicked {
+    if (_nickNameTextF.text.length == 0) {
+        [HUDClass showHUDWithText:@"姓名不能为空！"];
+        return;
+    }
+    
+    if ([[[Config shareConfig] getType] isEqualToString:@"2"]) {
+        if (_carTypeTextF.text.length == 0) {
+            [HUDClass showHUDWithText:@"车辆不能为空！"];
+            return;
+        }
+        
+        if (_plateNumberTextF.text.length == 0) {
+            [HUDClass showHUDWithText:@"车牌号不能为空！"];
+            return;
+        }
+        
+        if (_card1ImageStr.length == 0) {
+            [HUDClass showHUDWithText:@"驾驶证不能为空！"];
+            return;
+        }
+        
+        if (_card2ImageStr.length == 0) {
+            [HUDClass showHUDWithText:@"行驶证不能为空！"];
+            return;
+        }
+        
+        if (_card3ImageStr.length == 0) {
+            [HUDClass showHUDWithText:@"其他证不能为空！"];
+            return;
+        }
+    }
+    
+    
+    
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    [param setObject:[[Config shareConfig] getUserId] forKey:@"userId"];
+    [param setObject:_headImageStr forKey:@"personImageUrl"];
+    [param setObject:_nickNameTextF.text forKey:@"nickname"];
+    if ([[[Config shareConfig] getType] isEqualToString:@"2"]) {
+        [param setObject:_carTypeValueStr forKey:@"vehicleType"];
+        [param setObject:_plateNumberTextF.text forKey:@"plateNumber"];
+        [param setObject:_card1ImageStr forKey:@"driverLicenseImageUrl"];
+        [param setObject:_card2ImageStr forKey:@"driverVehicleImageUrl"];
+        [param setObject:_card3ImageStr forKey:@"driverThirdImageUrl"];
+    }
+    
+    [NetWorking postDataWithParameters:param withUrl:@"updateUserInfo" withBlock:^(id result) {
+        [HUDClass showHUDWithText:@"资料更新成功！"];
+        if (self.infoEditBlock) {
+            self.infoEditBlock();
+        }
+        [self.navigationController popViewControllerAnimated:YES];
+    } withFailedBlock:^(NSString *errorResult) {
+        
+    }];
+    
+    
+    
     
 }
 
 - (void)initView {
-    _headImageView.layer.cornerRadius = 27;
+    _headImageView.layer.cornerRadius = 6;
     _headImageView.layer.masksToBounds = YES;
     
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapActHead:)];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapImageAct:)];
     [_headImageView addGestureRecognizer:tap];
     
     _card1ImageView.layer.cornerRadius = 4;
     _card1ImageView.layer.masksToBounds = YES;
-    tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapActCard1:)];
+    tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapImageAct:)];
     [_card1ImageView addGestureRecognizer:tap];
     
     _card2ImageView.layer.cornerRadius = 4;
     _card2ImageView.layer.masksToBounds = YES;
-    tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapActCard2:)];
+    tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapImageAct:)];
     [_card2ImageView addGestureRecognizer:tap];
     
     _card3ImageView.layer.cornerRadius = 4;
     _card3ImageView.layer.masksToBounds = YES;
-    tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapActCard3:)];
+    tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapImageAct:)];
     [_card3ImageView addGestureRecognizer:tap];
     
     _carTypeTextF.enabled = NO;
@@ -97,20 +166,31 @@
         }
     }
     
+    if (_userModel.plateNumber.length > 0) {
+        _plateNumberTextF.text = _userModel.plateNumber;
+    }
+    
     if (_userModel.personImageUrl.length > 0) {
-        [_headImageView sd_setImageWithURL:[NSURL URLWithString:_userModel.personImageUrl] placeholderImage:[UIImage imageNamed:@"slidmain_user_head.png"] options:SDWebImageAllowInvalidSSLCertificates];
+        [Utils setImageWithImageView:_headImageView withUrl:_userModel.personImageUrl];
+        _headImageStr = _userModel.personImageUrl;
     }
     
     if (_userModel.driverLicenseImageUrl.length > 0) {
-        [_card1ImageView sd_setImageWithURL:[NSURL URLWithString:_userModel.driverLicenseImageUrl] placeholderImage:[UIImage imageNamed:@"choice_imgbg2.png"] options:SDWebImageAllowInvalidSSLCertificates];
+        [Utils setImageWithImageView:_card1ImageView withUrl:_userModel.driverLicenseImageUrl];
+
+        _card1ImageStr = _userModel.driverLicenseImageUrl;
     }
     
     if (_userModel.driverVehicleImageUrl.length > 0) {
-        [_card2ImageView sd_setImageWithURL:[NSURL URLWithString:_userModel.driverVehicleImageUrl] placeholderImage:[UIImage imageNamed:@"choice_imgbg2.png"] options:SDWebImageAllowInvalidSSLCertificates];
+        [Utils setImageWithImageView:_card2ImageView withUrl:_userModel.driverVehicleImageUrl];
+
+        _card2ImageStr = _userModel.driverVehicleImageUrl;
     }
     
     if (_userModel.driverThirdImageUrl.length > 0) {
-        [_card3ImageView sd_setImageWithURL:[NSURL URLWithString:_userModel.driverThirdImageUrl] placeholderImage:[UIImage imageNamed:@"choice_imgbg2.png"] options:SDWebImageAllowInvalidSSLCertificates];
+        [Utils setImageWithImageView:_card3ImageView withUrl:_userModel.driverThirdImageUrl];
+
+        _card3ImageStr = _userModel.driverThirdImageUrl;
     }
 }
 
@@ -118,8 +198,7 @@
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
     [param setObject:@"车辆类型" forKey:@"name"];
     
-    
-    [NetWorking postDataWithParameters:param withUrl:@"getDictionaryList" withBlock:^(id result) {
+    [NetWorking bgPostDataWithParameters:param withUrl:@"getDictionaryList" withBlock:^(id result) {
         [CarTypeModel mj_setupReplacedKeyFromPropertyName:^NSDictionary *{
             return @{
                      @"desc" : @"description",
@@ -138,33 +217,19 @@
         }
         
         [self initData];
-
     } withFailedBlock:^(NSString *errorResult) {
-        
+        [self.navigationController popViewControllerAnimated:YES];
     }];
+   
 }
 
 //点击方法
-- (void)tapActHead:(UITapGestureRecognizer *)tap{
-    WMPhotoBrowser *browser = [WMPhotoBrowser new];
-    browser.dataSource = @[_headImageView.image].mutableCopy;
-    browser.downLoadNeeded = YES;
-    [self.navigationController pushViewController:browser animated:YES];
+- (void)tapImageAct:(UITapGestureRecognizer *)recognizer{
+    UIImageView *imageView = (UIImageView *) recognizer.view;
+    ImagePreController *imagePreController = [[ImagePreController alloc] init];
+    imagePreController.imageView = imageView;
+    [self.navigationController presentViewController:imagePreController animated:NO completion:nil];
 }
-
-- (void)tapActCard1:(UITapGestureRecognizer *)tap{
-    
-}
-
-- (void)tapActCard2:(UITapGestureRecognizer *)tap{
-    
-}
-
-- (void)tapActCard3:(UITapGestureRecognizer *)tap{
-    
-}
-
-
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kDeviceWidth, 35)];
@@ -188,15 +253,17 @@
             }];
         }
     }else {
-        if (indexPath.row == 0) {
-            _imageType = @"2";
-            [self opratePhoto];
-        }else if (indexPath.row == 1) {
-            _imageType = @"3";
-            [self opratePhoto];
-        }else if (indexPath.row == 2) {
-            _imageType = @"4";
-            [self opratePhoto];
+        if(![_userModel.driverCertificationStatus isEqualToString:@"2"]){
+            if (indexPath.row == 0) {
+                _imageType = @"2";
+                [self opratePhoto];
+            }else if (indexPath.row == 1) {
+                _imageType = @"3";
+                [self opratePhoto];
+            }else if (indexPath.row == 2) {
+                _imageType = @"4";
+                [self opratePhoto];
+            }
         }
     }
 }
@@ -322,6 +389,29 @@
 - (void)imageCropperDidCancel:(ImageCropperController *)cropperViewController {
     [cropperViewController dismissViewControllerAnimated:YES completion:^{
     }];
+}
+
+
+
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    if ([[[Config shareConfig] getType] isEqualToString:@"2"]) {
+        return 2;
+    }
+    return 1;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if ([[[Config shareConfig] getType] isEqualToString:@"1"]) {
+        if (indexPath.section == 0) {
+            if (indexPath.row == 2 || indexPath.row == 3) {
+                return 0;
+            }
+        }
+    }
+    
+    
+    return [super tableView:tableView heightForRowAtIndexPath:indexPath];
 }
 
 

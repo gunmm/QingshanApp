@@ -9,6 +9,7 @@
 #import "OrderFinshController.h"
 #import <BaiduMapAPI_Map/BMKMapComponent.h>
 #import "OrderFinishView.h"
+#import "FinishOrderRes.h"
 
 
 @interface OrderFinshController () <BMKMapViewDelegate>
@@ -27,6 +28,7 @@
     // Do any additional setup after loading the view.
     [self initNavBar];
     [self initView];
+    [self loadData];
 }
 
 - (void)initNavBar {
@@ -40,15 +42,19 @@
     
 }
 
+- (void)loadData {
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    [param setObject:self.orderId forKey:@"orderId"];
+    [NetWorking bgPostDataWithParameters:param withUrl:@"getOnWayOrder" withBlock:^(id result) {
+         FinishOrderRes *finishOrderRes = [FinishOrderRes mj_objectWithKeyValues:result];
+        self.model = finishOrderRes.object;
+        [self setData];
+    } withFailedBlock:^(NSString *errorResult) {
+        
+    }];
+}
 
-- (void)initMapView {
-    _mapView = [[BMKMapView alloc] initWithFrame:CGRectMake(0, 0, kDeviceWidth, kDeviceHeight-STATUS_AND_NAVBAR_HEIGHT-240)];
-    _mapView.delegate = self;
-    _mapView.zoomLevel = 15;
-    _mapView.zoomEnabled = YES;
-    _mapView.showMapScaleBar = YES;
-    [self.view addSubview:_mapView];
-    
+- (void)setData {
     BMKPointAnnotation *sendPointAnnotation = [[BMKPointAnnotation alloc] init];
     sendPointAnnotation.coordinate = CLLocationCoordinate2DMake(_model.sendLatitude, _model.sendLongitude);
     sendPointAnnotation.title = @"起点";
@@ -59,15 +65,25 @@
     reciverPointAnnotation.title = @"终点";
     [_mapView addAnnotation:reciverPointAnnotation];
     
-    
-    
-    
-    
     CGFloat zoom = [self BMapSetPointCenterWithPoint11:sendPointAnnotation.coordinate withPoint2:reciverPointAnnotation.coordinate];
     CLLocationCoordinate2D center = [self BMapGetCenterWithPoint11:sendPointAnnotation.coordinate withPoint2:reciverPointAnnotation.coordinate];
     
     _mapView.zoomLevel = zoom;
     [_mapView setCenterCoordinate:center animated:YES];
+    
+    _finishView.model = _model;
+
+}
+
+
+- (void)initMapView {
+    _mapView = [[BMKMapView alloc] initWithFrame:CGRectMake(0, 0, kDeviceWidth, kDeviceHeight-STATUS_AND_NAVBAR_HEIGHT-240)];
+    _mapView.delegate = self;
+    _mapView.zoomLevel = 15;
+    _mapView.zoomEnabled = YES;
+    _mapView.showMapScaleBar = YES;
+    [self.view addSubview:_mapView];
+    
 }
 
 - (void)addFinishView {
@@ -77,15 +93,7 @@
     _finishView = [[[NSBundle mainBundle] loadNibNamed:@"OrderFinishView" owner:nil options:nil] lastObject];
     _finishView.frame = CGRectMake(0, 0, kDeviceWidth-10, 230);
     [fakeView addSubview:_finishView];
-    _finishView.model = _model;
 }
-
-
-- (void)setModel:(OrderModel *)model {
-    _model = model;
-}
-
-
 
 #pragma mark-------BMKMapViewDelegate
 - (BMKAnnotationView *)mapView:(BMKMapView *)mapView viewForAnnotation:(id<BMKAnnotation>)annotation{

@@ -21,12 +21,9 @@ typedef void(^TextBlock)(NSString *text);
 
 + (void)alertViewWithTitle:(NSString *)title withMessage:(NSString *)message withType:(UIAlertControllerStyle)type withConfirmBlock:(ConfirmBlock)confirmBlock;
 
-+ (void)alertViewWithTitle:(NSString *)title withMessage:(NSString *)message withType:(UIAlertControllerStyle)type withConfirmBlock:(ConfirmBlock)confirmBlock withCancelBlock:(CancelBlock)cancelBlock;
++ (void)alertViewWithTitle:(NSString *)title withMessage:(NSString *)message withConfirmTitle:(NSString *)confirmTitle withCancelTitle:(NSString *)cancelTitle withType:(UIAlertControllerStyle)type withConfirmBlock:(ConfirmBlock)confirmBlock withCancelBlock:(CancelBlock)cancelBlock;
 
 + (void)alertViewWithTitle:(NSString *)title withMessage:(NSString *)message withPlaceholder:(NSString *)placeholder withType:(UIAlertControllerStyle)type withKeykeyboardType:(UIKeyboardType)keyboardType withTextBlock:(TextBlock)textBlock withCancelBlock:(CancelBlock)cancelBlock;
-
-+ (void)actionViewWithTitle:(NSString *)title withMessage:(NSString *)message withConfirmBlock:(ConfirmBlock)confirmBlock withCancelBlock:(CancelBlock)cancelBlock;
-
 
 + (void)preAlertViewWithTitle:(NSString *)title withMessage:(NSString *)message withType:(UIAlertControllerStyle)type withConfirmBlock:(ConfirmBlock)confirmBlock;
 

@@ -37,23 +37,23 @@
     manager.enableAutoToolbar = YES;
     
     
-    NSString *token = [[Config shareConfig] getToken];
-    if (0 == token.length)
-    {
-        UIStoryboard *board = [UIStoryboard storyboardWithName:@"Login" bundle:nil];
-        UIViewController *controller = [board instantiateViewControllerWithIdentifier:@"login_controller"];
-        _window.rootViewController = controller;
-    }else{
-        
-        NSString *type = [Config shareConfig].getType;
-        if ([type isEqualToString:@"1"]) {
+//    NSString *token = [[Config shareConfig] getToken];
+//    if (0 == token.length)
+//    {
+//        UIStoryboard *board = [UIStoryboard storyboardWithName:@"Login" bundle:nil];
+//        UIViewController *controller = [board instantiateViewControllerWithIdentifier:@"login_controller"];
+//        _window.rootViewController = controller;
+//    }else{
+    
+//        NSString *type = [Config shareConfig].getType;
+//        if ([type isEqualToString:@"1"]) {
             StandMainMMController *standMainVC = [[StandMainMMController alloc] initStandMainMMVC];
             _window.rootViewController = standMainVC;
-        }else if ([type isEqualToString:@"2"]) {
-            DriverMainMMController *driverMainVC = [[DriverMainMMController alloc] initDriverMainMMVC];
-            _window.rootViewController = driverMainVC;
-        }
-    }
+//        }else if ([type isEqualToString:@"2"]) {
+//            DriverMainMMController *driverMainVC = [[DriverMainMMController alloc] initDriverMainMMVC];
+//            _window.rootViewController = driverMainVC;
+//        }
+//    }
     
     [self initBaiduMap];
     

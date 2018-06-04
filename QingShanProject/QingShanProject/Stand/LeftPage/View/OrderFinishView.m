@@ -45,6 +45,11 @@
 
 - (void)setModel:(OrderModel *)model {
     _model = model;
+    if ([_model.appointStatus isEqualToString:@"1"]) {
+        _waitLabel.hidden = NO;
+    }else{
+        _waitLabel.hidden = YES;
+    }
     _plateNumberLabel.text = _model.plateNumber;
     [_driverBtn setTitle:[NSString stringWithFormat:@"%@师傅",[_model.nickname substringToIndex:1]] forState:UIControlStateNormal];
     _carTypeLabel.text = _model.carTypeName;

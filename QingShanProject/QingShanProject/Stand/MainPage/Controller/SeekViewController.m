@@ -71,7 +71,7 @@
 }
 
 - (void)cancelBtnClicked {
-    [AlertView alertViewWithTitle:@"提示" withMessage:@"确认取消订单" withType:UIAlertControllerStyleAlert withConfirmBlock:^{
+    [AlertView alertViewWithTitle:@"提示" withMessage:@"确认取消订单" withConfirmTitle:@"确认" withCancelTitle:@"取消" withType:UIAlertControllerStyleAlert withConfirmBlock:^{
         NSMutableDictionary *param = [NSMutableDictionary dictionary];
         [param setObject:self.orderId forKey:@"orderId"];
         
@@ -84,6 +84,7 @@
     } withCancelBlock:^{
         
     }];
+    
 }
 
 - (void)loadAppearCarData {

@@ -23,8 +23,6 @@
 @property (nonatomic, strong) NSMutableArray <OrderModel *> *dataList;
 
 @property (nonatomic, strong) NotHaveDataView *notHaveView;
-
-
 @property (nonatomic, assign) NSInteger currentpage;
 
 
@@ -152,7 +150,7 @@
     _theTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kDeviceWidth, kDeviceHeight - STATUS_AND_NAVBAR_HEIGHT) style:UITableViewStylePlain];
     _theTableView.delegate = self;
     _theTableView.dataSource = self;
-    _theTableView.rowHeight = 125;
+    _theTableView.tableFooterView = [UIView new];
     [self.view addSubview:_theTableView];
     
     __weak OrderListController *weakSelf = self;
@@ -186,6 +184,13 @@
     return cell;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    OrderModel *model = _dataList[indexPath.row];
+    if ([model.type isEqualToString:@"1"]) {
+        return 125;
+    }
+    return 145;
+}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     OrderModel *model = _dataList[indexPath.row];
@@ -215,7 +220,7 @@
         [self.navigationController pushViewController:onwayVc animated:YES];
     }else if ([model.status isEqualToString:@"3"]) {
         OrderFinshController *orderFinshController = [[OrderFinshController alloc] init];
-        orderFinshController.model = model;
+        orderFinshController.orderId = model.orderId;
         [self.navigationController pushViewController:orderFinshController animated:YES];
     }
 }

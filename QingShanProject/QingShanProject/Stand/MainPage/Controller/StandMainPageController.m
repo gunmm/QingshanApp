@@ -16,6 +16,9 @@
 #import "AddOrderController.h"
 #import "SeekViewController.h"
 #import "DriverOnWayController.h"
+#import "OrderFinshController.h"
+#import "MessageBtn.h"
+#import "MessageListController.h"
 
 
 @interface StandMainPageController () <BMKMapViewDelegate, BMKLocationServiceDelegate, BMKPoiSearchDelegate, BMKGeoCodeSearchDelegate>
@@ -38,6 +41,9 @@
 @property (nonatomic, copy) NSString *signSend;
 @property (nonatomic, assign) NSInteger resCount;
 @property (nonatomic, copy) NSString *nowCityString;
+
+@property (nonatomic, strong) MessageBtn *messageBtn;
+
 
 
 
@@ -76,17 +82,33 @@
     //初始化按钮
     UIButton *personBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 44, 44)];
     personBtn.contentEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 30);
+    personBtn.titleLabel.textAlignment = NSTextAlignmentLeft;
     [NavBgImage showIconFontForView:personBtn iconName:@"\U0000e62f" color:mainColor font:25];
     
     [personBtn addTarget:self action:@selector(personAct) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *personItem = [[UIBarButtonItem alloc] initWithCustomView:personBtn];
     self.navigationItem.leftBarButtonItem = personItem;
+    
+    
+    _messageBtn = [[MessageBtn alloc]initWithFrame:CGRectMake(0, 0, 44, 44)];
+    _messageBtn.contentEdgeInsets = UIEdgeInsetsMake(0, 30, 0, 0);
+    _messageBtn.titleLabel.textAlignment = NSTextAlignmentRight;
+    [NavBgImage showIconFontForView:_messageBtn iconName:@"\U0000e617" color:mainColor font:25];
+    
+    [_messageBtn addTarget:self action:@selector(messageAct) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *messageItem = [[UIBarButtonItem alloc] initWithCustomView:_messageBtn];
+    self.navigationItem.rightBarButtonItem = messageItem;
 }
 
 - (void)personAct {
     if (self.standMainPageShowLeft) {
         self.standMainPageShowLeft();
     }
+}
+
+- (void)messageAct {
+    MessageListController *messageListController = [[MessageListController alloc] init];
+    [self.navigationController pushViewController:messageListController animated:YES];
 }
 
 
@@ -158,6 +180,12 @@
                             DriverOnWayController *onwayVc = [[DriverOnWayController alloc] init];
                             onwayVc.orderId = orderId;
                             [weakSelf.navigationController pushViewController:onwayVc animated:YES];
+                            
+                            onwayVc.orderCompleteBlock = ^(OrderModel *model) {
+                                OrderFinshController *finishvC = [[OrderFinshController alloc] init];
+                                finishvC.model = model;
+                                [weakSelf.navigationController pushViewController:finishvC animated:YES];
+                            };
                         }
                     };
                 };

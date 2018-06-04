@@ -13,5 +13,7 @@
 @interface OrderFinshController : BaseViewController
 
 @property (nonatomic, strong) OrderModel *model;
+@property (nonatomic, copy) NSString *orderId;
+
 
 @end

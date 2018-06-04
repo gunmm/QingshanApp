@@ -56,29 +56,7 @@
     
     
     
-    //    if (!_locService)
-    //    {
-    //        NSLog(@"sevice is nil");
-    //
-    //        _locService = [[BMKLocationService alloc]init];
-    //        _locService.desiredAccuracy = kCLLocationAccuracyNearestTenMeters;
-    //        _locService.distanceFilter = 1.0f;
-    //
-    //
-    //        _locService.delegate = self;
-    //
-    //        [_locService startUserLocationService];
-    //
-    //
-    //
-    //
-    //
-    //
-    //    }
-    //    else
-    //    {
-    //        NSLog(@"sevice is not nil");
-    //    }
+   
 }
 
 
@@ -116,9 +94,9 @@
         [_lcManager requestWhenInUseAuthorization];
     }
     
-//    if ([_lcManager respondsToSelector:@selector(setAllowsBackgroundLocationUpdates:)]) {
-//        [_lcManager setAllowsBackgroundLocationUpdates:YES];
-//    }
+    if ([_lcManager respondsToSelector:@selector(setAllowsBackgroundLocationUpdates:)]) {
+        [_lcManager setAllowsBackgroundLocationUpdates:YES];
+    }
     
    
     
@@ -149,12 +127,12 @@
 //    NSLog(@"count ============================== %ld",_countt);
     NSLog(@"------lat:%f, ------lng:%f", bdCoor.latitude, bdCoor.longitude);
     
-    if (!self.deferringUpdates) {
-        
-        [_lcManager allowDeferredLocationUpdatesUntilTraveled:500 timeout:30];
-        
-        self.deferringUpdates = YES;
-    }
+//    if (!self.deferringUpdates) {
+//        
+//        [_lcManager allowDeferredLocationUpdatesUntilTraveled:500 timeout:30];
+//        
+//        self.deferringUpdates = YES;
+//    }
     
     
     NSDictionary *userInfo = [NSDictionary dictionaryWithObject:location forKey:User_Location];

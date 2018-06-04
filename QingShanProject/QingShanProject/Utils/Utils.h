@@ -11,6 +11,10 @@
 
 @interface Utils : NSObject
 
+
++ (void)setImageWithImageView:(UIImageView *)imageView withUrl:(NSString *)imageUrl;
+
+
 + (void)backToLogin;
 
 + (NSString *)getServer;

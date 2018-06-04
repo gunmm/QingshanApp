@@ -189,6 +189,16 @@
                         <action selector="commentBtnAct:" destination="iN0-l3-epB" eventType="touchUpInside" id="mxB-tn-mZn"/>
                     </connections>
                 </button>
+                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="等待司机开始订单" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yYt-ZM-Xdb">
+                    <rect key="frame" x="16" y="188" width="278" height="41"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="41" id="IE2-QL-B5M"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                    <color key="textColor" red="0.25882352939999997" green="0.26274509800000001" blue="0.31764705879999999" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
@@ -204,6 +214,7 @@
                 <constraint firstItem="oaz-Nh-MsO" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="70" id="D8Z-yf-mag"/>
                 <constraint firstItem="oaz-Nh-MsO" firstAttribute="leading" secondItem="9lM-Nk-LLV" secondAttribute="trailing" id="EDf-Ik-f8z"/>
                 <constraint firstItem="fvC-k9-kHS" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="ESo-vg-rh1"/>
+                <constraint firstItem="yYt-ZM-Xdb" firstAttribute="top" secondItem="gQf-qM-FJV" secondAttribute="bottom" constant="0.5" id="IVb-3I-2RV"/>
                 <constraint firstItem="IfX-Dg-YPF" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="JQX-AB-BHg"/>
                 <constraint firstItem="cd4-0V-2uo" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="LIr-sH-XSf"/>
                 <constraint firstItem="031-WJ-yyW" firstAttribute="top" secondItem="gQf-qM-FJV" secondAttribute="bottom" id="MWt-4g-2dT"/>
@@ -227,6 +238,8 @@
                 <constraint firstItem="U2m-S9-yqG" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="k19-7X-BJA"/>
                 <constraint firstItem="Nv3-zk-T1k" firstAttribute="leading" secondItem="2Ay-xe-w4e" secondAttribute="trailing" constant="5" id="k7i-tm-5HC"/>
                 <constraint firstItem="2Ay-xe-w4e" firstAttribute="top" secondItem="Gx2-K3-wJq" secondAttribute="bottom" constant="8" id="lhY-xU-EoK"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="yYt-ZM-Xdb" secondAttribute="trailing" constant="16" id="lr0-nF-y2B"/>
+                <constraint firstItem="yYt-ZM-Xdb" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="nlW-Sv-hLc"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="LS4-5W-Y2a" secondAttribute="trailing" constant="16" id="oWK-3B-lgS"/>
                 <constraint firstItem="1YI-Eq-C6W" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="ofs-4v-3Q7"/>
                 <constraint firstItem="Gx2-K3-wJq" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="20" id="re5-au-snL"/>
@@ -249,6 +262,7 @@
                 <outlet property="scoreLabel" destination="Nv3-zk-T1k" id="oDV-rl-C27"/>
                 <outlet property="serviceBtn" destination="Uiz-Bp-e7X" id="p4D-Bg-Z5v"/>
                 <outlet property="starLabel" destination="2Ay-xe-w4e" id="ACc-Ne-o0B"/>
+                <outlet property="waitLabel" destination="yYt-ZM-Xdb" id="jfY-yH-yfK"/>
             </connections>
             <point key="canvasLocation" x="-6" y="7"/>
         </view>

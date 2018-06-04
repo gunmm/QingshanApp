@@ -10,7 +10,8 @@
 #import "DriverMainPageController.h"
 #import "StandLeftPageController.h"
 #import "BaseNavController.h"
-#import "DriverInfoController.h"
+#import "DriverDetailController.h"
+#import "DriverOrderListController.h"
 
 @interface DriverMainMMController ()
 {
@@ -48,6 +49,13 @@
         [weakSelf pushViewControllerWithIndex:index];
     };
     
+    standLeftPageController.standLeftCloseBlock = ^{
+        [weakSelf closeDrawerAnimated:NO completion:nil];
+    };
+
+    
+    
+    
    
     
     
@@ -57,7 +65,7 @@
         self.maximumLeftDrawerWidth = kDeviceWidth/5*3;
         
         //设置出发打开左侧视图的手势类型
-        self.openDrawerGestureModeMask = MMOpenDrawerGestureModeAll;
+        self.openDrawerGestureModeMask = MMOpenDrawerGestureModeNone;
         
         //设置关闭侧滑视图的出发手势类型
         self.closeDrawerGestureModeMask = MMCloseDrawerGestureModeAll;
@@ -69,10 +77,12 @@
 - (void)pushViewControllerWithIndex:(NSInteger)cellIndex {
     if (cellIndex == -1) {
         UIStoryboard *board = [UIStoryboard storyboardWithName:@"DriverInformation" bundle:nil];
-        DriverInfoController *driverInfoController = [board instantiateViewControllerWithIdentifier:@"driver_info"];
-        [mainNav pushViewController:driverInfoController animated:YES];
-    }else if (cellIndex == 1) {
-        
+        DriverDetailController *driverDetailController = [board instantiateViewControllerWithIdentifier:@"driver_detail"];
+        [mainNav pushViewController:driverDetailController animated:YES];
+
+    }else if (cellIndex == 0) {
+        DriverOrderListController *driverOrderListController = [[DriverOrderListController alloc] init];
+        [mainNav pushViewController:driverOrderListController animated:YES];
     }
 }
 

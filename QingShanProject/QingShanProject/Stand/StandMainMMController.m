@@ -11,6 +11,7 @@
 #import "StandMainPageController.h"
 #import "BaseNavController.h"
 #import "OrderListController.h"
+#import "DriverDetailController.h"
 
 
 @interface StandMainMMController ()
@@ -51,6 +52,10 @@
         [weakSelf pushViewControllerWithIndex:index];
     };
     
+    standLeftPageController.standLeftCloseBlock = ^{
+        [weakSelf closeDrawerAnimated:NO completion:nil];
+    };
+    
     
     
     self = [super initWithCenterViewController:mainNav leftDrawerViewController:leftNav];
@@ -72,7 +77,9 @@
 
 - (void)pushViewControllerWithIndex:(NSInteger)cellIndex {
     if (cellIndex == -1) {
-       
+        UIStoryboard *board = [UIStoryboard storyboardWithName:@"DriverInformation" bundle:nil];
+        DriverDetailController *driverDetailController = [board instantiateViewControllerWithIdentifier:@"driver_detail"];
+        [mainNav pushViewController:driverDetailController animated:YES];
     }else if (cellIndex == 0) {
         OrderListController *orderVc = [[OrderListController alloc] init];
         [mainNav pushViewController:orderVc animated:YES];

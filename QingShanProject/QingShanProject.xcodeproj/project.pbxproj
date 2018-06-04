@@ -13,6 +13,22 @@
 		760ED62020AAD02200E17C4D /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 760ED61F20AAD02200E17C4D /* RegisterViewController.m */; };
 		760ED62420AAD43300E17C4D /* TextAndIconCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 760ED62220AAD43300E17C4D /* TextAndIconCell.m */; };
 		760ED62520AAD43300E17C4D /* TextAndIconCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 760ED62320AAD43300E17C4D /* TextAndIconCell.xib */; };
+		762429A420C4CD86008292B6 /* DriverOrderListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 762429A320C4CD86008292B6 /* DriverOrderListController.m */; };
+		762429A720C50B91008292B6 /* MessageListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 762429A620C50B91008292B6 /* MessageListController.m */; };
+		762429A920C51A09008292B6 /* iconfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 762429A820C51A09008292B6 /* iconfont.ttf */; };
+		762429AC20C51A62008292B6 /* MessageBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 762429AB20C51A62008292B6 /* MessageBtn.m */; };
+		762429C120C52693008292B6 /* EBBannerView+Categories.m in Sources */ = {isa = PBXBuildFile; fileRef = 762429B020C52693008292B6 /* EBBannerView+Categories.m */; };
+		762429C220C52693008292B6 /* EBBannerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 762429B120C52693008292B6 /* EBBannerView.m */; };
+		762429C320C52693008292B6 /* EBBannerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 762429B220C52693008292B6 /* EBBannerView.xib */; };
+		762429C420C52693008292B6 /* EBBannerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 762429B320C52693008292B6 /* EBBannerViewController.m */; };
+		762429C520C52693008292B6 /* EBBannerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 762429B420C52693008292B6 /* EBBannerViewController.xib */; };
+		762429C620C52693008292B6 /* EBBannerViewMaker.m in Sources */ = {isa = PBXBuildFile; fileRef = 762429B520C52693008292B6 /* EBBannerViewMaker.m */; };
+		762429C720C52693008292B6 /* EBBannerWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 762429B720C52693008292B6 /* EBBannerWindow.m */; };
+		762429C820C52693008292B6 /* EBCustomBannerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 762429B820C52693008292B6 /* EBCustomBannerView.m */; };
+		762429C920C52693008292B6 /* EBEmptyWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 762429BA20C52693008292B6 /* EBEmptyWindow.m */; };
+		762429CA20C52693008292B6 /* EBMuteDetector.m in Sources */ = {isa = PBXBuildFile; fileRef = 762429BC20C52693008292B6 /* EBMuteDetector.m */; };
+		762429CB20C52693008292B6 /* EBMuteDetector.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 762429BD20C52693008292B6 /* EBMuteDetector.mp3 */; };
+		762429CE20C53766008292B6 /* FinishOrderRes.m in Sources */ = {isa = PBXBuildFile; fileRef = 762429CD20C53766008292B6 /* FinishOrderRes.m */; };
 		7629034920A6A0C500CA4A9E /* end.png in Resources */ = {isa = PBXBuildFile; fileRef = 7629034620A6A0C500CA4A9E /* end.png */; };
 		7629034A20A6A0C500CA4A9E /* start_annotation.png in Resources */ = {isa = PBXBuildFile; fileRef = 7629034720A6A0C500CA4A9E /* start_annotation.png */; };
 		7629034B20A6A0C500CA4A9E /* begin.png in Resources */ = {isa = PBXBuildFile; fileRef = 7629034820A6A0C500CA4A9E /* begin.png */; };
@@ -39,7 +55,6 @@
 		7642E6C220BCE48000D859B7 /* OrderFinishView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7642E6C120BCE48000D859B7 /* OrderFinishView.m */; };
 		7642E6C420BCE48900D859B7 /* OrderFinishView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7642E6C320BCE48900D859B7 /* OrderFinishView.xib */; };
 		7642E6C620BCEDBA00D859B7 /* icon_complaint.png in Resources */ = {isa = PBXBuildFile; fileRef = 7642E6C520BCEDBA00D859B7 /* icon_complaint.png */; };
-		7642E6CA20BD03A600D859B7 /* iconfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7642E6C920BD03A600D859B7 /* iconfont.ttf */; };
 		7642E6CE20BD308700D859B7 /* DriverInformation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7642E6CD20BD308700D859B7 /* DriverInformation.storyboard */; };
 		7642E6D120BD344C00D859B7 /* DriverInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7642E6D020BD344C00D859B7 /* DriverInfoController.m */; };
 		7642E6D320BD41F700D859B7 /* choice_imgbg.png in Resources */ = {isa = PBXBuildFile; fileRef = 7642E6D220BD41F700D859B7 /* choice_imgbg.png */; };
@@ -48,6 +63,8 @@
 		76467FE720AEBBCC0052AC66 /* SeekViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 76467FE620AEBBCC0052AC66 /* SeekViewController.m */; };
 		76467FEA20AECF650052AC66 /* WaitTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 76467FE920AECF650052AC66 /* WaitTitleView.m */; };
 		76467FEC20AECF6F0052AC66 /* WaitTitleView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 76467FEB20AECF6F0052AC66 /* WaitTitleView.xib */; };
+		7653CD4220C3D8AA00DC9D3A /* DriverOrderListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7653CD4020C3D8AA00DC9D3A /* DriverOrderListCell.m */; };
+		7653CD4320C3D8AA00DC9D3A /* DriverOrderListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7653CD4120C3D8AA00DC9D3A /* DriverOrderListCell.xib */; };
 		765ADE9920B51443001D96D9 /* NotfiModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 765ADE9820B51443001D96D9 /* NotfiModel.m */; };
 		765ADE9C20B51486001D96D9 /* NotfiApsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 765ADE9B20B51486001D96D9 /* NotfiApsModel.m */; };
 		765ADE9F20B5520F001D96D9 /* NearbyCarListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 765ADE9E20B5520F001D96D9 /* NearbyCarListModel.m */; };
@@ -90,6 +107,11 @@
 		76AB709620A5995300CC3C70 /* search1.png in Resources */ = {isa = PBXBuildFile; fileRef = 76AB709520A5995300CC3C70 /* search1.png */; };
 		76AB709A20A59D8A00CC3C70 /* SelectAddressCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 76AB709720A59D8900CC3C70 /* SelectAddressCell.xib */; };
 		76AB709B20A59D8A00CC3C70 /* SelectAddressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 76AB709820A59D8900CC3C70 /* SelectAddressCell.m */; };
+		76B5F04F20BF8C3A009D30C1 /* DriverDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 76B5F04E20BF8C3A009D30C1 /* DriverDetailController.m */; };
+		76B5F05220BF8F9D009D30C1 /* UserInfoRes.m in Sources */ = {isa = PBXBuildFile; fileRef = 76B5F05120BF8F9D009D30C1 /* UserInfoRes.m */; };
+		76B5F05520BF9505009D30C1 /* ImagePreController.m in Sources */ = {isa = PBXBuildFile; fileRef = 76B5F05420BF9505009D30C1 /* ImagePreController.m */; };
+		76B5F05B20BFA7AE009D30C1 /* DetailInfoHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 76B5F05A20BFA7AE009D30C1 /* DetailInfoHeaderView.m */; };
+		76B5F05D20BFA7B7009D30C1 /* DetailInfoHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 76B5F05C20BFA7B7009D30C1 /* DetailInfoHeaderView.xib */; };
 		76B7265E20B69D2200A4DB23 /* DriverOnWayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 76B7265D20B69D2200A4DB23 /* DriverOnWayController.m */; };
 		76B7266120B6A24A00A4DB23 /* OrderModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 76B7266020B6A24A00A4DB23 /* OrderModel.m */; };
 		76B7266420B6A34700A4DB23 /* OrderByIdRes.m in Sources */ = {isa = PBXBuildFile; fileRef = 76B7266320B6A34700A4DB23 /* OrderByIdRes.m */; };
@@ -127,6 +149,33 @@
 		760ED62120AAD43300E17C4D /* TextAndIconCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TextAndIconCell.h; sourceTree = "<group>"; };
 		760ED62220AAD43300E17C4D /* TextAndIconCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TextAndIconCell.m; sourceTree = "<group>"; };
 		760ED62320AAD43300E17C4D /* TextAndIconCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TextAndIconCell.xib; sourceTree = "<group>"; };
+		762429A220C4CD86008292B6 /* DriverOrderListController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DriverOrderListController.h; sourceTree = "<group>"; };
+		762429A320C4CD86008292B6 /* DriverOrderListController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DriverOrderListController.m; sourceTree = "<group>"; };
+		762429A520C50B91008292B6 /* MessageListController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MessageListController.h; sourceTree = "<group>"; };
+		762429A620C50B91008292B6 /* MessageListController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MessageListController.m; sourceTree = "<group>"; };
+		762429A820C51A09008292B6 /* iconfont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = iconfont.ttf; sourceTree = "<group>"; };
+		762429AA20C51A62008292B6 /* MessageBtn.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MessageBtn.h; sourceTree = "<group>"; };
+		762429AB20C51A62008292B6 /* MessageBtn.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MessageBtn.m; sourceTree = "<group>"; };
+		762429AF20C52693008292B6 /* EBBannerView+Categories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EBBannerView+Categories.h"; sourceTree = "<group>"; };
+		762429B020C52693008292B6 /* EBBannerView+Categories.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "EBBannerView+Categories.m"; sourceTree = "<group>"; };
+		762429B120C52693008292B6 /* EBBannerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EBBannerView.m; sourceTree = "<group>"; };
+		762429B220C52693008292B6 /* EBBannerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EBBannerView.xib; sourceTree = "<group>"; };
+		762429B320C52693008292B6 /* EBBannerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EBBannerViewController.m; sourceTree = "<group>"; };
+		762429B420C52693008292B6 /* EBBannerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EBBannerViewController.xib; sourceTree = "<group>"; };
+		762429B520C52693008292B6 /* EBBannerViewMaker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EBBannerViewMaker.m; sourceTree = "<group>"; };
+		762429B620C52693008292B6 /* EBBannerWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EBBannerWindow.h; sourceTree = "<group>"; };
+		762429B720C52693008292B6 /* EBBannerWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EBBannerWindow.m; sourceTree = "<group>"; };
+		762429B820C52693008292B6 /* EBCustomBannerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EBCustomBannerView.m; sourceTree = "<group>"; };
+		762429B920C52693008292B6 /* EBEmptyWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EBEmptyWindow.h; sourceTree = "<group>"; };
+		762429BA20C52693008292B6 /* EBEmptyWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EBEmptyWindow.m; sourceTree = "<group>"; };
+		762429BB20C52693008292B6 /* EBMuteDetector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EBMuteDetector.h; sourceTree = "<group>"; };
+		762429BC20C52693008292B6 /* EBMuteDetector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EBMuteDetector.m; sourceTree = "<group>"; };
+		762429BD20C52693008292B6 /* EBMuteDetector.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = EBMuteDetector.mp3; sourceTree = "<group>"; };
+		762429BE20C52693008292B6 /* EBBannerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EBBannerView.h; sourceTree = "<group>"; };
+		762429BF20C52693008292B6 /* EBBannerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EBBannerViewController.h; sourceTree = "<group>"; };
+		762429C020C52693008292B6 /* EBCustomBannerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EBCustomBannerView.h; sourceTree = "<group>"; };
+		762429CC20C53766008292B6 /* FinishOrderRes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FinishOrderRes.h; sourceTree = "<group>"; };
+		762429CD20C53766008292B6 /* FinishOrderRes.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FinishOrderRes.m; sourceTree = "<group>"; };
 		7629034620A6A0C500CA4A9E /* end.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = end.png; sourceTree = "<group>"; };
 		7629034720A6A0C500CA4A9E /* start_annotation.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = start_annotation.png; sourceTree = "<group>"; };
 		7629034820A6A0C500CA4A9E /* begin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = begin.png; sourceTree = "<group>"; };
@@ -174,7 +223,6 @@
 		7642E6C120BCE48000D859B7 /* OrderFinishView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderFinishView.m; sourceTree = "<group>"; };
 		7642E6C320BCE48900D859B7 /* OrderFinishView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OrderFinishView.xib; sourceTree = "<group>"; };
 		7642E6C520BCEDBA00D859B7 /* icon_complaint.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_complaint.png; sourceTree = "<group>"; };
-		7642E6C920BD03A600D859B7 /* iconfont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = iconfont.ttf; sourceTree = "<group>"; };
 		7642E6CD20BD308700D859B7 /* DriverInformation.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = DriverInformation.storyboard; sourceTree = "<group>"; };
 		7642E6CF20BD344C00D859B7 /* DriverInfoController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DriverInfoController.h; sourceTree = "<group>"; };
 		7642E6D020BD344C00D859B7 /* DriverInfoController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DriverInfoController.m; sourceTree = "<group>"; };
@@ -187,6 +235,9 @@
 		76467FE820AECF650052AC66 /* WaitTitleView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WaitTitleView.h; sourceTree = "<group>"; };
 		76467FE920AECF650052AC66 /* WaitTitleView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WaitTitleView.m; sourceTree = "<group>"; };
 		76467FEB20AECF6F0052AC66 /* WaitTitleView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WaitTitleView.xib; sourceTree = "<group>"; };
+		7653CD3F20C3D8AA00DC9D3A /* DriverOrderListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DriverOrderListCell.h; sourceTree = "<group>"; };
+		7653CD4020C3D8AA00DC9D3A /* DriverOrderListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DriverOrderListCell.m; sourceTree = "<group>"; };
+		7653CD4120C3D8AA00DC9D3A /* DriverOrderListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DriverOrderListCell.xib; sourceTree = "<group>"; };
 		765ADE9720B51443001D96D9 /* NotfiModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotfiModel.h; sourceTree = "<group>"; };
 		765ADE9820B51443001D96D9 /* NotfiModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NotfiModel.m; sourceTree = "<group>"; };
 		765ADE9A20B51486001D96D9 /* NotfiApsModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotfiApsModel.h; sourceTree = "<group>"; };
@@ -256,6 +307,15 @@
 		76AB709720A59D8900CC3C70 /* SelectAddressCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectAddressCell.xib; sourceTree = "<group>"; };
 		76AB709820A59D8900CC3C70 /* SelectAddressCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectAddressCell.m; sourceTree = "<group>"; };
 		76AB709920A59D8A00CC3C70 /* SelectAddressCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectAddressCell.h; sourceTree = "<group>"; };
+		76B5F04D20BF8C3A009D30C1 /* DriverDetailController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DriverDetailController.h; sourceTree = "<group>"; };
+		76B5F04E20BF8C3A009D30C1 /* DriverDetailController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DriverDetailController.m; sourceTree = "<group>"; };
+		76B5F05020BF8F9D009D30C1 /* UserInfoRes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserInfoRes.h; sourceTree = "<group>"; };
+		76B5F05120BF8F9D009D30C1 /* UserInfoRes.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserInfoRes.m; sourceTree = "<group>"; };
+		76B5F05320BF9505009D30C1 /* ImagePreController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImagePreController.h; sourceTree = "<group>"; };
+		76B5F05420BF9505009D30C1 /* ImagePreController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImagePreController.m; sourceTree = "<group>"; };
+		76B5F05920BFA7AE009D30C1 /* DetailInfoHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailInfoHeaderView.h; sourceTree = "<group>"; };
+		76B5F05A20BFA7AE009D30C1 /* DetailInfoHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailInfoHeaderView.m; sourceTree = "<group>"; };
+		76B5F05C20BFA7B7009D30C1 /* DetailInfoHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailInfoHeaderView.xib; sourceTree = "<group>"; };
 		76B7265C20B69D2200A4DB23 /* DriverOnWayController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DriverOnWayController.h; sourceTree = "<group>"; };
 		76B7265D20B69D2200A4DB23 /* DriverOnWayController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DriverOnWayController.m; sourceTree = "<group>"; };
 		76B7265F20B6A24A00A4DB23 /* OrderModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderModel.h; sourceTree = "<group>"; };
@@ -316,6 +376,39 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		762429AD20C52693008292B6 /* EBBannerView */ = {
+			isa = PBXGroup;
+			children = (
+				762429AE20C52693008292B6 /* Classes */,
+				762429BE20C52693008292B6 /* EBBannerView.h */,
+				762429BF20C52693008292B6 /* EBBannerViewController.h */,
+				762429C020C52693008292B6 /* EBCustomBannerView.h */,
+			);
+			path = EBBannerView;
+			sourceTree = "<group>";
+		};
+		762429AE20C52693008292B6 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				762429AF20C52693008292B6 /* EBBannerView+Categories.h */,
+				762429B020C52693008292B6 /* EBBannerView+Categories.m */,
+				762429B120C52693008292B6 /* EBBannerView.m */,
+				762429B220C52693008292B6 /* EBBannerView.xib */,
+				762429B320C52693008292B6 /* EBBannerViewController.m */,
+				762429B420C52693008292B6 /* EBBannerViewController.xib */,
+				762429B520C52693008292B6 /* EBBannerViewMaker.m */,
+				762429B620C52693008292B6 /* EBBannerWindow.h */,
+				762429B720C52693008292B6 /* EBBannerWindow.m */,
+				762429B820C52693008292B6 /* EBCustomBannerView.m */,
+				762429B920C52693008292B6 /* EBEmptyWindow.h */,
+				762429BA20C52693008292B6 /* EBEmptyWindow.m */,
+				762429BB20C52693008292B6 /* EBMuteDetector.h */,
+				762429BC20C52693008292B6 /* EBMuteDetector.m */,
+				762429BD20C52693008292B6 /* EBMuteDetector.mp3 */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
 		7629035220A6E58500CA4A9E /* CustomView */ = {
 			isa = PBXGroup;
 			children = (
@@ -358,6 +451,8 @@
 			children = (
 				7642E6CF20BD344C00D859B7 /* DriverInfoController.h */,
 				7642E6D020BD344C00D859B7 /* DriverInfoController.m */,
+				76B5F04D20BF8C3A009D30C1 /* DriverDetailController.h */,
+				76B5F04E20BF8C3A009D30C1 /* DriverDetailController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -365,6 +460,8 @@
 		76405495209B495D0038862A /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				76B5F05020BF8F9D009D30C1 /* UserInfoRes.h */,
+				76B5F05120BF8F9D009D30C1 /* UserInfoRes.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -392,6 +489,8 @@
 			children = (
 				764054A7209B498D0038862A /* DriverMainPageController.h */,
 				764054A8209B498D0038862A /* DriverMainPageController.m */,
+				762429A220C4CD86008292B6 /* DriverOrderListController.h */,
+				762429A320C4CD86008292B6 /* DriverOrderListController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -406,6 +505,9 @@
 		7640549A209B495D0038862A /* View */ = {
 			isa = PBXGroup;
 			children = (
+				7653CD3F20C3D8AA00DC9D3A /* DriverOrderListCell.h */,
+				7653CD4020C3D8AA00DC9D3A /* DriverOrderListCell.m */,
+				7653CD4120C3D8AA00DC9D3A /* DriverOrderListCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -449,6 +551,8 @@
 			children = (
 				768C59C120BBD430004D38F8 /* OrderListRes.h */,
 				768C59C220BBD430004D38F8 /* OrderListRes.m */,
+				762429CC20C53766008292B6 /* FinishOrderRes.h */,
+				762429CD20C53766008292B6 /* FinishOrderRes.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -466,6 +570,9 @@
 				7642E6C020BCE48000D859B7 /* OrderFinishView.h */,
 				7642E6C120BCE48000D859B7 /* OrderFinishView.m */,
 				7642E6C320BCE48900D859B7 /* OrderFinishView.xib */,
+				76B5F05920BFA7AE009D30C1 /* DetailInfoHeaderView.h */,
+				76B5F05A20BFA7AE009D30C1 /* DetailInfoHeaderView.m */,
+				76B5F05C20BFA7B7009D30C1 /* DetailInfoHeaderView.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -495,6 +602,8 @@
 				76B7265D20B69D2200A4DB23 /* DriverOnWayController.m */,
 				7691D1D520BA7DFB00E54D3C /* GUNMMCityVC.h */,
 				7691D1D620BA7DFB00E54D3C /* GUNMMCityVC.m */,
+				762429A520C50B91008292B6 /* MessageListController.h */,
+				762429A620C50B91008292B6 /* MessageListController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -545,6 +654,8 @@
 				7691D1CE20BA723B00E54D3C /* SelectAddressHeadView.h */,
 				7691D1CF20BA723B00E54D3C /* SelectAddressHeadView.m */,
 				7691D1D120BA724300E54D3C /* SelectAddressHeadView.xib */,
+				762429AA20C51A62008292B6 /* MessageBtn.h */,
+				762429AB20C51A62008292B6 /* MessageBtn.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -639,7 +750,7 @@
 		76DCBB402099A2B3001E4F6D /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				7642E6C920BD03A600D859B7 /* iconfont.ttf */,
+				762429A820C51A09008292B6 /* iconfont.ttf */,
 				7691D1DB20BA7E5400E54D3C /* city.plist */,
 				7640547E209AEEA60038862A /* Color.h */,
 				7640547C209AEE640038862A /* Constant.h */,
@@ -653,6 +764,7 @@
 		76DCBB412099A2B3001E4F6D /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				762429AD20C52693008292B6 /* EBBannerView */,
 				765B05D220BEAA2C0005DD8A /* WMPhotoBrowser */,
 				76CA175A20B810CD00740909 /* UIImage+Rotate.h */,
 				76CA175B20B810CE00740909 /* UIImage+Rotate.m */,
@@ -726,6 +838,8 @@
 		76DCBB442099B89C001E4F6D /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				76B5F05320BF9505009D30C1 /* ImagePreController.h */,
+				76B5F05420BF9505009D30C1 /* ImagePreController.m */,
 				76405481209AFFDB0038862A /* LoginViewController.h */,
 				76405482209AFFDB0038862A /* LoginViewController.m */,
 				760ED61E20AAD02200E17C4D /* RegisterViewController.h */,
@@ -846,6 +960,7 @@
 				76B7266920B6A97700A4DB23 /* OrderOnWayView.xib in Resources */,
 				7629034920A6A0C500CA4A9E /* end.png in Resources */,
 				76AB708920A57BEA00CC3C70 /* AddOrderView.xib in Resources */,
+				762429A920C51A09008292B6 /* iconfont.ttf in Resources */,
 				767E560120A8007E00CA0CF2 /* OrderConfirmView.xib in Resources */,
 				76DCBB352099A229001E4F6D /* LaunchScreen.storyboard in Resources */,
 				7642E6C620BCEDBA00D859B7 /* icon_complaint.png in Resources */,
@@ -854,15 +969,18 @@
 				76AB707520A5429E00CC3C70 /* MyInfo.storyboard in Resources */,
 				767E55FA20A7C71900CA0CF2 /* TextTableViewCell.xib in Resources */,
 				76AB708320A56D0600CC3C70 /* slidmain_user_head.png in Resources */,
+				762429CB20C52693008292B6 /* EBMuteDetector.mp3 in Resources */,
 				76F55BCA20AD2D1100882E91 /* RegisterFooterView.xib in Resources */,
 				76CA175720B7F8F100740909 /* icon_driver_car.png in Resources */,
 				768C59BA20BBD387004D38F8 /* OrderListCell.xib in Resources */,
 				76DCBB322099A229001E4F6D /* Assets.xcassets in Resources */,
+				7653CD4320C3D8AA00DC9D3A /* DriverOrderListCell.xib in Resources */,
 				7629034A20A6A0C500CA4A9E /* start_annotation.png in Resources */,
 				7642E6C420BCE48900D859B7 /* OrderFinishView.xib in Resources */,
 				7629034B20A6A0C500CA4A9E /* begin.png in Resources */,
-				7642E6CA20BD03A600D859B7 /* iconfont.ttf in Resources */,
 				76AB706E20A52FEB00CC3C70 /* head.jpeg in Resources */,
+				76B5F05D20BFA7B7009D30C1 /* DetailInfoHeaderView.xib in Resources */,
+				762429C520C52693008292B6 /* EBBannerViewController.xib in Resources */,
 				7642E6CE20BD308700D859B7 /* DriverInformation.storyboard in Resources */,
 				7642E6D520BD456600D859B7 /* choice_imgbg2.png in Resources */,
 				7642E6D320BD41F700D859B7 /* choice_imgbg.png in Resources */,
@@ -875,6 +993,7 @@
 				76AB709120A5932600CC3C70 /* back3.png in Resources */,
 				7691D1DC20BA7E5400E54D3C /* city.plist in Resources */,
 				76757B3E20A5DFCB004CA040 /* NotHaveDataView.xib in Resources */,
+				762429C320C52693008292B6 /* EBBannerView.xib in Resources */,
 				76DCBB302099A226001E4F6D /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -955,6 +1074,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				762429C720C52693008292B6 /* EBBannerWindow.m in Sources */,
 				764054B2209B4D1F0038862A /* DriverMainMMController.m in Sources */,
 				76405470209AED980038862A /* CustomSelectAlertView.m in Sources */,
 				76AB708F20A592AD00CC3C70 /* SelectAddressController.m in Sources */,
@@ -963,12 +1083,15 @@
 				765ADE9C20B51486001D96D9 /* NotfiApsModel.m in Sources */,
 				76757B3D20A5DFCB004CA040 /* NotHaveDataView.m in Sources */,
 				76AB709420A5935900CC3C70 /* MapHeadView.m in Sources */,
+				7653CD4220C3D8AA00DC9D3A /* DriverOrderListCell.m in Sources */,
 				768B77FD20A9760B002CE715 /* LoginModel.m in Sources */,
+				762429AC20C51A62008292B6 /* MessageBtn.m in Sources */,
 				768C59C820BC0027004D38F8 /* OrderFinshController.m in Sources */,
 				760E95FC209C48850098F8A0 /* NetWorking.m in Sources */,
 				765ADEA220B552D1001D96D9 /* NearbyCarRes.m in Sources */,
 				765ADE9920B51443001D96D9 /* NotfiModel.m in Sources */,
 				768C59B920BBD387004D38F8 /* OrderListCell.m in Sources */,
+				762429A720C50B91008292B6 /* MessageListController.m in Sources */,
 				76B7266420B6A34700A4DB23 /* OrderByIdRes.m in Sources */,
 				76DCBB4D2099B923001E4F6D /* BaseNavController.m in Sources */,
 				76405478209AED980038862A /* Utils.m in Sources */,
@@ -976,9 +1099,12 @@
 				765ADE9F20B5520F001D96D9 /* NearbyCarListModel.m in Sources */,
 				76DCBB4A2099B909001E4F6D /* BaseViewController.m in Sources */,
 				76DCBB532099B96D001E4F6D /* BaseTableViewController.m in Sources */,
+				762429C820C52693008292B6 /* EBCustomBannerView.m in Sources */,
 				760E95F9209BECA10098F8A0 /* StandMainMMController.m in Sources */,
 				764054AC209B49A90038862A /* StandLeftPageController.m in Sources */,
 				760ED62020AAD02200E17C4D /* RegisterViewController.m in Sources */,
+				76B5F04F20BF8C3A009D30C1 /* DriverDetailController.m in Sources */,
+				76B5F05220BF8F9D009D30C1 /* UserInfoRes.m in Sources */,
 				76405477209AED980038862A /* HUDClass.m in Sources */,
 				764054A9209B498D0038862A /* DriverMainPageController.m in Sources */,
 				7691D1E520BAF14F00E54D3C /* CarTypeRes.m in Sources */,
@@ -997,7 +1123,13 @@
 				7629035620A6E5B200CA4A9E /* SelectTableViewCell.m in Sources */,
 				767E55F920A7C71900CA0CF2 /* TextTableViewCell.m in Sources */,
 				765B05DB20BEAA2C0005DD8A /* UIView+WMFrame.m in Sources */,
+				762429C420C52693008292B6 /* EBBannerViewController.m in Sources */,
+				762429C220C52693008292B6 /* EBBannerView.m in Sources */,
 				765B05DC20BEAA2C0005DD8A /* WMPhotoBrowser.m in Sources */,
+				762429C920C52693008292B6 /* EBEmptyWindow.m in Sources */,
+				762429CA20C52693008292B6 /* EBMuteDetector.m in Sources */,
+				76B5F05B20BFA7AE009D30C1 /* DetailInfoHeaderView.m in Sources */,
+				76B5F05520BF9505009D30C1 /* ImagePreController.m in Sources */,
 				76405471209AED980038862A /* Config.m in Sources */,
 				76CA175220B7F09900740909 /* UserModel.m in Sources */,
 				768C59C320BBD430004D38F8 /* OrderListRes.m in Sources */,
@@ -1009,15 +1141,19 @@
 				767E55FF20A8006E00CA0CF2 /* OrderConfirmView.m in Sources */,
 				7629034E20A6B30600CA4A9E /* AddOrderController.m in Sources */,
 				7691D1E220BAF13D00E54D3C /* CarTypeModel.m in Sources */,
+				762429C620C52693008292B6 /* EBBannerViewMaker.m in Sources */,
+				762429A420C4CD86008292B6 /* DriverOrderListController.m in Sources */,
 				76DCBB2A2099A225001E4F6D /* AppDelegate.m in Sources */,
 				7642E6D120BD344C00D859B7 /* DriverInfoController.m in Sources */,
 				7691D1D020BA723B00E54D3C /* SelectAddressHeadView.m in Sources */,
+				762429CE20C53766008292B6 /* FinishOrderRes.m in Sources */,
 				76405474209AED980038862A /* Location.m in Sources */,
 				76CA175520B7F1D700740909 /* OAUObjectModel.m in Sources */,
 				76405483209AFFDB0038862A /* LoginViewController.m in Sources */,
 				76405476209AED980038862A /* CustomIOS7AlertView.m in Sources */,
 				76405473209AED980038862A /* NavBgImage.m in Sources */,
 				76AB708120A56BE300CC3C70 /* MyTableHeaderView.m in Sources */,
+				762429C120C52693008292B6 /* EBBannerView+Categories.m in Sources */,
 				7629035120A6DF3E00CA4A9E /* CustomSelectView.m in Sources */,
 				76405479209AED980038862A /* CustomSize.m in Sources */,
 				7691D1DA20BA7E3B00E54D3C /* CityCollectionViewCell.m in Sources */,

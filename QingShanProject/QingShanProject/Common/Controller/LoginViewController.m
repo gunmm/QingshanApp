@@ -65,12 +65,15 @@
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
     [param setObject:userName forKey:@"phoneNumber"];
     [param setObject:[Utils md5:pwd] forKey:@"password"];
+    [param setObject:@"iOS" forKey:@"plateform"];
+
 
     [NetWorking loginPostDataWithParameters:param withUrl:@"login" withBlock:^(id result) {
         LoginResponse *loginResponse = [LoginResponse mj_objectWithKeyValues:result];
-        LoginModel *loginModel = loginResponse.object;
+        UserModel *loginModel = loginResponse.object;
         [[Config shareConfig] setUserName:loginModel.phoneNumber];
         [[Config shareConfig] setName:loginModel.nickname];
+        [[Config shareConfig] setUserImage:loginModel.personImageUrl];
         [[Config shareConfig] setUserId:loginModel.userId];
         [[Config shareConfig] setType:loginModel.type];
         [[Config shareConfig] setToken:loginModel.userId];

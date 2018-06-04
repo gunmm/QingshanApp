@@ -9,6 +9,8 @@
 #import "BaseTableViewController.h"
 
 typedef void(^StandLeftSelectBlock)(NSInteger index);
+typedef void(^StandLeftCloseBlock)(void);
+
 
 @interface StandLeftPageController : BaseTableViewController
 @property (weak, nonatomic) IBOutlet UILabel *orderIconLabel;
@@ -18,6 +20,8 @@ typedef void(^StandLeftSelectBlock)(NSInteger index);
 
 
 @property (nonatomic, copy) StandLeftSelectBlock standLeftSelectBlock;
+@property (nonatomic, copy) StandLeftCloseBlock standLeftCloseBlock;
+
 
 
 @property (nonatomic, assign) BOOL isDriver;

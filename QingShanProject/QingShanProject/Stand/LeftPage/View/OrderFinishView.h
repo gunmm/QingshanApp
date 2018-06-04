@@ -23,5 +23,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *complaintBtn;
 @property (weak, nonatomic) IBOutlet UILabel *priceLabl;
 @property (weak, nonatomic) IBOutlet UIView *bgView;
+@property (weak, nonatomic) IBOutlet UILabel *waitLabel;
 
 @end

@@ -7,10 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "LoginModel.h"
+#import "UserModel.h"
 
 @interface LoginResponse : NSObject
 
-@property (nonatomic, strong) LoginModel *object;
+@property (nonatomic, strong) UserModel *object;
 
 @end

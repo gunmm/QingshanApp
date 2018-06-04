@@ -30,5 +30,10 @@
 + (CLLocationCoordinate2D)BMapGetCenterWithPoint11:(CLLocationCoordinate2D)point1 withPoint2:(CLLocationCoordinate2D)point2;
 
 
+#pragma mark---------判断当前显示VC是不是模态视图
+//判断当前显示VC是不是模态视图
++ (BOOL)judgeCurrentVCIspresented;
+
+
 
 @end

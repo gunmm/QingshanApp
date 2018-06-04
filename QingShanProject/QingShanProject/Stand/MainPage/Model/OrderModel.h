@@ -13,6 +13,7 @@
 @property (nonatomic, copy) NSString *orderId;
 @property (nonatomic, copy) NSString *status;
 @property (nonatomic, copy) NSString *type;
+@property (nonatomic, copy) NSString *appointStatus;
 @property (nonatomic, copy) NSString *createManId;
 @property (nonatomic, copy) NSString *driverId;
 @property (nonatomic, copy) NSString *linkMan;

@@ -41,7 +41,7 @@
 
 @interface DriverOnWayController () <BMKMapViewDelegate, BMKRouteSearchDelegate, BMKLocationServiceDelegate>
 {
-    NSTimer *timer;
+    
     NSInteger nowCount;
     BMKLocationService *_locService;
 
@@ -52,6 +52,8 @@
 @property (strong, nonatomic) UserModel *driverModel;
 @property (strong, nonatomic) OrderModel *orderModel;
 @property (strong, nonatomic) OrderOnWayView *orderOnWayView;
+@property (strong, nonatomic) NSTimer *timer;
+
 
 
 
@@ -75,7 +77,7 @@
     _locService.delegate = self;
 
 
-    timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timerAct) userInfo:nil repeats:YES];
+    _timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timerAct) userInfo:nil repeats:YES];
 
     
     [self loadAppearData];
@@ -86,7 +88,7 @@
     _mapView.delegate = nil;
     _locService.delegate = nil;
 
-    [timer invalidate];
+    [_timer invalidate];
 
 }
 
@@ -119,7 +121,7 @@
 }
 
 - (void)cancelBtnClicked {
-    [AlertView alertViewWithTitle:@"提示" withMessage:@"确认取消订单" withType:UIAlertControllerStyleAlert withConfirmBlock:^{
+    [AlertView alertViewWithTitle:@"提示" withMessage:@"确认取消订单" withConfirmTitle:@"确认" withCancelTitle:@"取消" withType:UIAlertControllerStyleAlert withConfirmBlock:^{
         NSMutableDictionary *param = [NSMutableDictionary dictionary];
         [param setObject:self.orderId forKey:@"orderId"];
         
@@ -132,6 +134,7 @@
     } withCancelBlock:^{
         
     }];
+    
 }
 
 - (void)loadAppearData {
@@ -170,8 +173,20 @@
         self.orderModel = orderByIdRes.object.order;
         
         if ([self.orderModel.status isEqualToString:@"3"]) {
-            [HUDClass showHUDWithText:@"订单完成！"];
+            [self.timer invalidate];
+            self.orderModel.phoneNumber = self.driverModel.phoneNumber;
+            self.orderModel.nickname = self.driverModel.nickname;
+            self.orderModel.personImageUrl = self.driverModel.personImageUrl;
+            self.orderModel.nowLatitude = self.driverModel.nowLatitude;
+            self.orderModel.nowLongitude = self.driverModel.nowLongitude;
+            self.orderModel.plateNumber = self.driverModel.plateNumber;
+            self.orderModel.score = self.driverModel.score;
+        
             [self.navigationController popViewControllerAnimated:YES];
+            if (self.orderCompleteBlock) {
+                self.orderCompleteBlock(self.orderModel);
+            }
+            return;
         }
         
         self.orderOnWayView.userModel = orderByIdRes.object.driver;

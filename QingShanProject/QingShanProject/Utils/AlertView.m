@@ -24,25 +24,26 @@
     
     
     [alert addAction:defaultAction];
-   [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alert animated:YES completion:nil];
+   [[NavBgImage getCurrentVC] presentViewController:alert animated:YES completion:nil];
 }
 
-+ (void)alertViewWithTitle:(NSString *)title withMessage:(NSString *)message withType:(UIAlertControllerStyle)type withConfirmBlock:(ConfirmBlock)confirmBlock withCancelBlock:(CancelBlock)cancelBlock{
++ (void)alertViewWithTitle:(NSString *)title withMessage:(NSString *)message withConfirmTitle:(NSString *)confirmTitle withCancelTitle:(NSString *)cancelTitle withType:(UIAlertControllerStyle)type withConfirmBlock:(ConfirmBlock)confirmBlock withCancelBlock:(CancelBlock)cancelBlock{
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:message
                                                             preferredStyle:type];
     
-    UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault
+    UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:confirmTitle style:UIAlertActionStyleDefault
                                                           handler:^(UIAlertAction * action) {
                                                               confirmBlock();
                                                           }];
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:cancelTitle style:UIAlertActionStyleDefault
                                                          handler:^(UIAlertAction * action) {
                                                              cancelBlock();
                                                          }];
     
-    [alert addAction:defaultAction];
     [alert addAction:cancelAction];
-    [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alert animated:YES completion:nil];
+    [alert addAction:defaultAction];
+
+    [[NavBgImage getCurrentVC] presentViewController:alert animated:YES completion:nil];
 }
 
 
@@ -66,33 +67,7 @@
     }];
     [alert addAction:defaultAction];
     [alert addAction:cancelAction];
-    [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alert animated:YES completion:nil];
-}
-
-
-+ (void)actionViewWithTitle:(NSString *)title withMessage:(NSString *)message withConfirmBlock:(ConfirmBlock)confirmBlock withCancelBlock:(CancelBlock)cancelBlock{
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:message
-                                                            preferredStyle:UIAlertControllerStyleActionSheet];
-    
-    UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault
-                                                          handler:^(UIAlertAction * action) {
-                                                              confirmBlock();
-                                                          }];
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault
-                                                         handler:^(UIAlertAction * action) {
-                                                             cancelBlock();
-                                                         }];
-    
-    
-    UIAlertAction *cancelAction1 = [UIAlertAction actionWithTitle:@"取消111" style:UIAlertActionStyleCancel
-                                                         handler:^(UIAlertAction * action) {
-                                                         }];
-    
-    [alert addAction:defaultAction];
-    [alert addAction:cancelAction];
-    [alert addAction:cancelAction1];
-
-    [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alert animated:YES completion:nil];
+    [[NavBgImage getCurrentVC] presentViewController:alert animated:YES completion:nil];
 }
 
 

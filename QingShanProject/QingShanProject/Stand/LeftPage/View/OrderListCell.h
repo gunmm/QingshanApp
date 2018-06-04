@@ -21,6 +21,13 @@
 @property (weak, nonatomic) IBOutlet UILabel *reciverAddressLabel;
 @property (weak, nonatomic) IBOutlet UILabel *statusLabel;
 
+@property (weak, nonatomic) IBOutlet UILabel *appointTimeIconLabel;
+@property (weak, nonatomic) IBOutlet UILabel *appointTimeLbel;
+@property (weak, nonatomic) IBOutlet UILabel *orderTypeLabel;
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *sendIconTop;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *sendAddressLabelTop;
+
 @property (nonatomic, strong) OrderModel *model;
 
 @end

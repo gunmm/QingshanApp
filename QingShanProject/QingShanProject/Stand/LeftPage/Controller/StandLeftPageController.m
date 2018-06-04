@@ -10,6 +10,7 @@
 #import "MyTableHeaderView.h"
 
 @interface StandLeftPageController ()
+@property (nonatomic, copy) MyTableHeaderView *headView;
 
 @end
 
@@ -20,6 +21,14 @@
     // Do any additional setup after loading the view.
     [self initNavBar];
     [self initView];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [Utils setImageWithImageView:_headView.headImageView withUrl:[[Config shareConfig] getUserImage]];
+
+    _headView.nickNameLabel.text = [[Config shareConfig] getName];
+
 }
 
 - (void)initNavBar {
@@ -40,13 +49,13 @@
 }
 
 - (void)initHeadView {
-    MyTableHeaderView *headView = [[[NSBundle mainBundle] loadNibNamed:@"MyTableHeaderView" owner:nil options:nil] lastObject];
-    headView.frame = CGRectMake(0, 0, kDeviceWidth/5*4, 144);
-    self.tableView.tableHeaderView = headView;
+    _headView = [[[NSBundle mainBundle] loadNibNamed:@"MyTableHeaderView" owner:nil options:nil] lastObject];
+    _headView.frame = CGRectMake(0, 0, kDeviceWidth/5*4, 144);
+    self.tableView.tableHeaderView = _headView;
     
     //单击
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAct:)];
-    [headView addGestureRecognizer:tap];
+    [_headView addGestureRecognizer:tap];
     
 }
 
@@ -59,9 +68,9 @@
 
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (_isDriver && indexPath.row == 0) {
-        return 0;
-    }
+//    if (_isDriver && indexPath.row == 0) {
+//        return 0;
+//    }
     
     return 44;
 }

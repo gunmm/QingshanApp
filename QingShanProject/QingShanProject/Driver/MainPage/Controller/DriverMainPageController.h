@@ -16,4 +16,7 @@ typedef void(^DriverMainPageShowLeft)(void);
 @property (nonatomic, copy) DriverMainPageShowLeft driverMainPageShowLeft;
 
 
+- (void)loadDataWithAppear;
+
+
 @end

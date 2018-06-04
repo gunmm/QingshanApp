@@ -18,6 +18,8 @@
 @property (nonatomic, copy) NSString *status;
 @property (nonatomic, copy) NSString *plateNumber;
 @property (nonatomic, copy) NSString *vehicleType;
+@property (nonatomic, copy) NSString *carTypeName;
+
 @property (nonatomic, copy) NSString *driverCertificationStatus;
 @property (nonatomic, copy) NSString *driverLicenseImageUrl;
 @property (nonatomic, copy) NSString *driverVehicleImageUrl;

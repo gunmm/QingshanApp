@@ -39,6 +39,11 @@
 //    return @"http://101.201.252.84:8080/mobile/";
 }
 
+
++ (void)setImageWithImageView:(UIImageView *)imageView withUrl:(NSString *)imageUrl {
+    [imageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", [Utils getServer],imageUrl]] placeholderImage:[UIImage imageNamed:@"slidmain_user_head.png"] options:SDWebImageAllowInvalidSSLCertificates];
+}
+
 /**
  *  MD5加密
  *

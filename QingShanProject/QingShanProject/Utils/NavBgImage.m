@@ -23,7 +23,16 @@
     UIGraphicsEndImageContext();
     return theImage;
 }
+#pragma mark---------判断当前显示VC是不是模态视图
+//判断当前显示VC是不是模态视图
++ (BOOL)judgeCurrentVCIspresented {
+    UIViewController *rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
 
+    if ([rootViewController presentedViewController]) {
+        return YES;
+    }
+    return NO;
+}
 
 
 #pragma mark---------获取当前屏幕显示的viewcontroller
