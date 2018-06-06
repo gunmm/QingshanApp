@@ -14,6 +14,10 @@
 #import "StandLeftPageController.h"
 #import "EBBannerView.h"
 #import "OrderFinshController.h"
+#import "DriverOrderDetailController.h"
+#import "ShortSoundPlay.h"
+
+
 
 @interface BaseViewController ()
 
@@ -54,10 +58,13 @@
         NSString *msgStr = @"";
         if([notfiModel.type isEqualToString:@"1"]){
             typeStr = @"实时";
-            msgStr = [NSString stringWithFormat:@"订单类型：%@\n创建时间：%@\n联系人：%@\n车辆类型：%@\n发货地址：%@\n收货地址：%@",typeStr, notfiModel.createTime, notfiModel.linkMan ,notfiModel.carTypeName, notfiModel.sendAddress, notfiModel.receiveAddress];
+            msgStr = [NSString stringWithFormat:@"订单类型：%@\n创建时间：%@\n联系人：%@\n车辆类型：%@\n发货地址：%@\n收货地址：%@\n备注：%@",typeStr, notfiModel.createTime, notfiModel.linkMan ,notfiModel.carTypeName, notfiModel.sendAddress, notfiModel.receiveAddress, notfiModel.note.length > 0 ? notfiModel.note: @"无"];            
+            [ShortSoundPlay playSoundWithPath:@"voice_now" withType:@"m4a"];
         }else{
             typeStr = @"预约";
-            msgStr = [NSString stringWithFormat:@"订单类型：%@\n创建时间：%@\n预约时间：%@\n联系人：%@\n车辆类型：%@\n发货地址：%@\n收货地址：%@",typeStr, notfiModel.createTime, notfiModel.appointTime, notfiModel.linkMan, notfiModel.carTypeName, notfiModel.sendAddress, notfiModel.receiveAddress];
+            msgStr = [NSString stringWithFormat:@"订单类型：%@\n创建时间：%@\n预约时间：%@\n联系人：%@\n车辆类型：%@\n发货地址：%@\n收货地址：%@\n备注：%@",typeStr, notfiModel.createTime, notfiModel.appointTime, notfiModel.linkMan, notfiModel.carTypeName, notfiModel.sendAddress, notfiModel.receiveAddress, notfiModel.note.length > 0 ? notfiModel.note: @"无"];
+            [ShortSoundPlay playSoundWithPath:@"voice_booking" withType:@"m4a"];
+
         }
         [AlertView alertViewWithTitle:notfiModel.aps.alert withMessage:msgStr withConfirmTitle:@"抢单" withCancelTitle:@"取消" withType:UIAlertControllerStyleAlert withConfirmBlock:^{
             NSMutableDictionary *param = [NSMutableDictionary dictionary];
@@ -67,12 +74,28 @@
             
             [NetWorking postDataWithParameters:param withUrl:@"robOrder" withBlock:^(id result) {
                 [HUDClass showHUDWithText:@"抢单成功！"];
-                if ([[NavBgImage getCurrentVC] isMemberOfClass:[DriverMainPageController class]]) {
-                    DriverMainPageController *driverMainVc = (DriverMainPageController *)[NavBgImage getCurrentVC];
-                    [driverMainVc loadDataWithAppear];
+                [ShortSoundPlay playSoundWithPath:@"grab_successed" withType:@"m4a"];
+
+                DriverOrderDetailController *driverOrderDetailController = [[DriverOrderDetailController alloc] init];
+                driverOrderDetailController.orderId = notfiModel.orderId;
+                [[NavBgImage getCurrentVC].view endEditing:YES];
+                if ([NavBgImage judgeCurrentVCIspresented]) {
+                    [[NavBgImage getCurrentVC] dismissViewControllerAnimated:YES completion:^{
+                        [[NavBgImage getCurrentVC].navigationController pushViewController:driverOrderDetailController animated:YES];
+                    }];
+                }else if ([[NavBgImage getCurrentVC] isMemberOfClass:[StandLeftPageController class]]){
+                    StandLeftPageController *standLeftPageController = (StandLeftPageController *)[NavBgImage getCurrentVC];
+                    if (standLeftPageController.standLeftCloseBlock) {
+                        standLeftPageController.standLeftCloseBlock();
+                    }
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        [[NavBgImage getCurrentVC].navigationController pushViewController:driverOrderDetailController animated:YES];
+                    });
+                }else{
+                    [[NavBgImage getCurrentVC].navigationController pushViewController:driverOrderDetailController animated:YES];
                 }
             } withFailedBlock:^(NSString *errorResult) {
-                
+                [ShortSoundPlay playSoundWithPath:@"grab_failed" withType:@"m4a"];
             }];
         } withCancelBlock:^{
             
@@ -91,9 +114,25 @@
             msgStr = [NSString stringWithFormat:@"订单类型：%@\n创建时间：%@\n预约时间：%@\n联系人：%@\n发货地址：%@\n收货地址：%@",typeStr, notfiModel.createTime, notfiModel.appointTime, notfiModel.linkMan, notfiModel.sendAddress, notfiModel.receiveAddress];
         }
         
-        if ([[NavBgImage getCurrentVC] isMemberOfClass:[DriverMainPageController class]]) {
-            DriverMainPageController *driverMainVc = (DriverMainPageController *)[NavBgImage getCurrentVC];
-            [driverMainVc loadDataWithAppear];
+        if ([[NavBgImage getCurrentVC] isMemberOfClass:[DriverOrderDetailController class]]) {
+            DriverOrderDetailController *driverOrderDetailController = (DriverOrderDetailController *)[NavBgImage getCurrentVC];
+            if ([driverOrderDetailController.orderId isEqualToString:notfiModel.orderId]) {
+                [driverOrderDetailController loadData];
+                EBBannerView *banner = [EBBannerView bannerWithBlock:^(EBBannerViewMaker *make) {
+                    make.style = EBBannerViewStyleiOS9;
+                    make.icon = [UIImage imageNamed:@"chengkeface"];
+                    make.title = notfiModel.aps.alert;
+                    make.content = msgStr;
+                    make.stayDuration = 8;
+                    make.date = dateStr;
+                    make.soundName = @"order_short_tip.m4a";
+
+                }];
+                [ShortSoundPlay playSoundWithPath:@"order_cancel" withType:@"m4a"];
+
+                [banner show];
+                return;
+            }
         }
         
         
@@ -105,16 +144,22 @@
             make.content = msgStr;
             make.stayDuration = 8;
             make.date = dateStr;
+            make.soundName = @"order_short_tip.m4a";
+
         }];
+        [ShortSoundPlay playSoundWithPath:@"order_short_tip" withType:@"m4a"];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [ShortSoundPlay playSoundWithPath:@"order_cancel" withType:@"m4a"];
+        });
+        
         [banner show];
         banner.tapActBlock = ^{
-            OrderFinshController *orderFinshController = [[OrderFinshController alloc] init];
-            orderFinshController.orderId = notfiModel.orderId;
-            
+            DriverOrderDetailController *driverOrderDetailController = [[DriverOrderDetailController alloc] init];
+            driverOrderDetailController.orderId = notfiModel.orderId;
             [[NavBgImage getCurrentVC].view endEditing:YES];
             if ([NavBgImage judgeCurrentVCIspresented]) {
                 [[NavBgImage getCurrentVC] dismissViewControllerAnimated:YES completion:^{
-                    [[NavBgImage getCurrentVC].navigationController pushViewController:orderFinshController animated:YES];
+                    [[NavBgImage getCurrentVC].navigationController pushViewController:driverOrderDetailController animated:YES];
                 }];
             }else if ([[NavBgImage getCurrentVC] isMemberOfClass:[StandLeftPageController class]]){
                 StandLeftPageController *standLeftPageController = (StandLeftPageController *)[NavBgImage getCurrentVC];
@@ -122,10 +167,10 @@
                     standLeftPageController.standLeftCloseBlock();
                 }
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                    [[NavBgImage getCurrentVC].navigationController pushViewController:orderFinshController animated:YES];
+                    [[NavBgImage getCurrentVC].navigationController pushViewController:driverOrderDetailController animated:YES];
                 });
             }else{
-                [[NavBgImage getCurrentVC].navigationController pushViewController:orderFinshController animated:YES];
+                [[NavBgImage getCurrentVC].navigationController pushViewController:driverOrderDetailController animated:YES];
             }
         };
         
@@ -146,9 +191,11 @@
             if ([seekVc.orderId isEqualToString:notfiModel.orderId]) {
                 [seekVc popActWithOrderType:notfiModel.type];
                 if ([notfiModel.appointStatus isEqualToString:@"0"]) {
-                    OrderFinshController *orderFinshController = [[OrderFinshController alloc] init];
-                    orderFinshController.orderId = notfiModel.orderId;
-                    [[NavBgImage getCurrentVC].navigationController pushViewController:orderFinshController animated:YES];
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        OrderFinshController *orderFinshController = [[OrderFinshController alloc] init];
+                        orderFinshController.orderId = notfiModel.orderId;
+                        [[NavBgImage getCurrentVC].navigationController pushViewController:orderFinshController animated:YES];
+                    });
                 }
                 EBBannerView *banner = [EBBannerView bannerWithBlock:^(EBBannerViewMaker *make) {
                     make.style = EBBannerViewStyleiOS9;

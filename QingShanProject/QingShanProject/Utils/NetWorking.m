@@ -36,12 +36,14 @@
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         [HUDClass hideLoadingHUD:hud];
         NSString *runStatus = [responseObject objectForKey:@"result_code"];
+        NSString *result = [responseObject objectForKey:@"result"];
         NSString *reason = [responseObject objectForKey:@"reason"];
+
 
         if ([runStatus isEqualToString:@"1"]) {
             block(responseObject);
         }else {
-            [HUDClass showHUDWithText:reason];
+            [HUDClass showHUDWithText:result];
             fBlock(reason);
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
@@ -76,7 +78,7 @@
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSString *runStatus = [responseObject objectForKey:@"result_code"];
         NSString *reason = [responseObject objectForKey:@"reason"];
-        
+
         if ([runStatus isEqualToString:@"1"]) {
             block(responseObject);
         }else {
@@ -108,12 +110,13 @@
         [HUDClass hideLoadingHUD:hud];
         NSString *runStatus = [responseObject objectForKey:@"result_code"];
         NSString *result = [responseObject objectForKey:@"result"];
-        
+        NSString *reason = [responseObject objectForKey:@"reason"];
+
         if ([runStatus isEqualToString:@"1"]) {
             block(responseObject);
         }else {
             [HUDClass showHUDWithText:result];
-            fBlock(result);
+            fBlock(reason);
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         [HUDClass hideLoadingHUD:hud];

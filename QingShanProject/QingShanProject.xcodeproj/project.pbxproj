@@ -66,6 +66,16 @@
 		7642E6D320BD41F700D859B7 /* choice_imgbg.png in Resources */ = {isa = PBXBuildFile; fileRef = 7642E6D220BD41F700D859B7 /* choice_imgbg.png */; };
 		7642E6D520BD456600D859B7 /* choice_imgbg2.png in Resources */ = {isa = PBXBuildFile; fileRef = 7642E6D420BD456600D859B7 /* choice_imgbg2.png */; };
 		7642E6D820BD510800D859B7 /* ImageCropperController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7642E6D720BD510800D859B7 /* ImageCropperController.m */; };
+		7645CB2720C78B400081280B /* chengkeface.png in Resources */ = {isa = PBXBuildFile; fileRef = 7645CB2620C78B400081280B /* chengkeface.png */; };
+		7645CB3020C7B1030081280B /* grab_failed.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 7645CB2920C7B1030081280B /* grab_failed.m4a */; };
+		7645CB3120C7B1030081280B /* grab_successed.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 7645CB2A20C7B1030081280B /* grab_successed.m4a */; };
+		7645CB3220C7B1030081280B /* order_cancel.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 7645CB2B20C7B1030081280B /* order_cancel.m4a */; };
+		7645CB3320C7B1030081280B /* order_short_tip.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 7645CB2C20C7B1030081280B /* order_short_tip.m4a */; };
+		7645CB3420C7B1030081280B /* order_strived.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 7645CB2D20C7B1030081280B /* order_strived.m4a */; };
+		7645CB3520C7B1030081280B /* voice_booking.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 7645CB2E20C7B1030081280B /* voice_booking.m4a */; };
+		7645CB3620C7B1030081280B /* voice_now.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 7645CB2F20C7B1030081280B /* voice_now.m4a */; };
+		7645CB3920C7B9D30081280B /* ShortSoundPlay.m in Sources */ = {isa = PBXBuildFile; fileRef = 7645CB3820C7B9D30081280B /* ShortSoundPlay.m */; };
+		7645CB3C20C7CE730081280B /* JZLocationConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = 7645CB3B20C7CE730081280B /* JZLocationConverter.m */; };
 		76467FE720AEBBCC0052AC66 /* SeekViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 76467FE620AEBBCC0052AC66 /* SeekViewController.m */; };
 		76467FEA20AECF650052AC66 /* WaitTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 76467FE920AECF650052AC66 /* WaitTitleView.m */; };
 		76467FEC20AECF6F0052AC66 /* WaitTitleView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 76467FEB20AECF6F0052AC66 /* WaitTitleView.xib */; };
@@ -245,6 +255,18 @@
 		7642E6D420BD456600D859B7 /* choice_imgbg2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = choice_imgbg2.png; sourceTree = "<group>"; };
 		7642E6D620BD510800D859B7 /* ImageCropperController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImageCropperController.h; sourceTree = "<group>"; };
 		7642E6D720BD510800D859B7 /* ImageCropperController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImageCropperController.m; sourceTree = "<group>"; };
+		7645CB2620C78B400081280B /* chengkeface.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chengkeface.png; sourceTree = "<group>"; };
+		7645CB2920C7B1030081280B /* grab_failed.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = grab_failed.m4a; sourceTree = "<group>"; };
+		7645CB2A20C7B1030081280B /* grab_successed.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = grab_successed.m4a; sourceTree = "<group>"; };
+		7645CB2B20C7B1030081280B /* order_cancel.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = order_cancel.m4a; sourceTree = "<group>"; };
+		7645CB2C20C7B1030081280B /* order_short_tip.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = order_short_tip.m4a; sourceTree = "<group>"; };
+		7645CB2D20C7B1030081280B /* order_strived.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = order_strived.m4a; sourceTree = "<group>"; };
+		7645CB2E20C7B1030081280B /* voice_booking.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = voice_booking.m4a; sourceTree = "<group>"; };
+		7645CB2F20C7B1030081280B /* voice_now.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = voice_now.m4a; sourceTree = "<group>"; };
+		7645CB3720C7B9D30081280B /* ShortSoundPlay.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShortSoundPlay.h; sourceTree = "<group>"; };
+		7645CB3820C7B9D30081280B /* ShortSoundPlay.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShortSoundPlay.m; sourceTree = "<group>"; };
+		7645CB3A20C7CE720081280B /* JZLocationConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JZLocationConverter.h; sourceTree = "<group>"; };
+		7645CB3B20C7CE730081280B /* JZLocationConverter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JZLocationConverter.m; sourceTree = "<group>"; };
 		76467FE520AEBBCC0052AC66 /* SeekViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SeekViewController.h; sourceTree = "<group>"; };
 		76467FE620AEBBCC0052AC66 /* SeekViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SeekViewController.m; sourceTree = "<group>"; };
 		76467FE820AECF650052AC66 /* WaitTitleView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WaitTitleView.h; sourceTree = "<group>"; };
@@ -684,6 +706,20 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		7645CB2820C7B1030081280B /* SoundSources */ = {
+			isa = PBXGroup;
+			children = (
+				7645CB2920C7B1030081280B /* grab_failed.m4a */,
+				7645CB2A20C7B1030081280B /* grab_successed.m4a */,
+				7645CB2B20C7B1030081280B /* order_cancel.m4a */,
+				7645CB2C20C7B1030081280B /* order_short_tip.m4a */,
+				7645CB2D20C7B1030081280B /* order_strived.m4a */,
+				7645CB2E20C7B1030081280B /* voice_booking.m4a */,
+				7645CB2F20C7B1030081280B /* voice_now.m4a */,
+			);
+			path = SoundSources;
+			sourceTree = "<group>";
+		};
 		765B05D220BEAA2C0005DD8A /* WMPhotoBrowser */ = {
 			isa = PBXGroup;
 			children = (
@@ -788,6 +824,8 @@
 		76DCBB412099A2B3001E4F6D /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				7645CB3A20C7CE720081280B /* JZLocationConverter.h */,
+				7645CB3B20C7CE730081280B /* JZLocationConverter.m */,
 				762429AD20C52693008292B6 /* EBBannerView */,
 				765B05D220BEAA2C0005DD8A /* WMPhotoBrowser */,
 				76CA175A20B810CD00740909 /* UIImage+Rotate.h */,
@@ -817,6 +855,8 @@
 				760E95FB209C48850098F8A0 /* NetWorking.m */,
 				7642E6D620BD510800D859B7 /* ImageCropperController.h */,
 				7642E6D720BD510800D859B7 /* ImageCropperController.m */,
+				7645CB3720C7B9D30081280B /* ShortSoundPlay.h */,
+				7645CB3820C7B9D30081280B /* ShortSoundPlay.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -824,6 +864,8 @@
 		76DCBB422099A2B3001E4F6D /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				7645CB2820C7B1030081280B /* SoundSources */,
+				7645CB2620C78B400081280B /* chengkeface.png */,
 				762FDAA820C6C3A900F90F7F /* pay_icon_alipay.png */,
 				762FDAA920C6C3A900F90F7F /* pay_icon_crash.png */,
 				762FDAAA20C6C3A900F90F7F /* pay_icon_wechat.png */,
@@ -989,14 +1031,18 @@
 				76AB708920A57BEA00CC3C70 /* AddOrderView.xib in Resources */,
 				762429A920C51A09008292B6 /* iconfont.ttf in Resources */,
 				767E560120A8007E00CA0CF2 /* OrderConfirmView.xib in Resources */,
+				7645CB2720C78B400081280B /* chengkeface.png in Resources */,
 				76DCBB352099A229001E4F6D /* LaunchScreen.storyboard in Resources */,
 				7642E6C620BCEDBA00D859B7 /* icon_complaint.png in Resources */,
 				7691D1D220BA724300E54D3C /* SelectAddressHeadView.xib in Resources */,
 				76AB707B20A54F5000CC3C70 /* MyTableHeaderView.xib in Resources */,
 				76AB707520A5429E00CC3C70 /* MyInfo.storyboard in Resources */,
+				7645CB3220C7B1030081280B /* order_cancel.m4a in Resources */,
 				767E55FA20A7C71900CA0CF2 /* TextTableViewCell.xib in Resources */,
 				76AB708320A56D0600CC3C70 /* slidmain_user_head.png in Resources */,
+				7645CB3420C7B1030081280B /* order_strived.m4a in Resources */,
 				762429CB20C52693008292B6 /* EBMuteDetector.mp3 in Resources */,
+				7645CB3020C7B1030081280B /* grab_failed.m4a in Resources */,
 				76F55BCA20AD2D1100882E91 /* RegisterFooterView.xib in Resources */,
 				76CA175720B7F8F100740909 /* icon_driver_car.png in Resources */,
 				768C59BA20BBD387004D38F8 /* OrderListCell.xib in Resources */,
@@ -1008,12 +1054,16 @@
 				76AB706E20A52FEB00CC3C70 /* head.jpeg in Resources */,
 				76B5F05D20BFA7B7009D30C1 /* DetailInfoHeaderView.xib in Resources */,
 				762429C520C52693008292B6 /* EBBannerViewController.xib in Resources */,
+				7645CB3520C7B1030081280B /* voice_booking.m4a in Resources */,
 				7642E6CE20BD308700D859B7 /* DriverInformation.storyboard in Resources */,
 				7642E6D520BD456600D859B7 /* choice_imgbg2.png in Resources */,
 				7642E6D320BD41F700D859B7 /* choice_imgbg.png in Resources */,
 				76B7266C20B6B03500A4DB23 /* icon_service.png in Resources */,
+				7645CB3120C7B1030081280B /* grab_successed.m4a in Resources */,
 				76AB709620A5995300CC3C70 /* search1.png in Resources */,
+				7645CB3320C7B1030081280B /* order_short_tip.m4a in Resources */,
 				76405480209AFBEA0038862A /* logo.jpg in Resources */,
+				7645CB3620C7B1030081280B /* voice_now.m4a in Resources */,
 				76AB709A20A59D8A00CC3C70 /* SelectAddressCell.xib in Resources */,
 				7629035720A6E5B200CA4A9E /* SelectTableViewCell.xib in Resources */,
 				76467FEC20AECF6F0052AC66 /* WaitTitleView.xib in Resources */,
@@ -1167,6 +1217,7 @@
 				76CA175220B7F09900740909 /* UserModel.m in Sources */,
 				768C59C320BBD430004D38F8 /* OrderListRes.m in Sources */,
 				76AB708C20A57C0C00CC3C70 /* AddOrderView.m in Sources */,
+				7645CB3920C7B9D30081280B /* ShortSoundPlay.m in Sources */,
 				76405475209AED980038862A /* UIViewExt.m in Sources */,
 				7642E6D820BD510800D859B7 /* ImageCropperController.m in Sources */,
 				768B780020A978A6002CE715 /* LoginResponse.m in Sources */,
@@ -1177,6 +1228,7 @@
 				762429C620C52693008292B6 /* EBBannerViewMaker.m in Sources */,
 				762429A420C4CD86008292B6 /* DriverOrderListController.m in Sources */,
 				76DCBB2A2099A225001E4F6D /* AppDelegate.m in Sources */,
+				7645CB3C20C7CE730081280B /* JZLocationConverter.m in Sources */,
 				7642E6D120BD344C00D859B7 /* DriverInfoController.m in Sources */,
 				7691D1D020BA723B00E54D3C /* SelectAddressHeadView.m in Sources */,
 				762429CE20C53766008292B6 /* FinishOrderRes.m in Sources */,

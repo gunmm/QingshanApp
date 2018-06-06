@@ -38,6 +38,7 @@
     _finishBtn.layer.masksToBounds = YES;
     
     _callBtn.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    _nameBtn.imageView.contentMode = UIViewContentModeScaleAspectFit;
 
     
 }
@@ -52,7 +53,7 @@
 - (void)setModel:(OrderModel *)model {
     _model = model;
     
-    _nameLabel.text = _model.linkMan;
+    [_nameBtn setTitle:[NSString stringWithFormat:@"%@货主",[_model.linkMan substringToIndex:1]] forState:UIControlStateNormal];
     _createTimeLabel.text = [Utils formatDate:[NSDate dateWithTimeIntervalSince1970:_model.createTime/1000]];
     _sendAddressLabel.text = _model.sendAddress;
     _reciverAddressLabel.text = _model.receiveAddress;
@@ -74,7 +75,8 @@
         _appointTimeLabel.hidden = NO;
         _appointTimeLabel.text = [Utils formatDate:[NSDate dateWithTimeIntervalSince1970:_model.appointTime/1000]];
         _beginBtn.hidden = NO;
-        if ([_model.appointStatus isEqualToString:@"1"]) {
+        //设置开始执行按钮状态
+        if ([_model.appointStatus isEqualToString:@"1"] || [_model.status isEqualToString:@"9"]) {
             _beginBtn.backgroundColor = [UIColor grayColor];
             [_beginBtn setTitleColor:bgColor forState:UIControlStateNormal];
             _beginBtn.enabled = NO;
@@ -86,6 +88,7 @@
 
     }
     
+    //设置接到货物按钮状态
     if ([_model.status isEqualToString:@"1"] && ([_model.appointStatus isEqualToString:@"1"] || _model.appointStatus.length == 0)) {
         _reciveGoodsBtn.backgroundColor = mainColor;
         [_reciveGoodsBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -96,6 +99,7 @@
         _reciveGoodsBtn.enabled = NO;
     }
     
+    //设置订单完成按钮状态
     if ([_model.status isEqualToString:@"2"]) {
         _finishBtn.backgroundColor = mainColor;
         [_finishBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];

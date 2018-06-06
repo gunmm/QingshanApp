@@ -49,7 +49,6 @@
     [self loadUserData];
     [self initData];
     [self initView];
-    [self setDataWithModel];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -75,7 +74,7 @@
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, 44)];
     view.backgroundColor = [UIColor redColor];
     self.navigationItem.titleView = _workBtn;
-    self.title = @"主列表";
+    self.title = @"执行中";
     self.view.backgroundColor = [UIColor whiteColor];
     
     //初始化按钮
@@ -207,6 +206,8 @@
 - (void)loadDataWithAppear {
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
     [param setObject:[[Config shareConfig] getUserId] forKey:@"userId"];
+    [param setObject:@" and (`order`.status = '1' or `order`.status = '2') " forKey:@"condition"];
+
     [param setObject:@"0" forKey:@"page"];
     [param setObject:[NSString stringWithFormat:@"%ld",(_currentpage + 1)*10] forKey:@"rows"];
     
@@ -221,11 +222,8 @@
                      };
         }];
         OrderListRes *orderListRes = [OrderListRes mj_objectWithKeyValues:result];
-        if (orderListRes.object.count > 0) {
-            self.dataList = [orderListRes.object mutableCopy];
-        }else {
-            [HUDClass showHUDWithText:@"没有更多数据！"];
-        }
+        self.dataList = [orderListRes.object mutableCopy];
+
         
         if (self.dataList.count > 0) {
             [self.notHaveView removeFromSuperview];
@@ -249,6 +247,8 @@
 - (void)loadDataWithType:(NSString *)loadType {
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
     [param setObject:[[Config shareConfig] getUserId] forKey:@"userId"];
+    [param setObject:@" and (`order`.status = '1' or `order`.status = '2') " forKey:@"condition"];
+
     [param setObject:[NSString stringWithFormat:@"%ld",_currentpage] forKey:@"page"];
     [param setObject:@"10" forKey:@"rows"];
     
@@ -263,15 +263,14 @@
                      };
         }];
         OrderListRes *orderListRes = [OrderListRes mj_objectWithKeyValues:result];
-        if (orderListRes.object.count > 0) {
-            if ([loadType isEqualToString:@"1"]) {
-                self.dataList = [orderListRes.object mutableCopy];
-            }else{
-                [self.dataList addObjectsFromArray:orderListRes.object];
-            }
-            
+        if ([loadType isEqualToString:@"1"]) {
+            self.dataList = [orderListRes.object mutableCopy];
         }else {
-            [HUDClass showHUDWithText:@"没有更多数据！"];
+            if ((orderListRes.object.count > 0)) {
+                [self.dataList addObjectsFromArray:orderListRes.object];
+            }else{
+                [HUDClass showHUDWithText:@"没有更多数据！"];
+            }
         }
         
         if (self.dataList.count > 0) {

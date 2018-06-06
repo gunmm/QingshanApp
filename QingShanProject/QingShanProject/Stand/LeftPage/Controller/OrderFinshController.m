@@ -28,13 +28,10 @@
     // Do any additional setup after loading the view.
     [self initNavBar];
     [self initView];
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
     [self loadData];
 
 }
+
 
 - (void)initNavBar {
     self.title = @"订单完成";
@@ -73,19 +70,44 @@
     CGFloat zoom = [self BMapSetPointCenterWithPoint11:sendPointAnnotation.coordinate withPoint2:reciverPointAnnotation.coordinate];
     CLLocationCoordinate2D center = [self BMapGetCenterWithPoint11:sendPointAnnotation.coordinate withPoint2:reciverPointAnnotation.coordinate];
     
-    [_mapView setCenterCoordinate:center animated:YES];
     _mapView.zoomLevel = zoom;
+    [_mapView setCenterCoordinate:center animated:YES];
+
     
-    [_mapView setCenterCoordinate:center animated:YES];
-    _mapView.zoomLevel = zoom;
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        self.mapView.zoomLevel = zoom;
+        [self.mapView setCenterCoordinate:center animated:YES];
+        
+    });
+    
 
     _finishView.model = _model;
-    if ([_model.status isEqualToString:@"1"]) {
+    if ([_model.status isEqualToString:@"1"] && [_model.appointStatus isEqualToString:@"0"]) {
         self.title = @"订单详情";
+        UIBarButtonItem *cancleBtn = [[UIBarButtonItem alloc]initWithTitle:@"取消订单" style:UIBarButtonItemStylePlain target:self action:@selector(cancelBtnClicked)];
+        [cancleBtn setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont systemFontOfSize:14],NSFontAttributeName, nil] forState:UIControlStateNormal];
+        [self.navigationItem setRightBarButtonItem:cancleBtn];
     }else if ([_model.status isEqualToString:@"9"]) {
         self.title = @"订单取消";
     }
 
+}
+
+- (void)cancelBtnClicked {
+    [AlertView alertViewWithTitle:@"提示" withMessage:@"确认取消订单" withConfirmTitle:@"确认" withCancelTitle:@"取消" withType:UIAlertControllerStyleAlert withConfirmBlock:^{
+        NSMutableDictionary *param = [NSMutableDictionary dictionary];
+        [param setObject:self.orderId forKey:@"orderId"];
+        
+        [NetWorking postDataWithParameters:param withUrl:@"cancelOrder" withBlock:^(id result) {
+            [HUDClass showHUDWithText:@"订单取消成功！"];
+            [self.navigationController popViewControllerAnimated:YES];
+        } withFailedBlock:^(NSString *errorResult) {
+            
+        }];
+    } withCancelBlock:^{
+        
+    }];
+    
 }
 
 

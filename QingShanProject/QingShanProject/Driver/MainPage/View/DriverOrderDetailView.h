@@ -16,7 +16,8 @@ typedef void(^FinishOrderBlock)(void);
 
 
 @interface DriverOrderDetailView : UIView
-@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
+@property (weak, nonatomic) IBOutlet UIButton *nameBtn;
+
 @property (weak, nonatomic) IBOutlet UIButton *callBtn;
 @property (weak, nonatomic) IBOutlet UILabel *priceLabel;
 @property (weak, nonatomic) IBOutlet UIButton *payStatusBtn;

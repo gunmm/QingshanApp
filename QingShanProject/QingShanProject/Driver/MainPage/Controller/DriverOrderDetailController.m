@@ -17,6 +17,11 @@
 #import <BaiduMapAPI_Location/BMKLocationService.h>
 #import "UIImage+Rotate.h"
 #import "RouteAnnotation.h"
+#import "JZLocationConverter.h"
+#import <MapKit/MKMapItem.h>
+#import <MapKit/MKTypes.h>
+
+
 
 
 
@@ -38,6 +43,9 @@
 @property (strong, nonatomic) NSTimer *timer;
 @property (assign, nonatomic) NSInteger nowCount;
 
+@property (strong, nonatomic) UIBarButtonItem *daohaongBtn;
+
+
 
 
 
@@ -50,7 +58,7 @@
     // Do any additional setup after loading the view.
     [self initNavBar];
     [self initView];
-    [self loadData];
+    [self firstLoadData];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -68,6 +76,90 @@
 - (void)initNavBar {
     self.title = @"订单详情";
     self.view.backgroundColor = bgColor;
+    _daohaongBtn = [[UIBarButtonItem alloc]initWithTitle:@"导航" style:UIBarButtonItemStylePlain target:self action:@selector(daohangBtnClicked)];
+    [_daohaongBtn setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont systemFontOfSize:14],NSFontAttributeName, nil] forState:UIControlStateNormal];
+    [self.navigationItem setRightBarButtonItem:_daohaongBtn];
+}
+
+- (void)daohangBtnClicked {
+    __weak typeof(self) weakSelf = self;
+
+    NSMutableArray *titleArray = [NSMutableArray array];
+    [titleArray addObject:@"苹果地图"];
+    //百度地图
+    if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"baidumap://"]])
+    {
+        [titleArray addObject:@"百度地图"];
+    }
+    
+    //高德地图
+    if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"iosamap://"]])
+    {
+        [titleArray addObject:@"高德地图"];
+    }
+    
+    [[CustomSelectAlertView alloc] initAlertWithTitleArray:[titleArray mutableCopy] withBtnSelectBlock:^(NSInteger tagg) {
+        if (tagg == titleArray.count+1) {
+            return;
+        }
+        NSString *str = titleArray[tagg - 1];
+        if ([str isEqualToString:@"苹果地图"]) {
+            CLLocationCoordinate2D coor;
+            
+            if ([weakSelf.model.status isEqualToString:@"1"]) {
+                coor.latitude =  weakSelf.model.sendLatitude;
+                coor.longitude =  weakSelf.model.sendLongitude;
+            }else {
+                coor.latitude =  weakSelf.model.receiveLatitude;
+                coor.longitude =  weakSelf.model.receiveLongitude;
+            }
+            
+            
+            CLLocationCoordinate2D gps = [JZLocationConverter bd09ToWgs84:coor];
+            
+            MKMapItem *currentLoc = [MKMapItem mapItemForCurrentLocation];
+            MKMapItem *toLocation = [[MKMapItem alloc] initWithPlacemark:[[MKPlacemark alloc] initWithCoordinate:gps addressDictionary:nil]];
+            NSArray *items = @[currentLoc,toLocation];
+            NSDictionary *dic = @{
+                                  MKLaunchOptionsDirectionsModeKey : MKLaunchOptionsDirectionsModeDriving,
+                                  MKLaunchOptionsMapTypeKey : @(MKMapTypeStandard),
+                                  MKLaunchOptionsShowsTrafficKey : @(YES)
+                                  };
+            
+            [MKMapItem openMapsWithItems:items launchOptions:dic];
+        }else if ([str isEqualToString:@"百度地图"]){
+            NSString *urlString = @"";;
+            
+            if ([weakSelf.model.status isEqualToString:@"1"]) {
+                urlString = [[NSString stringWithFormat:@"baidumap://map/direction?origin={{我的位置}}&destination=latlng:%f,%f|name:%@&mode=driving",
+                              weakSelf.model.sendLatitude, weakSelf.model.sendLongitude, weakSelf.model.sendAddress]
+                             stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+            }else {
+                urlString = [[NSString stringWithFormat:@"baidumap://map/direction?origin={{我的位置}}&destination=latlng:%f,%f|name:%@&mode=driving",
+                              weakSelf.model.receiveLatitude, weakSelf.model.receiveLongitude, weakSelf.model.receiveAddress] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+            }
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString] options:@{} completionHandler:^(BOOL success) {}];
+        }else if ([str isEqualToString:@"高德地图"]){
+            CLLocationCoordinate2D coor;
+            
+            if ([weakSelf.model.status isEqualToString:@"1"]) {
+                coor.latitude =  weakSelf.model.sendLatitude;
+                coor.longitude =  weakSelf.model.sendLongitude;
+            }else {
+                coor.latitude =  weakSelf.model.receiveLatitude;
+                coor.longitude =  weakSelf.model.receiveLongitude;
+            }
+            
+            
+            CLLocationCoordinate2D gcj = [JZLocationConverter bd09ToGcj02:coor];
+            
+            NSString *urlString = [[NSString stringWithFormat:@"iosamap://navi?sourceApplication=%@&backScheme=%@&lat=%f&lon=%f&dev=0&style=2",
+                                    @"导航功能", [weakSelf.model.status isEqualToString:@"1"] ? weakSelf.model.sendAddress : weakSelf.model.receiveAddress, gcj.latitude, gcj.longitude]
+                                   stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+            
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString] options:@{} completionHandler:^(BOOL success) {}];
+        }
+    }];
 }
 
 - (void)initView {
@@ -75,10 +167,22 @@
     [self initDetailView];
 }
 
-- (void)loadData {
+- (void)firstLoadData {
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
     [param setObject:self.orderId forKey:@"orderId"];
     [NetWorking postDataWithParameters:param withUrl:@"getBigOrderInfo" withBlock:^(id result) {
+        FinishOrderRes *finishOrderRes = [FinishOrderRes mj_objectWithKeyValues:result];
+        self.model = finishOrderRes.object;
+        [self setView];
+    } withFailedBlock:^(NSString *errorResult) {
+        
+    }];
+}
+
+- (void)loadData {
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    [param setObject:self.orderId forKey:@"orderId"];
+    [NetWorking bgPostDataWithParameters:param withUrl:@"getBigOrderInfo" withBlock:^(id result) {
         FinishOrderRes *finishOrderRes = [FinishOrderRes mj_objectWithKeyValues:result];
         self.model = finishOrderRes.object;
         [self setView];
@@ -93,12 +197,14 @@
         if ([_model.appointStatus isEqualToString:@"0"]) {
             [self addPointForMap];
             [_timer invalidate];
+            [self.navigationItem setRightBarButtonItem:nil];
+
         }else{
             [self routePlan];
             [self startLocation];
             [_timer invalidate];
             _timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timerAct) userInfo:nil repeats:YES];
-
+            [self.navigationItem setRightBarButtonItem:self.daohaongBtn];
         }
         
     }else if ([_model.status isEqualToString:@"2"]){
@@ -106,12 +212,12 @@
         [self startLocation];
         [_timer invalidate];
         _timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timerAct) userInfo:nil repeats:YES];
-
+        [self.navigationItem setRightBarButtonItem:self.daohaongBtn];
 
     }else if ([_model.status isEqualToString:@"3"] || [_model.status isEqualToString:@"9"]){
         [self addPointForMap];
         [_timer invalidate];
-
+        [self.navigationItem setRightBarButtonItem:nil];
     }
 }
 
@@ -140,11 +246,12 @@
     CGFloat zoom = [self BMapSetPointCenterWithPoint11:sendPointAnnotation.coordinate withPoint2:reciverPointAnnotation.coordinate];
     CLLocationCoordinate2D center = [self BMapGetCenterWithPoint11:sendPointAnnotation.coordinate withPoint2:reciverPointAnnotation.coordinate];
     
-    [_mapView setCenterCoordinate:center animated:YES];
     _mapView.zoomLevel = zoom;
+    [_mapView setCenterCoordinate:center animated:YES];
     
-    [_mapView setCenterCoordinate:center animated:YES];
     _mapView.zoomLevel = zoom;
+
+    [_mapView setCenterCoordinate:center animated:YES];
 }
 
 - (void)initDetailView {

@@ -17,7 +17,8 @@ typedef void(^FinishOrderBlock)(OrderModel *model);
 
 
 @interface DriverOrderListCell : UITableViewCell
-@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
+
+@property (weak, nonatomic) IBOutlet UIButton *nameBtn;
 @property (weak, nonatomic) IBOutlet UILabel *orderType;
 @property (weak, nonatomic) IBOutlet UILabel *orderStatus;
 @property (weak, nonatomic) IBOutlet UILabel *createTimeIconLabel;

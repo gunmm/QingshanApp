@@ -33,7 +33,6 @@
 @interface DriverOnWayController () <BMKMapViewDelegate, BMKRouteSearchDelegate, BMKLocationServiceDelegate>
 {
     
-    NSInteger nowCount;
     BMKLocationService *_locService;
 
 }
@@ -43,6 +42,8 @@
 @property (strong, nonatomic) OrderModel *orderModel;
 @property (strong, nonatomic) OrderOnWayView *orderOnWayView;
 @property (strong, nonatomic) NSTimer *timer;
+@property (assign, nonatomic) NSInteger nowCount;
+
 
 
 
@@ -83,10 +84,10 @@
 }
 
 - (void)timerAct {
-    nowCount ++;
-    if (nowCount > 30) {
+    _nowCount ++;
+    if (_nowCount > 30) {
         [self loadData];
-        nowCount = 0;
+        _nowCount = 0;
     }
 }
 
@@ -234,6 +235,7 @@
 }
 
 - (void)backBtnAct {
+    _nowCount = 0;
     [self loadAppearData];
     
 }

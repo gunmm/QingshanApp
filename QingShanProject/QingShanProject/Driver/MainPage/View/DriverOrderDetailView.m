@@ -29,6 +29,8 @@
     _finishBtn.layer.masksToBounds = YES;
     
     _payStatusBtn.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    
+    _nameBtn.imageView.contentMode = UIViewContentModeScaleAspectFit;
 }
 
 - (void)layoutSubviews {
@@ -51,18 +53,18 @@
 
 - (void)setModel:(OrderModel *)model {
     _model = model;
-    _nameLabel.text = _model.linkMan;
+    [_nameBtn setTitle:[NSString stringWithFormat:@"%@货主",[_model.linkMan substringToIndex:1]] forState:UIControlStateNormal];
     
     if ([_model.type isEqualToString:@"2"]) {
         _beginBtn.hidden = NO;
-        if ([_model.appointStatus isEqualToString:@"0"]) {
-            _beginBtn.backgroundColor = mainColor;
-            [_beginBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-            _beginBtn.enabled = YES;
-        }else{
+        if ([_model.appointStatus isEqualToString:@"1"] || [_model.status isEqualToString:@"9"]) {
             _beginBtn.backgroundColor = [UIColor grayColor];
             [_beginBtn setTitleColor:bgColor forState:UIControlStateNormal];
             _beginBtn.enabled = NO;
+        }else{
+            _beginBtn.backgroundColor = mainColor;
+            [_beginBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            _beginBtn.enabled = YES;
         }
     }else{
         _beginBtn.hidden = YES;
@@ -77,7 +79,9 @@
         _reciverGoodsBtn.backgroundColor = [UIColor grayColor];
         [_reciverGoodsBtn setTitleColor:bgColor forState:UIControlStateNormal];
         _reciverGoodsBtn.enabled = NO;
-        _orderDetailLabel.text = @"等待司机开始执行订单";
+        if ([_model.appointStatus isEqualToString:@"0"]) {
+            _orderDetailLabel.text = @"等待司机开始执行订单";
+        }
     }
         
     if ([_model.status isEqualToString:@"2"]) {

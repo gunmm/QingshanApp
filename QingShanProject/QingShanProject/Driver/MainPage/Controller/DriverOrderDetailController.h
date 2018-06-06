@@ -12,4 +12,7 @@
 
 @property (nonatomic, copy) NSString *orderId;
 
+
+- (void)loadData;
+
 @end

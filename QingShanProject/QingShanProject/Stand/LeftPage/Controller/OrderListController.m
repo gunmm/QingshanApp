@@ -70,11 +70,8 @@
                      };
         }];
         OrderListRes *orderListRes = [OrderListRes mj_objectWithKeyValues:result];
-        if (orderListRes.object.count > 0) {
-            self.dataList = [orderListRes.object mutableCopy];
-        }else {
-            [HUDClass showHUDWithText:@"没有更多数据！"];
-        }
+        self.dataList = [orderListRes.object mutableCopy];
+
         
         if (self.dataList.count > 0) {
             [self.notHaveView removeFromSuperview];
@@ -112,15 +109,14 @@
                      };
         }];
         OrderListRes *orderListRes = [OrderListRes mj_objectWithKeyValues:result];
-        if (orderListRes.object.count > 0) {
-            if ([loadType isEqualToString:@"1"]) {
-                self.dataList = [orderListRes.object mutableCopy];
-            }else{
-                [self.dataList addObjectsFromArray:orderListRes.object];
-            }
-            
+        if ([loadType isEqualToString:@"1"]) {
+            self.dataList = [orderListRes.object mutableCopy];
         }else {
-            [HUDClass showHUDWithText:@"没有更多数据！"];
+            if ((orderListRes.object.count > 0)) {
+                [self.dataList addObjectsFromArray:orderListRes.object];
+            }else{
+                [HUDClass showHUDWithText:@"没有更多数据！"];
+            }
         }
         
         if (self.dataList.count > 0) {
