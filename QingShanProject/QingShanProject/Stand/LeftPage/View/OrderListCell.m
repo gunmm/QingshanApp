@@ -52,7 +52,11 @@
     if ([_model.status isEqualToString:@"0"]) {
         _statusLabel.text = @"等待接单 >";
     }else if ([_model.status isEqualToString:@"1"]) {
-        _statusLabel.text = @"等待接货 >";
+        if ([_model.appointStatus isEqualToString:@"0"]) {
+            _statusLabel.text = @"等待执行 >";
+        }else{
+            _statusLabel.text = @"等待接货 >";
+        }
     }else if ([_model.status isEqualToString:@"2"]) {
         _statusLabel.text = @"已发货 >";
     }else if ([_model.status isEqualToString:@"3"]) {

@@ -45,13 +45,18 @@
 
 - (void)setModel:(OrderModel *)model {
     _model = model;
-    if ([_model.appointStatus isEqualToString:@"1"]) {
+    if ([_model.appointStatus isEqualToString:@"0"]) {
         _waitLabel.hidden = NO;
-    }else{
+        _waitLabel.text = @"等待司机开始订单";
+    }else if ([_model.status isEqualToString:@"9"]) {
+        _waitLabel.hidden = NO;
+        _waitLabel.text = @"订单取消";
+    }
+    else {
         _waitLabel.hidden = YES;
     }
-    _plateNumberLabel.text = _model.plateNumber;
-    [_driverBtn setTitle:[NSString stringWithFormat:@"%@师傅",[_model.nickname substringToIndex:1]] forState:UIControlStateNormal];
+    _plateNumberLabel.text = _model.plateNumber.length > 0 ? _model.plateNumber : @"未被接单";
+    [_driverBtn setTitle:_model.nickname.length > 0 ? [NSString stringWithFormat:@"%@师傅",[_model.nickname substringToIndex:1]] : @"" forState:UIControlStateNormal];
     _carTypeLabel.text = _model.carTypeName;
     _scoreLabel.text = [NSString stringWithFormat:@"%.1f", _model.score];
 }

@@ -36,6 +36,12 @@
 		7629035120A6DF3E00CA4A9E /* CustomSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7629035020A6DF3E00CA4A9E /* CustomSelectView.m */; };
 		7629035620A6E5B200CA4A9E /* SelectTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7629035420A6E5B200CA4A9E /* SelectTableViewCell.m */; };
 		7629035720A6E5B200CA4A9E /* SelectTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7629035520A6E5B200CA4A9E /* SelectTableViewCell.xib */; };
+		762FDAA520C6BD8F00F90F7F /* DriverOrderDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 762FDAA420C6BD8F00F90F7F /* DriverOrderDetailView.m */; };
+		762FDAA720C6BD9700F90F7F /* DriverOrderDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 762FDAA620C6BD9700F90F7F /* DriverOrderDetailView.xib */; };
+		762FDAAB20C6C3A900F90F7F /* pay_icon_alipay.png in Resources */ = {isa = PBXBuildFile; fileRef = 762FDAA820C6C3A900F90F7F /* pay_icon_alipay.png */; };
+		762FDAAC20C6C3A900F90F7F /* pay_icon_crash.png in Resources */ = {isa = PBXBuildFile; fileRef = 762FDAA920C6C3A900F90F7F /* pay_icon_crash.png */; };
+		762FDAAD20C6C3A900F90F7F /* pay_icon_wechat.png in Resources */ = {isa = PBXBuildFile; fileRef = 762FDAAA20C6C3A900F90F7F /* pay_icon_wechat.png */; };
+		762FDAB020C6E1B700F90F7F /* RouteAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 762FDAAF20C6E1B700F90F7F /* RouteAnnotation.m */; };
 		76405470209AED980038862A /* CustomSelectAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7640545C209AED960038862A /* CustomSelectAlertView.m */; };
 		76405471209AED980038862A /* Config.m in Sources */ = {isa = PBXBuildFile; fileRef = 7640545D209AED970038862A /* Config.m */; };
 		76405472209AED980038862A /* AlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7640545E209AED970038862A /* AlertView.m */; };
@@ -65,6 +71,7 @@
 		76467FEC20AECF6F0052AC66 /* WaitTitleView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 76467FEB20AECF6F0052AC66 /* WaitTitleView.xib */; };
 		7653CD4220C3D8AA00DC9D3A /* DriverOrderListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7653CD4020C3D8AA00DC9D3A /* DriverOrderListCell.m */; };
 		7653CD4320C3D8AA00DC9D3A /* DriverOrderListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7653CD4120C3D8AA00DC9D3A /* DriverOrderListCell.xib */; };
+		7658206920C66EE6000B7C5D /* DriverOrderDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7658206820C66EE6000B7C5D /* DriverOrderDetailController.m */; };
 		765ADE9920B51443001D96D9 /* NotfiModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 765ADE9820B51443001D96D9 /* NotfiModel.m */; };
 		765ADE9C20B51486001D96D9 /* NotfiApsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 765ADE9B20B51486001D96D9 /* NotfiApsModel.m */; };
 		765ADE9F20B5520F001D96D9 /* NearbyCarListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 765ADE9E20B5520F001D96D9 /* NearbyCarListModel.m */; };
@@ -186,6 +193,14 @@
 		7629035320A6E5B200CA4A9E /* SelectTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SelectTableViewCell.h; sourceTree = "<group>"; };
 		7629035420A6E5B200CA4A9E /* SelectTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SelectTableViewCell.m; sourceTree = "<group>"; };
 		7629035520A6E5B200CA4A9E /* SelectTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SelectTableViewCell.xib; sourceTree = "<group>"; };
+		762FDAA320C6BD8F00F90F7F /* DriverOrderDetailView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DriverOrderDetailView.h; sourceTree = "<group>"; };
+		762FDAA420C6BD8F00F90F7F /* DriverOrderDetailView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DriverOrderDetailView.m; sourceTree = "<group>"; };
+		762FDAA620C6BD9700F90F7F /* DriverOrderDetailView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DriverOrderDetailView.xib; sourceTree = "<group>"; };
+		762FDAA820C6C3A900F90F7F /* pay_icon_alipay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pay_icon_alipay.png; sourceTree = "<group>"; };
+		762FDAA920C6C3A900F90F7F /* pay_icon_crash.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pay_icon_crash.png; sourceTree = "<group>"; };
+		762FDAAA20C6C3A900F90F7F /* pay_icon_wechat.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pay_icon_wechat.png; sourceTree = "<group>"; };
+		762FDAAE20C6E1B700F90F7F /* RouteAnnotation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RouteAnnotation.h; sourceTree = "<group>"; };
+		762FDAAF20C6E1B700F90F7F /* RouteAnnotation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RouteAnnotation.m; sourceTree = "<group>"; };
 		7640545C209AED960038862A /* CustomSelectAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomSelectAlertView.m; sourceTree = "<group>"; };
 		7640545D209AED970038862A /* Config.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Config.m; sourceTree = "<group>"; };
 		7640545E209AED970038862A /* AlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlertView.m; sourceTree = "<group>"; };
@@ -238,6 +253,8 @@
 		7653CD3F20C3D8AA00DC9D3A /* DriverOrderListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DriverOrderListCell.h; sourceTree = "<group>"; };
 		7653CD4020C3D8AA00DC9D3A /* DriverOrderListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DriverOrderListCell.m; sourceTree = "<group>"; };
 		7653CD4120C3D8AA00DC9D3A /* DriverOrderListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DriverOrderListCell.xib; sourceTree = "<group>"; };
+		7658206720C66EE6000B7C5D /* DriverOrderDetailController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DriverOrderDetailController.h; sourceTree = "<group>"; };
+		7658206820C66EE6000B7C5D /* DriverOrderDetailController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DriverOrderDetailController.m; sourceTree = "<group>"; };
 		765ADE9720B51443001D96D9 /* NotfiModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotfiModel.h; sourceTree = "<group>"; };
 		765ADE9820B51443001D96D9 /* NotfiModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NotfiModel.m; sourceTree = "<group>"; };
 		765ADE9A20B51486001D96D9 /* NotfiApsModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotfiApsModel.h; sourceTree = "<group>"; };
@@ -491,6 +508,8 @@
 				764054A8209B498D0038862A /* DriverMainPageController.m */,
 				762429A220C4CD86008292B6 /* DriverOrderListController.h */,
 				762429A320C4CD86008292B6 /* DriverOrderListController.m */,
+				7658206720C66EE6000B7C5D /* DriverOrderDetailController.h */,
+				7658206820C66EE6000B7C5D /* DriverOrderDetailController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -508,6 +527,11 @@
 				7653CD3F20C3D8AA00DC9D3A /* DriverOrderListCell.h */,
 				7653CD4020C3D8AA00DC9D3A /* DriverOrderListCell.m */,
 				7653CD4120C3D8AA00DC9D3A /* DriverOrderListCell.xib */,
+				762FDAA320C6BD8F00F90F7F /* DriverOrderDetailView.h */,
+				762FDAA420C6BD8F00F90F7F /* DriverOrderDetailView.m */,
+				762FDAA620C6BD9700F90F7F /* DriverOrderDetailView.xib */,
+				762FDAAE20C6E1B700F90F7F /* RouteAnnotation.h */,
+				762FDAAF20C6E1B700F90F7F /* RouteAnnotation.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -800,6 +824,9 @@
 		76DCBB422099A2B3001E4F6D /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				762FDAA820C6C3A900F90F7F /* pay_icon_alipay.png */,
+				762FDAA920C6C3A900F90F7F /* pay_icon_crash.png */,
+				762FDAAA20C6C3A900F90F7F /* pay_icon_wechat.png */,
 				7642E6D420BD456600D859B7 /* choice_imgbg2.png */,
 				7642E6D220BD41F700D859B7 /* choice_imgbg.png */,
 				7642E6C520BCEDBA00D859B7 /* icon_complaint.png */,
@@ -990,9 +1017,13 @@
 				76AB709A20A59D8A00CC3C70 /* SelectAddressCell.xib in Resources */,
 				7629035720A6E5B200CA4A9E /* SelectTableViewCell.xib in Resources */,
 				76467FEC20AECF6F0052AC66 /* WaitTitleView.xib in Resources */,
+				762FDAAD20C6C3A900F90F7F /* pay_icon_wechat.png in Resources */,
 				76AB709120A5932600CC3C70 /* back3.png in Resources */,
+				762FDAAB20C6C3A900F90F7F /* pay_icon_alipay.png in Resources */,
 				7691D1DC20BA7E5400E54D3C /* city.plist in Resources */,
+				762FDAA720C6BD9700F90F7F /* DriverOrderDetailView.xib in Resources */,
 				76757B3E20A5DFCB004CA040 /* NotHaveDataView.xib in Resources */,
+				762FDAAC20C6C3A900F90F7F /* pay_icon_crash.png in Resources */,
 				762429C320C52693008292B6 /* EBBannerView.xib in Resources */,
 				76DCBB302099A226001E4F6D /* Main.storyboard in Resources */,
 			);
@@ -1106,6 +1137,7 @@
 				76B5F04F20BF8C3A009D30C1 /* DriverDetailController.m in Sources */,
 				76B5F05220BF8F9D009D30C1 /* UserInfoRes.m in Sources */,
 				76405477209AED980038862A /* HUDClass.m in Sources */,
+				762FDAA520C6BD8F00F90F7F /* DriverOrderDetailView.m in Sources */,
 				764054A9209B498D0038862A /* DriverMainPageController.m in Sources */,
 				7691D1E520BAF14F00E54D3C /* CarTypeRes.m in Sources */,
 				768B77F720A934B1002CE715 /* HttpClient.m in Sources */,
@@ -1119,6 +1151,7 @@
 				7691D1D720BA7DFB00E54D3C /* GUNMMCityVC.m in Sources */,
 				7691D1DF20BA878D00E54D3C /* OrderListController.m in Sources */,
 				76F55BC820AD2D0200882E91 /* RegisterFooterView.m in Sources */,
+				762FDAB020C6E1B700F90F7F /* RouteAnnotation.m in Sources */,
 				76B7266120B6A24A00A4DB23 /* OrderModel.m in Sources */,
 				7629035620A6E5B200CA4A9E /* SelectTableViewCell.m in Sources */,
 				767E55F920A7C71900CA0CF2 /* TextTableViewCell.m in Sources */,
@@ -1155,6 +1188,7 @@
 				76AB708120A56BE300CC3C70 /* MyTableHeaderView.m in Sources */,
 				762429C120C52693008292B6 /* EBBannerView+Categories.m in Sources */,
 				7629035120A6DF3E00CA4A9E /* CustomSelectView.m in Sources */,
+				7658206920C66EE6000B7C5D /* DriverOrderDetailController.m in Sources */,
 				76405479209AED980038862A /* CustomSize.m in Sources */,
 				7691D1DA20BA7E3B00E54D3C /* CityCollectionViewCell.m in Sources */,
 				7642E6C220BCE48000D859B7 /* OrderFinishView.m in Sources */,

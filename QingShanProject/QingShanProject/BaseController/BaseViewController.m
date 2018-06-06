@@ -145,6 +145,20 @@
             SeekViewController *seekVc = (SeekViewController *)[NavBgImage getCurrentVC];
             if ([seekVc.orderId isEqualToString:notfiModel.orderId]) {
                 [seekVc popActWithOrderType:notfiModel.type];
+                if ([notfiModel.appointStatus isEqualToString:@"0"]) {
+                    OrderFinshController *orderFinshController = [[OrderFinshController alloc] init];
+                    orderFinshController.orderId = notfiModel.orderId;
+                    [[NavBgImage getCurrentVC].navigationController pushViewController:orderFinshController animated:YES];
+                }
+                EBBannerView *banner = [EBBannerView bannerWithBlock:^(EBBannerViewMaker *make) {
+                    make.style = EBBannerViewStyleiOS9;
+                    make.icon = [UIImage imageNamed:@"driver_head_default"];
+                    make.title = notfiModel.aps.alert;
+                    make.content = msgStr;
+                    make.stayDuration = 8;
+                    make.date = dateStr;
+                }];
+                [banner show];
                 return;
             }
         }
@@ -152,7 +166,30 @@
         if ([[NavBgImage getCurrentVC] isMemberOfClass:[DriverOnWayController class]]) {
             DriverOnWayController *onWayVc = (DriverOnWayController *)[NavBgImage getCurrentVC];
             if ([onWayVc.orderId isEqualToString:notfiModel.orderId]) {
-                [onWayVc loadData];
+                if ([notfiModel.status isEqualToString:@"2"]) {
+                    [onWayVc loadData];
+                }else if ([notfiModel.status isEqualToString:@"3"]) {
+                    if (!onWayVc.orderCompleteBlock) {
+                        [onWayVc.navigationController popViewControllerAnimated:YES];
+                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                            OrderFinshController *orderFinshController = [[OrderFinshController alloc] init];
+                            orderFinshController.orderId = notfiModel.orderId;
+                            [[NavBgImage getCurrentVC].navigationController pushViewController:orderFinshController animated:YES];
+                        });
+                    }else{
+                        [onWayVc loadData];
+                    }
+                }
+                
+                EBBannerView *banner = [EBBannerView bannerWithBlock:^(EBBannerViewMaker *make) {
+                    make.style = EBBannerViewStyleiOS9;
+                    make.icon = [UIImage imageNamed:@"driver_head_default"];
+                    make.title = notfiModel.aps.alert;
+                    make.content = msgStr;
+                    make.stayDuration = 8;
+                    make.date = dateStr;
+                }];
+                [banner show];
                 return;
             }
         }
@@ -168,11 +205,22 @@
         [banner show];
         banner.tapActBlock = ^{
             UIViewController *vc;
-            if ([notfiModel.status isEqualToString:@"1"] || [notfiModel.status isEqualToString:@"2"]) {
+            if ([notfiModel.status isEqualToString:@"1"]) {
+                if ([notfiModel.appointStatus isEqualToString:@"0"]) {
+                    OrderFinshController *orderFinshController = [[OrderFinshController alloc] init];
+                    orderFinshController.orderId = notfiModel.orderId;
+                    vc = orderFinshController;
+                }else{
+                    DriverOnWayController *onwayVc = [[DriverOnWayController alloc] init];
+                    onwayVc.orderId = notfiModel.orderId;
+                    vc = onwayVc;
+                }
+                
+            }else if ([notfiModel.status isEqualToString:@"2"]) {
                 DriverOnWayController *onwayVc = [[DriverOnWayController alloc] init];
                 onwayVc.orderId = notfiModel.orderId;
                 vc = onwayVc;
-            }else if ([notfiModel.status isEqualToString:@"3"] || [notfiModel.status isEqualToString:@"0"]) {
+            }else if ([notfiModel.status isEqualToString:@"3"]) {
                 OrderFinshController *orderFinshController = [[OrderFinshController alloc] init];
                 orderFinshController.orderId = notfiModel.orderId;
                 vc = orderFinshController;
@@ -201,6 +249,26 @@
         //司机开始执行预约订单
         NSString *typeStr = @"预约";
         NSString *msgStr = [NSString stringWithFormat:@"司机开始执行预约订单\n订单类型：%@\n创建时间：%@\n预约时间：%@\n司机姓名：%@\n司机电话：%@\n车牌号：%@\n发货地址：%@\n收货地址：%@",typeStr, notfiModel.createTime, notfiModel.appointTime, notfiModel.driverName, notfiModel.driverPhone, notfiModel.plateNumber, notfiModel.sendAddress, notfiModel.receiveAddress];
+        
+        if ([[NavBgImage getCurrentVC] isMemberOfClass:[OrderFinshController class]]) {
+            OrderFinshController *orderFinshController = (OrderFinshController *)[NavBgImage getCurrentVC];
+            if ([orderFinshController.orderId isEqualToString:notfiModel.orderId]) {
+                [orderFinshController.navigationController popViewControllerAnimated:YES];
+                DriverOnWayController *onwayVc = [[DriverOnWayController alloc] init];
+                onwayVc.orderId = notfiModel.orderId;
+                [[NavBgImage getCurrentVC].navigationController pushViewController:onwayVc animated:YES];
+                EBBannerView *banner = [EBBannerView bannerWithBlock:^(EBBannerViewMaker *make) {
+                    make.style = EBBannerViewStyleiOS9;
+                    make.icon = [UIImage imageNamed:@"driver_head_default"];
+                    make.title = notfiModel.aps.alert;
+                    make.content = msgStr;
+                    make.stayDuration = 8;
+                    make.date = dateStr;
+                }];
+                [banner show];
+                return;
+            }
+        }
         
         
         EBBannerView *banner = [EBBannerView bannerWithBlock:^(EBBannerViewMaker *make) {

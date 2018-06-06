@@ -15,6 +15,7 @@
 #import "Location.h"
 #import "MessageBtn.h"
 #import "MessageListController.h"
+#import "DriverOrderDetailController.h"
 
 @interface DriverMainPageController () <UITableViewDelegate, UITableViewDataSource>
 
@@ -45,7 +46,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self initNavBar];
-//    [self loadUserData];
+    [self loadUserData];
     [self initData];
     [self initView];
     [self setDataWithModel];
@@ -53,7 +54,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-//    [self loadDataWithAppear];
+    [self loadDataWithAppear];
 }
 
 
@@ -74,7 +75,7 @@
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, 44)];
     view.backgroundColor = [UIColor redColor];
     self.navigationItem.titleView = _workBtn;
-//    = @"主列表";
+    self.title = @"主列表";
     self.view.backgroundColor = [UIColor whiteColor];
     
     //初始化按钮
@@ -176,32 +177,27 @@
 }
 
 - (void)setDataWithModel {
-//    if (![_userModel.driverCertificationStatus isEqualToString:@"2"]) {
-//        return;
-//    }
-//
-//    if ([_userModel.status isEqualToString:@"2"]) {
-//        [_workBtn setTitle:@"开始接单" forState:UIControlStateNormal];
-//        _workBtn.layer.borderColor = mainColor.CGColor;
-//        [_workBtn setTitleColor:mainColor forState:UIControlStateNormal];
-//        [[Location sharedLocation] stopLocationService];
-//
-//
-//    }else {
-//        [_workBtn setTitle:@"停止接单" forState:UIControlStateNormal];
-//        _workBtn.layer.borderColor = [UIColor grayColor].CGColor;
-//        [_workBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-//        [[Location sharedLocation] startLocationService];
-//        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onLocationComplete:)
-//                                                     name:Location_Complete object:nil];
-//
-//    }
-    [_workBtn setTitle:@"停止接单" forState:UIControlStateNormal];
-    _workBtn.layer.borderColor = [UIColor grayColor].CGColor;
-    [_workBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-    [[Location sharedLocation] startLocationService];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onLocationComplete:)
-                                                 name:Location_Complete object:nil];
+    if (![_userModel.driverCertificationStatus isEqualToString:@"2"]) {
+        return;
+    }
+
+    if ([_userModel.status isEqualToString:@"2"]) {
+        [_workBtn setTitle:@"开始接单" forState:UIControlStateNormal];
+        _workBtn.layer.borderColor = mainColor.CGColor;
+        [_workBtn setTitleColor:mainColor forState:UIControlStateNormal];
+        [[Location sharedLocation] stopLocationService];
+
+
+    }else {
+        [_workBtn setTitle:@"停止接单" forState:UIControlStateNormal];
+        _workBtn.layer.borderColor = [UIColor grayColor].CGColor;
+        [_workBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+        [[Location sharedLocation] startLocationService];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onLocationComplete:)
+                                                     name:Location_Complete object:nil];
+
+    }
+
 }
 
 - (void)initData {
@@ -366,6 +362,14 @@
     return 226;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    DriverOrderDetailController *driverOrderDetailController = [[DriverOrderDetailController alloc] init];
+    driverOrderDetailController.orderId = _dataList[indexPath.row].orderId;
+    [self.navigationController pushViewController:driverOrderDetailController animated:YES];
+    
+}
+
 
 - (void)beginAppointOrderWithModel:(OrderModel *)model {
     [AlertView alertViewWithTitle:@"提示" withMessage:@"确认开始执行该预约订单" withConfirmTitle:@"确认" withCancelTitle:@"取消" withType:UIAlertControllerStyleAlert withConfirmBlock:^{
@@ -442,17 +446,17 @@
     NSLog(@"上传了--------lat:%f, ---------lng:%f", bdCoor.latitude, bdCoor.longitude);
 
     
-//    NSMutableDictionary *param = [NSMutableDictionary dictionary];
-//
-//    [param setObject:[[Config shareConfig] getUserId] forKey:@"userId"];
-//    [param setObject:[NSNumber numberWithDouble:bdCoor.latitude] forKey:@"nowLatitude"];
-//    [param setObject:[NSNumber numberWithDouble:bdCoor.longitude] forKey:@"nowLongitude"];
-//
-//    [NetWorking bgPostDataWithParameters:param withUrl:@"updateLocation" withBlock:^(id result) {
-//
-//    } withFailedBlock:^(NSString *errorResult) {
-//
-//    }];
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+
+    [param setObject:[[Config shareConfig] getUserId] forKey:@"userId"];
+    [param setObject:[NSNumber numberWithDouble:bdCoor.latitude] forKey:@"nowLatitude"];
+    [param setObject:[NSNumber numberWithDouble:bdCoor.longitude] forKey:@"nowLongitude"];
+
+    [NetWorking bgPostDataWithParameters:param withUrl:@"updateLocation" withBlock:^(id result) {
+
+    } withFailedBlock:^(NSString *errorResult) {
+
+    }];
   
 }
 

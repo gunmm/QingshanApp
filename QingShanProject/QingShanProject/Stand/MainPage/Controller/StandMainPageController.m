@@ -183,7 +183,7 @@
                             
                             onwayVc.orderCompleteBlock = ^(OrderModel *model) {
                                 OrderFinshController *finishvC = [[OrderFinshController alloc] init];
-                                finishvC.model = model;
+                                finishvC.orderId = model.orderId;
                                 [weakSelf.navigationController pushViewController:finishvC animated:YES];
                             };
                         }

@@ -10,6 +10,7 @@
 #import "OrderListRes.h"
 #import "OrderModel.h"
 #import "DriverOrderListCell.h"
+#import "DriverOrderDetailController.h"
 
 @interface DriverOrderListController () <UITableViewDelegate, UITableViewDataSource>
 
@@ -240,6 +241,15 @@
     } withCancelBlock:^{
         
     }];
+    
+}
+
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    DriverOrderDetailController *driverOrderDetailController = [[DriverOrderDetailController alloc] init];
+    driverOrderDetailController.orderId = _dataList[indexPath.row].orderId;
+    [self.navigationController pushViewController:driverOrderDetailController animated:YES];
     
 }
 

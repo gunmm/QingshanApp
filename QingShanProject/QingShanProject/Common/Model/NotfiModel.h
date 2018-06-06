@@ -22,6 +22,7 @@
 
 @property (nonatomic, copy) NSString *driverPhone;
 @property (nonatomic, copy) NSString *status;
+@property (nonatomic, copy) NSString *appointStatus;
 @property (nonatomic, copy) NSString *sendAddress;
 @property (nonatomic, copy) NSString *receiveAddress;
 @property (nonatomic, copy) NSString *plateNumber;

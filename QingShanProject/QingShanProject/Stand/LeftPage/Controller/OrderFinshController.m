@@ -28,7 +28,12 @@
     // Do any additional setup after loading the view.
     [self initNavBar];
     [self initView];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     [self loadData];
+
 }
 
 - (void)initNavBar {
@@ -45,8 +50,8 @@
 - (void)loadData {
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
     [param setObject:self.orderId forKey:@"orderId"];
-    [NetWorking bgPostDataWithParameters:param withUrl:@"getOnWayOrder" withBlock:^(id result) {
-         FinishOrderRes *finishOrderRes = [FinishOrderRes mj_objectWithKeyValues:result];
+    [NetWorking postDataWithParameters:param withUrl:@"getBigOrderInfo" withBlock:^(id result) {
+        FinishOrderRes *finishOrderRes = [FinishOrderRes mj_objectWithKeyValues:result];
         self.model = finishOrderRes.object;
         [self setData];
     } withFailedBlock:^(NSString *errorResult) {
@@ -68,10 +73,18 @@
     CGFloat zoom = [self BMapSetPointCenterWithPoint11:sendPointAnnotation.coordinate withPoint2:reciverPointAnnotation.coordinate];
     CLLocationCoordinate2D center = [self BMapGetCenterWithPoint11:sendPointAnnotation.coordinate withPoint2:reciverPointAnnotation.coordinate];
     
-    _mapView.zoomLevel = zoom;
     [_mapView setCenterCoordinate:center animated:YES];
+    _mapView.zoomLevel = zoom;
     
+    [_mapView setCenterCoordinate:center animated:YES];
+    _mapView.zoomLevel = zoom;
+
     _finishView.model = _model;
+    if ([_model.status isEqualToString:@"1"]) {
+        self.title = @"订单详情";
+    }else if ([_model.status isEqualToString:@"9"]) {
+        self.title = @"订单取消";
+    }
 
 }
 
@@ -83,7 +96,6 @@
     _mapView.zoomEnabled = YES;
     _mapView.showMapScaleBar = YES;
     [self.view addSubview:_mapView];
-    
 }
 
 - (void)addFinishView {

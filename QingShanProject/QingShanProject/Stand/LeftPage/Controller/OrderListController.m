@@ -210,15 +210,20 @@
             }
         };
     }else if ([model.status isEqualToString:@"1"]) {
-        DriverOnWayController *onwayVc = [[DriverOnWayController alloc] init];
-        onwayVc.orderId = model.orderId;
-        [self.navigationController pushViewController:onwayVc animated:YES];
-        
+        if ([model.appointStatus isEqualToString:@"0"]) {
+            OrderFinshController *orderFinshController = [[OrderFinshController alloc] init];
+            orderFinshController.orderId = model.orderId;
+            [self.navigationController pushViewController:orderFinshController animated:YES];
+        }else{
+            DriverOnWayController *onwayVc = [[DriverOnWayController alloc] init];
+            onwayVc.orderId = model.orderId;
+            [self.navigationController pushViewController:onwayVc animated:YES];
+        }
     }else if ([model.status isEqualToString:@"2"]) {
         DriverOnWayController *onwayVc = [[DriverOnWayController alloc] init];
         onwayVc.orderId = model.orderId;
         [self.navigationController pushViewController:onwayVc animated:YES];
-    }else if ([model.status isEqualToString:@"3"]) {
+    }else if ([model.status isEqualToString:@"3"] || [model.status isEqualToString:@"9"]) {
         OrderFinshController *orderFinshController = [[OrderFinshController alloc] init];
         orderFinshController.orderId = model.orderId;
         [self.navigationController pushViewController:orderFinshController animated:YES];
