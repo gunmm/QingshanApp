@@ -54,6 +54,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self loadDataWithAppear];
+    [self queryMessageCount];
 }
 
 
@@ -157,6 +158,21 @@
 
         }
         NSLog(@"");
+    } withFailedBlock:^(NSString *errorResult) {
+        
+    }];
+}
+
+- (void)queryMessageCount {
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    [param setObject:[[Config shareConfig] getUserId] forKey:@"userId"];
+    
+    [NetWorking bgPostDataWithParameters:param withUrl:@"queryUnreadMessageCount" withBlock:^(id result) {
+        if ([[result objectForKey:@"object"] isEqualToString:@"0"]) {
+            self.messageBtn.redView.hidden = YES;
+        }else{
+            self.messageBtn.redView.hidden = NO;
+        }
     } withFailedBlock:^(NSString *errorResult) {
         
     }];

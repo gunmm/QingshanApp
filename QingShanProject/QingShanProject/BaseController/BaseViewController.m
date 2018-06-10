@@ -58,11 +58,11 @@
         NSString *msgStr = @"";
         if([notfiModel.type isEqualToString:@"1"]){
             typeStr = @"实时";
-            msgStr = [NSString stringWithFormat:@"订单类型：%@\n创建时间：%@\n联系人：%@\n车辆类型：%@\n发货地址：%@\n收货地址：%@\n备注：%@",typeStr, notfiModel.createTime, notfiModel.linkMan ,notfiModel.carTypeName, notfiModel.sendAddress, notfiModel.receiveAddress, notfiModel.note.length > 0 ? notfiModel.note: @"无"];            
+            msgStr = [NSString stringWithFormat:@"订单类型：%@\n创建时间：%@\n联系人：%@\n车辆类型：%@\n发货地址：%@\n收货地址：%@\n备注：%@\n距离：%.2f公里\n费用：%.2f元",typeStr, notfiModel.createTime, notfiModel.linkMan ,notfiModel.carTypeName, notfiModel.sendAddress, notfiModel.receiveAddress, notfiModel.note.length > 0 ? notfiModel.note: @"无", notfiModel.distance, notfiModel.price];
             [ShortSoundPlay playSoundWithPath:@"voice_now" withType:@"m4a"];
         }else{
             typeStr = @"预约";
-            msgStr = [NSString stringWithFormat:@"订单类型：%@\n创建时间：%@\n预约时间：%@\n联系人：%@\n车辆类型：%@\n发货地址：%@\n收货地址：%@\n备注：%@",typeStr, notfiModel.createTime, notfiModel.appointTime, notfiModel.linkMan, notfiModel.carTypeName, notfiModel.sendAddress, notfiModel.receiveAddress, notfiModel.note.length > 0 ? notfiModel.note: @"无"];
+            msgStr = [NSString stringWithFormat:@"订单类型：%@\n创建时间：%@\n预约时间：%@\n联系人：%@\n车辆类型：%@\n发货地址：%@\n收货地址：%@\n备注：%@\n距离：%.2f公里\n费用：%.2f元",typeStr, notfiModel.createTime, notfiModel.appointTime, notfiModel.linkMan, notfiModel.carTypeName, notfiModel.sendAddress, notfiModel.receiveAddress, notfiModel.note.length > 0 ? notfiModel.note: @"无", notfiModel.distance, notfiModel.price];
             [ShortSoundPlay playSoundWithPath:@"voice_booking" withType:@"m4a"];
 
         }
@@ -97,7 +97,18 @@
             } withFailedBlock:^(NSString *errorResult) {
                 [ShortSoundPlay playSoundWithPath:@"grab_failed" withType:@"m4a"];
             }];
+            
+            param = [NSMutableDictionary dictionary];
+            [param setObject:notfiModel.messageId forKey:@"messageId"];
+            [NetWorking bgPostDataWithParameters:param withUrl:@"setMessageRead" withBlock:^(id result) {
+            } withFailedBlock:^(NSString *errorResult) {
+            }];
         } withCancelBlock:^{
+            NSMutableDictionary *param = [NSMutableDictionary dictionary];
+            [param setObject:notfiModel.messageId forKey:@"messageId"];
+            [NetWorking bgPostDataWithParameters:param withUrl:@"setMessageRead" withBlock:^(id result) {
+            } withFailedBlock:^(NSString *errorResult) {
+            }];
             
         }];
 
@@ -131,6 +142,11 @@
                 [ShortSoundPlay playSoundWithPath:@"order_cancel" withType:@"m4a"];
 
                 [banner show];
+                NSMutableDictionary *param = [NSMutableDictionary dictionary];
+                [param setObject:notfiModel.messageId forKey:@"messageId"];
+                [NetWorking bgPostDataWithParameters:param withUrl:@"setMessageRead" withBlock:^(id result) {
+                } withFailedBlock:^(NSString *errorResult) {
+                }];
                 return;
             }
         }
@@ -139,7 +155,7 @@
         
         EBBannerView *banner = [EBBannerView bannerWithBlock:^(EBBannerViewMaker *make) {
             make.style = EBBannerViewStyleiOS9;
-            make.icon = [UIImage imageNamed:@"driver_head_default"];
+            make.icon = [UIImage imageNamed:@"chengkeface"];
             make.title = notfiModel.aps.alert;
             make.content = msgStr;
             make.stayDuration = 8;
@@ -154,6 +170,12 @@
         
         [banner show];
         banner.tapActBlock = ^{
+            NSMutableDictionary *param = [NSMutableDictionary dictionary];
+            [param setObject:notfiModel.messageId forKey:@"messageId"];
+            [NetWorking bgPostDataWithParameters:param withUrl:@"setMessageRead" withBlock:^(id result) {
+            } withFailedBlock:^(NSString *errorResult) {
+            }];
+            
             DriverOrderDetailController *driverOrderDetailController = [[DriverOrderDetailController alloc] init];
             driverOrderDetailController.orderId = notfiModel.orderId;
             [[NavBgImage getCurrentVC].view endEditing:YES];
@@ -190,13 +212,6 @@
             SeekViewController *seekVc = (SeekViewController *)[NavBgImage getCurrentVC];
             if ([seekVc.orderId isEqualToString:notfiModel.orderId]) {
                 [seekVc popActWithOrderType:notfiModel.type];
-                if ([notfiModel.appointStatus isEqualToString:@"0"]) {
-                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                        OrderFinshController *orderFinshController = [[OrderFinshController alloc] init];
-                        orderFinshController.orderId = notfiModel.orderId;
-                        [[NavBgImage getCurrentVC].navigationController pushViewController:orderFinshController animated:YES];
-                    });
-                }
                 EBBannerView *banner = [EBBannerView bannerWithBlock:^(EBBannerViewMaker *make) {
                     make.style = EBBannerViewStyleiOS9;
                     make.icon = [UIImage imageNamed:@"driver_head_default"];
@@ -206,6 +221,11 @@
                     make.date = dateStr;
                 }];
                 [banner show];
+                NSMutableDictionary *param = [NSMutableDictionary dictionary];
+                [param setObject:notfiModel.messageId forKey:@"messageId"];
+                [NetWorking bgPostDataWithParameters:param withUrl:@"setMessageRead" withBlock:^(id result) {
+                } withFailedBlock:^(NSString *errorResult) {
+                }];
                 return;
             }
         }
@@ -213,21 +233,7 @@
         if ([[NavBgImage getCurrentVC] isMemberOfClass:[DriverOnWayController class]]) {
             DriverOnWayController *onWayVc = (DriverOnWayController *)[NavBgImage getCurrentVC];
             if ([onWayVc.orderId isEqualToString:notfiModel.orderId]) {
-                if ([notfiModel.status isEqualToString:@"2"]) {
-                    [onWayVc loadData];
-                }else if ([notfiModel.status isEqualToString:@"3"]) {
-                    if (!onWayVc.orderCompleteBlock) {
-                        [onWayVc.navigationController popViewControllerAnimated:YES];
-                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                            OrderFinshController *orderFinshController = [[OrderFinshController alloc] init];
-                            orderFinshController.orderId = notfiModel.orderId;
-                            [[NavBgImage getCurrentVC].navigationController pushViewController:orderFinshController animated:YES];
-                        });
-                    }else{
-                        [onWayVc loadData];
-                    }
-                }
-                
+                [onWayVc loadData];
                 EBBannerView *banner = [EBBannerView bannerWithBlock:^(EBBannerViewMaker *make) {
                     make.style = EBBannerViewStyleiOS9;
                     make.icon = [UIImage imageNamed:@"driver_head_default"];
@@ -237,6 +243,11 @@
                     make.date = dateStr;
                 }];
                 [banner show];
+                NSMutableDictionary *param = [NSMutableDictionary dictionary];
+                [param setObject:notfiModel.messageId forKey:@"messageId"];
+                [NetWorking bgPostDataWithParameters:param withUrl:@"setMessageRead" withBlock:^(id result) {
+                } withFailedBlock:^(NSString *errorResult) {
+                }];
                 return;
             }
         }
@@ -251,27 +262,16 @@
         }];
         [banner show];
         banner.tapActBlock = ^{
+            NSMutableDictionary *param = [NSMutableDictionary dictionary];
+            [param setObject:notfiModel.messageId forKey:@"messageId"];
+            [NetWorking bgPostDataWithParameters:param withUrl:@"setMessageRead" withBlock:^(id result) {
+            } withFailedBlock:^(NSString *errorResult) {
+            }];
+            
             UIViewController *vc;
-            if ([notfiModel.status isEqualToString:@"1"]) {
-                if ([notfiModel.appointStatus isEqualToString:@"0"]) {
-                    OrderFinshController *orderFinshController = [[OrderFinshController alloc] init];
-                    orderFinshController.orderId = notfiModel.orderId;
-                    vc = orderFinshController;
-                }else{
-                    DriverOnWayController *onwayVc = [[DriverOnWayController alloc] init];
-                    onwayVc.orderId = notfiModel.orderId;
-                    vc = onwayVc;
-                }
-                
-            }else if ([notfiModel.status isEqualToString:@"2"]) {
-                DriverOnWayController *onwayVc = [[DriverOnWayController alloc] init];
-                onwayVc.orderId = notfiModel.orderId;
-                vc = onwayVc;
-            }else if ([notfiModel.status isEqualToString:@"3"]) {
-                OrderFinshController *orderFinshController = [[OrderFinshController alloc] init];
-                orderFinshController.orderId = notfiModel.orderId;
-                vc = orderFinshController;
-            }
+            DriverOnWayController *onwayVc = [[DriverOnWayController alloc] init];
+            onwayVc.orderId = notfiModel.orderId;
+            vc = onwayVc;
             
            
             [[NavBgImage getCurrentVC].view endEditing:YES];
@@ -297,13 +297,10 @@
         NSString *typeStr = @"预约";
         NSString *msgStr = [NSString stringWithFormat:@"司机开始执行预约订单\n订单类型：%@\n创建时间：%@\n预约时间：%@\n司机姓名：%@\n司机电话：%@\n车牌号：%@\n发货地址：%@\n收货地址：%@",typeStr, notfiModel.createTime, notfiModel.appointTime, notfiModel.driverName, notfiModel.driverPhone, notfiModel.plateNumber, notfiModel.sendAddress, notfiModel.receiveAddress];
         
-        if ([[NavBgImage getCurrentVC] isMemberOfClass:[OrderFinshController class]]) {
-            OrderFinshController *orderFinshController = (OrderFinshController *)[NavBgImage getCurrentVC];
-            if ([orderFinshController.orderId isEqualToString:notfiModel.orderId]) {
-                [orderFinshController.navigationController popViewControllerAnimated:YES];
-                DriverOnWayController *onwayVc = [[DriverOnWayController alloc] init];
-                onwayVc.orderId = notfiModel.orderId;
-                [[NavBgImage getCurrentVC].navigationController pushViewController:onwayVc animated:YES];
+        if ([[NavBgImage getCurrentVC] isMemberOfClass:[DriverOnWayController class]]) {
+            DriverOnWayController *onWayVc = (DriverOnWayController *)[NavBgImage getCurrentVC];
+            if ([onWayVc.orderId isEqualToString:notfiModel.orderId]) {
+                [onWayVc loadData];
                 EBBannerView *banner = [EBBannerView bannerWithBlock:^(EBBannerViewMaker *make) {
                     make.style = EBBannerViewStyleiOS9;
                     make.icon = [UIImage imageNamed:@"driver_head_default"];
@@ -313,9 +310,15 @@
                     make.date = dateStr;
                 }];
                 [banner show];
+                NSMutableDictionary *param = [NSMutableDictionary dictionary];
+                [param setObject:notfiModel.messageId forKey:@"messageId"];
+                [NetWorking bgPostDataWithParameters:param withUrl:@"setMessageRead" withBlock:^(id result) {
+                } withFailedBlock:^(NSString *errorResult) {
+                }];
                 return;
             }
         }
+        
         
         
         EBBannerView *banner = [EBBannerView bannerWithBlock:^(EBBannerViewMaker *make) {
@@ -328,6 +331,12 @@
         }];
         [banner show];
         banner.tapActBlock = ^{
+            NSMutableDictionary *param = [NSMutableDictionary dictionary];
+            [param setObject:notfiModel.messageId forKey:@"messageId"];
+            [NetWorking bgPostDataWithParameters:param withUrl:@"setMessageRead" withBlock:^(id result) {
+            } withFailedBlock:^(NSString *errorResult) {
+            }];
+            
             DriverOnWayController *onwayVc = [[DriverOnWayController alloc] init];
             onwayVc.orderId = notfiModel.orderId;
             

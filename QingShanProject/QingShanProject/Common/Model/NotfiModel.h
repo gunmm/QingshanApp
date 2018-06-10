@@ -17,6 +17,7 @@
 
 @property (nonatomic, copy) NSString *notifyType;  // 有新的订单newOrderNotify    被接单OrderBeReceivedNotify     订单被用户取消 OrderBeCanceledNotify
 @property (nonatomic, strong) NotfiApsModel *aps;
+@property (nonatomic, copy) NSString *messageId;
 
 //用户收到订单确认 被接单
 
@@ -40,6 +41,11 @@
 
 @property (nonatomic, copy) NSString *note;
 @property (nonatomic, copy) NSString *orderId;
+
+@property (nonatomic, assign) CGFloat price;
+@property (nonatomic, assign) CGFloat distance;
+
+
 
 
 //订单被用户取消

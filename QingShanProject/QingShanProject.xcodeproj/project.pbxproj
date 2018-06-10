@@ -15,7 +15,6 @@
 		760ED62520AAD43300E17C4D /* TextAndIconCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 760ED62320AAD43300E17C4D /* TextAndIconCell.xib */; };
 		762429A420C4CD86008292B6 /* DriverOrderListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 762429A320C4CD86008292B6 /* DriverOrderListController.m */; };
 		762429A720C50B91008292B6 /* MessageListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 762429A620C50B91008292B6 /* MessageListController.m */; };
-		762429A920C51A09008292B6 /* iconfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 762429A820C51A09008292B6 /* iconfont.ttf */; };
 		762429AC20C51A62008292B6 /* MessageBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 762429AB20C51A62008292B6 /* MessageBtn.m */; };
 		762429C120C52693008292B6 /* EBBannerView+Categories.m in Sources */ = {isa = PBXBuildFile; fileRef = 762429B020C52693008292B6 /* EBBannerView+Categories.m */; };
 		762429C220C52693008292B6 /* EBBannerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 762429B120C52693008292B6 /* EBBannerView.m */; };
@@ -89,12 +88,20 @@
 		765B05DB20BEAA2C0005DD8A /* UIView+WMFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 765B05D520BEAA2C0005DD8A /* UIView+WMFrame.m */; };
 		765B05DC20BEAA2C0005DD8A /* WMPhotoBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 765B05D720BEAA2C0005DD8A /* WMPhotoBrowser.m */; };
 		765B05DD20BEAA2C0005DD8A /* WMPhotoBrowserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 765B05D920BEAA2C0005DD8A /* WMPhotoBrowserCell.m */; };
+		7667A1D920C8F93D00A00ECD /* MessageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7667A1D820C8F93D00A00ECD /* MessageModel.m */; };
+		7667A1DC20C8FA2F00A00ECD /* MessageListRes.m in Sources */ = {isa = PBXBuildFile; fileRef = 7667A1DB20C8FA2F00A00ECD /* MessageListRes.m */; };
+		7667A1DE20C8FB4D00A00ECD /* iconfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7667A1DD20C8FB4D00A00ECD /* iconfont.ttf */; };
+		7667A1E220C8FD9200A00ECD /* MessageListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7667A1E020C8FD9200A00ECD /* MessageListCell.m */; };
+		7667A1E320C8FD9200A00ECD /* MessageListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7667A1E120C8FD9200A00ECD /* MessageListCell.xib */; };
 		76757B3D20A5DFCB004CA040 /* NotHaveDataView.m in Sources */ = {isa = PBXBuildFile; fileRef = 76757B3B20A5DFCA004CA040 /* NotHaveDataView.m */; };
 		76757B3E20A5DFCB004CA040 /* NotHaveDataView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 76757B3C20A5DFCA004CA040 /* NotHaveDataView.xib */; };
 		767E55F920A7C71900CA0CF2 /* TextTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 767E55F720A7C71900CA0CF2 /* TextTableViewCell.m */; };
 		767E55FA20A7C71900CA0CF2 /* TextTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 767E55F820A7C71900CA0CF2 /* TextTableViewCell.xib */; };
 		767E55FF20A8006E00CA0CF2 /* OrderConfirmView.m in Sources */ = {isa = PBXBuildFile; fileRef = 767E55FE20A8006E00CA0CF2 /* OrderConfirmView.m */; };
 		767E560120A8007E00CA0CF2 /* OrderConfirmView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 767E560020A8007E00CA0CF2 /* OrderConfirmView.xib */; };
+		767F629D20CD008F00FBA10A /* RobOrderController.m in Sources */ = {isa = PBXBuildFile; fileRef = 767F629C20CD008E00FBA10A /* RobOrderController.m */; };
+		767F62A020CD04F200FBA10A /* RobOrderDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 767F629F20CD04F200FBA10A /* RobOrderDetailView.m */; };
+		767F62A220CD04FB00FBA10A /* RobOrderDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 767F62A120CD04FB00FBA10A /* RobOrderDetailView.xib */; };
 		768B77F720A934B1002CE715 /* HttpClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 768B77F620A934B1002CE715 /* HttpClient.m */; };
 		768B77FD20A9760B002CE715 /* LoginModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 768B77FC20A9760B002CE715 /* LoginModel.m */; };
 		768B780020A978A6002CE715 /* LoginResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 768B77FF20A978A6002CE715 /* LoginResponse.m */; };
@@ -170,7 +177,6 @@
 		762429A320C4CD86008292B6 /* DriverOrderListController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DriverOrderListController.m; sourceTree = "<group>"; };
 		762429A520C50B91008292B6 /* MessageListController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MessageListController.h; sourceTree = "<group>"; };
 		762429A620C50B91008292B6 /* MessageListController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MessageListController.m; sourceTree = "<group>"; };
-		762429A820C51A09008292B6 /* iconfont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = iconfont.ttf; sourceTree = "<group>"; };
 		762429AA20C51A62008292B6 /* MessageBtn.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MessageBtn.h; sourceTree = "<group>"; };
 		762429AB20C51A62008292B6 /* MessageBtn.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MessageBtn.m; sourceTree = "<group>"; };
 		762429AF20C52693008292B6 /* EBBannerView+Categories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EBBannerView+Categories.h"; sourceTree = "<group>"; };
@@ -291,6 +297,14 @@
 		765B05D720BEAA2C0005DD8A /* WMPhotoBrowser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMPhotoBrowser.m; sourceTree = "<group>"; };
 		765B05D820BEAA2C0005DD8A /* WMPhotoBrowserCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMPhotoBrowserCell.h; sourceTree = "<group>"; };
 		765B05D920BEAA2C0005DD8A /* WMPhotoBrowserCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMPhotoBrowserCell.m; sourceTree = "<group>"; };
+		7667A1D720C8F93D00A00ECD /* MessageModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MessageModel.h; sourceTree = "<group>"; };
+		7667A1D820C8F93D00A00ECD /* MessageModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MessageModel.m; sourceTree = "<group>"; };
+		7667A1DA20C8FA2F00A00ECD /* MessageListRes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MessageListRes.h; sourceTree = "<group>"; };
+		7667A1DB20C8FA2F00A00ECD /* MessageListRes.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MessageListRes.m; sourceTree = "<group>"; };
+		7667A1DD20C8FB4D00A00ECD /* iconfont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = iconfont.ttf; sourceTree = "<group>"; };
+		7667A1DF20C8FD9200A00ECD /* MessageListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MessageListCell.h; sourceTree = "<group>"; };
+		7667A1E020C8FD9200A00ECD /* MessageListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MessageListCell.m; sourceTree = "<group>"; };
+		7667A1E120C8FD9200A00ECD /* MessageListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MessageListCell.xib; sourceTree = "<group>"; };
 		76757B3A20A5DFCA004CA040 /* NotHaveDataView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotHaveDataView.h; sourceTree = "<group>"; };
 		76757B3B20A5DFCA004CA040 /* NotHaveDataView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotHaveDataView.m; sourceTree = "<group>"; };
 		76757B3C20A5DFCA004CA040 /* NotHaveDataView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NotHaveDataView.xib; sourceTree = "<group>"; };
@@ -300,6 +314,11 @@
 		767E55FD20A8006E00CA0CF2 /* OrderConfirmView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderConfirmView.h; sourceTree = "<group>"; };
 		767E55FE20A8006E00CA0CF2 /* OrderConfirmView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderConfirmView.m; sourceTree = "<group>"; };
 		767E560020A8007E00CA0CF2 /* OrderConfirmView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OrderConfirmView.xib; sourceTree = "<group>"; };
+		767F629B20CD008E00FBA10A /* RobOrderController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RobOrderController.h; sourceTree = "<group>"; };
+		767F629C20CD008E00FBA10A /* RobOrderController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RobOrderController.m; sourceTree = "<group>"; };
+		767F629E20CD04F200FBA10A /* RobOrderDetailView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RobOrderDetailView.h; sourceTree = "<group>"; };
+		767F629F20CD04F200FBA10A /* RobOrderDetailView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RobOrderDetailView.m; sourceTree = "<group>"; };
+		767F62A120CD04FB00FBA10A /* RobOrderDetailView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RobOrderDetailView.xib; sourceTree = "<group>"; };
 		768B77F520A934B1002CE715 /* HttpClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HttpClient.h; sourceTree = "<group>"; };
 		768B77F620A934B1002CE715 /* HttpClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HttpClient.m; sourceTree = "<group>"; };
 		768B77FB20A9760B002CE715 /* LoginModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginModel.h; sourceTree = "<group>"; };
@@ -532,6 +551,8 @@
 				762429A320C4CD86008292B6 /* DriverOrderListController.m */,
 				7658206720C66EE6000B7C5D /* DriverOrderDetailController.h */,
 				7658206820C66EE6000B7C5D /* DriverOrderDetailController.m */,
+				767F629B20CD008E00FBA10A /* RobOrderController.h */,
+				767F629C20CD008E00FBA10A /* RobOrderController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -554,6 +575,9 @@
 				762FDAA620C6BD9700F90F7F /* DriverOrderDetailView.xib */,
 				762FDAAE20C6E1B700F90F7F /* RouteAnnotation.h */,
 				762FDAAF20C6E1B700F90F7F /* RouteAnnotation.m */,
+				767F629E20CD04F200FBA10A /* RobOrderDetailView.h */,
+				767F629F20CD04F200FBA10A /* RobOrderDetailView.m */,
+				767F62A120CD04FB00FBA10A /* RobOrderDetailView.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -673,6 +697,10 @@
 				7691D1E120BAF13D00E54D3C /* CarTypeModel.m */,
 				7691D1E320BAF14F00E54D3C /* CarTypeRes.h */,
 				7691D1E420BAF14F00E54D3C /* CarTypeRes.m */,
+				7667A1D720C8F93D00A00ECD /* MessageModel.h */,
+				7667A1D820C8F93D00A00ECD /* MessageModel.m */,
+				7667A1DA20C8FA2F00A00ECD /* MessageListRes.h */,
+				7667A1DB20C8FA2F00A00ECD /* MessageListRes.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -702,6 +730,9 @@
 				7691D1D120BA724300E54D3C /* SelectAddressHeadView.xib */,
 				762429AA20C51A62008292B6 /* MessageBtn.h */,
 				762429AB20C51A62008292B6 /* MessageBtn.m */,
+				7667A1DF20C8FD9200A00ECD /* MessageListCell.h */,
+				7667A1E020C8FD9200A00ECD /* MessageListCell.m */,
+				7667A1E120C8FD9200A00ECD /* MessageListCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -810,7 +841,7 @@
 		76DCBB402099A2B3001E4F6D /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				762429A820C51A09008292B6 /* iconfont.ttf */,
+				7667A1DD20C8FB4D00A00ECD /* iconfont.ttf */,
 				7691D1DB20BA7E5400E54D3C /* city.plist */,
 				7640547E209AEEA60038862A /* Color.h */,
 				7640547C209AEE640038862A /* Constant.h */,
@@ -1029,7 +1060,6 @@
 				76B7266920B6A97700A4DB23 /* OrderOnWayView.xib in Resources */,
 				7629034920A6A0C500CA4A9E /* end.png in Resources */,
 				76AB708920A57BEA00CC3C70 /* AddOrderView.xib in Resources */,
-				762429A920C51A09008292B6 /* iconfont.ttf in Resources */,
 				767E560120A8007E00CA0CF2 /* OrderConfirmView.xib in Resources */,
 				7645CB2720C78B400081280B /* chengkeface.png in Resources */,
 				76DCBB352099A229001E4F6D /* LaunchScreen.storyboard in Resources */,
@@ -1040,6 +1070,8 @@
 				7645CB3220C7B1030081280B /* order_cancel.m4a in Resources */,
 				767E55FA20A7C71900CA0CF2 /* TextTableViewCell.xib in Resources */,
 				76AB708320A56D0600CC3C70 /* slidmain_user_head.png in Resources */,
+				767F62A220CD04FB00FBA10A /* RobOrderDetailView.xib in Resources */,
+				7667A1DE20C8FB4D00A00ECD /* iconfont.ttf in Resources */,
 				7645CB3420C7B1030081280B /* order_strived.m4a in Resources */,
 				762429CB20C52693008292B6 /* EBMuteDetector.mp3 in Resources */,
 				7645CB3020C7B1030081280B /* grab_failed.m4a in Resources */,
@@ -1074,6 +1106,7 @@
 				762FDAA720C6BD9700F90F7F /* DriverOrderDetailView.xib in Resources */,
 				76757B3E20A5DFCB004CA040 /* NotHaveDataView.xib in Resources */,
 				762FDAAC20C6C3A900F90F7F /* pay_icon_crash.png in Resources */,
+				7667A1E320C8FD9200A00ECD /* MessageListCell.xib in Resources */,
 				762429C320C52693008292B6 /* EBBannerView.xib in Resources */,
 				76DCBB302099A226001E4F6D /* Main.storyboard in Resources */,
 			);
@@ -1166,6 +1199,8 @@
 				76AB709420A5935900CC3C70 /* MapHeadView.m in Sources */,
 				7653CD4220C3D8AA00DC9D3A /* DriverOrderListCell.m in Sources */,
 				768B77FD20A9760B002CE715 /* LoginModel.m in Sources */,
+				7667A1DC20C8FA2F00A00ECD /* MessageListRes.m in Sources */,
+				7667A1D920C8F93D00A00ECD /* MessageModel.m in Sources */,
 				762429AC20C51A62008292B6 /* MessageBtn.m in Sources */,
 				768C59C820BC0027004D38F8 /* OrderFinshController.m in Sources */,
 				760E95FC209C48850098F8A0 /* NetWorking.m in Sources */,
@@ -1200,9 +1235,11 @@
 				76467FEA20AECF650052AC66 /* WaitTitleView.m in Sources */,
 				7691D1D720BA7DFB00E54D3C /* GUNMMCityVC.m in Sources */,
 				7691D1DF20BA878D00E54D3C /* OrderListController.m in Sources */,
+				7667A1E220C8FD9200A00ECD /* MessageListCell.m in Sources */,
 				76F55BC820AD2D0200882E91 /* RegisterFooterView.m in Sources */,
 				762FDAB020C6E1B700F90F7F /* RouteAnnotation.m in Sources */,
 				76B7266120B6A24A00A4DB23 /* OrderModel.m in Sources */,
+				767F629D20CD008F00FBA10A /* RobOrderController.m in Sources */,
 				7629035620A6E5B200CA4A9E /* SelectTableViewCell.m in Sources */,
 				767E55F920A7C71900CA0CF2 /* TextTableViewCell.m in Sources */,
 				765B05DB20BEAA2C0005DD8A /* UIView+WMFrame.m in Sources */,
@@ -1243,6 +1280,7 @@
 				7658206920C66EE6000B7C5D /* DriverOrderDetailController.m in Sources */,
 				76405479209AED980038862A /* CustomSize.m in Sources */,
 				7691D1DA20BA7E3B00E54D3C /* CityCollectionViewCell.m in Sources */,
+				767F62A020CD04F200FBA10A /* RobOrderDetailView.m in Sources */,
 				7642E6C220BCE48000D859B7 /* OrderFinishView.m in Sources */,
 				76CA175C20B810CE00740909 /* UIImage+Rotate.m in Sources */,
 				760ED62420AAD43300E17C4D /* TextAndIconCell.m in Sources */,

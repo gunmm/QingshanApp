@@ -50,17 +50,15 @@
     [sublayer addSublayer:corLayer];
 }
 
-- (void)setUserModel:(UserModel *)userModel {
-    _userModel = userModel;
-    [_nameBtn setTitle:[NSString stringWithFormat:@"%@师傅",[_userModel.nickname substringToIndex:1]] forState:UIControlStateNormal];
-    _plateNumberLabel.text = userModel.plateNumber;
-    _scoreLabel.text = [NSString stringWithFormat:@"%.1f", userModel.score];
-    
-}
 
-- (void)setOrderModel:(OrderModel *)orderModel {
-    _orderModel = orderModel;
-    _typeLabel.text = _orderModel.carTypeName;
+- (void)setModel:(OrderModel *)model
+{
+    _model = model;
+    [_nameBtn setTitle:[NSString stringWithFormat:@"%@师傅",[_model.nickname substringToIndex:1]] forState:UIControlStateNormal];
+    _plateNumberLabel.text = _model.plateNumber;
+    _scoreLabel.text = [NSString stringWithFormat:@"%.1f", _model.score];
+    
+    _typeLabel.text = _model.carTypeName;
 
 }
 
@@ -76,7 +74,7 @@
     }
     
     NSString *distanceStr = [NSString stringWithFormat:@"%.2f公里",_drivingRouteLine.distance/1000.0];
-    if ([_orderModel.status isEqualToString:@"1"]) {
+    if ([_model.status isEqualToString:@"1"]) {
         _timeLabel.text = [NSString stringWithFormat:@"司机距离%@，大约%@后到达发货地址",distanceStr, timeStr];
     }else {
         _timeLabel.text = [NSString stringWithFormat:@"剩余距离%@，大约%@后到达收货地址",distanceStr, timeStr];
@@ -86,7 +84,7 @@
 }
 
 - (IBAction)callPhoneBtnAct:(id)sender {
-    NSMutableString *str = [[NSMutableString alloc] initWithFormat:@"telprompt://%@",_userModel.phoneNumber];
+    NSMutableString *str = [[NSMutableString alloc] initWithFormat:@"telprompt://%@",_model.phoneNumber];
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str] options:@{} completionHandler:^(BOOL success) {}];
 }
 

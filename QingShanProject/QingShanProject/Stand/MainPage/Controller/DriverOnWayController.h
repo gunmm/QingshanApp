@@ -9,15 +9,11 @@
 #import "BaseViewController.h"
 #import "OrderModel.h"
 
-typedef void(^OrderCompleteBlock)(OrderModel *model);
 
 
 @interface DriverOnWayController : BaseViewController
 
 @property (nonatomic, copy) NSString *orderId;
-@property (nonatomic, copy) OrderCompleteBlock orderCompleteBlock;
-
-
 
 - (void)loadData;
 

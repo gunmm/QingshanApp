@@ -12,6 +12,9 @@
 
 @property (strong, nonatomic) UIWindow *window;
 
+@property (nonatomic, copy) NSDictionary *notifyMsgInfo;
+
+
 
 @end
 

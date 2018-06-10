@@ -66,6 +66,8 @@
     _geoCodeSearch.delegate = self;
     _locService.delegate = self;
     _mapView.delegate = self;
+    
+    [self queryMessageCount];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -109,6 +111,21 @@
 - (void)messageAct {
     MessageListController *messageListController = [[MessageListController alloc] init];
     [self.navigationController pushViewController:messageListController animated:YES];
+}
+
+- (void)queryMessageCount {
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    [param setObject:[[Config shareConfig] getUserId] forKey:@"userId"];
+    
+    [NetWorking bgPostDataWithParameters:param withUrl:@"queryUnreadMessageCount" withBlock:^(id result) {
+        if ([[result objectForKey:@"object"] isEqualToString:@"0"]) {
+            self.messageBtn.redView.hidden = YES;
+        }else{
+            self.messageBtn.redView.hidden = NO;
+        }
+    } withFailedBlock:^(NSString *errorResult) {
+        
+    }];
 }
 
 
@@ -176,17 +193,9 @@
                     seekViewController.orderId = orderId;
                     [weakSelf.navigationController pushViewController:seekViewController animated:YES];
                     seekViewController.seekPopBlock = ^(NSString *orderId, NSString *orderType) {
-                        if ([orderType isEqualToString:@"1"]) {
                             DriverOnWayController *onwayVc = [[DriverOnWayController alloc] init];
                             onwayVc.orderId = orderId;
                             [weakSelf.navigationController pushViewController:onwayVc animated:YES];
-                            
-                            onwayVc.orderCompleteBlock = ^(OrderModel *model) {
-                                OrderFinshController *finishvC = [[OrderFinshController alloc] init];
-                                finishvC.orderId = model.orderId;
-                                [weakSelf.navigationController pushViewController:finishvC animated:YES];
-                            };
-                        }
                     };
                 };
                 

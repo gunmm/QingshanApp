@@ -28,11 +28,19 @@
 @property (nonatomic, copy) NSString *receiveAddress;
 @property (nonatomic, assign) double receiveLatitude;
 @property (nonatomic, assign) double receiveLongitude;
+
+@property (nonatomic, assign) double price; //费用
+@property (nonatomic, assign) double distance; //距离
+@property (nonatomic, copy) NSString *payType; //支付方式   1:支付宝支付    2:微信支付   3:现金支付
+@property (nonatomic, copy) NSString *payStatus; //支付状态   0:未支付   1:已支付
+
 @property (nonatomic, copy) NSString *siteComplaint;
 @property (nonatomic, copy) NSString *driverComplaint;
 
 @property (nonatomic, assign) long long createTime;
+@property (nonatomic, assign) long long updateTime;
 @property (nonatomic, assign) long long appointTime;
+
 
 @property (nonatomic, copy) NSString *phoneNumber;
 @property (nonatomic, copy) NSString *nickname;

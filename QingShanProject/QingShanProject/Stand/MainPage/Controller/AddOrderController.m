@@ -196,6 +196,13 @@
     [param setObject:[NSNumber numberWithDouble:_receivePt.latitude] forKey:@"receiveLatitude"];
     [param setObject:[NSNumber numberWithDouble:_receivePt.longitude] forKey:@"receiveLongitude"];
 
+    [param setObject:[NSNumber numberWithDouble:300] forKey:@"price"];
+    [param setObject:[NSNumber numberWithDouble:20] forKey:@"distance"];
+    [param setObject:@"1" forKey:@"payType"]; //支付方式   1:支付宝支付    2:微信支付   3:现金支付
+
+    
+    
+    
 
     [NetWorking postDataWithParameters:param withUrl:@"addOrder" withBlock:^(id result) {
         [HUDClass showHUDWithText:@"下单成功！"];

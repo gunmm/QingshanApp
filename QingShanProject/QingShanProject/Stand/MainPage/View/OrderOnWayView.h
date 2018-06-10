@@ -25,9 +25,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 @property (weak, nonatomic) IBOutlet UIView *bgView;
 
-
-@property (nonatomic, strong) UserModel *userModel;
-@property (nonatomic, strong) OrderModel *orderModel;
+@property (nonatomic, strong) OrderModel *model;
 
 @property (nonatomic, strong) BMKDrivingRouteLine *drivingRouteLine;
 

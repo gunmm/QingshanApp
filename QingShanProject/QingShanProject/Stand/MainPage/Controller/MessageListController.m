@@ -7,12 +7,19 @@
 //
 
 #import "MessageListController.h"
+#import "MessageListRes.h"
+#import "MessageModel.h"
+#import "MessageListCell.h"
+#import "DriverOrderDetailController.h"
+#import "OrderFinshController.h"
+#import "DriverOnWayController.h"
+#import "RobOrderController.h"
 
 @interface MessageListController () <UITableViewDelegate, UITableViewDataSource>
 
 
 @property (nonatomic, strong) UITableView *theTableView;
-@property (nonatomic, strong) NSMutableArray *dataList;
+@property (nonatomic, strong) NSMutableArray <MessageModel *> *dataList;
 
 @property (nonatomic, strong) NotHaveDataView *notHaveView;
 @property (nonatomic, assign) NSInteger currentpage;
@@ -29,98 +36,101 @@
     
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self loadDataWithAppear];
+}
+
 - (void)initNavBar {
     self.title = @"消息记录";
     self.view.backgroundColor = [UIColor whiteColor];
 }
 
 - (void)loadDataWithAppear {
-//    NSMutableDictionary *param = [NSMutableDictionary dictionary];
-//    [param setObject:[[Config shareConfig] getUserId] forKey:@"userId"];
-//    [param setObject:@"0" forKey:@"page"];
-//    [param setObject:[NSString stringWithFormat:@"%ld",(_currentpage + 1)*10] forKey:@"rows"];
-//
-//
-//    [NetWorking postDataWithParameters:param withUrl:@"getOrderList" withBlock:^(id result) {
-//
-//        [self.theTableView.mj_header endRefreshing];
-//
-//        [OrderListRes mj_setupObjectClassInArray:^NSDictionary *{
-//            return @{
-//                     @"object" : @"OrderModel",
-//                     };
-//        }];
-//        OrderListRes *orderListRes = [OrderListRes mj_objectWithKeyValues:result];
-//        if (orderListRes.object.count > 0) {
-//            self.dataList = [orderListRes.object mutableCopy];
-//        }else {
-//            [HUDClass showHUDWithText:@"没有更多数据！"];
-//        }
-//
-//        if (self.dataList.count > 0) {
-//            [self.notHaveView removeFromSuperview];
-//        }else{
-//            [self.notHaveView removeFromSuperview];
-//            self.notHaveView = [[NotHaveDataView alloc] init];
-//            self.notHaveView.contentLabel.text = @"暂无订单";
-//            [NavBgImage showIconFontForView:self.notHaveView.iconLabel iconName:@"\U0000e61f" color:[UIColor colorWithRed:66/255.0 green:67/255.0 blue:81/255.0 alpha:0.7] font:60];
-//            self.notHaveView.frame = CGRectMake(0, 0, kDeviceWidth, kDeviceHeight-STATUS_AND_NAVBAR_HEIGHT);
-//
-//            [self.theTableView addSubview:self.notHaveView];
-//        }
-//
-//
-//        [self.theTableView reloadData];
-//    } withFailedBlock:^(NSString *errorResult) {
-//
-//    }];
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    [param setObject:[[Config shareConfig] getUserId] forKey:@"userId"];
+    [param setObject:@"0" forKey:@"page"];
+    [param setObject:[NSString stringWithFormat:@"%ld",(_currentpage + 1)*10] forKey:@"rows"];
+
+
+    [NetWorking postDataWithParameters:param withUrl:@"getMessageList" withBlock:^(id result) {
+
+        [self.theTableView.mj_header endRefreshing];
+
+        [MessageListRes mj_setupObjectClassInArray:^NSDictionary *{
+            return @{
+                     @"object" : @"MessageModel",
+                     };
+        }];
+        MessageListRes *messageListRes = [MessageListRes mj_objectWithKeyValues:result];
+        self.dataList = [messageListRes.object mutableCopy];
+
+        if (self.dataList.count > 0) {
+            [self.notHaveView removeFromSuperview];
+        }else{
+            [self.notHaveView removeFromSuperview];
+            self.notHaveView = [[NotHaveDataView alloc] init];
+            self.notHaveView.contentLabel.text = @"暂未收到消息";
+            [NavBgImage showIconFontForView:self.notHaveView.iconLabel iconName:@"\U0000e610" color:[UIColor colorWithRed:66/255.0 green:67/255.0 blue:81/255.0 alpha:0.7] font:60];
+            self.notHaveView.frame = CGRectMake(0, 0, kDeviceWidth, kDeviceHeight-STATUS_AND_NAVBAR_HEIGHT);
+
+            [self.theTableView addSubview:self.notHaveView];
+        }
+
+
+        [self.theTableView reloadData];
+
+    } withFailedBlock:^(NSString *errorResult) {
+
+    }];
 }
 
 - (void)loadDataWithType:(NSString *)loadType {
-//    NSMutableDictionary *param = [NSMutableDictionary dictionary];
-//    [param setObject:[[Config shareConfig] getUserId] forKey:@"userId"];
-//    [param setObject:[NSString stringWithFormat:@"%ld",_currentpage] forKey:@"page"];
-//    [param setObject:@"10" forKey:@"rows"];
-//
-//    [NetWorking postDataWithParameters:param withUrl:@"getOrderList" withBlock:^(id result) {
-//
-//        [self.theTableView.mj_header endRefreshing];
-//        [self.theTableView.mj_footer endRefreshing];
-//
-//        [OrderListRes mj_setupObjectClassInArray:^NSDictionary *{
-//            return @{
-//                     @"object" : @"OrderModel",
-//                     };
-//        }];
-//        OrderListRes *orderListRes = [OrderListRes mj_objectWithKeyValues:result];
-//        if (orderListRes.object.count > 0) {
-//            if ([loadType isEqualToString:@"1"]) {
-//                self.dataList = [orderListRes.object mutableCopy];
-//            }else{
-//                [self.dataList addObjectsFromArray:orderListRes.object];
-//            }
-//
-//        }else {
-//            [HUDClass showHUDWithText:@"没有更多数据！"];
-//        }
-//
-//        if (self.dataList.count > 0) {
-//            [self.notHaveView removeFromSuperview];
-//        }else{
-//            [self.notHaveView removeFromSuperview];
-//            self.notHaveView = [[NotHaveDataView alloc] init];
-//            self.notHaveView.contentLabel.text = @"暂无订单";
-//            [NavBgImage showIconFontForView:self.notHaveView.iconLabel iconName:@"\U0000e61f" color:[UIColor colorWithRed:66/255.0 green:67/255.0 blue:81/255.0 alpha:0.7] font:60];
-//            self.notHaveView.frame = CGRectMake(0, 0, kDeviceWidth, kDeviceHeight-STATUS_AND_NAVBAR_HEIGHT);
-//
-//            [self.theTableView addSubview:self.notHaveView];
-//        }
-//
-//        [self.theTableView reloadData];
-//
-//    } withFailedBlock:^(NSString *errorResult) {
-//
-//    }];
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    [param setObject:[[Config shareConfig] getUserId] forKey:@"userId"];
+    [param setObject:[NSString stringWithFormat:@"%ld",_currentpage] forKey:@"page"];
+    [param setObject:@"10" forKey:@"rows"];
+
+    [NetWorking postDataWithParameters:param withUrl:@"getMessageList" withBlock:^(id result) {
+
+        [self.theTableView.mj_header endRefreshing];
+        [self.theTableView.mj_footer endRefreshing];
+
+        [MessageListRes mj_setupObjectClassInArray:^NSDictionary *{
+            return @{
+                     @"object" : @"MessageModel",
+                     };
+        }];
+        MessageListRes *messageListRes = [MessageListRes mj_objectWithKeyValues:result];
+        
+        if ([loadType isEqualToString:@"1"]) {
+            self.dataList = [messageListRes.object mutableCopy];
+        }else {
+            if ((messageListRes.object.count > 0)) {
+                [self.dataList addObjectsFromArray:messageListRes.object];
+            }else{
+                [HUDClass showHUDWithText:@"没有更多数据！"];
+            }
+        }
+        
+
+        if (self.dataList.count > 0) {
+            [self.notHaveView removeFromSuperview];
+        }else{
+            [self.notHaveView removeFromSuperview];
+            self.notHaveView = [[NotHaveDataView alloc] init];
+            self.notHaveView.contentLabel.text = @"暂无订单";
+            [NavBgImage showIconFontForView:self.notHaveView.iconLabel iconName:@"\U0000e610" color:[UIColor colorWithRed:66/255.0 green:67/255.0 blue:81/255.0 alpha:0.7] font:60];
+            self.notHaveView.frame = CGRectMake(0, 0, kDeviceWidth, kDeviceHeight-STATUS_AND_NAVBAR_HEIGHT);
+
+            [self.theTableView addSubview:self.notHaveView];
+        }
+
+        [self.theTableView reloadData];
+
+    } withFailedBlock:^(NSString *errorResult) {
+
+    }];
 }
 
 - (void)initView {
@@ -133,8 +143,12 @@
     _theTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kDeviceWidth, kDeviceHeight - STATUS_AND_NAVBAR_HEIGHT) style:UITableViewStylePlain];
     _theTableView.delegate = self;
     _theTableView.dataSource = self;
+    _theTableView.rowHeight = 122;
     _theTableView.tableFooterView = [UIView new];
+    _theTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:_theTableView];
+    
+    _theTableView.backgroundColor = bgColor;
     
     __weak typeof(self) weakSelf = self;
     _theTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
@@ -152,62 +166,52 @@
 
 #pragma mark -------<UITableViewDelegate, UITableViewDataSource>
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-//    return _dataList.count;
-    return 10;
+    return _dataList.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-//    static NSString *identifier = @"OrderListCell";
-//    OrderListCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-//    if (!cell) {
-//        cell = [[[NSBundle mainBundle] loadNibNamed:@"OrderListCell" owner:nil options:nil] lastObject];
-//    }
-//    cell.model = _dataList[indexPath.row];
-//    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    UITableViewCell *cell = [UITableViewCell new];
-    cell.backgroundColor = [UIColor redColor];
+    static NSString *identifier = @"MessageListCell";
+    MessageListCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+    if (!cell) {
+        cell = [[[NSBundle mainBundle] loadNibNamed:@"MessageListCell" owner:nil options:nil] lastObject];
+    }
+    cell.model = _dataList[indexPath.row];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+  
     return cell;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-//    OrderModel *model = _dataList[indexPath.row];
-//    if ([model.type isEqualToString:@"1"]) {
-//        return 125;
-//    }
-    return 145;
-}
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-//    OrderModel *model = _dataList[indexPath.row];
-//    if ([model.status isEqualToString:@"0"]) {
-//        SeekViewController *seekViewController = [[SeekViewController alloc] init];
-//        seekViewController.sendPt = CLLocationCoordinate2DMake(model.sendLatitude, model.sendLongitude);;
-//        seekViewController.createTime = model.createTime;
-//        seekViewController.orderId = model.orderId;
-//        [self.navigationController pushViewController:seekViewController animated:YES];
-//        __weak OrderListController *weakSelf = self;
-//
-//        seekViewController.seekPopBlock = ^(NSString *orderId, NSString *orderType) {
-//            if ([orderType isEqualToString:@"1"]) {
-//                DriverOnWayController *onwayVc = [[DriverOnWayController alloc] init];
-//                onwayVc.orderId = orderId;
-//                [weakSelf.navigationController pushViewController:onwayVc animated:YES];
-//            }
-//        };
-//    }else if ([model.status isEqualToString:@"1"]) {
-//        DriverOnWayController *onwayVc = [[DriverOnWayController alloc] init];
-//        onwayVc.orderId = model.orderId;
-//        [self.navigationController pushViewController:onwayVc animated:YES];
-//
-//    }else if ([model.status isEqualToString:@"2"]) {
-//        DriverOnWayController *onwayVc = [[DriverOnWayController alloc] init];
-//        onwayVc.orderId = model.orderId;
-//        [self.navigationController pushViewController:onwayVc animated:YES];
-//    }else if ([model.status isEqualToString:@"3"]) {
-//        OrderFinshController *orderFinshController = [[OrderFinshController alloc] init];
-//        orderFinshController.model = model;
-//        [self.navigationController pushViewController:orderFinshController animated:YES];
-//    }
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    [param setObject:_dataList[indexPath.row].messageId forKey:@"messageId"];
+    [NetWorking bgPostDataWithParameters:param withUrl:@"setMessageRead" withBlock:^(id result) {
+    } withFailedBlock:^(NSString *errorResult) {
+    }];
+    
+    
+    if ([[[Config shareConfig] getType] isEqualToString:@"1"]) {
+        MessageModel *model = _dataList[indexPath.row];
+        DriverOnWayController *onwayVc = [[DriverOnWayController alloc] init];
+        onwayVc.orderId = model.orderId;
+        [self.navigationController pushViewController:onwayVc animated:YES];
+    }else {
+        if ([_dataList[indexPath.row].messageType isEqualToString:@"newOrderNotify"]) {
+            RobOrderController *robVc = [[RobOrderController alloc] init];
+            robVc.orderId = _dataList[indexPath.row].orderId;
+            [self.navigationController pushViewController:robVc animated:YES];
+            __weak typeof(self) weakSelf = self;
+
+            robVc.robSuccessBlock = ^(NSString *orderId) {
+                DriverOrderDetailController *driverOrderDetailController = [[DriverOrderDetailController alloc] init];
+                driverOrderDetailController.orderId = orderId;
+                [weakSelf.navigationController pushViewController:driverOrderDetailController animated:YES];
+            };
+        }else {
+            DriverOrderDetailController *driverOrderDetailController = [[DriverOrderDetailController alloc] init];
+            driverOrderDetailController.orderId = _dataList[indexPath.row].orderId;
+            [self.navigationController pushViewController:driverOrderDetailController animated:YES];
+        }
+    }
 }
 
 

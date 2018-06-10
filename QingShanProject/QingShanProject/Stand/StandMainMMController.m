@@ -29,6 +29,15 @@
     // Do any additional setup after loading the view.
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+//    WiseCloudCRMAppDelegate *appDelegate = (WiseCloudCRMAppDelegate *)[[UIApplication sharedApplication] delegate];
+//    if (appDelegate.notifyMsgInfo != nil && appDelegate.notifyMsgInfo.count != 0 ) {
+//        [appDelegate jumpToMessageAboutController];
+//        appDelegate.notifyMsgInfo = nil;
+//    }
+}
+
 
 - (instancetype)initStandMainMMVC {
     

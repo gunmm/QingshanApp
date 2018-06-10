@@ -61,6 +61,8 @@
     //注册jpush
     [self registerJPushWithOptions:launchOptions];
     
+    
+    
     return YES;
 }
 
@@ -116,6 +118,13 @@
 #endif
     
     [JPUSHService setupWithOption:launchOptions appKey:JPUSH_APPKEY channel:@"ios" apsForProduction:0];
+    
+    
+    // App 是用户点击推送消息启动
+    NSDictionary *userInfo = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
+    if (userInfo) {
+        _notifyMsgInfo = userInfo;
+    }
 }
 
 

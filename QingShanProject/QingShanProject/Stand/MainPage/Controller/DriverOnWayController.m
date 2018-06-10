@@ -18,6 +18,8 @@
 
 #import "UIImage+Rotate.h"
 #import "RouteAnnotation.h"
+#import "FinishOrderRes.h"
+#import "OrderFinishView.h"
 
 
 
@@ -38,9 +40,10 @@
 }
 
 @property (strong, nonatomic) BMKMapView *mapView;
-@property (strong, nonatomic) UserModel *driverModel;
-@property (strong, nonatomic) OrderModel *orderModel;
+@property (strong, nonatomic) OrderModel *model;
 @property (strong, nonatomic) OrderOnWayView *orderOnWayView;
+@property (strong, nonatomic) OrderFinishView *orderFinishView;
+
 @property (strong, nonatomic) NSTimer *timer;
 @property (assign, nonatomic) NSInteger nowCount;
 
@@ -56,9 +59,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
     [self initNavBarWithStatus:@""];
     [self initView];
+    [self firstLoadData];
 }
 
 
@@ -66,19 +69,12 @@
     [super viewWillAppear:animated];
     _mapView.delegate = self;
     _locService.delegate = self;
-
-
-    _timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timerAct) userInfo:nil repeats:YES];
-
-    
-    [self loadAppearData];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     _mapView.delegate = nil;
     _locService.delegate = nil;
-
     [_timer invalidate];
 
 }
@@ -100,6 +96,12 @@
         [self.navigationItem setRightBarButtonItem:cancleBtn];
     }else if([status isEqualToString:@"2"]){
         self.title = @"运送中";
+        [self.navigationItem setRightBarButtonItem:nil];
+    }else if([status isEqualToString:@"3"]){
+        self.title = @"订单完成";
+        [self.navigationItem setRightBarButtonItem:nil];
+    }else if([status isEqualToString:@"9"]){
+        self.title = @"订单取消";
         [self.navigationItem setRightBarButtonItem:nil];
     }else {
         self.title = @"订单状态";
@@ -128,97 +130,108 @@
     
 }
 
-- (void)loadAppearData {
+- (void)firstLoadData {
+    
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
     [param setObject:self.orderId forKey:@"orderId"];
-    
-    [NetWorking postDataWithParameters:param withUrl:@"getOnWayOrder" withBlock:^(id result) {
-        OrderByIdRes *orderByIdRes = [OrderByIdRes mj_objectWithKeyValues:result];
-        self.driverModel = orderByIdRes.object.driver;
-        self.orderModel = orderByIdRes.object.order;
-        if ([self.orderModel.status isEqualToString:@"3"]) {
-            [HUDClass showHUDWithText:@"订单完成！"];
-            [self.navigationController popViewControllerAnimated:YES];
-        }
-        self.orderOnWayView.userModel = orderByIdRes.object.driver;
-        self.orderOnWayView.orderModel = orderByIdRes.object.order;
-        [self routePlan];
-        
-
-        [self initNavBarWithStatus:self.orderModel.status];
-
-
+    [NetWorking postDataWithParameters:param withUrl:@"getBigOrderInfo" withBlock:^(id result) {
+        FinishOrderRes *finishOrderRes = [FinishOrderRes mj_objectWithKeyValues:result];
+        self.model = finishOrderRes.object;
+        [self setView];
     } withFailedBlock:^(NSString *errorResult) {
         
     }];
+}
+
+- (void)setView {
+    if ([self.model.status isEqualToString:@"1"]) {
+        if ([self.model.appointStatus isEqualToString:@"0"]) {
+            self.orderOnWayView.hidden = YES;
+            self.orderFinishView.hidden = NO;
+            [_timer invalidate];
+            [self addPoint];
+            self.orderFinishView.model = self.model;
+        }else{
+            self.orderOnWayView.hidden = NO;
+            self.orderFinishView.hidden = YES;
+            [self startLocation];
+            [_timer invalidate];
+            _timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timerAct) userInfo:nil repeats:YES];
+            self.orderOnWayView.model = self.model;
+            [self routePlan];
+        }
+    }else if ([self.model.status isEqualToString:@"2"]) {
+        self.orderOnWayView.hidden = NO;
+        self.orderFinishView.hidden = YES;
+        [self startLocation];
+        [_timer invalidate];
+        _timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timerAct) userInfo:nil repeats:YES];
+        self.orderOnWayView.model = self.model;
+        [self routePlan];
+    }else if ([self.model.status isEqualToString:@"3"]) {
+        self.orderOnWayView.hidden = YES;
+        self.orderFinishView.hidden = NO;
+        [_timer invalidate];
+        self.orderFinishView.model = self.model;
+        [self addPoint];
+    }else if ([self.model.status isEqualToString:@"9"]) {
+        self.orderOnWayView.hidden = YES;
+        self.orderFinishView.hidden = NO;
+        self.orderFinishView.model = self.model;
+
+        [_timer invalidate];
+        [self addPoint];
+
+    }
+    
+    [self initNavBarWithStatus:_model.status];
+
+}
+
+- (void)addPoint {
+    [_mapView removeOverlays:_mapView.overlays];
+    [_mapView removeAnnotations:_mapView.annotations];
+    
+    BMKPointAnnotation *sendPointAnnotation = [[BMKPointAnnotation alloc] init];
+    sendPointAnnotation.coordinate = CLLocationCoordinate2DMake(_model.sendLatitude, _model.sendLongitude);
+    sendPointAnnotation.title = @"起点";
+    [_mapView addAnnotation:sendPointAnnotation];
+    
+    BMKPointAnnotation *reciverPointAnnotation = [[BMKPointAnnotation alloc] init];
+    reciverPointAnnotation.coordinate = CLLocationCoordinate2DMake(_model.receiveLatitude, _model.receiveLongitude);
+    reciverPointAnnotation.title = @"终点";
+    [_mapView addAnnotation:reciverPointAnnotation];
+    
+    CGFloat zoom = [self BMapSetPointCenterWithPoint11:sendPointAnnotation.coordinate withPoint2:reciverPointAnnotation.coordinate];
+    CLLocationCoordinate2D center = [self BMapGetCenterWithPoint11:sendPointAnnotation.coordinate withPoint2:reciverPointAnnotation.coordinate];
+    
+    _mapView.zoomLevel = zoom;
+    [_mapView setCenterCoordinate:center animated:YES];
+    
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        self.mapView.zoomLevel = zoom;
+        [self.mapView setCenterCoordinate:center animated:YES];
+        
+    });
 }
 
 - (void)loadData {
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
     [param setObject:self.orderId forKey:@"orderId"];
-    [NetWorking bgPostDataWithParameters:param withUrl:@"getOnWayOrder" withBlock:^(id result) {
-        [self startLocation];
+    [NetWorking bgPostDataWithParameters:param withUrl:@"getBigOrderInfo" withBlock:^(id result) {
+        self.nowCount = 0;
+        FinishOrderRes *finishOrderRes = [FinishOrderRes mj_objectWithKeyValues:result];
+        self.model = finishOrderRes.object;
 
-        OrderByIdRes *orderByIdRes = [OrderByIdRes mj_objectWithKeyValues:result];
-        self.driverModel = orderByIdRes.object.driver;
-        self.orderModel = orderByIdRes.object.order;
+        [self setView];
         
-        if ([self.orderModel.status isEqualToString:@"3"]) {
-            [self.timer invalidate];
-            self.orderModel.phoneNumber = self.driverModel.phoneNumber;
-            self.orderModel.nickname = self.driverModel.nickname;
-            self.orderModel.personImageUrl = self.driverModel.personImageUrl;
-            self.orderModel.nowLatitude = self.driverModel.nowLatitude;
-            self.orderModel.nowLongitude = self.driverModel.nowLongitude;
-            self.orderModel.plateNumber = self.driverModel.plateNumber;
-            self.orderModel.score = self.driverModel.score;
-        
-            [self.navigationController popViewControllerAnimated:YES];
-            if (self.orderCompleteBlock) {
-                self.orderCompleteBlock(self.orderModel);
-            }
-            return;
-        }
-        
-        self.orderOnWayView.userModel = orderByIdRes.object.driver;
-        self.orderOnWayView.orderModel = orderByIdRes.object.order;
-        [self routePlan];
-        [self initNavBarWithStatus:self.orderModel.status];
-
     } withFailedBlock:^(NSString *errorResult) {
         
     }];
    
 }
 
-- (void)addMapAnno {
-    BMKPointAnnotation *driverPointAnnotation = [[BMKPointAnnotation alloc]init];
-    driverPointAnnotation.coordinate = CLLocationCoordinate2DMake(_driverModel.nowLatitude, _driverModel.nowLongitude);
-    driverPointAnnotation.title = @"司机位置";
-    [_mapView addAnnotation:driverPointAnnotation];
-    
-    BMKPointAnnotation *sendPointAnnotation = [[BMKPointAnnotation alloc]init];
-   
-    
-    
-    if ([_orderModel.status isEqualToString:@"1"]) {
-        sendPointAnnotation.coordinate = CLLocationCoordinate2DMake(_orderModel.sendLatitude, _orderModel.sendLongitude);
-        sendPointAnnotation.title = @"发货位置";
-    }else if ([_orderModel.status isEqualToString:@"2"]) {
-        sendPointAnnotation.coordinate = CLLocationCoordinate2DMake(_orderModel.receiveLatitude, _orderModel.receiveLongitude);
-        sendPointAnnotation.title = @"收货位置";
-    }
-    [_mapView addAnnotation:sendPointAnnotation];
-
-    
-    
-//    CGFloat latZoom = [NavBgImage BMapSetPointCenterWithPoint11:CLLocationCoordinate2DMake(_driverModel.nowLatitude, _driverModel.nowLongitude) withPoint2:CLLocationCoordinate2DMake(_orderModel.sendLatitude, _orderModel.sendLongitude)];
-//    CLLocationCoordinate2D latCenter = [NavBgImage BMapGetCenterWithPoint11:CLLocationCoordinate2DMake(_driverModel.nowLatitude, _driverModel.nowLongitude) withPoint2:CLLocationCoordinate2DMake(_orderModel.sendLatitude, _orderModel.sendLongitude)];
-//
-//    _mapView.zoomLevel = latZoom;
-//    [_mapView setCenterCoordinate:latCenter animated:YES];
-    
-}
 
 - (void)initView {
     [self initMap];
@@ -236,13 +249,12 @@
 
 - (void)backBtnAct {
     _nowCount = 0;
-    [self loadAppearData];
-    
+    [self firstLoadData];
 }
 
 
 - (void)initMap {
-    _mapView = [[BMKMapView alloc]initWithFrame:CGRectMake(0, 0, kDeviceWidth, kDeviceHeight-STATUS_AND_NAVBAR_HEIGHT-200)];
+    _mapView = [[BMKMapView alloc]initWithFrame:CGRectMake(0, 0, kDeviceWidth, kDeviceHeight-STATUS_AND_NAVBAR_HEIGHT-240)];
     
     _mapView.zoomLevel = 15;
     _mapView.zoomEnabled = YES;
@@ -262,13 +274,18 @@
 }
 
 - (void)initInfoView {
-    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(5, _mapView.bottom+5, kDeviceWidth-20, 190)];
+    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(5, _mapView.bottom+5, kDeviceWidth-20, 230)];
     [self.view addSubview:bgView];
     
     _orderOnWayView = [[[NSBundle mainBundle] loadNibNamed:@"OrderOnWayView" owner:nil options:nil] lastObject];
-    _orderOnWayView.frame = CGRectMake(0, 0, kDeviceWidth-10, 190);
+    _orderOnWayView.frame = CGRectMake(0, 0, kDeviceWidth-10, 230);
     [bgView addSubview:_orderOnWayView];
     
+    
+    _orderFinishView = [[[NSBundle mainBundle] loadNibNamed:@"OrderFinishView" owner:nil options:nil] lastObject];
+    _orderFinishView.frame = CGRectMake(0, 0, kDeviceWidth-10, 230);
+    [bgView addSubview:_orderFinishView];
+    _orderFinishView.hidden = YES;
 }
 
 
@@ -329,20 +346,34 @@
         return [self getRouteAnnotationView:mapView viewForAnnotation:(RouteAnnotation *)annotation];
     }
 
-    if ([annotation.title isEqualToString:@"发货位置"] || [annotation.title isEqualToString:@"收货位置"]) {
-        BMKAnnotationView *annotationView = [[BMKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"location2"];
-        annotationView.image = [UIImage imageNamed:@"start_annotation"];
-        annotationView.centerOffset = CGPointMake(0, -20);
-        
-        return annotationView;
-    }else if([annotation.title isEqualToString:@"司机位置"]){
-        BMKAnnotationView *annotationView = [[BMKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"location1"];
-        annotationView.image = [UIImage imageNamed:@"icon_driver_car"];
-        annotationView.centerOffset = CGPointMake(0, -20);
     
+    if ([annotation.title isEqualToString:@"起点"]) {
+        BMKAnnotationView *annotationView = [[BMKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"location2"];
+        annotationView.image = [UIImage imageNamed:@"begin"];
+        annotationView.centerOffset = CGPointMake(0, -20);
         
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(-35, 50, 100, 0)];
+        label.textAlignment = NSTextAlignmentCenter;
+        label.text = _model.sendAddress;
+        label.font = [UIFont boldSystemFontOfSize:12];
+        [label sizeToFit];
+        label.left = -label.width/2+16.5;
+        [annotationView addSubview:label];
+        return annotationView;
+    }else if ([annotation.title isEqualToString:@"终点"]) {
+        BMKAnnotationView *annotationView = [[BMKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"location2"];
+        annotationView.image = [UIImage imageNamed:@"end"];
+        annotationView.centerOffset = CGPointMake(0, -20);
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(-35, 50, 100, 0)];
+        label.textAlignment = NSTextAlignmentCenter;
+        label.text = _model.receiveAddress;
+        label.font = [UIFont boldSystemFontOfSize:12];
+        [label sizeToFit];
+        label.left = -label.width/2+16.5;
+        [annotationView addSubview:label];
         return annotationView;
     }
+    
     
     return [mapView viewForAnnotation:annotation];
     
@@ -360,15 +391,15 @@
     
     BMKPlanNode *start = [[BMKPlanNode alloc] init];
     
-    start.pt = CLLocationCoordinate2DMake(_driverModel.nowLatitude, _driverModel.nowLongitude);;
+    start.pt = CLLocationCoordinate2DMake(_model.nowLatitude, _model.nowLongitude);;
     
     BMKPlanNode *end = [[BMKPlanNode alloc] init];
     
     CLLocationCoordinate2D endCor;
-    if ([_orderModel.status isEqualToString:@"1"]) {
-        endCor = CLLocationCoordinate2DMake(_orderModel.sendLatitude, _orderModel.sendLongitude);
+    if ([_model.status isEqualToString:@"1"]) {
+        endCor = CLLocationCoordinate2DMake(_model.sendLatitude, _model.sendLongitude);
     }else {
-        endCor = CLLocationCoordinate2DMake(_orderModel.receiveLatitude, _orderModel.receiveLongitude);
+        endCor = CLLocationCoordinate2DMake(_model.receiveLatitude, _model.receiveLongitude);
     }
     
     
@@ -403,7 +434,7 @@
         
     } else {
         NSLog(@"error code:%u", error);
-        [self addMapAnno];
+        [self addPoint];
     }
 }
 
@@ -445,7 +476,7 @@
             RouteAnnotation *item = [[RouteAnnotation alloc]init];
             item.coordinate = plan.terminal.location;
             item.type = 1;
-            if ([_orderModel.status isEqualToString:@"1"]) {
+            if ([_model.status isEqualToString:@"1"]) {
                 item.title = @"发货位置";
             }else {
                 item.title = @"收货位置";
@@ -600,6 +631,41 @@
         return s;
     }
     return nil ;
+}
+
+
+
+- (CGFloat)BMapSetPointCenterWithPoint11:(CLLocationCoordinate2D)point1 withPoint2:(CLLocationCoordinate2D)point2 {
+    int zoom = 13;
+    
+    int zooms[] = {50, 100, 200, 500, 1000, 2000, 5000, 10000, 20000, 25000, 50000,
+        100000, 200000, 500000, 1000000, 2000000};
+    BMKMapPoint dPoint1 = BMKMapPointForCoordinate(point1);
+    BMKMapPoint dPoint2 = BMKMapPointForCoordinate(point2);
+    CLLocationDistance distance = BMKMetersBetweenMapPoints(dPoint1, dPoint2);
+    
+    for (int i = 0; i < 16; i++) {
+        if ((zooms[i] - distance) > 0) {
+            zoom = 18 - i + 2;
+            break;
+        }
+    }
+    return zoom;
+    
+}
+
+- (CLLocationCoordinate2D)BMapGetCenterWithPoint11:(CLLocationCoordinate2D)point1 withPoint2:(CLLocationCoordinate2D)point2 {
+    double lat1 = point1.latitude;
+    double lng1 = point1.longitude;
+    
+    double lat2 = point2.latitude;
+    double lng2 = point2.longitude;
+    
+    double pointLng = (lng1 + lng2) / 2;
+    double pointLat = (lat1 + lat2) / 2;
+    
+    
+    return CLLocationCoordinate2DMake(pointLat, pointLng);
 }
 
 

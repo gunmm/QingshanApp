@@ -45,7 +45,7 @@
 
 - (void)setModel:(OrderModel *)model {
     _model = model;
-    if ([_model.appointStatus isEqualToString:@"0"]) {
+    if ([_model.appointStatus isEqualToString:@"0"] && ![_model.status isEqualToString:@"9"]) {
         _waitLabel.hidden = NO;
         _waitLabel.text = @"等待司机开始订单";
     }else if ([_model.status isEqualToString:@"9"]) {
