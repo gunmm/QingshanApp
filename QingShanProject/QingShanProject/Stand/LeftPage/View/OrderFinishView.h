@@ -9,9 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "OrderModel.h"
 
+typedef void(^CommentBtnActBlock)(BOOL hasComment);
 @interface OrderFinishView : UIView
 
 @property (nonatomic, strong) OrderModel *model;
+@property (nonatomic, copy) CommentBtnActBlock commentBtnActBlock;
+
 
 @property (weak, nonatomic) IBOutlet UILabel *plateNumberLabel;
 @property (weak, nonatomic) IBOutlet UIButton *driverBtn;
@@ -24,5 +27,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *priceLabl;
 @property (weak, nonatomic) IBOutlet UIView *bgView;
 @property (weak, nonatomic) IBOutlet UILabel *waitLabel;
+@property (weak, nonatomic) IBOutlet UIButton *commentBtn;
 
 @end

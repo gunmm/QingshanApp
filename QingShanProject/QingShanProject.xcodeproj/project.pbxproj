@@ -13,6 +13,13 @@
 		760ED62020AAD02200E17C4D /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 760ED61F20AAD02200E17C4D /* RegisterViewController.m */; };
 		760ED62420AAD43300E17C4D /* TextAndIconCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 760ED62220AAD43300E17C4D /* TextAndIconCell.m */; };
 		760ED62520AAD43300E17C4D /* TextAndIconCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 760ED62320AAD43300E17C4D /* TextAndIconCell.xib */; };
+		7612914A20CE590100F8509B /* StarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7612914920CE590100F8509B /* StarView.m */; };
+		7612914C20CE591300F8509B /* StarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7612914B20CE591300F8509B /* StarView.xib */; };
+		7612914F20CE5A1A00F8509B /* comment_star.png in Resources */ = {isa = PBXBuildFile; fileRef = 7612914D20CE5A1900F8509B /* comment_star.png */; };
+		7612915020CE5A1A00F8509B /* comment_star_highlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 7612914E20CE5A1A00F8509B /* comment_star_highlight.png */; };
+		7612915320CE5D0400F8509B /* CommentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7612915220CE5D0400F8509B /* CommentView.m */; };
+		7612915520CE5D0D00F8509B /* CommentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7612915420CE5D0D00F8509B /* CommentView.xib */; };
+		7612915C20CE6D5A00F8509B /* iconfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7612915B20CE6D5A00F8509B /* iconfont.ttf */; };
 		762429A420C4CD86008292B6 /* DriverOrderListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 762429A320C4CD86008292B6 /* DriverOrderListController.m */; };
 		762429A720C50B91008292B6 /* MessageListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 762429A620C50B91008292B6 /* MessageListController.m */; };
 		762429AC20C51A62008292B6 /* MessageBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 762429AB20C51A62008292B6 /* MessageBtn.m */; };
@@ -46,7 +53,6 @@
 		76405472209AED980038862A /* AlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7640545E209AED970038862A /* AlertView.m */; };
 		76405473209AED980038862A /* NavBgImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 7640545F209AED970038862A /* NavBgImage.m */; };
 		76405474209AED980038862A /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = 76405463209AED970038862A /* Location.m */; };
-		76405475209AED980038862A /* UIViewExt.m in Sources */ = {isa = PBXBuildFile; fileRef = 76405464209AED970038862A /* UIViewExt.m */; };
 		76405476209AED980038862A /* CustomIOS7AlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 76405466209AED970038862A /* CustomIOS7AlertView.m */; };
 		76405477209AED980038862A /* HUDClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 76405467209AED970038862A /* HUDClass.m */; };
 		76405478209AED980038862A /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 76405469209AED970038862A /* Utils.m */; };
@@ -90,7 +96,6 @@
 		765B05DD20BEAA2C0005DD8A /* WMPhotoBrowserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 765B05D920BEAA2C0005DD8A /* WMPhotoBrowserCell.m */; };
 		7667A1D920C8F93D00A00ECD /* MessageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7667A1D820C8F93D00A00ECD /* MessageModel.m */; };
 		7667A1DC20C8FA2F00A00ECD /* MessageListRes.m in Sources */ = {isa = PBXBuildFile; fileRef = 7667A1DB20C8FA2F00A00ECD /* MessageListRes.m */; };
-		7667A1DE20C8FB4D00A00ECD /* iconfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7667A1DD20C8FB4D00A00ECD /* iconfont.ttf */; };
 		7667A1E220C8FD9200A00ECD /* MessageListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7667A1E020C8FD9200A00ECD /* MessageListCell.m */; };
 		7667A1E320C8FD9200A00ECD /* MessageListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7667A1E120C8FD9200A00ECD /* MessageListCell.xib */; };
 		76757B3D20A5DFCB004CA040 /* NotHaveDataView.m in Sources */ = {isa = PBXBuildFile; fileRef = 76757B3B20A5DFCA004CA040 /* NotHaveDataView.m */; };
@@ -159,6 +164,7 @@
 		76DCBB4D2099B923001E4F6D /* BaseNavController.m in Sources */ = {isa = PBXBuildFile; fileRef = 76DCBB4C2099B923001E4F6D /* BaseNavController.m */; };
 		76DCBB502099B95D001E4F6D /* BaseTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 76DCBB4F2099B95D001E4F6D /* BaseTabBarController.m */; };
 		76DCBB532099B96D001E4F6D /* BaseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 76DCBB522099B96D001E4F6D /* BaseTableViewController.m */; };
+		76F1CB7020CEB27700B32392 /* UIViewExt.m in Sources */ = {isa = PBXBuildFile; fileRef = 76F1CB6E20CEB27600B32392 /* UIViewExt.m */; };
 		76F55BC820AD2D0200882E91 /* RegisterFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 76F55BC720AD2D0200882E91 /* RegisterFooterView.m */; };
 		76F55BCA20AD2D1100882E91 /* RegisterFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 76F55BC920AD2D1100882E91 /* RegisterFooterView.xib */; };
 /* End PBXBuildFile section */
@@ -173,6 +179,15 @@
 		760ED62120AAD43300E17C4D /* TextAndIconCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TextAndIconCell.h; sourceTree = "<group>"; };
 		760ED62220AAD43300E17C4D /* TextAndIconCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TextAndIconCell.m; sourceTree = "<group>"; };
 		760ED62320AAD43300E17C4D /* TextAndIconCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TextAndIconCell.xib; sourceTree = "<group>"; };
+		7612914820CE590100F8509B /* StarView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StarView.h; sourceTree = "<group>"; };
+		7612914920CE590100F8509B /* StarView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StarView.m; sourceTree = "<group>"; };
+		7612914B20CE591300F8509B /* StarView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StarView.xib; sourceTree = "<group>"; };
+		7612914D20CE5A1900F8509B /* comment_star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = comment_star.png; sourceTree = "<group>"; };
+		7612914E20CE5A1A00F8509B /* comment_star_highlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = comment_star_highlight.png; sourceTree = "<group>"; };
+		7612915120CE5D0400F8509B /* CommentView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommentView.h; sourceTree = "<group>"; };
+		7612915220CE5D0400F8509B /* CommentView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommentView.m; sourceTree = "<group>"; };
+		7612915420CE5D0D00F8509B /* CommentView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CommentView.xib; sourceTree = "<group>"; };
+		7612915B20CE6D5A00F8509B /* iconfont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = iconfont.ttf; sourceTree = "<group>"; };
 		762429A220C4CD86008292B6 /* DriverOrderListController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DriverOrderListController.h; sourceTree = "<group>"; };
 		762429A320C4CD86008292B6 /* DriverOrderListController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DriverOrderListController.m; sourceTree = "<group>"; };
 		762429A520C50B91008292B6 /* MessageListController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MessageListController.h; sourceTree = "<group>"; };
@@ -225,7 +240,6 @@
 		76405461209AED970038862A /* CustomIOS7AlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomIOS7AlertView.h; sourceTree = "<group>"; };
 		76405462209AED970038862A /* Location.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Location.h; sourceTree = "<group>"; };
 		76405463209AED970038862A /* Location.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Location.m; sourceTree = "<group>"; };
-		76405464209AED970038862A /* UIViewExt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIViewExt.m; sourceTree = "<group>"; };
 		76405465209AED970038862A /* Config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Config.h; sourceTree = "<group>"; };
 		76405466209AED970038862A /* CustomIOS7AlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomIOS7AlertView.m; sourceTree = "<group>"; };
 		76405467209AED970038862A /* HUDClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HUDClass.m; sourceTree = "<group>"; };
@@ -234,7 +248,6 @@
 		7640546A209AED970038862A /* CustomSize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomSize.m; sourceTree = "<group>"; };
 		7640546B209AED970038862A /* AlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlertView.h; sourceTree = "<group>"; };
 		7640546C209AED970038862A /* HUDClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HUDClass.h; sourceTree = "<group>"; };
-		7640546D209AED980038862A /* UIViewExt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIViewExt.h; sourceTree = "<group>"; };
 		7640546E209AED980038862A /* Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
 		7640546F209AED980038862A /* CustomSelectAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomSelectAlertView.h; sourceTree = "<group>"; };
 		7640547C209AEE640038862A /* Constant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constant.h; sourceTree = "<group>"; };
@@ -301,7 +314,6 @@
 		7667A1D820C8F93D00A00ECD /* MessageModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MessageModel.m; sourceTree = "<group>"; };
 		7667A1DA20C8FA2F00A00ECD /* MessageListRes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MessageListRes.h; sourceTree = "<group>"; };
 		7667A1DB20C8FA2F00A00ECD /* MessageListRes.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MessageListRes.m; sourceTree = "<group>"; };
-		7667A1DD20C8FB4D00A00ECD /* iconfont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = iconfont.ttf; sourceTree = "<group>"; };
 		7667A1DF20C8FD9200A00ECD /* MessageListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MessageListCell.h; sourceTree = "<group>"; };
 		7667A1E020C8FD9200A00ECD /* MessageListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MessageListCell.m; sourceTree = "<group>"; };
 		7667A1E120C8FD9200A00ECD /* MessageListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MessageListCell.xib; sourceTree = "<group>"; };
@@ -413,6 +425,8 @@
 		76DCBB512099B96D001E4F6D /* BaseTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseTableViewController.h; sourceTree = "<group>"; };
 		76DCBB522099B96D001E4F6D /* BaseTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseTableViewController.m; sourceTree = "<group>"; };
 		76EE776A2099BD6A000E06CA /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		76F1CB6E20CEB27600B32392 /* UIViewExt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIViewExt.m; sourceTree = "<group>"; };
+		76F1CB6F20CEB27700B32392 /* UIViewExt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIViewExt.h; sourceTree = "<group>"; };
 		76F55BC620AD2D0200882E91 /* RegisterFooterView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RegisterFooterView.h; sourceTree = "<group>"; };
 		76F55BC720AD2D0200882E91 /* RegisterFooterView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RegisterFooterView.m; sourceTree = "<group>"; };
 		76F55BC920AD2D1100882E91 /* RegisterFooterView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RegisterFooterView.xib; sourceTree = "<group>"; };
@@ -479,6 +493,9 @@
 				760ED62120AAD43300E17C4D /* TextAndIconCell.h */,
 				760ED62220AAD43300E17C4D /* TextAndIconCell.m */,
 				760ED62320AAD43300E17C4D /* TextAndIconCell.xib */,
+				7612914820CE590100F8509B /* StarView.h */,
+				7612914920CE590100F8509B /* StarView.m */,
+				7612914B20CE591300F8509B /* StarView.xib */,
 			);
 			path = CustomView;
 			sourceTree = "<group>";
@@ -733,6 +750,9 @@
 				7667A1DF20C8FD9200A00ECD /* MessageListCell.h */,
 				7667A1E020C8FD9200A00ECD /* MessageListCell.m */,
 				7667A1E120C8FD9200A00ECD /* MessageListCell.xib */,
+				7612915120CE5D0400F8509B /* CommentView.h */,
+				7612915220CE5D0400F8509B /* CommentView.m */,
+				7612915420CE5D0D00F8509B /* CommentView.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -841,7 +861,7 @@
 		76DCBB402099A2B3001E4F6D /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				7667A1DD20C8FB4D00A00ECD /* iconfont.ttf */,
+				7612915B20CE6D5A00F8509B /* iconfont.ttf */,
 				7691D1DB20BA7E5400E54D3C /* city.plist */,
 				7640547E209AEEA60038862A /* Color.h */,
 				7640547C209AEE640038862A /* Constant.h */,
@@ -855,6 +875,8 @@
 		76DCBB412099A2B3001E4F6D /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				76F1CB6F20CEB27700B32392 /* UIViewExt.h */,
+				76F1CB6E20CEB27600B32392 /* UIViewExt.m */,
 				7645CB3A20C7CE720081280B /* JZLocationConverter.h */,
 				7645CB3B20C7CE730081280B /* JZLocationConverter.m */,
 				762429AD20C52693008292B6 /* EBBannerView */,
@@ -878,8 +900,6 @@
 				76405463209AED970038862A /* Location.m */,
 				76405468209AED970038862A /* NavBgImage.h */,
 				7640545F209AED970038862A /* NavBgImage.m */,
-				7640546D209AED980038862A /* UIViewExt.h */,
-				76405464209AED970038862A /* UIViewExt.m */,
 				7640546E209AED980038862A /* Utils.h */,
 				76405469209AED970038862A /* Utils.m */,
 				760E95FA209C48850098F8A0 /* NetWorking.h */,
@@ -895,6 +915,8 @@
 		76DCBB422099A2B3001E4F6D /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				7612914E20CE5A1A00F8509B /* comment_star_highlight.png */,
+				7612914D20CE5A1900F8509B /* comment_star.png */,
 				7645CB2820C7B1030081280B /* SoundSources */,
 				7645CB2620C78B400081280B /* chengkeface.png */,
 				762FDAA820C6C3A900F90F7F /* pay_icon_alipay.png */,
@@ -1058,25 +1080,29 @@
 				76CA175920B8010800740909 /* driver_head_default.png in Resources */,
 				76B7266D20B6B03500A4DB23 /* icon_phone.png in Resources */,
 				76B7266920B6A97700A4DB23 /* OrderOnWayView.xib in Resources */,
+				7612914C20CE591300F8509B /* StarView.xib in Resources */,
 				7629034920A6A0C500CA4A9E /* end.png in Resources */,
+				7612915020CE5A1A00F8509B /* comment_star_highlight.png in Resources */,
 				76AB708920A57BEA00CC3C70 /* AddOrderView.xib in Resources */,
 				767E560120A8007E00CA0CF2 /* OrderConfirmView.xib in Resources */,
 				7645CB2720C78B400081280B /* chengkeface.png in Resources */,
 				76DCBB352099A229001E4F6D /* LaunchScreen.storyboard in Resources */,
 				7642E6C620BCEDBA00D859B7 /* icon_complaint.png in Resources */,
+				7612915520CE5D0D00F8509B /* CommentView.xib in Resources */,
 				7691D1D220BA724300E54D3C /* SelectAddressHeadView.xib in Resources */,
+				7612915C20CE6D5A00F8509B /* iconfont.ttf in Resources */,
 				76AB707B20A54F5000CC3C70 /* MyTableHeaderView.xib in Resources */,
 				76AB707520A5429E00CC3C70 /* MyInfo.storyboard in Resources */,
 				7645CB3220C7B1030081280B /* order_cancel.m4a in Resources */,
 				767E55FA20A7C71900CA0CF2 /* TextTableViewCell.xib in Resources */,
 				76AB708320A56D0600CC3C70 /* slidmain_user_head.png in Resources */,
 				767F62A220CD04FB00FBA10A /* RobOrderDetailView.xib in Resources */,
-				7667A1DE20C8FB4D00A00ECD /* iconfont.ttf in Resources */,
 				7645CB3420C7B1030081280B /* order_strived.m4a in Resources */,
 				762429CB20C52693008292B6 /* EBMuteDetector.mp3 in Resources */,
 				7645CB3020C7B1030081280B /* grab_failed.m4a in Resources */,
 				76F55BCA20AD2D1100882E91 /* RegisterFooterView.xib in Resources */,
 				76CA175720B7F8F100740909 /* icon_driver_car.png in Resources */,
+				7612914F20CE5A1A00F8509B /* comment_star.png in Resources */,
 				768C59BA20BBD387004D38F8 /* OrderListCell.xib in Resources */,
 				76DCBB322099A229001E4F6D /* Assets.xcassets in Resources */,
 				7653CD4320C3D8AA00DC9D3A /* DriverOrderListCell.xib in Resources */,
@@ -1210,6 +1236,7 @@
 				762429A720C50B91008292B6 /* MessageListController.m in Sources */,
 				76B7266420B6A34700A4DB23 /* OrderByIdRes.m in Sources */,
 				76DCBB4D2099B923001E4F6D /* BaseNavController.m in Sources */,
+				7612915320CE5D0400F8509B /* CommentView.m in Sources */,
 				76405478209AED980038862A /* Utils.m in Sources */,
 				765B05DD20BEAA2C0005DD8A /* WMPhotoBrowserCell.m in Sources */,
 				765ADE9F20B5520F001D96D9 /* NearbyCarListModel.m in Sources */,
@@ -1247,6 +1274,7 @@
 				762429C220C52693008292B6 /* EBBannerView.m in Sources */,
 				765B05DC20BEAA2C0005DD8A /* WMPhotoBrowser.m in Sources */,
 				762429C920C52693008292B6 /* EBEmptyWindow.m in Sources */,
+				7612914A20CE590100F8509B /* StarView.m in Sources */,
 				762429CA20C52693008292B6 /* EBMuteDetector.m in Sources */,
 				76B5F05B20BFA7AE009D30C1 /* DetailInfoHeaderView.m in Sources */,
 				76B5F05520BF9505009D30C1 /* ImagePreController.m in Sources */,
@@ -1255,8 +1283,8 @@
 				768C59C320BBD430004D38F8 /* OrderListRes.m in Sources */,
 				76AB708C20A57C0C00CC3C70 /* AddOrderView.m in Sources */,
 				7645CB3920C7B9D30081280B /* ShortSoundPlay.m in Sources */,
-				76405475209AED980038862A /* UIViewExt.m in Sources */,
 				7642E6D820BD510800D859B7 /* ImageCropperController.m in Sources */,
+				76F1CB7020CEB27700B32392 /* UIViewExt.m in Sources */,
 				768B780020A978A6002CE715 /* LoginResponse.m in Sources */,
 				76B7266720B6A96D00A4DB23 /* OrderOnWayView.m in Sources */,
 				767E55FF20A8006E00CA0CF2 /* OrderConfirmView.m in Sources */,

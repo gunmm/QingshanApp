@@ -255,6 +255,7 @@
                 <outlet property="bgView" destination="IfX-Dg-YPF" id="4Qw-dn-Kdg"/>
                 <outlet property="callBtn" destination="9lM-Nk-LLV" id="diG-Lm-aJT"/>
                 <outlet property="carTypeLabel" destination="S9m-3C-s4e" id="ZGH-0r-Xkf"/>
+                <outlet property="commentBtn" destination="031-WJ-yyW" id="jfH-e3-Oo4"/>
                 <outlet property="complaintBtn" destination="fvC-k9-kHS" id="T29-jf-nCo"/>
                 <outlet property="driverBtn" destination="Gx2-K3-wJq" id="jR7-zf-cfy"/>
                 <outlet property="plateNumberLabel" destination="U2m-S9-yqG" id="LUn-dt-cy1"/>

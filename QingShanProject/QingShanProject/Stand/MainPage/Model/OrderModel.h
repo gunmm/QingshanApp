@@ -34,6 +34,10 @@
 @property (nonatomic, copy) NSString *payType; //支付方式   1:支付宝支付    2:微信支付   3:现金支付
 @property (nonatomic, copy) NSString *payStatus; //支付状态   0:未支付   1:已支付
 
+@property (nonatomic, copy) NSString *commentContent; //评价内容
+@property (nonatomic, assign) double commentStar; //评价星级
+
+
 @property (nonatomic, copy) NSString *siteComplaint;
 @property (nonatomic, copy) NSString *driverComplaint;
 

@@ -20,6 +20,8 @@
 #import "RouteAnnotation.h"
 #import "FinishOrderRes.h"
 #import "OrderFinishView.h"
+#import "CustomIOS7AlertView.h"
+#import "CommentView.h"
 
 
 
@@ -47,9 +49,7 @@
 @property (strong, nonatomic) NSTimer *timer;
 @property (assign, nonatomic) NSInteger nowCount;
 
-
-
-
+@property (strong, nonatomic) CustomIOS7AlertView *customIOS7AlertView;
 
 
 @end
@@ -268,9 +268,7 @@
     [self.view addSubview:bgView];
     
     
-    _locService = [[BMKLocationService alloc] init];
-    [self startLocation];
-    
+    _locService = [[BMKLocationService alloc] init];    
 }
 
 - (void)initInfoView {
@@ -286,6 +284,57 @@
     _orderFinishView.frame = CGRectMake(0, 0, kDeviceWidth-10, 230);
     [bgView addSubview:_orderFinishView];
     _orderFinishView.hidden = YES;
+    
+    __weak typeof(self) weakSelf = self;
+
+    _orderFinishView.commentBtnActBlock = ^(BOOL hasComment) {
+        CommentView *commentView = [[[NSBundle mainBundle] loadNibNamed:@"CommentView" owner:nil options:nil] lastObject];
+        commentView.hasComment = hasComment;
+        commentView.frame = CGRectMake(0, 0, kDeviceWidth, 303);
+        commentView.closeBtnActBlock = ^{
+            [weakSelf.customIOS7AlertView close];
+        };
+        if (hasComment) {
+            if (weakSelf.model.commentStar == 1) {
+                [commentView.starView.starBtn1 sendActionsForControlEvents:UIControlEventTouchUpInside];
+            }else if (weakSelf.model.commentStar == 2) {
+                [commentView.starView.starBtn2 sendActionsForControlEvents:UIControlEventTouchUpInside];
+            }else if (weakSelf.model.commentStar == 3) {
+                [commentView.starView.starBtn3 sendActionsForControlEvents:UIControlEventTouchUpInside];
+            }else if (weakSelf.model.commentStar == 4) {
+                [commentView.starView.starBtn4 sendActionsForControlEvents:UIControlEventTouchUpInside];
+            }else if (weakSelf.model.commentStar == 5) {
+                [commentView.starView.starBtn5 sendActionsForControlEvents:UIControlEventTouchUpInside];
+            }
+            
+            commentView.contentTextView.text = weakSelf.model.commentContent;
+            commentView.placeHolderLabel.hidden = YES;
+            
+        }
+        
+        commentView.commitBtnActBlock = ^(NSInteger starNumber, NSString *contentStr) {
+            NSMutableDictionary *param = [NSMutableDictionary dictionary];
+            [param setObject:weakSelf.orderId forKey:@"orderId"];
+            [param setObject:[NSNumber numberWithInteger:starNumber] forKey:@"commentStar"];
+            [param setObject:contentStr forKey:@"commentContent"];
+
+            [NetWorking postDataWithParameters:param withUrl:@"commentOrder" withBlock:^(id result) {
+                [HUDClass showHUDWithText:@"评价成功，感谢评价！"];
+                [weakSelf.customIOS7AlertView close];
+                [weakSelf loadData];
+            } withFailedBlock:^(NSString *errorResult) {
+                
+            }];
+        };
+        
+        
+        weakSelf.customIOS7AlertView = [[CustomIOS7AlertView alloc] init];
+        weakSelf.customIOS7AlertView.tapClose = NO;
+        [weakSelf.customIOS7AlertView setButtonTitles:nil];
+        [weakSelf.customIOS7AlertView setContainerView:commentView];
+        [weakSelf.customIOS7AlertView showFromBottom];
+    };
+    
 }
 
 

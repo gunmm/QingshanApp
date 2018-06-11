@@ -12,6 +12,7 @@
 #import "BaseNavController.h"
 #import "DriverDetailController.h"
 #import "DriverOrderListController.h"
+#import "AppDelegate.h"
 
 @interface DriverMainMMController ()
 {
@@ -21,6 +22,22 @@
 @end
 
 @implementation DriverMainMMController
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    if (appDelegate.notifyMsgInfo != nil && appDelegate.notifyMsgInfo.count != 0 ) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            //发送应用内通知
+            NSNotification *notification = [NSNotification notificationWithName:@"concrete_notify" object:nil userInfo:appDelegate.notifyMsgInfo];
+            NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+            [center postNotification:notification];
+            appDelegate.notifyMsgInfo = nil;
+            
+        });
+        
+    }
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];

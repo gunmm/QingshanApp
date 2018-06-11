@@ -38,6 +38,7 @@ CGFloat buttonSpacerHeight = 0;
 {
     self = [super init];
     if (self) {
+        self.tapClose = YES;
         self.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
 
         delegate = self;
@@ -444,7 +445,9 @@ CGFloat buttonSpacerHeight = 0;
     // For the black background
     [self setFrame:CGRectMake(0, 0, screenSize.width, screenSize.height)];
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(close)];
-    [self addGestureRecognizer:tapGesture];
+    if (_tapClose) {
+        [self addGestureRecognizer:tapGesture];
+    }
     // This is the dialog's container; we attach the custom content and the buttons to this one
     UIView *dialogContainer = [[UIView alloc] initWithFrame:CGRectMake((screenSize.width - dialogSize.width) / 2, yHeight, dialogSize.width, dialogSize.height)];//在此处把y设为了yHeight，仅改动了此处
     
@@ -706,7 +709,7 @@ CGFloat buttonSpacerHeight = 0;
 
     [UIView animateWithDuration:0.2f delay:0.0 options:UIViewAnimationOptionTransitionNone
 					 animations:^{
-                         dialogView.frame = CGRectMake((screenSize.width - dialogSize.width) / 2, (screenSize.height - dialogSize.height) / 2, dialogSize.width, dialogSize.height);
+                         dialogView.frame = CGRectMake((screenSize.width - dialogSize.width) / 2, (screenSize.height - dialogSize.height), dialogSize.width, dialogSize.height);
 					 }
 					 completion:nil
 	 ];

@@ -36,7 +36,7 @@
     manager.shouldToolbarUsesTextFieldTintColor = YES;
     manager.enableAutoToolbar = YES;
     
-    
+   
     NSString *token = [[Config shareConfig] getToken];
     if (0 == token.length)
     {
@@ -56,8 +56,8 @@
     }
     
     [self initBaiduMap];
-    
-    
+
+
     //注册jpush
     [self registerJPushWithOptions:launchOptions];
     

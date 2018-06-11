@@ -16,7 +16,9 @@
 @property (nonatomic, copy) NSString *valueText;
 @property (nonatomic, copy) NSString *desc;
 
-
+@property (nonatomic, assign) double startPrice;
+@property (nonatomic, assign) double unitPrice;
+@property (nonatomic, assign) double startDistance;
 
 @end
 

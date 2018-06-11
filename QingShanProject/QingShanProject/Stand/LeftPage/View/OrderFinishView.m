@@ -45,6 +45,9 @@
 
 - (void)setModel:(OrderModel *)model {
     _model = model;
+    if (_model.commentStar > 0) {
+        [_commentBtn setTitle:@"查看评价 >" forState:UIControlStateNormal];
+    }
     if ([_model.appointStatus isEqualToString:@"0"] && ![_model.status isEqualToString:@"9"]) {
         _waitLabel.hidden = NO;
         _waitLabel.text = @"等待司机开始订单";
@@ -73,6 +76,15 @@
 - (IBAction)priceProblemBtnAct:(id)sender {
 }
 - (IBAction)commentBtnAct:(id)sender {
+    BOOL hasCommit = NO;
+    if (_model.commentStar > 0) {
+        hasCommit = YES;
+    }
+    if (self.commentBtnActBlock) {
+        self.commentBtnActBlock(hasCommit);
+    }
+    
+    
 }
 
 @end
