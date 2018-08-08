@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		0B811B416700B6359C20A590 /* Pods_QingShanProject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2CD5038F65C71F0AE37F837 /* Pods_QingShanProject.framework */; };
+		760C4AF92118344D007E6953 /* WaitDriverConfirmView.m in Sources */ = {isa = PBXBuildFile; fileRef = 760C4AF82118344D007E6953 /* WaitDriverConfirmView.m */; };
+		760C4AFB2118345B007E6953 /* WaitDriverConfirmView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 760C4AFA2118345B007E6953 /* WaitDriverConfirmView.xib */; };
 		760E95F9209BECA10098F8A0 /* StandMainMMController.m in Sources */ = {isa = PBXBuildFile; fileRef = 760E95F8209BECA10098F8A0 /* StandMainMMController.m */; };
 		760E95FC209C48850098F8A0 /* NetWorking.m in Sources */ = {isa = PBXBuildFile; fileRef = 760E95FB209C48850098F8A0 /* NetWorking.m */; };
 		760ED62020AAD02200E17C4D /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 760ED61F20AAD02200E17C4D /* RegisterViewController.m */; };
@@ -19,7 +21,6 @@
 		7612915020CE5A1A00F8509B /* comment_star_highlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 7612914E20CE5A1A00F8509B /* comment_star_highlight.png */; };
 		7612915320CE5D0400F8509B /* CommentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7612915220CE5D0400F8509B /* CommentView.m */; };
 		7612915520CE5D0D00F8509B /* CommentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7612915420CE5D0D00F8509B /* CommentView.xib */; };
-		7612915C20CE6D5A00F8509B /* iconfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7612915B20CE6D5A00F8509B /* iconfont.ttf */; };
 		762429A420C4CD86008292B6 /* DriverOrderListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 762429A320C4CD86008292B6 /* DriverOrderListController.m */; };
 		762429A720C50B91008292B6 /* MessageListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 762429A620C50B91008292B6 /* MessageListController.m */; };
 		762429AC20C51A62008292B6 /* MessageBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 762429AB20C51A62008292B6 /* MessageBtn.m */; };
@@ -84,6 +85,15 @@
 		76467FE720AEBBCC0052AC66 /* SeekViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 76467FE620AEBBCC0052AC66 /* SeekViewController.m */; };
 		76467FEA20AECF650052AC66 /* WaitTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 76467FE920AECF650052AC66 /* WaitTitleView.m */; };
 		76467FEC20AECF6F0052AC66 /* WaitTitleView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 76467FEB20AECF6F0052AC66 /* WaitTitleView.xib */; };
+		764777192108651100A92622 /* TouchScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 764777182108651100A92622 /* TouchScrollView.m */; };
+		764F891120CFA2A400CA478D /* PriceDeatilView.m in Sources */ = {isa = PBXBuildFile; fileRef = 764F891020CFA2A400CA478D /* PriceDeatilView.m */; };
+		764F891320CFA2AC00CA478D /* PriceDeatilView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 764F891220CFA2AC00CA478D /* PriceDeatilView.xib */; };
+		764F891620CFC35900CA478D /* PayDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 764F891520CFC35900CA478D /* PayDetailView.m */; };
+		764F891820CFC36500CA478D /* PayDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 764F891720CFC36500CA478D /* PayDetailView.xib */; };
+		764F891B20CFC7E900CA478D /* PayListTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 764F891A20CFC7E900CA478D /* PayListTableView.m */; };
+		764F891F20CFC80600CA478D /* PayListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 764F891D20CFC80600CA478D /* PayListCell.m */; };
+		764F892020CFC80600CA478D /* PayListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 764F891E20CFC80600CA478D /* PayListCell.xib */; };
+		764F892220CFCE9B00CA478D /* iconfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 764F892120CFCE9B00CA478D /* iconfont.ttf */; };
 		7653CD4220C3D8AA00DC9D3A /* DriverOrderListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7653CD4020C3D8AA00DC9D3A /* DriverOrderListCell.m */; };
 		7653CD4320C3D8AA00DC9D3A /* DriverOrderListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7653CD4120C3D8AA00DC9D3A /* DriverOrderListCell.xib */; };
 		7658206920C66EE6000B7C5D /* DriverOrderDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7658206820C66EE6000B7C5D /* DriverOrderDetailController.m */; };
@@ -123,6 +133,7 @@
 		7691D1DF20BA878D00E54D3C /* OrderListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7691D1DE20BA878D00E54D3C /* OrderListController.m */; };
 		7691D1E220BAF13D00E54D3C /* CarTypeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7691D1E120BAF13D00E54D3C /* CarTypeModel.m */; };
 		7691D1E520BAF14F00E54D3C /* CarTypeRes.m in Sources */ = {isa = PBXBuildFile; fileRef = 7691D1E420BAF14F00E54D3C /* CarTypeRes.m */; };
+		7694C62120D120760037C03F /* appicon1024.png in Resources */ = {isa = PBXBuildFile; fileRef = 7694C62020D120760037C03F /* appicon1024.png */; };
 		76AB706E20A52FEB00CC3C70 /* head.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 76AB706D20A52FEB00CC3C70 /* head.jpeg */; };
 		76AB707520A5429E00CC3C70 /* MyInfo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 76AB707420A5429E00CC3C70 /* MyInfo.storyboard */; };
 		76AB707B20A54F5000CC3C70 /* MyTableHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 76AB707A20A54F5000CC3C70 /* MyTableHeaderView.xib */; };
@@ -164,12 +175,17 @@
 		76DCBB4D2099B923001E4F6D /* BaseNavController.m in Sources */ = {isa = PBXBuildFile; fileRef = 76DCBB4C2099B923001E4F6D /* BaseNavController.m */; };
 		76DCBB502099B95D001E4F6D /* BaseTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 76DCBB4F2099B95D001E4F6D /* BaseTabBarController.m */; };
 		76DCBB532099B96D001E4F6D /* BaseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 76DCBB522099B96D001E4F6D /* BaseTableViewController.m */; };
+		76E10D59210966F80090711A /* InvoiceDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 76E10D58210966F80090711A /* InvoiceDetailView.m */; };
+		76E10D5B210967040090711A /* InvoiceDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 76E10D5A210967040090711A /* InvoiceDetailView.xib */; };
 		76F1CB7020CEB27700B32392 /* UIViewExt.m in Sources */ = {isa = PBXBuildFile; fileRef = 76F1CB6E20CEB27600B32392 /* UIViewExt.m */; };
 		76F55BC820AD2D0200882E91 /* RegisterFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 76F55BC720AD2D0200882E91 /* RegisterFooterView.m */; };
 		76F55BCA20AD2D1100882E91 /* RegisterFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 76F55BC920AD2D1100882E91 /* RegisterFooterView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		760C4AF72118344D007E6953 /* WaitDriverConfirmView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WaitDriverConfirmView.h; sourceTree = "<group>"; };
+		760C4AF82118344D007E6953 /* WaitDriverConfirmView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WaitDriverConfirmView.m; sourceTree = "<group>"; };
+		760C4AFA2118345B007E6953 /* WaitDriverConfirmView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WaitDriverConfirmView.xib; sourceTree = "<group>"; };
 		760E95F7209BECA10098F8A0 /* StandMainMMController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StandMainMMController.h; sourceTree = "<group>"; };
 		760E95F8209BECA10098F8A0 /* StandMainMMController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StandMainMMController.m; sourceTree = "<group>"; };
 		760E95FA209C48850098F8A0 /* NetWorking.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NetWorking.h; sourceTree = "<group>"; };
@@ -187,7 +203,6 @@
 		7612915120CE5D0400F8509B /* CommentView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommentView.h; sourceTree = "<group>"; };
 		7612915220CE5D0400F8509B /* CommentView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommentView.m; sourceTree = "<group>"; };
 		7612915420CE5D0D00F8509B /* CommentView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CommentView.xib; sourceTree = "<group>"; };
-		7612915B20CE6D5A00F8509B /* iconfont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = iconfont.ttf; sourceTree = "<group>"; };
 		762429A220C4CD86008292B6 /* DriverOrderListController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DriverOrderListController.h; sourceTree = "<group>"; };
 		762429A320C4CD86008292B6 /* DriverOrderListController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DriverOrderListController.m; sourceTree = "<group>"; };
 		762429A520C50B91008292B6 /* MessageListController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MessageListController.h; sourceTree = "<group>"; };
@@ -291,6 +306,20 @@
 		76467FE820AECF650052AC66 /* WaitTitleView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WaitTitleView.h; sourceTree = "<group>"; };
 		76467FE920AECF650052AC66 /* WaitTitleView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WaitTitleView.m; sourceTree = "<group>"; };
 		76467FEB20AECF6F0052AC66 /* WaitTitleView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WaitTitleView.xib; sourceTree = "<group>"; };
+		764777172108651100A92622 /* TouchScrollView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TouchScrollView.h; sourceTree = "<group>"; };
+		764777182108651100A92622 /* TouchScrollView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TouchScrollView.m; sourceTree = "<group>"; };
+		764F890F20CFA2A400CA478D /* PriceDeatilView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PriceDeatilView.h; sourceTree = "<group>"; };
+		764F891020CFA2A400CA478D /* PriceDeatilView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PriceDeatilView.m; sourceTree = "<group>"; };
+		764F891220CFA2AC00CA478D /* PriceDeatilView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PriceDeatilView.xib; sourceTree = "<group>"; };
+		764F891420CFC35900CA478D /* PayDetailView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PayDetailView.h; sourceTree = "<group>"; };
+		764F891520CFC35900CA478D /* PayDetailView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PayDetailView.m; sourceTree = "<group>"; };
+		764F891720CFC36500CA478D /* PayDetailView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PayDetailView.xib; sourceTree = "<group>"; };
+		764F891920CFC7E900CA478D /* PayListTableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PayListTableView.h; sourceTree = "<group>"; };
+		764F891A20CFC7E900CA478D /* PayListTableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PayListTableView.m; sourceTree = "<group>"; };
+		764F891C20CFC80600CA478D /* PayListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PayListCell.h; sourceTree = "<group>"; };
+		764F891D20CFC80600CA478D /* PayListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PayListCell.m; sourceTree = "<group>"; };
+		764F891E20CFC80600CA478D /* PayListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PayListCell.xib; sourceTree = "<group>"; };
+		764F892120CFCE9B00CA478D /* iconfont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = iconfont.ttf; sourceTree = "<group>"; };
 		7653CD3F20C3D8AA00DC9D3A /* DriverOrderListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DriverOrderListCell.h; sourceTree = "<group>"; };
 		7653CD4020C3D8AA00DC9D3A /* DriverOrderListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DriverOrderListCell.m; sourceTree = "<group>"; };
 		7653CD4120C3D8AA00DC9D3A /* DriverOrderListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DriverOrderListCell.xib; sourceTree = "<group>"; };
@@ -359,6 +388,7 @@
 		7691D1E120BAF13D00E54D3C /* CarTypeModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CarTypeModel.m; sourceTree = "<group>"; };
 		7691D1E320BAF14F00E54D3C /* CarTypeRes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CarTypeRes.h; sourceTree = "<group>"; };
 		7691D1E420BAF14F00E54D3C /* CarTypeRes.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CarTypeRes.m; sourceTree = "<group>"; };
+		7694C62020D120760037C03F /* appicon1024.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = appicon1024.png; sourceTree = "<group>"; };
 		76AB706D20A52FEB00CC3C70 /* head.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = head.jpeg; sourceTree = "<group>"; };
 		76AB707420A5429E00CC3C70 /* MyInfo.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MyInfo.storyboard; sourceTree = "<group>"; };
 		76AB707A20A54F5000CC3C70 /* MyTableHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MyTableHeaderView.xib; sourceTree = "<group>"; };
@@ -424,6 +454,9 @@
 		76DCBB4F2099B95D001E4F6D /* BaseTabBarController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseTabBarController.m; sourceTree = "<group>"; };
 		76DCBB512099B96D001E4F6D /* BaseTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseTableViewController.h; sourceTree = "<group>"; };
 		76DCBB522099B96D001E4F6D /* BaseTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseTableViewController.m; sourceTree = "<group>"; };
+		76E10D57210966F80090711A /* InvoiceDetailView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InvoiceDetailView.h; sourceTree = "<group>"; };
+		76E10D58210966F80090711A /* InvoiceDetailView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InvoiceDetailView.m; sourceTree = "<group>"; };
+		76E10D5A210967040090711A /* InvoiceDetailView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InvoiceDetailView.xib; sourceTree = "<group>"; };
 		76EE776A2099BD6A000E06CA /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		76F1CB6E20CEB27600B32392 /* UIViewExt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIViewExt.m; sourceTree = "<group>"; };
 		76F1CB6F20CEB27700B32392 /* UIViewExt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIViewExt.h; sourceTree = "<group>"; };
@@ -753,6 +786,25 @@
 				7612915120CE5D0400F8509B /* CommentView.h */,
 				7612915220CE5D0400F8509B /* CommentView.m */,
 				7612915420CE5D0D00F8509B /* CommentView.xib */,
+				764F890F20CFA2A400CA478D /* PriceDeatilView.h */,
+				764F891020CFA2A400CA478D /* PriceDeatilView.m */,
+				764F891220CFA2AC00CA478D /* PriceDeatilView.xib */,
+				764F891420CFC35900CA478D /* PayDetailView.h */,
+				764F891520CFC35900CA478D /* PayDetailView.m */,
+				764F891720CFC36500CA478D /* PayDetailView.xib */,
+				764F891920CFC7E900CA478D /* PayListTableView.h */,
+				764F891A20CFC7E900CA478D /* PayListTableView.m */,
+				764F891C20CFC80600CA478D /* PayListCell.h */,
+				764F891D20CFC80600CA478D /* PayListCell.m */,
+				764F891E20CFC80600CA478D /* PayListCell.xib */,
+				764777172108651100A92622 /* TouchScrollView.h */,
+				764777182108651100A92622 /* TouchScrollView.m */,
+				76E10D57210966F80090711A /* InvoiceDetailView.h */,
+				76E10D58210966F80090711A /* InvoiceDetailView.m */,
+				76E10D5A210967040090711A /* InvoiceDetailView.xib */,
+				760C4AF72118344D007E6953 /* WaitDriverConfirmView.h */,
+				760C4AF82118344D007E6953 /* WaitDriverConfirmView.m */,
+				760C4AFA2118345B007E6953 /* WaitDriverConfirmView.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -861,7 +913,7 @@
 		76DCBB402099A2B3001E4F6D /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				7612915B20CE6D5A00F8509B /* iconfont.ttf */,
+				764F892120CFCE9B00CA478D /* iconfont.ttf */,
 				7691D1DB20BA7E5400E54D3C /* city.plist */,
 				7640547E209AEEA60038862A /* Color.h */,
 				7640547C209AEE640038862A /* Constant.h */,
@@ -915,6 +967,7 @@
 		76DCBB422099A2B3001E4F6D /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				7694C62020D120760037C03F /* appicon1024.png */,
 				7612914E20CE5A1A00F8509B /* comment_star_highlight.png */,
 				7612914D20CE5A1900F8509B /* comment_star.png */,
 				7645CB2820C7B1030081280B /* SoundSources */,
@@ -1080,19 +1133,22 @@
 				76CA175920B8010800740909 /* driver_head_default.png in Resources */,
 				76B7266D20B6B03500A4DB23 /* icon_phone.png in Resources */,
 				76B7266920B6A97700A4DB23 /* OrderOnWayView.xib in Resources */,
+				764F892020CFC80600CA478D /* PayListCell.xib in Resources */,
 				7612914C20CE591300F8509B /* StarView.xib in Resources */,
 				7629034920A6A0C500CA4A9E /* end.png in Resources */,
+				76E10D5B210967040090711A /* InvoiceDetailView.xib in Resources */,
 				7612915020CE5A1A00F8509B /* comment_star_highlight.png in Resources */,
 				76AB708920A57BEA00CC3C70 /* AddOrderView.xib in Resources */,
 				767E560120A8007E00CA0CF2 /* OrderConfirmView.xib in Resources */,
 				7645CB2720C78B400081280B /* chengkeface.png in Resources */,
 				76DCBB352099A229001E4F6D /* LaunchScreen.storyboard in Resources */,
+				7694C62120D120760037C03F /* appicon1024.png in Resources */,
 				7642E6C620BCEDBA00D859B7 /* icon_complaint.png in Resources */,
 				7612915520CE5D0D00F8509B /* CommentView.xib in Resources */,
 				7691D1D220BA724300E54D3C /* SelectAddressHeadView.xib in Resources */,
-				7612915C20CE6D5A00F8509B /* iconfont.ttf in Resources */,
 				76AB707B20A54F5000CC3C70 /* MyTableHeaderView.xib in Resources */,
 				76AB707520A5429E00CC3C70 /* MyInfo.storyboard in Resources */,
+				760C4AFB2118345B007E6953 /* WaitDriverConfirmView.xib in Resources */,
 				7645CB3220C7B1030081280B /* order_cancel.m4a in Resources */,
 				767E55FA20A7C71900CA0CF2 /* TextTableViewCell.xib in Resources */,
 				76AB708320A56D0600CC3C70 /* slidmain_user_head.png in Resources */,
@@ -1101,10 +1157,12 @@
 				762429CB20C52693008292B6 /* EBMuteDetector.mp3 in Resources */,
 				7645CB3020C7B1030081280B /* grab_failed.m4a in Resources */,
 				76F55BCA20AD2D1100882E91 /* RegisterFooterView.xib in Resources */,
+				764F891320CFA2AC00CA478D /* PriceDeatilView.xib in Resources */,
 				76CA175720B7F8F100740909 /* icon_driver_car.png in Resources */,
 				7612914F20CE5A1A00F8509B /* comment_star.png in Resources */,
 				768C59BA20BBD387004D38F8 /* OrderListCell.xib in Resources */,
 				76DCBB322099A229001E4F6D /* Assets.xcassets in Resources */,
+				764F891820CFC36500CA478D /* PayDetailView.xib in Resources */,
 				7653CD4320C3D8AA00DC9D3A /* DriverOrderListCell.xib in Resources */,
 				7629034A20A6A0C500CA4A9E /* start_annotation.png in Resources */,
 				7642E6C420BCE48900D859B7 /* OrderFinishView.xib in Resources */,
@@ -1112,6 +1170,7 @@
 				76AB706E20A52FEB00CC3C70 /* head.jpeg in Resources */,
 				76B5F05D20BFA7B7009D30C1 /* DetailInfoHeaderView.xib in Resources */,
 				762429C520C52693008292B6 /* EBBannerViewController.xib in Resources */,
+				764F892220CFCE9B00CA478D /* iconfont.ttf in Resources */,
 				7645CB3520C7B1030081280B /* voice_booking.m4a in Resources */,
 				7642E6CE20BD308700D859B7 /* DriverInformation.storyboard in Resources */,
 				7642E6D520BD456600D859B7 /* choice_imgbg2.png in Resources */,
@@ -1236,6 +1295,7 @@
 				762429A720C50B91008292B6 /* MessageListController.m in Sources */,
 				76B7266420B6A34700A4DB23 /* OrderByIdRes.m in Sources */,
 				76DCBB4D2099B923001E4F6D /* BaseNavController.m in Sources */,
+				764F891B20CFC7E900CA478D /* PayListTableView.m in Sources */,
 				7612915320CE5D0400F8509B /* CommentView.m in Sources */,
 				76405478209AED980038862A /* Utils.m in Sources */,
 				765B05DD20BEAA2C0005DD8A /* WMPhotoBrowserCell.m in Sources */,
@@ -1245,6 +1305,7 @@
 				762429C820C52693008292B6 /* EBCustomBannerView.m in Sources */,
 				760E95F9209BECA10098F8A0 /* StandMainMMController.m in Sources */,
 				764054AC209B49A90038862A /* StandLeftPageController.m in Sources */,
+				764F891120CFA2A400CA478D /* PriceDeatilView.m in Sources */,
 				760ED62020AAD02200E17C4D /* RegisterViewController.m in Sources */,
 				76B5F04F20BF8C3A009D30C1 /* DriverDetailController.m in Sources */,
 				76B5F05220BF8F9D009D30C1 /* UserInfoRes.m in Sources */,
@@ -1252,6 +1313,7 @@
 				762FDAA520C6BD8F00F90F7F /* DriverOrderDetailView.m in Sources */,
 				764054A9209B498D0038862A /* DriverMainPageController.m in Sources */,
 				7691D1E520BAF14F00E54D3C /* CarTypeRes.m in Sources */,
+				764777192108651100A92622 /* TouchScrollView.m in Sources */,
 				768B77F720A934B1002CE715 /* HttpClient.m in Sources */,
 				76467FE720AEBBCC0052AC66 /* SeekViewController.m in Sources */,
 				76405472209AED980038862A /* AlertView.m in Sources */,
@@ -1264,6 +1326,7 @@
 				7691D1DF20BA878D00E54D3C /* OrderListController.m in Sources */,
 				7667A1E220C8FD9200A00ECD /* MessageListCell.m in Sources */,
 				76F55BC820AD2D0200882E91 /* RegisterFooterView.m in Sources */,
+				760C4AF92118344D007E6953 /* WaitDriverConfirmView.m in Sources */,
 				762FDAB020C6E1B700F90F7F /* RouteAnnotation.m in Sources */,
 				76B7266120B6A24A00A4DB23 /* OrderModel.m in Sources */,
 				767F629D20CD008F00FBA10A /* RobOrderController.m in Sources */,
@@ -1282,7 +1345,9 @@
 				76CA175220B7F09900740909 /* UserModel.m in Sources */,
 				768C59C320BBD430004D38F8 /* OrderListRes.m in Sources */,
 				76AB708C20A57C0C00CC3C70 /* AddOrderView.m in Sources */,
+				764F891F20CFC80600CA478D /* PayListCell.m in Sources */,
 				7645CB3920C7B9D30081280B /* ShortSoundPlay.m in Sources */,
+				76E10D59210966F80090711A /* InvoiceDetailView.m in Sources */,
 				7642E6D820BD510800D859B7 /* ImageCropperController.m in Sources */,
 				76F1CB7020CEB27700B32392 /* UIViewExt.m in Sources */,
 				768B780020A978A6002CE715 /* LoginResponse.m in Sources */,
@@ -1307,6 +1372,7 @@
 				7629035120A6DF3E00CA4A9E /* CustomSelectView.m in Sources */,
 				7658206920C66EE6000B7C5D /* DriverOrderDetailController.m in Sources */,
 				76405479209AED980038862A /* CustomSize.m in Sources */,
+				764F891620CFC35900CA478D /* PayDetailView.m in Sources */,
 				7691D1DA20BA7E3B00E54D3C /* CityCollectionViewCell.m in Sources */,
 				767F62A020CD04F200FBA10A /* RobOrderDetailView.m in Sources */,
 				7642E6C220BCE48000D859B7 /* OrderFinishView.m in Sources */,

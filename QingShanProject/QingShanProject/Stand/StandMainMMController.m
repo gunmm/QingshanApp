@@ -51,7 +51,7 @@
     
     StandMainPageController *standMainPageController = [[StandMainPageController alloc] init];
     mainNav = [[BaseNavController alloc] initWithRootViewController:standMainPageController];
-    __weak StandMainMMController *weakSelf = self;
+    __weak typeof(self) weakSelf = self;
     standMainPageController.standMainPageShowLeft = ^{
         [weakSelf openDrawerSide:MMDrawerSideLeft animated:YES completion:^(BOOL finished) {
         }];

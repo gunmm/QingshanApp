@@ -18,8 +18,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-//    UIImage *image = [NavBgImage createImageWithColor:[UIColor whiteColor]];
-    [self.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
+    UIImage *image = [NavBgImage createImageWithColor:[UIColor whiteColor]];
+    [self.navigationBar setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];
     [self.navigationBar setShadowImage:nil];
 //    self.navigationBar.barTintColor = mainColor;
     self.navigationBar.tintColor = mainColor;

@@ -38,11 +38,20 @@
 @property (nonatomic, assign) CLLocationCoordinate2D sendAddressPt;
 @property (nonatomic, assign) CLLocationCoordinate2D receiveAddressPt;
 
+@property (nonatomic, copy) NSString *sendDetailAddress;
+@property (nonatomic, copy) NSString *receiveDetailAddress;
+
+
 @property (nonatomic, copy) NSString *signSend;
 @property (nonatomic, assign) NSInteger resCount;
 @property (nonatomic, copy) NSString *nowCityString;
 
 @property (nonatomic, strong) MessageBtn *messageBtn;
+
+@property (nonatomic, strong) NSArray *geoCodeResultList;
+
+
+
 
 
 
@@ -148,16 +157,19 @@
     [bgView addSubview:_addOrderView];
     
 
-    __weak StandMainPageController *weakSelf = self;
+    __weak typeof(self) weakSelf = self;
     _addOrderView.sendTapActBlock = ^{
         SelectAddressController *selectAddressVc = [[SelectAddressController alloc] init];
         selectAddressVc.beginSerchString = weakSelf.addOrderView.sendTextField.text;
         selectAddressVc.beginSerchPt = weakSelf.sendAddressPt;
         selectAddressVc.nowCityString = weakSelf.nowCityString;
+        selectAddressVc.oldArray = weakSelf.geoCodeResultList;
+        
         [weakSelf.navigationController presentViewController:selectAddressVc animated:YES completion:nil];
         selectAddressVc.cellClickBlock = ^(NSString *name, NSString *address, CLLocationCoordinate2D pt) {
             weakSelf.addOrderView.sendTextField.text = name;
             weakSelf.sendAddressPt = pt;
+            weakSelf.sendDetailAddress = address;
             weakSelf.signSend = @"0";
             weakSelf.mapView.centerCoordinate = pt;
 
@@ -178,8 +190,10 @@
                 AddOrderController *addOrderVc = [[AddOrderController alloc] init];
                 addOrderVc.sendPt = weakSelf.sendAddressPt;
                 addOrderVc.sendAddress = weakSelf.addOrderView.sendTextField.text;
+                addOrderVc.sendDetailAddress = weakSelf.sendDetailAddress;
                 addOrderVc.receivePt = weakSelf.receiveAddressPt;
                 addOrderVc.receiveAddress = weakSelf.addOrderView.receiveTextField.text;
+                addOrderVc.receiveDetailAddress = address;
                 addOrderVc.isNow = weakSelf.addOrderView.isNow;
                 [weakSelf.navigationController presentViewController:addOrderVc animated:YES completion:nil];
                 addOrderVc.backDismissBlock = ^{
@@ -192,11 +206,11 @@
                     seekViewController.createTime = createTime;
                     seekViewController.orderId = orderId;
                     [weakSelf.navigationController pushViewController:seekViewController animated:YES];
-                    seekViewController.seekPopBlock = ^(NSString *orderId, NSString *orderType) {
-                            DriverOnWayController *onwayVc = [[DriverOnWayController alloc] init];
-                            onwayVc.orderId = orderId;
-                            [weakSelf.navigationController pushViewController:onwayVc animated:YES];
-                    };
+//                    seekViewController.seekPopBlock = ^(NSString *orderId, NSString *orderType) {
+//                            DriverOnWayController *onwayVc = [[DriverOnWayController alloc] init];
+//                            onwayVc.orderId = orderId;
+//                            [weakSelf.navigationController pushViewController:onwayVc animated:YES];
+//                    };
                 };
                 
                
@@ -234,8 +248,8 @@
 #pragma mark------反地理编码代理
 /** 反地理编码 */
 - (void)reverseLocation:(CLLocationCoordinate2D)userLocation {
-    BMKReverseGeoCodeOption *reverseGeocodeSearchOption = [[BMKReverseGeoCodeOption alloc] init];
-    reverseGeocodeSearchOption.reverseGeoPoint = userLocation;
+    BMKReverseGeoCodeSearchOption *reverseGeocodeSearchOption = [[BMKReverseGeoCodeSearchOption alloc] init];
+    reverseGeocodeSearchOption.location = userLocation;
     BOOL result = [_geoCodeSearch reverseGeoCode:reverseGeocodeSearchOption];
     
     if (!result) {
@@ -260,27 +274,21 @@
  *@param result 搜索结果
  *@param error 错误号，@see BMKSearchErrorCode
  */
-- (void)onGetReverseGeoCodeResult:(BMKGeoCodeSearch *)searcher result:(BMKReverseGeoCodeResult *)result errorCode:(BMKSearchErrorCode)error {
+
+- (void)onGetReverseGeoCodeResult:(BMKGeoCodeSearch *)searcher result:(BMKReverseGeoCodeSearchResult *)result errorCode:(BMKSearchErrorCode)error {
     if (error == BMK_SEARCH_NO_ERROR) {
-//        if (result.poiList.count > 1) {
-//            BMKPoiInfo *info = result.poiList[1];
-//            _addOrderView.sendTextField.text = info.name;
-//            _locationAddressName = info.name;
-//            NSLog(@"address:%@\n des:%@",result.address,result.sematicDescription);
-//        }else
         if(result.poiList.count > 0){
             BMKPoiInfo *info = result.poiList[0];
+            _geoCodeResultList = result.poiList;
             _addOrderView.sendTextField.text = info.name;
             _locationAddressName = info.name;
             _nowCityString = result.addressDetail.city;
+            _sendDetailAddress = info.address;
             NSLog(@"address:%@\n des:%@",result.address,result.sematicDescription);
         }
     }else {
         
     }
-    
-    
-   
 }
 
 

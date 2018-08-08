@@ -14,7 +14,7 @@
 
 @end
 
-@interface CustomIOS7AlertView : UIView<CustomIOS7AlertViewDelegate>
+@interface CustomIOS7AlertView : UIView<CustomIOS7AlertViewDelegate, UIGestureRecognizerDelegate>
 
 @property (nonatomic, retain) UIView *parentView;    // The parent view this 'dialog' is attached to
 @property (nonatomic, retain) UIView *dialogView;    // Dialog's container view

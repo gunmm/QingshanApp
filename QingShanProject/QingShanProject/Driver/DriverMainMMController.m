@@ -49,7 +49,7 @@
     
     DriverMainPageController *driverMainPageController = [[DriverMainPageController alloc] init];
     mainNav = [[BaseNavController alloc] initWithRootViewController:driverMainPageController];
-    __weak DriverMainMMController *weakSelf = self;
+    __weak typeof(self) weakSelf = self;
     driverMainPageController.driverMainPageShowLeft = ^{
         [weakSelf openDrawerSide:MMDrawerSideLeft animated:YES completion:^(BOOL finished) {
             

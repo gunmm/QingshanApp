@@ -28,23 +28,23 @@
 @property (nonatomic, copy) NSString *receiveAddress;
 @property (nonatomic, copy) NSString *plateNumber;
 @property (nonatomic, copy) NSString *driverName;
-@property (nonatomic, copy) NSString *createTime;
-@property (nonatomic, copy) NSString *appointTime;
+
 
 
 
 //司机收到新订单
 @property (nonatomic, copy) NSString *type;
-@property (nonatomic, copy) NSString *linkMan;
-@property (nonatomic, copy) NSString *carType;
-@property (nonatomic, copy) NSString *carTypeName;
-
-@property (nonatomic, copy) NSString *note;
 @property (nonatomic, copy) NSString *orderId;
-
+@property (nonatomic, copy) NSString *note;
+@property (nonatomic, copy) NSString *sendDetailAddress;
+@property (nonatomic, copy) NSString *receiveDetailAddress;
 @property (nonatomic, assign) CGFloat price;
 @property (nonatomic, assign) CGFloat distance;
+@property (nonatomic, assign) CGFloat toSendDistance;
 
+
+@property (nonatomic, copy) NSString *createTime;
+@property (nonatomic, copy) NSString *appointTime;
 
 
 

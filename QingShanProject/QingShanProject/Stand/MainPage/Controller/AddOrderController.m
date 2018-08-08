@@ -15,16 +15,27 @@
 #import "OrderConfirmView.h"
 #import "CarTypeModel.h"
 #import "CarTypeRes.h"
+#import <BaiduMapAPI_Search/BMKRouteSearch.h>
+#import "CustomIOS7AlertView.h"
+#import "PriceDeatilView.h"
+#import "PayDetailView.h"
+#import "TouchScrollView.h"
+#import "InvoiceDetailView.h"
 
 
 
-@interface AddOrderController () <BMKMapViewDelegate, BMKLocationServiceDelegate, UITableViewDelegate, UITableViewDataSource, CustomSelectViewDelegate>
+
+@interface AddOrderController () <BMKMapViewDelegate, BMKLocationServiceDelegate, UITableViewDelegate, UITableViewDataSource, CustomSelectViewDelegate, BMKRouteSearchDelegate>
 {
     BMKLocationService *_locService;
     MBProgressHUD *hud;
 }
 
 @property (strong, nonatomic) BMKMapView *mapView;
+@property (strong, nonatomic) BMKRouteSearch *routeSearch;
+
+@property (strong, nonatomic) TouchScrollView *bgScrollView;
+
 @property (strong, nonatomic) UITableView *theTableView;
 @property (nonatomic, strong) CustomSelectView *customSelectView;
 
@@ -41,6 +52,19 @@
 @property (nonatomic, strong) NSMutableArray *carTypeListTitle;
 
 @property (nonatomic, copy) NSString *carTypeValueStr;
+@property (nonatomic, assign) double starDistance;
+@property (nonatomic, assign) double starPrice;
+@property (nonatomic, assign) double unitPrice;
+@property (strong, nonatomic) CustomIOS7AlertView *customIOS7AlertView;
+
+
+
+
+
+@property (nonatomic, strong) BMKDrivingRouteLine *routeLine;
+
+@property (nonatomic, strong) NSDictionary *invoiceParam;
+
 
 
 
@@ -79,6 +103,8 @@
     [super viewWillDisappear:animated];
     _locService.delegate = nil;
     _mapView.delegate = nil;
+    _routeSearch.delegate = nil;
+
 }
 
 - (void)loadDictionaryData {
@@ -103,6 +129,17 @@
         for (CarTypeModel *model in self.carTypeList) {
             [self.carTypeListTitle addObject:model.desc];
         }
+        
+        if (self.typeSelectCell) {
+            self.typeSelectCell.contentLabel.text = self.carTypeListTitle[0];
+            CarTypeModel *model = self.carTypeList[0];
+            self.carTypeValueStr = model.keyText;
+            self.starDistance = model.startDistance;
+            self.starPrice = model.startPrice;
+            self.unitPrice = model.unitPrice;
+        }
+        [self routePlan];
+
     } withFailedBlock:^(NSString *errorResult) {
         
     }];
@@ -137,22 +174,112 @@
 }
 
 - (void)initView {
+    [self initScrollView];
     [self initMap];
     [self initTableView];
     [self initConfirmView];
 }
 
+- (void)initScrollView {
+    _bgScrollView = [[TouchScrollView alloc] initWithFrame:CGRectMake(0, STATUS_AND_NAVBAR_HEIGHT+2, kDeviceWidth, kDeviceHeight - STATUS_AND_NAVBAR_HEIGHT - 2)];
+    _bgScrollView.backgroundColor = bgColor;
+    _bgScrollView.bounces = NO;
+    if (_bgScrollView.height < (200 + 10 + 44*(_isNow?4:5) + 146 + 20)) {
+        _bgScrollView.contentSize = CGSizeMake(kDeviceWidth, 200 + 10 + 44*(_isNow?4:5) + 146 + 20);
+    }else{
+        _bgScrollView.contentSize = CGSizeMake(kDeviceWidth, _bgScrollView.height);
+    }
+    [self.view addSubview:_bgScrollView];
+}
+
 - (void)initConfirmView {
     _confirmView = [[[NSBundle mainBundle] loadNibNamed:@"OrderConfirmView" owner:nil options:nil] lastObject];
-    _confirmView.frame = CGRectMake(10, kDeviceHeight-156, kDeviceWidth-20, 146);
-    [self.view addSubview:_confirmView];
-    __weak AddOrderController *weakSelf = self;
+    _confirmView.frame = CGRectMake(10, _theTableView.bottom, kDeviceWidth-20, 146);
+    [_bgScrollView addSubview:_confirmView];
+    
+    
+    __weak typeof(self) weakSelf = self;
     _confirmView.confirmBlock = ^{
         [weakSelf confirmAct];
+    };
+    
+    _confirmView.priceDetailBtnBlock = ^{
+        PriceDeatilView *priceDetailView = [[[NSBundle mainBundle] loadNibNamed:@"PriceDeatilView" owner:nil options:nil] lastObject];
+        priceDetailView.frame = CGRectMake(0, 0, kDeviceWidth, 269);
+        priceDetailView.carTypeList = weakSelf.carTypeList;
+        priceDetailView.carTypeValueStr = weakSelf.carTypeValueStr;
+        priceDetailView.routeLine = weakSelf.routeLine;
+        priceDetailView.closeBtnActBlock = ^{
+            [weakSelf.customIOS7AlertView close];
+        };
+        weakSelf.customIOS7AlertView = [[CustomIOS7AlertView alloc] init];
+        [weakSelf.customIOS7AlertView setButtonTitles:nil];
+        [weakSelf.customIOS7AlertView setContainerView:priceDetailView];
+        [weakSelf.customIOS7AlertView showFromBottom];
+    };
+    
+    
+    _confirmView.invoiceBtnBlock = ^(NSString *selectType) {
+        if ([selectType isEqualToString:@"0"]) {
+            [AlertView alertViewWithTitle:@"提示" withMessage:@"需要发票 则\n必须预先线上支付运输费用" withConfirmTitle:@"确认" withCancelTitle:@"取消" withType:UIAlertControllerStyleAlert withConfirmBlock:^{
+                InvoiceDetailView *invoiceDetailView = [[[NSBundle mainBundle] loadNibNamed:@"InvoiceDetailView" owner:nil options:nil] lastObject];
+                invoiceDetailView.frame = CGRectMake(0, 0, kDeviceWidth, 355);
+                weakSelf.customIOS7AlertView = [[CustomIOS7AlertView alloc] init];
+                weakSelf.customIOS7AlertView.tapClose = NO;
+                [weakSelf.customIOS7AlertView setButtonTitles:nil];
+                [weakSelf.customIOS7AlertView setContainerView:invoiceDetailView];
+                [weakSelf.customIOS7AlertView showFromBottom];
+                
+                invoiceDetailView.confirmInvoiceBlock = ^(NSDictionary *invoiceParam) {
+                    weakSelf.invoiceParam = invoiceParam;
+                    [weakSelf.confirmView.invoiceBtn setTitle:@"已选发票" forState:UIControlStateNormal];
+                    [weakSelf.confirmView.invoiceBtn setBackgroundColor:mainColor];
+                    [weakSelf.confirmView.invoiceBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+                    [weakSelf.customIOS7AlertView close];
+                };
+                
+                invoiceDetailView.cancelInvoiceBlock = ^{
+                    [weakSelf.confirmView.invoiceBtn setBackgroundColor:[UIColor whiteColor]];
+                    [weakSelf.confirmView.invoiceBtn setTitle:@"发票" forState:UIControlStateNormal];
+                    [weakSelf.confirmView.invoiceBtn setTitleColor:mainColor forState:UIControlStateNormal];
+                    weakSelf.invoiceParam = nil;
+                    [weakSelf.customIOS7AlertView close];
+                };
+            } withCancelBlock:^{
+                
+            }];
+        }else {
+            InvoiceDetailView *invoiceDetailView = [[[NSBundle mainBundle] loadNibNamed:@"InvoiceDetailView" owner:nil options:nil] lastObject];
+            invoiceDetailView.frame = CGRectMake(0, 0, kDeviceWidth, 355);
+            invoiceDetailView.paramDictionary = weakSelf.invoiceParam;
+            weakSelf.customIOS7AlertView = [[CustomIOS7AlertView alloc] init];
+            weakSelf.customIOS7AlertView.tapClose = NO;
+            [weakSelf.customIOS7AlertView setButtonTitles:nil];
+            [weakSelf.customIOS7AlertView setContainerView:invoiceDetailView];
+            [weakSelf.customIOS7AlertView showFromBottom];
+            
+            invoiceDetailView.confirmInvoiceBlock = ^(NSDictionary *invoiceParam) {
+                weakSelf.invoiceParam = invoiceParam;
+                [weakSelf.confirmView.invoiceBtn setTitle:@"已选发票" forState:UIControlStateNormal];
+                [weakSelf.confirmView.invoiceBtn setBackgroundColor:mainColor];
+                [weakSelf.confirmView.invoiceBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+                [weakSelf.customIOS7AlertView close];
+            };
+            
+            invoiceDetailView.cancelInvoiceBlock = ^{
+                [weakSelf.confirmView.invoiceBtn setBackgroundColor:[UIColor whiteColor]];
+                [weakSelf.confirmView.invoiceBtn setTitle:@"发票" forState:UIControlStateNormal];
+                [weakSelf.confirmView.invoiceBtn setTitleColor:mainColor forState:UIControlStateNormal];
+                weakSelf.invoiceParam = nil;
+                [weakSelf.customIOS7AlertView close];
+            };
+        }
+        
     };
 }
 
 - (void)confirmAct {
+    
     if (!_confirmView.isSelect) {
         [AlertView preAlertViewWithTitle:@"请先同意协议" withMessage:@"" withType:UIAlertControllerStyleAlert withConfirmBlock:^{}];
         return;
@@ -173,37 +300,83 @@
         return;
     }
     
+    __weak typeof(self) weakSelf = self;
+    
+    [AlertView alertViewWithTitle:@"提示" withMessage:@"请核对好所选择的车辆类型的 运载量 和 容量\n下单后不可修改" withConfirmTitle:@"继续下单" withCancelTitle:@"重新选择" withType:UIAlertControllerStyleAlert withConfirmBlock:^{
+        if (!weakSelf.invoiceParam) {
+            [self addOrderWithPayType:@"3" withPayId:@""];
+        }else{
+            PayDetailView *payDetailView = [[[NSBundle mainBundle] loadNibNamed:@"PayDetailView" owner:nil options:nil] lastObject];
+            payDetailView.frame = CGRectMake(0, 0, kDeviceWidth, 256);
+            self.customIOS7AlertView = [[CustomIOS7AlertView alloc] init];
+            [self.customIOS7AlertView setButtonTitles:nil];
+            [self.customIOS7AlertView setContainerView:payDetailView];
+            [self.customIOS7AlertView showFromBottom];
+            
+            
+            
+            payDetailView.payBtnActBlock = ^(NSString *payType) {
+                [weakSelf.customIOS7AlertView close];
+                if ([payType isEqualToString:@"1"]) {
+                    //跳转支付宝支付
+                    [self addOrderWithPayType:@"1" withPayId:@"zfb-zfid-0001"];
+                }else if ([payType isEqualToString:@"2"]) {
+                    //跳转微信支付
+                    [self addOrderWithPayType:@"2" withPayId:@"wx-wxid-0001"];
+                }
+            };
+        }
+    } withCancelBlock:^{
+        
+    }];
+    
+}
+
+- (void)addOrderWithPayType:(NSString *)payType withPayId:(NSString *)payId {
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    
+    NSMutableDictionary *orderParam = [NSMutableDictionary dictionary];
     if (_isNow) {
-        [param setObject:@"1" forKey:@"type"];
+        [orderParam setObject:@"1" forKey:@"type"];
     }else {
-        [param setObject:@"2" forKey:@"type"];
-        [param setObject:_appointTimeCell.contentLabel.text forKey:@"appointTime"];
+        [orderParam setObject:@"2" forKey:@"type"];
+        [orderParam setObject:_appointTimeCell.contentLabel.text forKey:@"appointTime"];
     }
-    [param setObject:[[Config shareConfig] getUserId] forKey:@"createManId"];
-    [param setObject:_nameCell.contentTextF.text forKey:@"linkMan"];
-    [param setObject:_phoneCell.contentTextF.text forKey:@"linkPhone"];
+    [orderParam setObject:[[Config shareConfig] getUserId] forKey:@"createManId"];
+    [orderParam setObject:_nameCell.contentTextF.text forKey:@"linkMan"];
+    [orderParam setObject:_phoneCell.contentTextF.text forKey:@"linkPhone"];
     
-    [param setObject:_carTypeValueStr forKey:@"carType"];
-    [param setObject:_remarkCell.contentTextF.text forKey:@"note"];
+    [orderParam setObject:_carTypeValueStr forKey:@"carType"];
+    [orderParam setObject:_remarkCell.contentTextF.text forKey:@"note"];
+    
+    
+    [orderParam setObject:_sendAddress forKey:@"sendAddress"];
+    [orderParam setObject:_sendDetailAddress forKey:@"sendDetailAddress"];
+    [orderParam setObject:[NSNumber numberWithDouble:_sendPt.latitude] forKey:@"sendLatitude"];
+    [orderParam setObject:[NSNumber numberWithDouble:_sendPt.longitude] forKey:@"sendLongitude"];
+    
+    [orderParam setObject:_receiveAddress forKey:@"receiveAddress"];
+    [orderParam setObject:_receiveDetailAddress forKey:@"receiveDetailAddress"];
+    [orderParam setObject:[NSNumber numberWithDouble:_receivePt.latitude] forKey:@"receiveLatitude"];
+    [orderParam setObject:[NSNumber numberWithDouble:_receivePt.longitude] forKey:@"receiveLongitude"];
+    
+    double price = ((self.routeLine.distance/1000 - self.starDistance)>0 ? (self.routeLine.distance/1000 - self.starDistance) : 0) * self.unitPrice + self.starPrice;
+    [orderParam setObject:[NSNumber numberWithDouble:((long)price)] forKey:@"price"];
+    [orderParam setObject:[NSNumber numberWithDouble:self.routeLine.distance/1000] forKey:@"distance"];
+    [orderParam setObject:payType forKey:@"freightFeePayType"]; //支付方式   1:支付宝支付    2:微信支付   3:现金支付
+    if ([payType isEqualToString:@"3"]) {
+        [orderParam setObject:@"0" forKey:@"freightFeePayStatus"];
+    }else {
+        [orderParam setObject:@"1" forKey:@"freightFeePayStatus"];
+        [orderParam setObject:payId forKey:@"freightFeePayId"];
+    }
 
-    
-    [param setObject:_sendAddress forKey:@"sendAddress"];
-    [param setObject:[NSNumber numberWithDouble:_sendPt.latitude] forKey:@"sendLatitude"];
-    [param setObject:[NSNumber numberWithDouble:_sendPt.longitude] forKey:@"sendLongitude"];
-    
-    [param setObject:_receiveAddress forKey:@"receiveAddress"];
-    [param setObject:[NSNumber numberWithDouble:_receivePt.latitude] forKey:@"receiveLatitude"];
-    [param setObject:[NSNumber numberWithDouble:_receivePt.longitude] forKey:@"receiveLongitude"];
-
-    [param setObject:[NSNumber numberWithDouble:300] forKey:@"price"];
-    [param setObject:[NSNumber numberWithDouble:20] forKey:@"distance"];
-    [param setObject:@"1" forKey:@"payType"]; //支付方式   1:支付宝支付    2:微信支付   3:现金支付
-
+    [param setObject:orderParam forKey:@"orderParam"];
+    if (_invoiceParam) {
+        [param setObject:_invoiceParam forKey:@"invoiceParam"];
+    }
     
     
-    
-
     [NetWorking postDataWithParameters:param withUrl:@"addOrder" withBlock:^(id result) {
         [HUDClass showHUDWithText:@"下单成功！"];
         NSString *orderId = [result objectForKey:@"object"];
@@ -213,15 +386,13 @@
             }
         }];
     } withFailedBlock:^(NSString *errorResult) {
-
+        
     }];
-
-  
 }
 
 - (void)initTableView {
     
-    _theTableView = [[UITableView alloc] initWithFrame:CGRectMake(10, kDeviceHeight-166-44*(_isNow?4:5), kDeviceWidth-20, 44*(_isNow?4:5)) style:UITableViewStylePlain];
+    _theTableView = [[UITableView alloc] initWithFrame:CGRectMake(10, _mapView.bottom + 10, kDeviceWidth-20, 44*(_isNow?4:5)) style:UITableViewStylePlain];
     _theTableView.delegate = self;
     _theTableView.dataSource = self;
     _theTableView.backgroundColor = [UIColor clearColor];
@@ -235,22 +406,30 @@
     _theTableView.layer.shadowOffset = CGSizeMake(0,0);
     _theTableView.layer.frame = _theTableView.frame;
     _theTableView.clipsToBounds = NO;
-    [self.view addSubview:_theTableView];
+    [_bgScrollView addSubview:_theTableView];
     
 }
 
 - (void)initMap {
-    _mapView = [[BMKMapView alloc]initWithFrame:CGRectMake(0, STATUS_AND_NAVBAR_HEIGHT+2, kDeviceWidth, kDeviceHeight-166-44*(_isNow?4:5)-10-STATUS_AND_NAVBAR_HEIGHT-2)];
+    CGFloat mapViewHeight = 0;
+    if (_bgScrollView.height < (200 + 10 + 44*(_isNow?4:5) + 146 + 20)) {
+        mapViewHeight = 200;
+    }else{
+        mapViewHeight = _bgScrollView.height - (10 + 44*(_isNow?4:5) + 146 + 20);
+        
+    }
+    _mapView = [[BMKMapView alloc]initWithFrame:CGRectMake(0, 0, kDeviceWidth, mapViewHeight)];
     
     _mapView.zoomLevel = 15;
     _mapView.zoomEnabled = YES;
     _mapView.showMapScaleBar = YES;
-        [self.view addSubview:_mapView];
+    [_bgScrollView addSubview:_mapView];
     
     
-    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake( 0,  _mapView.bottom, kDeviceWidth, kDeviceHeight-_mapView.bottom)];
+    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake( 0,  _mapView.bottom, kDeviceWidth, 10 + 44*(_isNow?4:5) + 146 + 20)];
     bgView.backgroundColor = bgColor;
-    [self.view addSubview:bgView];
+    
+    [_bgScrollView addSubview:bgView];
     
     
     _locService = [[BMKLocationService alloc] init];
@@ -491,11 +670,24 @@
 
 - (void)selectType {
    
-    __weak AddOrderController *weakSelf = self;
+    __weak typeof(self) weakSelf = self;
     [[CustomSelectAlertView alloc] initAlertWithTitleArray:self.carTypeListTitle withBtnSelectBlock:^(NSInteger tagg) {
+        weakSelf.confirmView.priceLabel.text = @"计价中";
+
         weakSelf.typeSelectCell.contentLabel.text = weakSelf.carTypeListTitle[tagg-1];
         CarTypeModel *model = weakSelf.carTypeList[tagg-1];
         weakSelf.carTypeValueStr = model.keyText;
+        weakSelf.starDistance = model.startDistance;
+        weakSelf.starPrice = model.startPrice;
+        weakSelf.unitPrice = model.unitPrice;
+        
+        if (weakSelf.routeLine) {
+            double price = ((self.routeLine.distance/1000 - self.starDistance)>0 ? (self.routeLine.distance/1000 - self.starDistance) : 0) * self.unitPrice + self.starPrice;
+            weakSelf.confirmView.priceLabel.text = [NSString stringWithFormat:@"¥ %ld",(long)price];
+        }else {
+            [weakSelf routePlan];
+        }
+
     }];
 }
 
@@ -503,6 +695,62 @@
 - (void)customSelectViewDidSelectedDate:(NSDate *)date DateString:(NSString *)dateString {
     if (![dateString isEqualToString:@""]) {
         _appointTimeCell.contentLabel.text = [dateString substringToIndex:16];
+    }
+}
+
+
+- (void)routePlan
+{
+    _routeSearch = [[BMKRouteSearch alloc] init];
+    _routeSearch.delegate = self;
+    
+    BMKDrivingRoutePlanOption *options = [[BMKDrivingRoutePlanOption alloc] init];
+    
+    options.drivingRequestTrafficType = BMK_DRIVING_REQUEST_TRAFFICE_TYPE_PATH_AND_TRAFFICE;
+    
+    BMKPlanNode *start = [[BMKPlanNode alloc] init];
+    
+    start.pt = _sendPt;
+    
+    BMKPlanNode *end = [[BMKPlanNode alloc] init];
+    
+    CLLocationCoordinate2D endCor = _receivePt;
+   
+    
+    
+    
+    
+    end.pt = endCor;
+    
+    options.from = start;
+    options.to = end;
+    
+    BOOL suc = [_routeSearch drivingSearch:options];
+    
+    if (suc) {
+        NSLog(@"路线查找成功");
+    }
+    
+}
+
+#pragma mark - BMKRouteSearchDelegate
+
+- (void)onGetDrivingRouteResult:(BMKRouteSearch *)searcher result:(BMKDrivingRouteResult *)result errorCode:(BMKSearchErrorCode)error
+{
+//    searcher.delegate = nil;
+    
+    if (error == BMK_SEARCH_NO_ERROR) {
+        if (result.routes.count > 0) {
+            BMKDrivingRouteLine *drivingRouteLine = result.routes[0];
+            self.routeLine = drivingRouteLine;
+            double price = ((self.routeLine.distance/1000 - self.starDistance)>0 ? (self.routeLine.distance/1000 - self.starDistance) : 0) * self.unitPrice + self.starPrice;
+            self.confirmView.priceLabel.text = [NSString stringWithFormat:@"¥ %ld",(long)price];
+            self.confirmView.priceDetailBtn.hidden = NO;
+        }
+        
+        
+    } else {
+        NSLog(@"error code:%u", error);
     }
 }
 

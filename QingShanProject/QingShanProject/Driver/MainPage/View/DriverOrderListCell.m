@@ -55,8 +55,8 @@
     
     [_nameBtn setTitle:[NSString stringWithFormat:@"%@货主",[_model.linkMan substringToIndex:1]] forState:UIControlStateNormal];
     _createTimeLabel.text = [Utils formatDate:[NSDate dateWithTimeIntervalSince1970:_model.createTime/1000]];
-    _sendAddressLabel.text = _model.sendAddress;
-    _reciverAddressLabel.text = _model.receiveAddress;
+    _sendAddressLabel.text = _model.sendDetailAddress;
+    _reciverAddressLabel.text = _model.receiveDetailAddress;
     
     if ([_model.type isEqualToString:@"1"]) {//实时
         _orderType.text = @"实时";
@@ -88,8 +88,14 @@
 
     }
     
+    if ([_model.status isEqualToString:@"1"]) {  //控制打电话按钮的显示与隐藏
+        _callBtn.hidden = YES;
+    }else {
+        _callBtn.hidden = NO;
+    }
+    
     //设置接到货物按钮状态
-    if ([_model.status isEqualToString:@"1"] && ([_model.appointStatus isEqualToString:@"1"] || _model.appointStatus.length == 0)) {
+    if ([_model.status isEqualToString:@"2"] && ([_model.appointStatus isEqualToString:@"2"] || _model.appointStatus.length == 0)) {
         _reciveGoodsBtn.backgroundColor = mainColor;
         [_reciveGoodsBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         _reciveGoodsBtn.enabled = YES;
@@ -100,7 +106,7 @@
     }
     
     //设置订单完成按钮状态
-    if ([_model.status isEqualToString:@"2"]) {
+    if ([_model.status isEqualToString:@"3"]) {
         _finishBtn.backgroundColor = mainColor;
         [_finishBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         _finishBtn.enabled = YES;
@@ -110,14 +116,22 @@
         _finishBtn.enabled = NO;
     }
     
+    
+    //设置状态显示
     if ([_model.status isEqualToString:@"1"]) {
-        _orderStatus.text = @"已接单 >";
+        _orderStatus.text = @"待确认 >";
+        _orderStatus.textColor = [UIColor grayColor];
     }else if ([_model.status isEqualToString:@"2"]) {
-        _orderStatus.text = @"已拉货 >";
+        _orderStatus.text = @"已接单 >";
+        _orderStatus.textColor = [UIColor grayColor];
     }else if ([_model.status isEqualToString:@"3"]) {
+        _orderStatus.text = @"已拉货 >";
+        _orderStatus.textColor = [UIColor grayColor];
+    }else if ([_model.status isEqualToString:@"4"]) {
         _orderStatus.text = @"已完成 >";
     }else if ([_model.status isEqualToString:@"9"]) {
         _orderStatus.text = @"已取消";
+        _orderStatus.textColor = [UIColor colorWithRed:159.0/255 green:159.0/255 blue:159.0/255 alpha:1];
     }
     
     

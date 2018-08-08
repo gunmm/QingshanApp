@@ -58,11 +58,11 @@
         NSString *msgStr = @"";
         if([notfiModel.type isEqualToString:@"1"]){
             typeStr = @"实时";
-            msgStr = [NSString stringWithFormat:@"订单类型：%@\n创建时间：%@\n联系人：%@\n车辆类型：%@\n发货地址：%@\n收货地址：%@\n备注：%@\n距离：%.2f公里\n费用：%.2f元",typeStr, notfiModel.createTime, notfiModel.linkMan ,notfiModel.carTypeName, notfiModel.sendAddress, notfiModel.receiveAddress, notfiModel.note.length > 0 ? notfiModel.note: @"无", notfiModel.distance, notfiModel.price];
+            msgStr = [NSString stringWithFormat:@"订单类型：%@\n距离：%.2f公里\n创建时间：%@\n发货地址：%@\n收货地址：%@\n备注：%@\n订单路程：%.2f公里\n费用：%.2f元", typeStr, notfiModel.toSendDistance, notfiModel.createTime,  notfiModel.sendDetailAddress, notfiModel.receiveDetailAddress, notfiModel.note.length > 0 ? notfiModel.note: @"无", notfiModel.distance, notfiModel.price];
             [ShortSoundPlay playSoundWithPath:@"voice_now" withType:@"m4a"];
         }else{
             typeStr = @"预约";
-            msgStr = [NSString stringWithFormat:@"订单类型：%@\n创建时间：%@\n预约时间：%@\n联系人：%@\n车辆类型：%@\n发货地址：%@\n收货地址：%@\n备注：%@\n距离：%.2f公里\n费用：%.2f元",typeStr, notfiModel.createTime, notfiModel.appointTime, notfiModel.linkMan, notfiModel.carTypeName, notfiModel.sendAddress, notfiModel.receiveAddress, notfiModel.note.length > 0 ? notfiModel.note: @"无", notfiModel.distance, notfiModel.price];
+            msgStr = [NSString stringWithFormat:@"订单类型：%@\n距离：%.2f公里\n创建时间：%@\n预约时间：%@\n发货地址：%@\n收货地址：%@\n备注：%@\n订单路程：%.2f公里\n费用：%.2f元", typeStr, notfiModel.toSendDistance, notfiModel.createTime, notfiModel.appointTime, notfiModel.sendDetailAddress, notfiModel.receiveDetailAddress, notfiModel.note.length > 0 ? notfiModel.note: @"无", notfiModel.distance, notfiModel.price];
             [ShortSoundPlay playSoundWithPath:@"voice_booking" withType:@"m4a"];
 
         }
@@ -113,105 +113,120 @@
         }];
 
     }else if ([notfiModel.notifyType isEqualToString:@"OrderBeCanceledNotify"]) {
-        //订单被取消
-        NSString *typeStr = @"";
-        NSString *msgStr = @"";
-        if([notfiModel.type isEqualToString:@"1"]){
-            typeStr = @"实时";
-            msgStr = [NSString stringWithFormat:@"订单类型：%@\n创建时间：%@\n联系人：%@\n发货地址：%@\n收货地址：%@",typeStr,notfiModel.createTime ,notfiModel.linkMan ,notfiModel.sendAddress, notfiModel.receiveAddress];
-            
-        }else{
-            typeStr = @"预约";
-            msgStr = [NSString stringWithFormat:@"订单类型：%@\n创建时间：%@\n预约时间：%@\n联系人：%@\n发货地址：%@\n收货地址：%@",typeStr, notfiModel.createTime, notfiModel.appointTime, notfiModel.linkMan, notfiModel.sendAddress, notfiModel.receiveAddress];
-        }
-        
-        if ([[NavBgImage getCurrentVC] isMemberOfClass:[DriverOrderDetailController class]]) {
-            DriverOrderDetailController *driverOrderDetailController = (DriverOrderDetailController *)[NavBgImage getCurrentVC];
-            if ([driverOrderDetailController.orderId isEqualToString:notfiModel.orderId]) {
-                [driverOrderDetailController loadData];
-                EBBannerView *banner = [EBBannerView bannerWithBlock:^(EBBannerViewMaker *make) {
-                    make.style = EBBannerViewStyleiOS9;
-                    make.icon = [UIImage imageNamed:@"chengkeface"];
-                    make.title = notfiModel.aps.alert;
-                    make.content = msgStr;
-                    make.stayDuration = 8;
-                    make.date = dateStr;
-                    make.soundName = @"order_short_tip.m4a";
-
-                }];
-                [ShortSoundPlay playSoundWithPath:@"order_cancel" withType:@"m4a"];
-
-                [banner show];
-                NSMutableDictionary *param = [NSMutableDictionary dictionary];
-                [param setObject:notfiModel.messageId forKey:@"messageId"];
-                [NetWorking bgPostDataWithParameters:param withUrl:@"setMessageRead" withBlock:^(id result) {
-                } withFailedBlock:^(NSString *errorResult) {
-                }];
-                return;
-            }
-        }
-        
-        
-        
-        EBBannerView *banner = [EBBannerView bannerWithBlock:^(EBBannerViewMaker *make) {
-            make.style = EBBannerViewStyleiOS9;
-            make.icon = [UIImage imageNamed:@"chengkeface"];
-            make.title = notfiModel.aps.alert;
-            make.content = msgStr;
-            make.stayDuration = 8;
-            make.date = dateStr;
-            make.soundName = @"order_short_tip.m4a";
-
-        }];
-        [ShortSoundPlay playSoundWithPath:@"order_short_tip" withType:@"m4a"];
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [ShortSoundPlay playSoundWithPath:@"order_cancel" withType:@"m4a"];
-        });
-        
-        [banner show];
-        banner.tapActBlock = ^{
-            NSMutableDictionary *param = [NSMutableDictionary dictionary];
-            [param setObject:notfiModel.messageId forKey:@"messageId"];
-            [NetWorking bgPostDataWithParameters:param withUrl:@"setMessageRead" withBlock:^(id result) {
-            } withFailedBlock:^(NSString *errorResult) {
-            }];
-            
-            DriverOrderDetailController *driverOrderDetailController = [[DriverOrderDetailController alloc] init];
-            driverOrderDetailController.orderId = notfiModel.orderId;
-            [[NavBgImage getCurrentVC].view endEditing:YES];
-            if ([NavBgImage judgeCurrentVCIspresented]) {
-                [[NavBgImage getCurrentVC] dismissViewControllerAnimated:YES completion:^{
-                    [[NavBgImage getCurrentVC].navigationController pushViewController:driverOrderDetailController animated:YES];
-                }];
-            }else if ([[NavBgImage getCurrentVC] isMemberOfClass:[StandLeftPageController class]]){
-                StandLeftPageController *standLeftPageController = (StandLeftPageController *)[NavBgImage getCurrentVC];
-                if (standLeftPageController.standLeftCloseBlock) {
-                    standLeftPageController.standLeftCloseBlock();
-                }
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                    [[NavBgImage getCurrentVC].navigationController pushViewController:driverOrderDetailController animated:YES];
-                });
-            }else{
-                [[NavBgImage getCurrentVC].navigationController pushViewController:driverOrderDetailController animated:YES];
-            }
-        };
+//        //订单被取消
+//        NSString *typeStr = @"";
+//        NSString *msgStr = @"";
+//        if([notfiModel.type isEqualToString:@"1"]){
+//            typeStr = @"实时";
+//            msgStr = [NSString stringWithFormat:@"订单类型：%@\n创建时间：%@\n联系人：%@\n发货地址：%@\n收货地址：%@",typeStr,notfiModel.createTime ,notfiModel.linkMan ,notfiModel.sendAddress, notfiModel.receiveAddress];
+//
+//        }else{
+//            typeStr = @"预约";
+//            msgStr = [NSString stringWithFormat:@"订单类型：%@\n创建时间：%@\n预约时间：%@\n联系人：%@\n发货地址：%@\n收货地址：%@",typeStr, notfiModel.createTime, notfiModel.appointTime, notfiModel.linkMan, notfiModel.sendAddress, notfiModel.receiveAddress];
+//        }
+//
+//        if ([[NavBgImage getCurrentVC] isMemberOfClass:[DriverOrderDetailController class]]) {
+//            DriverOrderDetailController *driverOrderDetailController = (DriverOrderDetailController *)[NavBgImage getCurrentVC];
+//            if ([driverOrderDetailController.orderId isEqualToString:notfiModel.orderId]) {
+//                [driverOrderDetailController loadData];
+//                EBBannerView *banner = [EBBannerView bannerWithBlock:^(EBBannerViewMaker *make) {
+//                    make.style = EBBannerViewStyleiOS9;
+//                    make.icon = [UIImage imageNamed:@"chengkeface"];
+//                    make.title = notfiModel.aps.alert;
+//                    make.content = msgStr;
+//                    make.stayDuration = 8;
+//                    make.date = dateStr;
+//                    make.soundName = @"order_short_tip.m4a";
+//
+//                }];
+//                [ShortSoundPlay playSoundWithPath:@"order_cancel" withType:@"m4a"];
+//
+//                [banner show];
+//                NSMutableDictionary *param = [NSMutableDictionary dictionary];
+//                [param setObject:notfiModel.messageId forKey:@"messageId"];
+//                [NetWorking bgPostDataWithParameters:param withUrl:@"setMessageRead" withBlock:^(id result) {
+//                } withFailedBlock:^(NSString *errorResult) {
+//                }];
+//                return;
+//            }
+//        }
+//
+//
+//
+//        EBBannerView *banner = [EBBannerView bannerWithBlock:^(EBBannerViewMaker *make) {
+//            make.style = EBBannerViewStyleiOS9;
+//            make.icon = [UIImage imageNamed:@"chengkeface"];
+//            make.title = notfiModel.aps.alert;
+//            make.content = msgStr;
+//            make.stayDuration = 8;
+//            make.date = dateStr;
+//            make.soundName = @"order_short_tip.m4a";
+//
+//        }];
+//        [ShortSoundPlay playSoundWithPath:@"order_short_tip" withType:@"m4a"];
+//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//            [ShortSoundPlay playSoundWithPath:@"order_cancel" withType:@"m4a"];
+//        });
+//
+//        [banner show];
+//        banner.tapActBlock = ^{
+//            NSMutableDictionary *param = [NSMutableDictionary dictionary];
+//            [param setObject:notfiModel.messageId forKey:@"messageId"];
+//            [NetWorking bgPostDataWithParameters:param withUrl:@"setMessageRead" withBlock:^(id result) {
+//            } withFailedBlock:^(NSString *errorResult) {
+//            }];
+//
+//            DriverOrderDetailController *driverOrderDetailController = [[DriverOrderDetailController alloc] init];
+//            driverOrderDetailController.orderId = notfiModel.orderId;
+//            [[NavBgImage getCurrentVC].view endEditing:YES];
+//            if ([NavBgImage judgeCurrentVCIspresented]) {
+//                [[NavBgImage getCurrentVC] dismissViewControllerAnimated:YES completion:^{
+//                    [[NavBgImage getCurrentVC].navigationController pushViewController:driverOrderDetailController animated:YES];
+//                }];
+//            }else if ([[NavBgImage getCurrentVC] isMemberOfClass:[StandLeftPageController class]]){
+//                StandLeftPageController *standLeftPageController = (StandLeftPageController *)[NavBgImage getCurrentVC];
+//                if (standLeftPageController.standLeftCloseBlock) {
+//                    standLeftPageController.standLeftCloseBlock();
+//                }
+//                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//                    [[NavBgImage getCurrentVC].navigationController pushViewController:driverOrderDetailController animated:YES];
+//                });
+//            }else{
+//                [[NavBgImage getCurrentVC].navigationController pushViewController:driverOrderDetailController animated:YES];
+//            }
+//        };
         
     }else if ([notfiModel.notifyType isEqualToString:@"OrderBeReceivedNotify"]) {
         //订单状态更新
         NSString *alertStr = @"";
+        NSString *msgStr = @"";
         if ([notfiModel.status isEqualToString:@"1"]) {
-            alertStr = @"订单被接单";
+            alertStr = @"订单已被抢";
+            msgStr = [NSString stringWithFormat:@"订单已被车牌号 %@ 的司机 %@ 抢到 等待司机最终确认订单", notfiModel.plateNumber, notfiModel.driverName];
         }else if ([notfiModel.status isEqualToString:@"2"]) {
-            alertStr = @"司机接到货物";
+            alertStr = @"订单已被司机最终确认";
+            msgStr = [NSString stringWithFormat:@"%@\n创建时间：%@\n司机姓名：%@\n司机电话：%@\n车牌号：%@\n发货地址：%@\n收货地址：%@", alertStr,notfiModel.createTime, notfiModel.driverName, notfiModel.driverPhone, notfiModel.plateNumber, notfiModel.sendAddress, notfiModel.receiveAddress];
         }else if ([notfiModel.status isEqualToString:@"3"]) {
-            alertStr = @"订单已完成";
+            alertStr = @"司机接到货物";
+            msgStr = [NSString stringWithFormat:@"%@\n创建时间：%@\n司机姓名：%@\n司机电话：%@\n车牌号：%@\n发货地址：%@\n收货地址：%@", alertStr,notfiModel.createTime, notfiModel.driverName, notfiModel.driverPhone, notfiModel.plateNumber, notfiModel.sendAddress, notfiModel.receiveAddress];
+        }else if ([notfiModel.status isEqualToString:@"4"]) {
+            alertStr = @"订单完成";
+            msgStr = [NSString stringWithFormat:@"%@\n创建时间：%@\n司机姓名：%@\n司机电话：%@\n车牌号：%@\n发货地址：%@\n收货地址：%@", alertStr,notfiModel.createTime, notfiModel.driverName, notfiModel.driverPhone, notfiModel.plateNumber, notfiModel.sendAddress, notfiModel.receiveAddress];
         }
-        NSString *msgStr = [NSString stringWithFormat:@"%@\n创建时间：%@\n司机姓名：%@\n司机电话：%@\n车牌号：%@\n发货地址：%@\n收货地址：%@", alertStr,notfiModel.createTime, notfiModel.driverName, notfiModel.driverPhone, notfiModel.plateNumber, notfiModel.sendAddress, notfiModel.receiveAddress];
+        
         
         if ([[NavBgImage getCurrentVC] isMemberOfClass:[SeekViewController class]]) {
             SeekViewController *seekVc = (SeekViewController *)[NavBgImage getCurrentVC];
             if ([seekVc.orderId isEqualToString:notfiModel.orderId]) {
-                [seekVc popActWithOrderType:notfiModel.type];
+                if ([notfiModel.status isEqualToString:@"1"]) {
+                    [seekVc loadData];
+                }else{
+                    [[NavBgImage getCurrentVC].navigationController popViewControllerAnimated:YES];
+                    DriverOnWayController *onwayVc = [[DriverOnWayController alloc] init];
+                    onwayVc.orderId = notfiModel.orderId;
+                    [[NavBgImage getCurrentVC].navigationController pushViewController:onwayVc animated:YES];
+                }
+                
                 EBBannerView *banner = [EBBannerView bannerWithBlock:^(EBBannerViewMaker *make) {
                     make.style = EBBannerViewStyleiOS9;
                     make.icon = [UIImage imageNamed:@"driver_head_default"];
@@ -269,9 +284,16 @@
             }];
             
             UIViewController *vc;
-            DriverOnWayController *onwayVc = [[DriverOnWayController alloc] init];
-            onwayVc.orderId = notfiModel.orderId;
-            vc = onwayVc;
+            if ([notfiModel.status isEqualToString:@"1"]) {
+                SeekViewController *seekViewController = [[SeekViewController alloc] init];
+                seekViewController.orderId = notfiModel.orderId;
+                vc = seekViewController;
+            }else{
+                DriverOnWayController *onwayVc = [[DriverOnWayController alloc] init];
+                onwayVc.orderId = notfiModel.orderId;
+                vc = onwayVc;
+            }
+            
             
            
             [[NavBgImage getCurrentVC].view endEditing:YES];

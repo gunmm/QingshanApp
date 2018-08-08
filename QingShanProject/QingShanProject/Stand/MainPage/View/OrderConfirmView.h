@@ -9,6 +9,10 @@
 #import <UIKit/UIKit.h>
 
 typedef void(^ConfirmBlock)(void);
+typedef void(^PriceDetailBtnBlock)(void);
+typedef void(^InvoiceBtnBlock)(NSString *selectType);
+
+
 
 @interface OrderConfirmView : UIView
 @property (weak, nonatomic) IBOutlet UIButton *selectBtn;
@@ -16,9 +20,15 @@ typedef void(^ConfirmBlock)(void);
 @property (weak, nonatomic) IBOutlet UILabel *priceLabel;
 @property (weak, nonatomic) IBOutlet UIButton *confirmBtn;
 @property (weak, nonatomic) IBOutlet UIView *bgView;
+@property (weak, nonatomic) IBOutlet UIButton *priceDetailBtn;
 
 @property (nonatomic, assign) BOOL isSelect;
 
 @property (nonatomic, copy) ConfirmBlock confirmBlock;
+@property (nonatomic, copy) PriceDetailBtnBlock priceDetailBtnBlock;
+@property (nonatomic, copy) InvoiceBtnBlock invoiceBtnBlock;
+
+
+@property (weak, nonatomic) IBOutlet UIButton *invoiceBtn;
 
 @end

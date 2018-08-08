@@ -51,17 +51,25 @@
     }
     if ([_model.status isEqualToString:@"0"]) {
         _statusLabel.text = @"等待接单 >";
+        _statusLabel.textColor = [UIColor grayColor];
     }else if ([_model.status isEqualToString:@"1"]) {
+        _statusLabel.text = @"等待确认 >";
+        _statusLabel.textColor = [UIColor grayColor];
+    }else if ([_model.status isEqualToString:@"2"]) {
+        _statusLabel.textColor = [UIColor grayColor];
         if ([_model.appointStatus isEqualToString:@"0"]) {
             _statusLabel.text = @"等待执行 >";
         }else{
             _statusLabel.text = @"等待接货 >";
         }
-    }else if ([_model.status isEqualToString:@"2"]) {
-        _statusLabel.text = @"已发货 >";
     }else if ([_model.status isEqualToString:@"3"]) {
+        _statusLabel.textColor = [UIColor grayColor];
+        _statusLabel.text = @"已发货 >";
+    }else if ([_model.status isEqualToString:@"4"]) {
+        _statusLabel.textColor = [UIColor colorWithRed:159.0/255 green:159.0/255 blue:159.0/255 alpha:1];
         _statusLabel.text = @"已完成 >";
     }else if ([_model.status isEqualToString:@"9"]) {
+        _statusLabel.textColor = [UIColor colorWithRed:159.0/255 green:159.0/255 blue:159.0/255 alpha:1];
         _statusLabel.text = @"已取消";
     }
     

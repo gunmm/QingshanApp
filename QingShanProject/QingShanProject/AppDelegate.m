@@ -46,12 +46,16 @@
     }else{
     
         NSString *type = [Config shareConfig].getType;
-        if ([type isEqualToString:@"1"]) {
+        if ([type isEqualToString:@"5"]) {
             StandMainMMController *standMainVC = [[StandMainMMController alloc] initStandMainMMVC];
             _window.rootViewController = standMainVC;
-        }else if ([type isEqualToString:@"2"]) {
+        }else if ([type isEqualToString:@"6"]) {
             DriverMainMMController *driverMainVC = [[DriverMainMMController alloc] initDriverMainMMVC];
             _window.rootViewController = driverMainVC;
+        }else {
+            UIStoryboard *board = [UIStoryboard storyboardWithName:@"Login" bundle:nil];
+            UIViewController *controller = [board instantiateViewControllerWithIdentifier:@"login_controller"];
+            _window.rootViewController = controller;
         }
     }
     

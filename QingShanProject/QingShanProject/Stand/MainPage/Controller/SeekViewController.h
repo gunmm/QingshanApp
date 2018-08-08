@@ -9,8 +9,6 @@
 #import "BaseViewController.h"
 #import <BaiduMapAPI_Map/BMKMapComponent.h>
 
-typedef void(^SeekPopBlock)(NSString *orderId, NSString *orderType);
-
 
 @interface SeekViewController : BaseViewController
 
@@ -20,9 +18,8 @@ typedef void(^SeekPopBlock)(NSString *orderId, NSString *orderType);
 
 @property (nonatomic, copy) NSString *orderId;
 
-@property (nonatomic, copy) SeekPopBlock seekPopBlock;
 
-- (void)popActWithOrderType:(NSString *)type;
+- (void)loadData;
 
 
 

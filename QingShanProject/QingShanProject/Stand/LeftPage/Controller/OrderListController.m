@@ -149,7 +149,7 @@
     _theTableView.tableFooterView = [UIView new];
     [self.view addSubview:_theTableView];
     
-    __weak OrderListController *weakSelf = self;
+    __weak typeof(self) weakSelf = self;
     _theTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         weakSelf.currentpage = 0;
         [weakSelf performSelector:@selector(loadDataWithType:) withObject:@"1" afterDelay:1];
@@ -190,21 +190,21 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     OrderModel *model = _dataList[indexPath.row];
-    if ([model.status isEqualToString:@"0"]) {
+    if ([model.status isEqualToString:@"0"] || [model.status isEqualToString:@"1"]) {
         SeekViewController *seekViewController = [[SeekViewController alloc] init];
         seekViewController.sendPt = CLLocationCoordinate2DMake(model.sendLatitude, model.sendLongitude);;
         seekViewController.createTime = model.createTime;
         seekViewController.orderId = model.orderId;
         [self.navigationController pushViewController:seekViewController animated:YES];
-        __weak OrderListController *weakSelf = self;
+//        __weak OrderListController *weakSelf = self;
 
-        seekViewController.seekPopBlock = ^(NSString *orderId, NSString *orderType) {
-            if ([orderType isEqualToString:@"1"]) {
-                DriverOnWayController *onwayVc = [[DriverOnWayController alloc] init];
-                onwayVc.orderId = orderId;
-                [weakSelf.navigationController pushViewController:onwayVc animated:YES];
-            }
-        };
+//        seekViewController.seekPopBlock = ^(NSString *orderId, NSString *orderType) {
+//            if ([orderType isEqualToString:@"1"]) {
+//                DriverOnWayController *onwayVc = [[DriverOnWayController alloc] init];
+//                onwayVc.orderId = orderId;
+//                [weakSelf.navigationController pushViewController:onwayVc animated:YES];
+//            }
+//        };
     }else {
         DriverOnWayController *onwayVc = [[DriverOnWayController alloc] init];
         onwayVc.orderId = model.orderId;

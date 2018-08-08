@@ -16,9 +16,10 @@
 
 
 
+
 @interface SelectAddressController () <UITextFieldDelegate, BMKPoiSearchDelegate, UITableViewDelegate, UITableViewDataSource>
 {
-    MapHeadView *mapheadView;
+    
     NotHaveDataView *_notHaveView;
     
 
@@ -26,9 +27,15 @@
 }
 
 @property (strong, nonatomic) BMKPoiSearch *poiSearch;
+
 @property (strong, nonatomic) UITableView *theTableView;
-@property (strong, nonatomic) NSArray *addressArray;
 @property (strong, nonatomic) SelectAddressHeadView *selectAddressHeadView;
+@property (strong, nonatomic) MapHeadView *mapheadView;
+
+@property (nonatomic, assign) NSInteger currentPage;
+
+
+
 
 @end
 
@@ -55,10 +62,10 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     if (_beginSerchString.length > 0) {
-        mapheadView.addressLabel.text = _beginSerchString;
-        [self searchWithAddress2];
+        _mapheadView.addressLabel.text = _beginSerchString;
+        [self searchWithAddress:_beginSerchString];
     }
-    [mapheadView.addressLabel becomeFirstResponder];
+    [_mapheadView.addressLabel becomeFirstResponder];
 
     
 }
@@ -70,15 +77,17 @@
     [backBtn setImageEdgeInsets:UIEdgeInsetsMake(5, 5, 5, 5)];
     [self.view addSubview:backBtn];
     
-    mapheadView = [[MapHeadView alloc]initWithFrame:CGRectMake(40, (IS_IPHONE_5_8 ? 44 : 20) + 7, kDeviceWidth-54, 30)];
-    mapheadView.addressLabel.userInteractionEnabled = YES;
-    mapheadView.addressLabel.delegate = self;
-    [self.view addSubview:mapheadView];
+    _mapheadView = [[MapHeadView alloc]initWithFrame:CGRectMake(40, (IS_IPHONE_5_8 ? 44 : 20) + 7, kDeviceWidth-54, 30)];
+    _mapheadView.addressLabel.userInteractionEnabled = YES;
+    _mapheadView.addressLabel.delegate = self;
+    [self.view addSubview:_mapheadView];
     
     UIView *divisionView = [[UIView alloc]initWithFrame:CGRectMake(0, (IS_IPHONE_5_8 ? 44 : 20)+45, kDeviceWidth, 0.5)];
     divisionView.backgroundColor = devide_line_color;
     [self.view addSubview:divisionView];
     self.view.backgroundColor = [UIColor whiteColor];
+    _currentPage = 0;
+    
 }
 
 - (void)backAct {
@@ -100,6 +109,16 @@
     
     [self.view addSubview:_theTableView];
     
+    __weak typeof(self) weakSelf = self;
+    _theTableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        weakSelf.currentPage++;
+        [weakSelf performSelector:@selector(searchWithAddress:) withObject:weakSelf.mapheadView.addressLabel.text afterDelay:1];
+    }];
+   
+    
+    
+    
+    
     
     if (_addressArray.count > 0) {
         [_notHaveView removeFromSuperview];
@@ -117,7 +136,7 @@
     _selectAddressHeadView = [[[NSBundle mainBundle] loadNibNamed:@"SelectAddressHeadView" owner:nil options:nil] lastObject];
     _selectAddressHeadView.frame =CGRectMake(0, 0, kDeviceWidth, 50);
     _theTableView.tableHeaderView = _selectAddressHeadView;
-    __weak SelectAddressController *weakSelf = self;
+    
     [_selectAddressHeadView.cityBtn setTitle:_nowCityString forState:UIControlStateNormal];
     _selectAddressHeadView.cityBtnBlock = ^{
         GUNMMCityVC *cityVc = [[GUNMMCityVC alloc] init];
@@ -135,9 +154,9 @@
 
 - (void)searchWithAddress:(NSString *)address
 {
-    BMKCitySearchOption *option = [[BMKCitySearchOption alloc] init];
-    option.pageIndex = 0;
-    option.pageCapacity = 30;
+    BMKPOICitySearchOption *option = [[BMKPOICitySearchOption alloc] init];
+    option.pageIndex = _currentPage;
+    option.pageSize = 20;
     option.city = _selectAddressHeadView.cityBtn.titleLabel.text;
     option.keyword = address;
     
@@ -150,38 +169,25 @@
 }
 
 
-- (void)searchWithAddress2
-{
-    //发起检索
-    BMKNearbySearchOption *option = [[BMKNearbySearchOption alloc]init];
-    option.pageIndex = 0;  //当前索引页
-    option.pageCapacity = 30; //分页量
-    
-    option.location = CLLocationCoordinate2DMake(_beginSerchPt.latitude, _beginSerchPt.longitude);
-    
-    option.keyword = _beginSerchString;
-    
-    option.radius = 3000;
-    
-    
-    BOOL flag = [_poiSearch poiSearchNearBy:option];
-    
-    if(flag)
-    {
-    }
-   
-}
-
 
 #pragma mark -- BMKSearchDelegate
 
-- (void)onGetPoiResult:(BMKPoiSearch *)searcher result:(BMKPoiResult *)poiResult errorCode:(BMKSearchErrorCode)errorCode
-{
+- (void)onGetPoiResult:(BMKPoiSearch*)searcher result:(BMKPOISearchResult*)poiResult errorCode:(BMKSearchErrorCode)errorCode {
    
-    
+    [self.theTableView.mj_footer endRefreshing];
     if (errorCode == BMK_SEARCH_NO_ERROR)
     {
-        _addressArray = poiResult.poiInfoList;
+        if (_currentPage == 0) {
+            if (_oldArray.count == 0) {
+                _addressArray = [NSMutableArray arrayWithArray:poiResult.poiInfoList];
+            }else{
+                _addressArray = [NSMutableArray arrayWithArray:_oldArray];
+                [_addressArray addObjectsFromArray:poiResult.poiInfoList];
+            }
+        }else {
+            [_addressArray addObjectsFromArray:poiResult.poiInfoList];
+        }
+        
         [_theTableView reloadData];
         
         if (_addressArray.count > 0) {
@@ -207,6 +213,8 @@
 #pragma mark -- UITextFieldDelegate
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     NSString * new_text_str = [textField.text stringByReplacingCharactersInRange:range withString:string];//变化后的字符串
+    _oldArray = nil;
+    _currentPage = 0;
     [self searchWithAddress:new_text_str];
     return YES;
 }

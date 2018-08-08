@@ -42,7 +42,12 @@
 
         if ([runStatus isEqualToString:@"1"]) {
             block(responseObject);
-        }else {
+        }else if ([runStatus isEqualToString:@"-9"]) {
+            //已在别处登录
+            [HUDClass showHUDWithText:@"您的账号已在别的设备登录！"];
+            [Utils backToLogin];
+        }
+        else {
             [HUDClass showHUDWithText:result];
             fBlock(reason);
         }
@@ -81,6 +86,10 @@
 
         if ([runStatus isEqualToString:@"1"]) {
             block(responseObject);
+        }else if ([runStatus isEqualToString:@"-9"]) {
+            //已在别处登录
+            [HUDClass showHUDWithText:@"您的账号已在别的设备登录！"];
+            [Utils backToLogin];
         }else {
             fBlock(reason);
         }

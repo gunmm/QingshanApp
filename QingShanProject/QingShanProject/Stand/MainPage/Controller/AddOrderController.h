@@ -24,6 +24,9 @@ typedef void(^BackDismissBlock)(void);
 @property (nonatomic, assign) CLLocationCoordinate2D sendPt;
 @property (nonatomic, assign) CLLocationCoordinate2D receivePt;
 
+@property (nonatomic, copy) NSString *sendDetailAddress;
+@property (nonatomic, copy) NSString *receiveDetailAddress;
+
 @property (nonatomic, assign) BOOL isNow;
 
 @property (nonatomic, copy) DismissBlock dismissBlock;

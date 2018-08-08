@@ -60,23 +60,23 @@
     
     _priceLabel.text = [NSString stringWithFormat:@"¥%.2f",_model.price];
 
-    //支付方式   1:支付宝支付    2:微信支付   3:现金支付
-    if ([_model.payType isEqualToString:@"1"]) {
-        [_payStatusBtn setImage:[UIImage imageNamed:@"pay_icon_alipay"] forState:UIControlStateNormal];
-    }else if ([_model.payType isEqualToString:@"2"]) {
-        [_payStatusBtn setImage:[UIImage imageNamed:@"pay_icon_wechat"] forState:UIControlStateNormal];
-
-    }else if ([_model.payType isEqualToString:@"3"]) {
-        [_payStatusBtn setImage:[UIImage imageNamed:@"pay_icon_crash"] forState:UIControlStateNormal];
-
-    }
-    
-    //支付状态   0:未支付   1:已支付
-    if ([_model.payStatus isEqualToString:@"0"]) {
-        [_payStatusBtn setTitle:@"未支付" forState:UIControlStateNormal];
-    }else{
-        [_payStatusBtn setTitle:@"已支付" forState:UIControlStateNormal];
-    }
+//    //支付方式   1:支付宝支付    2:微信支付   3:现金支付
+//    if ([_model.payType isEqualToString:@"1"]) {
+//        [_payStatusBtn setImage:[UIImage imageNamed:@"pay_icon_alipay"] forState:UIControlStateNormal];
+//    }else if ([_model.payType isEqualToString:@"2"]) {
+//        [_payStatusBtn setImage:[UIImage imageNamed:@"pay_icon_wechat"] forState:UIControlStateNormal];
+//
+//    }else if ([_model.payType isEqualToString:@"3"]) {
+//        [_payStatusBtn setImage:[UIImage imageNamed:@"pay_icon_crash"] forState:UIControlStateNormal];
+//
+//    }
+//
+//    //支付状态   0:未支付   1:已支付
+//    if ([_model.payStatus isEqualToString:@"0"]) {
+//        [_payStatusBtn setTitle:@"未支付" forState:UIControlStateNormal];
+//    }else{
+//        [_payStatusBtn setTitle:@"已支付" forState:UIControlStateNormal];
+//    }
     
     _distanceLabel.text = [NSString stringWithFormat:@"%.2f公里",_model.distance];
     _noteLabel.text = _model.note.length > 0 ? _model.note : @"无";

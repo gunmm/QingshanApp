@@ -20,6 +20,21 @@
     _bgView.layer.frame = _bgView.frame;
     _isSelect = YES;
     [NavBgImage showIconFontForView:_selectBtn iconName:@"\U0000e793" color:[UIColor colorWithRed:66.0/255 green:67.0/255 blue:81.0/255 alpha:1] font:20];
+    
+    _priceDetailBtn.layer.cornerRadius = 4;
+    _priceDetailBtn.layer.masksToBounds = YES;
+    
+    _priceDetailBtn.layer.borderWidth = 0.5;
+    _priceDetailBtn.layer.borderColor = mainColor.CGColor;
+    
+    _invoiceBtn.layer.cornerRadius = 4;
+    _invoiceBtn.layer.masksToBounds = YES;
+    
+    _invoiceBtn.layer.borderWidth = 0.5;
+    _invoiceBtn.layer.borderColor = mainColor.CGColor;
+    
+    
+    
 }
 
 - (IBAction)confirmBtnAct:(UIButton *)sender {
@@ -37,7 +52,28 @@
 
     }
 }
+
+
+- (IBAction)invoiceBtnAct:(UIButton *)sender {
+    if (self.invoiceBtnBlock) {
+        if ([sender.titleLabel.text isEqualToString:@"发票"]) {
+            self.invoiceBtnBlock(@"0");
+        }else{
+            self.invoiceBtnBlock(@"1");
+        }
+    }
+}
+
+
+
 - (IBAction)contentBtbAct:(UIButton *)sender {
 }
+
+- (IBAction)priceDetailBtnAct:(UIButton *)sender {
+    if (self.priceDetailBtnBlock) {
+        self.priceDetailBtnBlock();
+    }
+}
+
 
 @end

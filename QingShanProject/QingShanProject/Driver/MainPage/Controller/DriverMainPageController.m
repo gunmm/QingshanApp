@@ -54,7 +54,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self loadDataWithAppear];
-    [self queryMessageCount];
+//    [self queryMessageCount];
 }
 
 
@@ -113,10 +113,6 @@
 }
 
 - (void)workBtnClicked {
-    if (![_userModel.driverCertificationStatus isEqualToString:@"2"]) {
-        [HUDClass showHUDWithText:@"请先到到设置页面编辑认证资料"];
-        return;
-    }
     
     if ([_workBtn.titleLabel.text isEqualToString:@"开始接单"]) {
         [AlertView alertViewWithTitle:@"确认开始接单" withMessage:@"开始接单后，附近有新的订单将会推送到您的手机" withConfirmTitle:@"确认" withCancelTitle:@"取消" withType:UIAlertControllerStyleAlert withConfirmBlock:^{
@@ -192,9 +188,6 @@
 }
 
 - (void)setDataWithModel {
-    if (![_userModel.driverCertificationStatus isEqualToString:@"2"]) {
-        return;
-    }
 
     if ([_userModel.status isEqualToString:@"2"]) {
         [_workBtn setTitle:@"开始接单" forState:UIControlStateNormal];
@@ -222,7 +215,7 @@
 - (void)loadDataWithAppear {
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
     [param setObject:[[Config shareConfig] getUserId] forKey:@"userId"];
-    [param setObject:@" and (`order`.status = '1' or `order`.status = '2') " forKey:@"condition"];
+    [param setObject:@" and (`order`.status = '1' or `order`.status = '2' or `order`.status = '3') " forKey:@"condition"];
 
     [param setObject:@"0" forKey:@"page"];
     [param setObject:[NSString stringWithFormat:@"%ld",(_currentpage + 1)*10] forKey:@"rows"];
@@ -263,7 +256,7 @@
 - (void)loadDataWithType:(NSString *)loadType {
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
     [param setObject:[[Config shareConfig] getUserId] forKey:@"userId"];
-    [param setObject:@" and (`order`.status = '1' or `order`.status = '2') " forKey:@"condition"];
+    [param setObject:@" and (`order`.status = '1' or `order`.status = '2' or `order`.status = '3') " forKey:@"condition"];
 
     [param setObject:[NSString stringWithFormat:@"%ld",_currentpage] forKey:@"page"];
     [param setObject:@"10" forKey:@"rows"];
@@ -349,7 +342,7 @@
     }
     cell.model = _dataList[indexPath.row];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    
+    cell.clipsToBounds = YES;
     __weak typeof(self) weakSelf = self;
 
     
@@ -359,11 +352,11 @@
     
     
     cell.reciverGoodsBlock = ^(OrderModel *model) {
-        [weakSelf updateOrderWithModel:model withStatus:@"2"];
+        [weakSelf updateOrderWithModel:model withStatus:@"3"];
     };
     
     cell.finishOrderBlock = ^(OrderModel *model) {
-        [weakSelf updateOrderWithModel:model withStatus:@"3"];
+        [weakSelf updateOrderWithModel:model withStatus:@"4"];
     };
     
     return cell;
@@ -372,7 +365,13 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     OrderModel *model = _dataList[indexPath.row];
     if ([model.type isEqualToString:@"1"]) {
-        return 204;
+        if ([model.status isEqualToString:@"1"]) {
+            return 120;
+        }
+        return 200;
+    }
+    if ([model.status isEqualToString:@"1"]) {
+        return 146;
     }
     return 226;
 }

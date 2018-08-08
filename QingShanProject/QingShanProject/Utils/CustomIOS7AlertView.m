@@ -445,6 +445,7 @@ CGFloat buttonSpacerHeight = 0;
     // For the black background
     [self setFrame:CGRectMake(0, 0, screenSize.width, screenSize.height)];
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(close)];
+    tapGesture.delegate = self;
     if (_tapClose) {
         [self addGestureRecognizer:tapGesture];
     }
@@ -696,7 +697,7 @@ CGFloat buttonSpacerHeight = 0;
 
     [UIView animateWithDuration:0.2f delay:0.0 options:UIViewAnimationOptionTransitionNone
 					 animations:^{
-                         dialogView.frame = CGRectMake((screenSize.width - dialogSize.width) / 2, (screenSize.height - keyboardSize.height - dialogSize.height) / 2, dialogSize.width, dialogSize.height);
+                         dialogView.frame = CGRectMake((screenSize.width - dialogSize.width) / 2, (screenSize.height - keyboardSize.height - dialogSize.height-50), dialogSize.width, dialogSize.height);
 					 }
 					 completion:nil
 	 ];
@@ -713,6 +714,17 @@ CGFloat buttonSpacerHeight = 0;
 					 }
 					 completion:nil
 	 ];
+}
+
+
+#pragma mark--UIGestureRecognizerDelegate
+-(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
+{
+    if([NSStringFromClass([touch.view class]) isEqualToString:@"UITableViewCellContentView"])
+    {
+        return NO;
+    }
+    return YES;
 }
 
 @end

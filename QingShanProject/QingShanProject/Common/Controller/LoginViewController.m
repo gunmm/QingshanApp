@@ -33,6 +33,7 @@
 - (void)initView {
     self.loginBtn.layer.cornerRadius = 6;
     self.loginBtn.layer.masksToBounds = YES;
+    self.imageView.contentMode = UIViewContentModeScaleAspectFit;
     
 }
 
@@ -76,14 +77,17 @@
         [[Config shareConfig] setUserImage:loginModel.personImageUrl];
         [[Config shareConfig] setUserId:loginModel.userId];
         [[Config shareConfig] setType:loginModel.type];
-        [[Config shareConfig] setToken:loginModel.userId];
+        [[Config shareConfig] setToken:loginModel.accessToken];
         
-        if ([loginModel.type isEqualToString:@"1"]) {
+        if ([loginModel.type isEqualToString:@"5"]) {
             StandMainMMController *standMainVC = [[StandMainMMController alloc] initStandMainMMVC];
             [self.view.window setRootViewController:standMainVC];
-        }else if ([loginModel.type isEqualToString:@"2"]) {
+        }else if ([loginModel.type isEqualToString:@"6"]) {
             DriverMainMMController *driverMainVC = [[DriverMainMMController alloc] initDriverMainMMVC];
             [self.view.window setRootViewController:driverMainVC];
+        }else {
+            [HUDClass showHUDWithText:@"角色错误！"];
+            return;
         }
         [self registerJpush];
 
@@ -119,7 +123,7 @@
 - (void)registerJpush
 {
     __weak typeof(self) weakSelf = self;
-    [JPUSHService setTags:nil alias:[[Config shareConfig] getUserName] fetchCompletionHandle:^(int iResCode, NSSet *iTags, NSString *iAlias) {
+    [JPUSHService setTags:nil alias:[[Config shareConfig] getToken] fetchCompletionHandle:^(int iResCode, NSSet *iTags, NSString *iAlias) {
         NSLog(@"zhenhao---rescode: %d, tags: %@, alias: %@", iResCode, iTags , iAlias);
         
         if (0 == iResCode)

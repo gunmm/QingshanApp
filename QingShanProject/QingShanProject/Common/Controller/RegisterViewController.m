@@ -86,7 +86,7 @@
         [footerView.registerBtn setTitle:@"重置密码" forState:UIControlStateNormal];
     }
     [bgView addSubview:footerView];
-    __weak RegisterViewController *weakSelf = self;
+    __weak typeof(self) weakSelf = self;
     footerView.registerBtnBlock = ^{
         [weakSelf registerBtnAct];
     };

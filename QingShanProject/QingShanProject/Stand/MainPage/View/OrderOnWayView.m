@@ -74,7 +74,7 @@
     }
     
     NSString *distanceStr = [NSString stringWithFormat:@"%.2f公里",_drivingRouteLine.distance/1000.0];
-    if ([_model.status isEqualToString:@"1"]) {
+    if ([_model.status isEqualToString:@"2"]) {
         _timeLabel.text = [NSString stringWithFormat:@"司机距离%@，大约%@后到达发货地址",distanceStr, timeStr];
     }else {
         _timeLabel.text = [NSString stringWithFormat:@"剩余距离%@，大约%@后到达收货地址",distanceStr, timeStr];

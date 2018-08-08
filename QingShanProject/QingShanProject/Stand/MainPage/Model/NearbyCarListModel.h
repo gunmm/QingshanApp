@@ -11,12 +11,9 @@
 @interface NearbyCarListModel : NSObject
 
 @property (nonatomic, copy) NSString *userId;
-@property (nonatomic, copy) NSString *phoneNumber;
-
-@property (nonatomic, copy) NSString *nickname;
-@property (nonatomic, copy) NSString *personImageUrl;
 @property (nonatomic, copy) NSString *plateNumber;
-@property (nonatomic, copy) NSString *vehicleType;
+
+
 
 
 @property (nonatomic, assign) double nowLatitude;

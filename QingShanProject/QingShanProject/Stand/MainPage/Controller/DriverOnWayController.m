@@ -94,10 +94,10 @@
         UIBarButtonItem *cancleBtn = [[UIBarButtonItem alloc]initWithTitle:@"取消订单" style:UIBarButtonItemStylePlain target:self action:@selector(cancelBtnClicked)];
         [cancleBtn setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont systemFontOfSize:14],NSFontAttributeName, nil] forState:UIControlStateNormal];
         [self.navigationItem setRightBarButtonItem:cancleBtn];
-    }else if([status isEqualToString:@"2"]){
+    }else if([status isEqualToString:@"3"]){
         self.title = @"运送中";
         [self.navigationItem setRightBarButtonItem:nil];
-    }else if([status isEqualToString:@"3"]){
+    }else if([status isEqualToString:@"4"]){
         self.title = @"订单完成";
         [self.navigationItem setRightBarButtonItem:nil];
     }else if([status isEqualToString:@"9"]){
@@ -144,7 +144,7 @@
 }
 
 - (void)setView {
-    if ([self.model.status isEqualToString:@"1"]) {
+    if ([self.model.status isEqualToString:@"2"]) {
         if ([self.model.appointStatus isEqualToString:@"0"]) {
             self.orderOnWayView.hidden = YES;
             self.orderFinishView.hidden = NO;
@@ -160,7 +160,7 @@
             self.orderOnWayView.model = self.model;
             [self routePlan];
         }
-    }else if ([self.model.status isEqualToString:@"2"]) {
+    }else if ([self.model.status isEqualToString:@"3"]) {
         self.orderOnWayView.hidden = NO;
         self.orderFinishView.hidden = YES;
         [self startLocation];
@@ -168,7 +168,7 @@
         _timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timerAct) userInfo:nil repeats:YES];
         self.orderOnWayView.model = self.model;
         [self routePlan];
-    }else if ([self.model.status isEqualToString:@"3"]) {
+    }else if ([self.model.status isEqualToString:@"4"]) {
         self.orderOnWayView.hidden = YES;
         self.orderFinishView.hidden = NO;
         [_timer invalidate];
@@ -445,7 +445,7 @@
     BMKPlanNode *end = [[BMKPlanNode alloc] init];
     
     CLLocationCoordinate2D endCor;
-    if ([_model.status isEqualToString:@"1"]) {
+    if ([_model.status isEqualToString:@"2"]) {
         endCor = CLLocationCoordinate2DMake(_model.sendLatitude, _model.sendLongitude);
     }else {
         endCor = CLLocationCoordinate2DMake(_model.receiveLatitude, _model.receiveLongitude);

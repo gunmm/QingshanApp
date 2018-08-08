@@ -10,6 +10,8 @@
 #import "WaitTitleView.h"
 #import "NearbyCarRes.h"
 #import <BaiduMapAPI_Utils/BMKUtilsComponent.h>
+#import "WaitDriverConfirmView.h"
+#import "FinishOrderRes.h"
 
 
 
@@ -28,6 +30,15 @@
 @property(nonatomic, strong) CAAnimationGroup *animationGroup;
 @property(nonatomic, strong) WaitTitleView *waitTitleView;
 @property(nonatomic, strong) NSMutableArray *dataList;
+
+@property(nonatomic, strong) UIBarButtonItem *cancleBtn;
+
+@property(nonatomic, strong) UIView *waitBgView;
+@property (strong, nonatomic) NSTimer *loadTimer;
+@property (assign, nonatomic) NSInteger nowCount;
+
+
+
 
 
 
@@ -51,6 +62,7 @@
     self.navigationController.interactivePopGestureRecognizer.enabled = NO;
 
     [self loadAppearCarData];
+    [self loadData];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -58,6 +70,7 @@
     [super viewDidDisappear:animated];
 
     [timer invalidate];
+    [_loadTimer invalidate];
     self.navigationController.interactivePopGestureRecognizer.enabled = YES;
 
 }
@@ -65,9 +78,9 @@
 - (void)initNavBar {
     self.title = @"等待应答";
     self.view.backgroundColor = [UIColor whiteColor];
-    UIBarButtonItem *cancleBtn = [[UIBarButtonItem alloc]initWithTitle:@"取消订单" style:UIBarButtonItemStylePlain target:self action:@selector(cancelBtnClicked)];
-    [cancleBtn setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont systemFontOfSize:14],NSFontAttributeName, nil] forState:UIControlStateNormal];
-    [self.navigationItem setRightBarButtonItem:cancleBtn];
+    _cancleBtn = [[UIBarButtonItem alloc]initWithTitle:@"取消订单" style:UIBarButtonItemStylePlain target:self action:@selector(cancelBtnClicked)];
+    [_cancleBtn setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont systemFontOfSize:14],NSFontAttributeName, nil] forState:UIControlStateNormal];
+    [self.navigationItem setRightBarButtonItem:_cancleBtn];
 }
 
 - (void)cancelBtnClicked {
@@ -91,6 +104,7 @@
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
     [param setObject:_orderId forKey:@"orderId"];
 
+    __weak typeof(self) weakSelf = self;
     
     [NetWorking postDataWithParameters:param withUrl:@"getOrderCarList" withBlock:^(id result) {
         [NearbyCarRes mj_setupObjectClassInArray:^NSDictionary *{
@@ -98,25 +112,58 @@
                      @"object" : @"NearbyCarListModel",
                      };
         }];
+        
         NearbyCarRes *nearbyCarRes = [NearbyCarRes mj_objectWithKeyValues:result];
-        self.dataList = [nearbyCarRes.object mutableCopy];
-        [self adjustZoom];
-        [self addMapAnnotation];
+        weakSelf.dataList = [nearbyCarRes.object mutableCopy];
+        [weakSelf adjustZoom];
+        [weakSelf addMapAnnotation];
+        [weakSelf.loadTimer invalidate];
+        weakSelf.loadTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(loadTimerAct) userInfo:nil repeats:YES];
     } withFailedBlock:^(NSString *errorResult) {
         
     }];
 }
+
+- (void)loadData {
+    _nowCount = 0;
+    __weak typeof(self) weakSelf = self;
+    
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    [param setObject:self.orderId forKey:@"orderId"];
+    [NetWorking bgPostDataWithParameters:param withUrl:@"getBigOrderInfo" withBlock:^(id result) {
+        FinishOrderRes *finishOrderRes = [FinishOrderRes mj_objectWithKeyValues:result];
+        
+        if ([finishOrderRes.object.status isEqualToString:@"1"]) {
+            weakSelf.waitBgView.hidden = NO;
+            [weakSelf.navigationItem setRightBarButtonItem:nil];
+        }else{
+            weakSelf.waitBgView.hidden = YES;
+            [weakSelf.navigationItem setRightBarButtonItem:weakSelf.cancleBtn];
+        }
+    } withFailedBlock:^(NSString *errorResult) {
+        
+    }];
+    
+}
+
+
+
+
+
+- (void)loadTimerAct {
+    _nowCount ++;
+    if (_nowCount > 30) {
+        [self loadData];
+        _nowCount = 0;
+    }
+}
+
 
 - (void)adjustZoom {
     
     if (_dataList.count <= 1) {
         return;
     }
-    CLLocationCoordinate2D latBigPoint;
-    CLLocationCoordinate2D latSmallPoint;
-    CLLocationCoordinate2D lngBigPoint;
-    CLLocationCoordinate2D lngSmallPoint;
-    
     
     //lat从小到大
     NSMutableArray *latArray = [self.dataList mutableCopy];
@@ -161,27 +208,16 @@
     NearbyCarListModel *modelLng2 = [lngArray lastObject];
     
     
-    
-    
-    latBigPoint = CLLocationCoordinate2DMake(modelLat2.nowLatitude, modelLat2.nowLongitude);
-    latSmallPoint = CLLocationCoordinate2DMake(modelLat1.nowLatitude, modelLat1.nowLongitude);
-    lngBigPoint = CLLocationCoordinate2DMake(modelLng2.nowLatitude, modelLng2.nowLongitude);
-    lngSmallPoint = CLLocationCoordinate2DMake(modelLng1.nowLatitude, modelLng1.nowLongitude);
+    CLLocationCoordinate2D smallPoint = CLLocationCoordinate2DMake(modelLat1.nowLatitude, modelLng1.nowLongitude);
+    CLLocationCoordinate2D bigPoint = CLLocationCoordinate2DMake(modelLat2.nowLatitude, modelLng2.nowLongitude);
 
 
-    CGFloat latZoom = [self BMapSetPointCenterWithPoint11:latBigPoint withPoint2:latSmallPoint];
-//    CLLocationCoordinate2D latCenter = [self BMapGetCenterWithPoint11:latBigPoint withPoint2:latSmallPoint];
 
-    CGFloat lngZoom = [self BMapSetPointCenterWithPoint11:lngBigPoint withPoint2:lngSmallPoint];
-//    CLLocationCoordinate2D lngCenter = [self BMapGetCenterWithPoint11:lngBigPoint withPoint2:lngSmallPoint];
+    CGFloat theZoom = [self BMapSetPointCenterWithPoint11:smallPoint withPoint2:bigPoint];
+    CLLocationCoordinate2D theCenter = [self BMapGetCenterWithPoint11:smallPoint withPoint2:bigPoint];
 
-    if (latZoom < lngZoom) {
-        _mapView.zoomLevel = latZoom;
-//        [_mapView setCenterCoordinate:latCenter animated:YES];
-    }else{
-        _mapView.zoomLevel = lngZoom;
-//        [_mapView setCenterCoordinate:lngCenter animated:YES];
-    }
+    _mapView.zoomLevel = theZoom;
+    [_mapView setCenterCoordinate:theCenter animated:YES];
     
 }
 
@@ -200,13 +236,19 @@
     _mapView.zoomLevel = 13;
     _mapView.zoomEnabled = YES;
     _mapView.showMapScaleBar = YES;
-//    _mapView.scrollEnabled = NO;
     _mapView.delegate = self;
 
     [self.view addSubview:_mapView];
     
     
-    //添加拖动的大头针
+     WaitDriverConfirmView *waitDriverConfirmView = [[[NSBundle mainBundle] loadNibNamed:@"WaitDriverConfirmView" owner:nil options:nil] lastObject];
+    waitDriverConfirmView.frame = CGRectMake(0, 0, kDeviceWidth, kDeviceHeight-STATUS_AND_NAVBAR_HEIGHT);
+    _waitBgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kDeviceWidth, kDeviceHeight-STATUS_AND_NAVBAR_HEIGHT)];
+    [self.view addSubview:_waitBgView];
+    [_waitBgView addSubview:waitDriverConfirmView];
+
+    
+    
     _centerPoint = [[BMKPointAnnotation alloc]init];
     _centerPoint.coordinate = _sendPt;
     _centerPoint.title = @"检索中点";
@@ -359,14 +401,5 @@
     
     return CLLocationCoordinate2DMake(pointLat, pointLng);
 }
-
-- (void)popActWithOrderType:(NSString *)type {
-    [self.navigationController popViewControllerAnimated:YES];
-    if (self.seekPopBlock) {
-        self.seekPopBlock(_orderId, type);
-    }
-}
-
-
 
 @end

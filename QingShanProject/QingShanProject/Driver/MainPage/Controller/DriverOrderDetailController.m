@@ -20,6 +20,7 @@
 #import "JZLocationConverter.h"
 #import <MapKit/MKMapItem.h>
 #import <MapKit/MKTypes.h>
+#import "PayDetailView.h"
 
 
 
@@ -44,6 +45,10 @@
 @property (assign, nonatomic) NSInteger nowCount;
 
 @property (strong, nonatomic) UIBarButtonItem *daohaongBtn;
+
+
+@property (strong, nonatomic) CustomIOS7AlertView *customIOS7AlertView;
+
 
 
 
@@ -130,7 +135,7 @@
         }else if ([str isEqualToString:@"百度地图"]){
             NSString *urlString = @"";;
             
-            if ([weakSelf.model.status isEqualToString:@"1"]) {
+            if ([weakSelf.model.status isEqualToString:@"2"]) {
                 urlString = [[NSString stringWithFormat:@"baidumap://map/direction?origin={{我的位置}}&destination=latlng:%f,%f|name:%@&mode=driving",
                               weakSelf.model.sendLatitude, weakSelf.model.sendLongitude, weakSelf.model.sendAddress]
                              stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
@@ -142,7 +147,7 @@
         }else if ([str isEqualToString:@"高德地图"]){
             CLLocationCoordinate2D coor;
             
-            if ([weakSelf.model.status isEqualToString:@"1"]) {
+            if ([weakSelf.model.status isEqualToString:@"2"]) {
                 coor.latitude =  weakSelf.model.sendLatitude;
                 coor.longitude =  weakSelf.model.sendLongitude;
             }else {
@@ -192,13 +197,23 @@
 }
 
 - (void)setView {
+    if (self.model.orderId.length == 0) {
+        [HUDClass showHUDWithText:@"订单不存在！"];
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+    
     _driverOrderDetailView.model = self.model;
-    if ([_model.status isEqualToString:@"1"]) {
+    
+    if ([_model.status isEqualToString:@"1"]) {//已抢单
+        [_timer invalidate];
+        _timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timerAct) userInfo:nil repeats:YES];
+        [self.navigationItem setRightBarButtonItem:nil];
+        
+    }else if ([_model.status isEqualToString:@"2"]) { //已接单
         if ([_model.appointStatus isEqualToString:@"0"]) {
             [self addPointForMap];
             [_timer invalidate];
             [self.navigationItem setRightBarButtonItem:nil];
-
         }else{
             [self routePlan];
             [self startLocation];
@@ -207,14 +222,14 @@
             [self.navigationItem setRightBarButtonItem:self.daohaongBtn];
         }
         
-    }else if ([_model.status isEqualToString:@"2"]){
+    }else if ([_model.status isEqualToString:@"3"]){ //运送中
         [self routePlan];
         [self startLocation];
         [_timer invalidate];
         _timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timerAct) userInfo:nil repeats:YES];
         [self.navigationItem setRightBarButtonItem:self.daohaongBtn];
 
-    }else if ([_model.status isEqualToString:@"3"] || [_model.status isEqualToString:@"9"]){
+    }else if ([_model.status isEqualToString:@"4"] || [_model.status isEqualToString:@"9"]){ //已完成 或者已取消
         [self addPointForMap];
         [_timer invalidate];
         [self.navigationItem setRightBarButtonItem:nil];
@@ -273,12 +288,75 @@
     };
     
     _driverOrderDetailView.reciverGoodsBlock = ^{
-        [weakSelf updateOrderWithStatus:@"2"];
+        [weakSelf updateOrderWithStatus:@"3"];
     };
     
     _driverOrderDetailView.finishOrderBlock = ^{
-        [weakSelf updateOrderWithStatus:@"3"];
+        [weakSelf updateOrderWithStatus:@"4"];
     };
+    
+    _driverOrderDetailView.servicePayOrderBlock = ^{
+        PayDetailView *payDetailView = [[[NSBundle mainBundle] loadNibNamed:@"PayDetailView" owner:nil options:nil] lastObject];
+        payDetailView.frame = CGRectMake(0, 0, kDeviceWidth, 256);
+        weakSelf.customIOS7AlertView = [[CustomIOS7AlertView alloc] init];
+        [weakSelf.customIOS7AlertView setButtonTitles:nil];
+        [weakSelf.customIOS7AlertView setContainerView:payDetailView];
+        [weakSelf.customIOS7AlertView showFromBottom];
+        
+        
+        
+        payDetailView.payBtnActBlock = ^(NSString *payType) {
+            [weakSelf.customIOS7AlertView close];
+            CGFloat serviceFee = weakSelf.model.price * 0.03;
+            if (serviceFee > 300) {
+                serviceFee = 300;
+            }
+            if ([payType isEqualToString:@"1"]) {
+                //跳转支付宝支付
+                
+                [weakSelf servicePayWithPayType:@"1" withPayId:@"zfb-zfid-0002"];
+            }else if ([payType isEqualToString:@"2"]) {
+                //跳转微信支付
+                [weakSelf servicePayWithPayType:@"2" withPayId:@"wx-wxid-0002"];
+            }
+        };
+    };
+    
+    _driverOrderDetailView.cancelOrderBlock = ^{
+        [AlertView alertViewWithTitle:@"提示" withMessage:@"确认放弃该订单\n 取消已抢到的订单\n会导致\n信用分降低" withConfirmTitle:@"确认" withCancelTitle:@"取消" withType:UIAlertControllerStyleAlert withConfirmBlock:^{
+            NSMutableDictionary *param = [NSMutableDictionary dictionary];
+            [param setObject:[[Config shareConfig] getUserId] forKey:@"driverId"];
+            [param setObject:weakSelf.model.orderId forKey:@"orderId"];
+
+            [NetWorking postDataWithParameters:param withUrl:@"driverGiveUpOrder" withBlock:^(id result) {
+                [weakSelf.navigationController popViewControllerAnimated:YES];
+            } withFailedBlock:^(NSString *errorResult) {
+
+            }];
+        } withCancelBlock:^{
+            
+        }];
+    };
+    
+    _driverOrderDetailView.orderTimeOutBlock = ^{
+        [weakSelf.navigationController popViewControllerAnimated:YES];
+    };
+    
+    
+}
+
+- (void)servicePayWithPayType:(NSString *)type withPayId:(NSString *)payId {
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    [param setObject:self.model.orderId forKey:@"orderId"];
+    [param setObject:type forKey:@"serviceFeePayType"];
+    [param setObject:payId forKey:@"serviceFeePayId"];
+    
+    [NetWorking postDataWithParameters:param withUrl:@"driverPayOrderServiceFee" withBlock:^(id result) {
+        [self loadData];
+        self.nowCount = 0;
+    } withFailedBlock:^(NSString *errorResult) {
+        
+    }];
 }
 
 - (void)beginAppointOrder {
@@ -302,7 +380,7 @@
 
 - (void)updateOrderWithStatus:(NSString *)status {
     
-    [AlertView alertViewWithTitle:@"提示" withMessage:[NSString stringWithFormat:@"%@", [status isEqualToString:@"2"] ? @"确认接到货物" : @"确认订单完成"] withConfirmTitle:@"确认" withCancelTitle:@"取消" withType:UIAlertControllerStyleAlert withConfirmBlock:^{
+    [AlertView alertViewWithTitle:@"提示" withMessage:[NSString stringWithFormat:@"%@", [status isEqualToString:@"3"] ? @"确认接到货物" : @"确认订单完成"] withConfirmTitle:@"确认" withCancelTitle:@"取消" withType:UIAlertControllerStyleAlert withConfirmBlock:^{
         NSMutableDictionary *param = [NSMutableDictionary dictionary];
         [param setObject:self.model.orderId forKey:@"orderId"];
         [param setObject:status forKey:@"status"];
@@ -471,7 +549,7 @@
     BMKPlanNode *end = [[BMKPlanNode alloc] init];
 
     CLLocationCoordinate2D endCor;
-    if ([_model.status isEqualToString:@"1"]) {
+    if ([_model.status isEqualToString:@"2"]) {
         endCor = CLLocationCoordinate2DMake(_model.sendLatitude, _model.sendLongitude);
     }else {
         endCor = CLLocationCoordinate2DMake(_model.receiveLatitude, _model.receiveLongitude);
@@ -546,7 +624,7 @@
             RouteAnnotation *item = [[RouteAnnotation alloc]init];
             item.coordinate = plan.terminal.location;
             item.type = 1;
-            if ([_model.status isEqualToString:@"1"]) {
+            if ([_model.status isEqualToString:@"2"]) {
                 item.title = @"发货位置";
             }else {
                 item.title = @"收货位置";
