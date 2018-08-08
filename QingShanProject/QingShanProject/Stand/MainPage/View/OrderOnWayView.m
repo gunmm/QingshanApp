@@ -59,6 +59,15 @@
     _scoreLabel.text = [NSString stringWithFormat:@"%.1f", _model.score];
     
     _typeLabel.text = _model.carTypeName;
+    _priceLabel.text = [NSString stringWithFormat:@"¥%.2f",_model.price];
+    //支付状态
+    if ([_model.freightFeePayStatus isEqualToString:@"1"]) {
+        [_payStatusBtn setTitle:@"线上已支付" forState:UIControlStateNormal];
+        [_payStatusBtn setTitleColor:mainColor forState:UIControlStateNormal];
+    }else{
+        [_payStatusBtn setTitle:@"等待线下支付" forState:UIControlStateNormal];
+        [_payStatusBtn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+    }
 
 }
 

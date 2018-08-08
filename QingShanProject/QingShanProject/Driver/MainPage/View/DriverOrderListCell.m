@@ -95,7 +95,7 @@
     }
     
     //设置接到货物按钮状态
-    if ([_model.status isEqualToString:@"2"] && ([_model.appointStatus isEqualToString:@"2"] || _model.appointStatus.length == 0)) {
+    if ([_model.status isEqualToString:@"2"] && ([_model.appointStatus isEqualToString:@"1"] || _model.appointStatus.length == 0)) {
         _reciveGoodsBtn.backgroundColor = mainColor;
         [_reciveGoodsBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         _reciveGoodsBtn.enabled = YES;

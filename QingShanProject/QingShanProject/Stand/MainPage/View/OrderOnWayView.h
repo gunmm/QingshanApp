@@ -25,6 +25,10 @@
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 @property (weak, nonatomic) IBOutlet UIView *bgView;
 
+@property (weak, nonatomic) IBOutlet UILabel *priceLabel;
+@property (weak, nonatomic) IBOutlet UIButton *payStatusBtn;
+
+
 @property (nonatomic, strong) OrderModel *model;
 
 @property (nonatomic, strong) BMKDrivingRouteLine *drivingRouteLine;

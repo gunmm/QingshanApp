@@ -14,6 +14,8 @@
 #import "OrderFinshController.h"
 #import "DriverOnWayController.h"
 #import "RobOrderController.h"
+#import "SeekViewController.h"
+#import "FinishOrderRes.h"
 
 @interface MessageListController () <UITableViewDelegate, UITableViewDataSource>
 
@@ -189,11 +191,38 @@
     }];
     
     
-    if ([[[Config shareConfig] getType] isEqualToString:@"1"]) {
+    if ([[[Config shareConfig] getType] isEqualToString:@"5"]) {
         MessageModel *model = _dataList[indexPath.row];
-        DriverOnWayController *onwayVc = [[DriverOnWayController alloc] init];
-        onwayVc.orderId = model.orderId;
-        [self.navigationController pushViewController:onwayVc animated:YES];
+        if ([model.orderStatus isEqualToString:@"0"] || [model.orderStatus isEqualToString:@"1"]) {
+            NSMutableDictionary *param = [NSMutableDictionary dictionary];
+            [param setObject:model.orderId forKey:@"orderId"];
+            [NetWorking bgPostDataWithParameters:param withUrl:@"getBigOrderInfo" withBlock:^(id result) {
+                FinishOrderRes *finishOrderRes = [FinishOrderRes mj_objectWithKeyValues:result];
+                if ([finishOrderRes.object.status isEqualToString:@"0"] || [finishOrderRes.object.status isEqualToString:@"1"]) {
+                    SeekViewController *seekViewController = [[SeekViewController alloc] init];
+                    seekViewController.sendPt = CLLocationCoordinate2DMake(finishOrderRes.object.sendLatitude, finishOrderRes.object.sendLongitude);;
+                    seekViewController.createTime = finishOrderRes.object.createTime;
+                    seekViewController.orderId = model.orderId;
+                    [self.navigationController pushViewController:seekViewController animated:YES];
+                }else{
+                    DriverOnWayController *onwayVc = [[DriverOnWayController alloc] init];
+                    onwayVc.orderId = model.orderId;
+                    [self.navigationController pushViewController:onwayVc animated:YES];
+                }
+                
+                
+               
+            } withFailedBlock:^(NSString *errorResult) {
+                
+            }];
+            
+           
+        }else {
+            DriverOnWayController *onwayVc = [[DriverOnWayController alloc] init];
+            onwayVc.orderId = model.orderId;
+            [self.navigationController pushViewController:onwayVc animated:YES];
+        }
+
     }else {
         if ([_dataList[indexPath.row].messageType isEqualToString:@"newOrderNotify"]) {
             RobOrderController *robVc = [[RobOrderController alloc] init];

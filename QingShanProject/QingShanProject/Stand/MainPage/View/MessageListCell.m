@@ -56,10 +56,12 @@
     }else if ([_model.messageType isEqualToString:@"OrderBeReceivedNotify"]) {
         _titleLabel.text = @"订单状态更新";
         if ([_model.orderStatus isEqualToString:@"1"]) {
-            _contentLabel.text = @"您的订单被接单，点击查看详情";
+            _contentLabel.text = @"您的订单被抢单，点击查看详情";
         }else if ([_model.orderStatus isEqualToString:@"2"]) {
-            _contentLabel.text = @"您的订单货物已接到，点击查看详情";
+            _contentLabel.text = @"您的订单已被最终确认，点击查看详情";
         }else if ([_model.orderStatus isEqualToString:@"3"]) {
+            _contentLabel.text = @"您的订单货物已接到，点击查看详情";
+        }else if ([_model.orderStatus isEqualToString:@"4"]) {
             _contentLabel.text = @"您的订单货物已送达目的地，点击查看详情";
         }
     }else if ([_model.messageType isEqualToString:@"AppointOrderBeginNotify"]) {

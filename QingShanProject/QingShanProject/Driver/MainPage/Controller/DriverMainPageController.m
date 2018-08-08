@@ -54,7 +54,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self loadDataWithAppear];
-//    [self queryMessageCount];
+    [self queryMessageCount];
 }
 
 
