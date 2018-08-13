@@ -11,8 +11,9 @@
 #import "StandMainPageController.h"
 #import "BaseNavController.h"
 #import "OrderListController.h"
-#import "DriverDetailController.h"
 #import "AppDelegate.h"
+#import "DriverInfoController.h"
+#import "SettingViewController.h"
 
 
 @interface StandMainMMController ()
@@ -95,11 +96,19 @@
 - (void)pushViewControllerWithIndex:(NSInteger)cellIndex {
     if (cellIndex == -1) {
         UIStoryboard *board = [UIStoryboard storyboardWithName:@"DriverInformation" bundle:nil];
-        DriverDetailController *driverDetailController = [board instantiateViewControllerWithIdentifier:@"driver_detail"];
-        [mainNav pushViewController:driverDetailController animated:YES];
+        DriverInfoController *driverInfoController = [board instantiateViewControllerWithIdentifier:@"driver_info"];
+        [mainNav pushViewController:driverInfoController animated:YES];
     }else if (cellIndex == 0) {
         OrderListController *orderVc = [[OrderListController alloc] init];
         [mainNav pushViewController:orderVc animated:YES];
+    }else if (cellIndex == 1) {
+        
+    }else if (cellIndex == 2) {
+        
+    }else if (cellIndex == 3) {
+        UIStoryboard *board = [UIStoryboard storyboardWithName:@"MyInfo" bundle:nil];
+        SettingViewController *settingViewController = [board instantiateViewControllerWithIdentifier:@"my_setting"];
+        [mainNav pushViewController:settingViewController animated:YES];
     }
 }
 

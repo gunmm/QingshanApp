@@ -10,9 +10,10 @@
 #import "DriverMainPageController.h"
 #import "StandLeftPageController.h"
 #import "BaseNavController.h"
-#import "DriverDetailController.h"
+#import "DriverInfoController.h"
 #import "DriverOrderListController.h"
 #import "AppDelegate.h"
+#import "SettingViewController.h"
 
 @interface DriverMainMMController ()
 {
@@ -94,12 +95,20 @@
 - (void)pushViewControllerWithIndex:(NSInteger)cellIndex {
     if (cellIndex == -1) {
         UIStoryboard *board = [UIStoryboard storyboardWithName:@"DriverInformation" bundle:nil];
-        DriverDetailController *driverDetailController = [board instantiateViewControllerWithIdentifier:@"driver_detail"];
-        [mainNav pushViewController:driverDetailController animated:YES];
+        DriverInfoController *driverInfoController = [board instantiateViewControllerWithIdentifier:@"driver_info"];
+        [mainNav pushViewController:driverInfoController animated:YES];
 
     }else if (cellIndex == 0) {
         DriverOrderListController *driverOrderListController = [[DriverOrderListController alloc] init];
         [mainNav pushViewController:driverOrderListController animated:YES];
+    }else if (cellIndex == 1) {
+        
+    }else if (cellIndex == 2) {
+        
+    }else if (cellIndex == 3) {
+        UIStoryboard *board = [UIStoryboard storyboardWithName:@"MyInfo" bundle:nil];
+        SettingViewController *settingViewController = [board instantiateViewControllerWithIdentifier:@"my_setting"];
+        [mainNav pushViewController:settingViewController animated:YES];
     }
 }
 

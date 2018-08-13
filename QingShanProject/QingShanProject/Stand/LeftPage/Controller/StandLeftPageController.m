@@ -68,7 +68,7 @@
 
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-//    if (_isDriver && indexPath.row == 0) {
+//    if (!_isDriver && indexPath.row == 1) {
 //        return 0;
 //    }
     
@@ -85,7 +85,11 @@
         }
     }
     if (indexPath.row == 3) {
-        [Utils backToLogin];
+        if (self.standLeftSelectBlock) {
+            self.standLeftSelectBlock(3);
+        }
+        
+//        [Utils backToLogin];
     }
 }
 

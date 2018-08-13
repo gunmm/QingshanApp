@@ -14,14 +14,24 @@ typedef void(^InfoEditBlock)(void);
 @interface DriverInfoController : BaseTableViewController
 @property (weak, nonatomic) IBOutlet UIImageView *headImageView;
 @property (weak, nonatomic) IBOutlet UITextField *userNameTextF;
+@property (weak, nonatomic) IBOutlet UITextField *phoneNumberTextF;
+@property (weak, nonatomic) IBOutlet UITextField *idCardTextF;
+@property (weak, nonatomic) IBOutlet UITextField *belongSiteTextF;
+@property (weak, nonatomic) IBOutlet UITextField *scoreTextF;
+@property (weak, nonatomic) IBOutlet UITextField *bankCardTextF;
 
-@property (weak, nonatomic) IBOutlet UIImageView *card1ImageView;
-@property (weak, nonatomic) IBOutlet UIImageView *card2ImageView;
 
-@property (weak, nonatomic) IBOutlet UIImageView *card3ImageView;
-@property (weak, nonatomic) IBOutlet UITextField *carTypeTextF;
-@property (weak, nonatomic) IBOutlet UITextField *nickNameTextF;
+@property (weak, nonatomic) IBOutlet UILabel *plateNumberKeyLabel;
+
+
 @property (weak, nonatomic) IBOutlet UITextField *plateNumberTextF;
+@property (weak, nonatomic) IBOutlet UITextField *carTypeTextF;
+@property (weak, nonatomic) IBOutlet UITextField *gpsTypeTextF;
+@property (weak, nonatomic) IBOutlet UITextField *gpsNumberTextF;
+
+@property (weak, nonatomic) IBOutlet UIButton *editBankBtn;
+
+
 
 
 @property (nonatomic, strong) UserModel *userModel;

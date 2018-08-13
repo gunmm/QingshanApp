@@ -66,19 +66,6 @@
 @property (nonatomic, strong) NSDictionary *invoiceParam;
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 @end
 
 @implementation AddOrderController
@@ -297,6 +284,11 @@
     
     if (_nameCell.contentTextF.text.length == 0) {
         [HUDClass showHUDWithText:@"联系人不能为空！"];
+        return;
+    }
+    
+    if ([_confirmView.priceLabel.text isEqualToString:@"计价中"]) {
+        [HUDClass showHUDWithText:@"正在计算价格！"];
         return;
     }
     

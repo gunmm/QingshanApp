@@ -53,6 +53,10 @@
 #define TABBAR_BOTTOM_HEIGHT (CGFloat)(IS_IPHONE_5_8 ? 34 : 0)
 
 
+#define IS_IOS8_OR_LATER ([[UIDevice currentDevice].systemVersion floatValue] >=8.0)
+
+
+
 
 
 

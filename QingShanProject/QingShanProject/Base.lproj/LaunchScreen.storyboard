@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
-    <device id="retina4_7" orientation="portrait">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+    <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -15,29 +15,43 @@
             <objects>
                 <viewController id="01J-lp-oVM" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="head.jpeg" translatesAutoresizingMaskIntoConstraints="NO" id="QZa-9A-noa">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="appicon1024.png" translatesAutoresizingMaskIntoConstraints="NO" id="EJL-xZ-hEA">
+                                <rect key="frame" x="110" y="94" width="100" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="669-FV-EIi"/>
+                                    <constraint firstAttribute="height" constant="100" id="PZF-zw-Gnn"/>
+                                </constraints>
                             </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="庆山物流" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JnF-s2-64g">
+                                <rect key="frame" x="68" y="196.5" width="184" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="184" id="A2h-Ls-ySH"/>
+                                    <constraint firstAttribute="height" constant="35" id="K4F-Gt-ICh"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="39"/>
+                                <color key="textColor" red="0.25882352939999997" green="0.26274509800000001" blue="0.31764705879999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="QZa-9A-noa" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="VcL-Tw-Iw5"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="QZa-9A-noa" secondAttribute="bottom" id="YmM-l1-i6R"/>
-                            <constraint firstItem="QZa-9A-noa" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="aoe-pU-X1M"/>
-                            <constraint firstItem="QZa-9A-noa" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="qCh-a1-6hJ"/>
+                            <constraint firstItem="EJL-xZ-hEA" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="T5f-2K-GRq"/>
+                            <constraint firstItem="JnF-s2-64g" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="U44-Ys-1EY"/>
+                            <constraint firstItem="JnF-s2-64g" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" constant="-70" id="d0t-VA-PhV"/>
+                            <constraint firstItem="EJL-xZ-hEA" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" constant="-140" id="tDI-8j-2ep"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="53" y="375"/>
+            <point key="canvasLocation" x="52.5" y="375"/>
         </scene>
     </scenes>
     <resources>
-        <image name="head.jpeg" width="1200" height="800"/>
+        <image name="appicon1024.png" width="1024" height="1024"/>
     </resources>
 </document>
