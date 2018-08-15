@@ -353,7 +353,12 @@
     [orderParam setObject:[NSNumber numberWithDouble:_receivePt.longitude] forKey:@"receiveLongitude"];
     
     double price = ((self.routeLine.distance/1000 - self.starDistance)>0 ? (self.routeLine.distance/1000 - self.starDistance) : 0) * self.unitPrice + self.starPrice;
-    [orderParam setObject:[NSNumber numberWithDouble:((long)price)] forKey:@"price"];
+    [orderParam setObject:[NSNumber numberWithDouble:price] forKey:@"price"];
+    double servicePrice = price * 0.03;
+    if (servicePrice > 300) {
+        servicePrice = 300;
+    }
+    [orderParam setObject:[NSNumber numberWithDouble:servicePrice] forKey:@"servicePrice"];
     [orderParam setObject:[NSNumber numberWithDouble:self.routeLine.distance/1000] forKey:@"distance"];
     [orderParam setObject:payType forKey:@"freightFeePayType"]; //支付方式   1:支付宝支付    2:微信支付   3:现金支付
     if ([payType isEqualToString:@"3"]) {
