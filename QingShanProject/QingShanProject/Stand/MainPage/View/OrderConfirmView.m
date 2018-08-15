@@ -14,7 +14,7 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     _bgView.layer.backgroundColor = [UIColor whiteColor].CGColor;
-    _bgView.layer.shadowColor = [UIColor blackColor].CGColor;
+    _bgView.layer.shadowColor = [UIColor grayColor].CGColor;
     _bgView.layer.shadowOpacity = 0.3f;
     _bgView.layer.shadowOffset = CGSizeMake(0,0);
     _bgView.layer.frame = _bgView.frame;

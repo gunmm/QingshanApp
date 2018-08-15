@@ -43,6 +43,8 @@
 @property (nonatomic, strong) SelectTableViewCell *typeSelectCell;
 @property (nonatomic, strong) TextTableViewCell *nameCell;
 @property (nonatomic, strong) TextTableViewCell *phoneCell;
+@property (nonatomic, strong) TextTableViewCell *reNameCell;
+@property (nonatomic, strong) TextTableViewCell *rePhoneCell;
 @property (nonatomic, strong) TextTableViewCell *remarkCell;
 
 
@@ -171,8 +173,8 @@
     _bgScrollView = [[TouchScrollView alloc] initWithFrame:CGRectMake(0, STATUS_AND_NAVBAR_HEIGHT+2, kDeviceWidth, kDeviceHeight - STATUS_AND_NAVBAR_HEIGHT - 2)];
     _bgScrollView.backgroundColor = bgColor;
     _bgScrollView.bounces = NO;
-    if (_bgScrollView.height < (200 + 10 + 44*(_isNow?4:5) + 146 + 20)) {
-        _bgScrollView.contentSize = CGSizeMake(kDeviceWidth, 200 + 10 + 44*(_isNow?4:5) + 146 + 20);
+    if (_bgScrollView.height < (200 + 10 + 44*(_isNow?6:7) + 146 + 20)) {
+        _bgScrollView.contentSize = CGSizeMake(kDeviceWidth, 200 + 10 + 44*(_isNow?6:7) + 146 + 20);
     }else{
         _bgScrollView.contentSize = CGSizeMake(kDeviceWidth, _bgScrollView.height);
     }
@@ -283,7 +285,33 @@
     }
     
     if (_nameCell.contentTextF.text.length == 0) {
-        [HUDClass showHUDWithText:@"联系人不能为空！"];
+        [HUDClass showHUDWithText:@"发件人不能为空！"];
+        return;
+    }
+    
+    if (_phoneCell.contentTextF.text.length == 0) {
+        [HUDClass showHUDWithText:@"发件人电话不能为空！"];
+        return;
+    }
+    
+    if (![Utils correctTel:_phoneCell.contentTextF.text]) {
+        [HUDClass showHUDWithText:@"发件人电话格式不正确！"];
+        return;
+    }
+    
+    
+    if (_reNameCell.contentTextF.text.length == 0) {
+        [HUDClass showHUDWithText:@"收件人不能为空！"];
+        return;
+    }
+    
+    if (_rePhoneCell.contentTextF.text.length == 0) {
+        [HUDClass showHUDWithText:@"收件人电话不能为空！"];
+        return;
+    }
+    
+    if (![Utils correctTel:_rePhoneCell.contentTextF.text]) {
+        [HUDClass showHUDWithText:@"收件人电话格式不正确！"];
         return;
     }
     
@@ -338,6 +366,9 @@
     [orderParam setObject:_nameCell.contentTextF.text forKey:@"linkMan"];
     [orderParam setObject:_phoneCell.contentTextF.text forKey:@"linkPhone"];
     
+    [orderParam setObject:_reNameCell.contentTextF.text forKey:@"receiveMan"];
+    [orderParam setObject:_rePhoneCell.contentTextF.text forKey:@"receivePhone"];
+    
     [orderParam setObject:_carTypeValueStr forKey:@"carType"];
     [orderParam setObject:_remarkCell.contentTextF.text forKey:@"note"];
     
@@ -389,7 +420,7 @@
 
 - (void)initTableView {
     
-    _theTableView = [[UITableView alloc] initWithFrame:CGRectMake(10, _mapView.bottom + 10, kDeviceWidth-20, 44*(_isNow?4:5)) style:UITableViewStylePlain];
+    _theTableView = [[UITableView alloc] initWithFrame:CGRectMake(10, _mapView.bottom + 10, kDeviceWidth-20, 44*(_isNow?6:7)) style:UITableViewStylePlain];
     _theTableView.delegate = self;
     _theTableView.dataSource = self;
     _theTableView.backgroundColor = [UIColor clearColor];
@@ -409,10 +440,10 @@
 
 - (void)initMap {
     CGFloat mapViewHeight = 0;
-    if (_bgScrollView.height < (200 + 10 + 44*(_isNow?4:5) + 146 + 20)) {
+    if (_bgScrollView.height < (200 + 10 + 44*(_isNow?6:7) + 146 + 20)) {
         mapViewHeight = 200;
     }else{
-        mapViewHeight = _bgScrollView.height - (10 + 44*(_isNow?4:5) + 146 + 20);
+        mapViewHeight = _bgScrollView.height - (10 + 44*(_isNow?6:7) + 146 + 20);
         
     }
     _mapView = [[BMKMapView alloc]initWithFrame:CGRectMake(0, 0, kDeviceWidth, mapViewHeight)];
@@ -423,7 +454,7 @@
     [_bgScrollView addSubview:_mapView];
     
     
-    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake( 0,  _mapView.bottom, kDeviceWidth, 10 + 44*(_isNow?4:5) + 146 + 20)];
+    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake( 0,  _mapView.bottom, kDeviceWidth, 10 + 44*(_isNow?6:7) + 146 + 20)];
     bgView.backgroundColor = bgColor;
     
     [_bgScrollView addSubview:bgView];
@@ -577,7 +608,7 @@
 
 #pragma mark--------UITableView代理
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 5;
+    return 7;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -609,9 +640,9 @@
         }
         TextTableViewCell *cell = [[[NSBundle mainBundle] loadNibNamed:@"TextTableViewCell" owner:nil options:nil] lastObject];
         _nameCell = cell;
-        cell.keyLabel.text = @"联系人";
-        cell.contentTextF.placeholder = @"联系人";
-        [NavBgImage showIconFontForView:cell.iconLabel iconName:@"\U0000e60d" color:[NavBgImage getColorByString:@"联系人"] font:22];
+        cell.keyLabel.text = @"发货人";
+        cell.contentTextF.placeholder = @"发货人";
+        [NavBgImage showIconFontForView:cell.iconLabel iconName:@"\U0000e60d" color:[NavBgImage getColorByString:@"发货人"] font:22];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
     }else if (indexPath.row == 3) {
@@ -620,15 +651,37 @@
         }
         TextTableViewCell *cell = [[[NSBundle mainBundle] loadNibNamed:@"TextTableViewCell" owner:nil options:nil] lastObject];
         _phoneCell = cell;
-        cell.keyLabel.text = @"电话";
-        cell.contentTextF.placeholder = @"电话";
+        cell.keyLabel.text = @"发货电话";
+        cell.contentTextF.placeholder = @"发货电话";
         cell.contentTextF.keyboardType = UIKeyboardTypeNumberPad;
-        cell.contentTextF.enabled = NO;
         cell.contentTextF.text = [[Config shareConfig] getUserName];
-        [NavBgImage showIconFontForView:cell.iconLabel iconName:@"\U0000e88b" color:[NavBgImage getColorByString:@"电话电话"] font:28];
+        [NavBgImage showIconFontForView:cell.iconLabel iconName:@"\U0000e88b" color:[NavBgImage getColorByString:@"发货电话"] font:28];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
     }else if (indexPath.row == 4) {
+        if (_reNameCell) {
+            return _reNameCell;
+        }
+        TextTableViewCell *cell = [[[NSBundle mainBundle] loadNibNamed:@"TextTableViewCell" owner:nil options:nil] lastObject];
+        _reNameCell = cell;
+        cell.keyLabel.text = @"收货人";
+        cell.contentTextF.placeholder = @"收货人";
+        [NavBgImage showIconFontForView:cell.iconLabel iconName:@"\U0000e60d" color:[NavBgImage getColorByString:@"收货人"] font:22];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        return cell;
+    }else if (indexPath.row == 5) {
+        if (_rePhoneCell) {
+            return _rePhoneCell;
+        }
+        TextTableViewCell *cell = [[[NSBundle mainBundle] loadNibNamed:@"TextTableViewCell" owner:nil options:nil] lastObject];
+        _rePhoneCell = cell;
+        cell.keyLabel.text = @"收货电话";
+        cell.contentTextF.placeholder = @"收货电话";
+        cell.contentTextF.keyboardType = UIKeyboardTypeNumberPad;
+        [NavBgImage showIconFontForView:cell.iconLabel iconName:@"\U0000e88b" color:[NavBgImage getColorByString:@"收货电话"] font:28];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        return cell;
+    }else if (indexPath.row == 6) {
         if (_remarkCell) {
             return _remarkCell;
         }

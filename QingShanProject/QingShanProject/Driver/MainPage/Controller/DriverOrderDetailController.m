@@ -274,9 +274,9 @@
 
 - (void)initDetailView {
     _driverOrderDetailView = [[[NSBundle mainBundle] loadNibNamed:@"DriverOrderDetailView" owner:nil options:nil] lastObject];
-    _driverOrderDetailView.frame = CGRectMake(0, 0, kDeviceWidth-10, 245);
+    _driverOrderDetailView.frame = CGRectMake(0, 0, kDeviceWidth-10, 281);
     
-    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(5, _mapView.bottom+5, kDeviceWidth-10, 245)];
+    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(5, _mapView.bottom+5, kDeviceWidth-10, 281)];
     [self.view addSubview:bgView];
     
     [bgView addSubview:_driverOrderDetailView];
@@ -400,7 +400,7 @@
 }
 
 - (void)initMapView {
-    _mapView = [[BMKMapView alloc] initWithFrame:CGRectMake(0, 0, kDeviceWidth, kDeviceHeight-STATUS_AND_NAVBAR_HEIGHT-255)];
+    _mapView = [[BMKMapView alloc] initWithFrame:CGRectMake(0, 0, kDeviceWidth, kDeviceHeight-STATUS_AND_NAVBAR_HEIGHT-291)];
     _mapView.delegate = self;
     _mapView.zoomLevel = 15;
     _mapView.zoomEnabled = YES;

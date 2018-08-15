@@ -136,7 +136,7 @@
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <inset key="imageEdgeInsets" minX="0.0" minY="5" maxX="0.0" maxY="5"/>
-                        <state key="normal" title="联系客户" image="icon_phone.png">
+                        <state key="normal" title="联系货主" image="icon_phone.png">
                             <color key="titleColor" red="0.25882352939999997" green="0.26274509800000001" blue="0.31764705879999999" alpha="1" colorSpace="calibratedRGB"/>
                         </state>
                         <connections>

@@ -27,17 +27,17 @@
 - (void)layoutSubviews {
     CALayer *sublayer =[CALayer layer];
     sublayer.backgroundColor = [UIColor whiteColor].CGColor;
-    sublayer.shadowColor = [UIColor blackColor].CGColor;
+    sublayer.shadowColor = [UIColor grayColor].CGColor;
     sublayer.shadowOpacity = 0.3f;
-    sublayer.shadowRadius = 2.f;
+    sublayer.shadowRadius = 4.f;
     sublayer.shadowOffset = CGSizeMake(0,0);
     sublayer.frame = self.bounds;
     [_bgView.layer addSublayer:sublayer];
     [sublayer setNeedsDisplay];
     CALayer *corLayer = [CALayer layer];
     corLayer.frame = sublayer.bounds;
-    corLayer.cornerRadius = 2;
-    sublayer.cornerRadius = 2;
+    corLayer.cornerRadius = 4;
+    sublayer.cornerRadius = 4;
     corLayer.masksToBounds = YES;
     [sublayer addSublayer:corLayer];
 }

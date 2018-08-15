@@ -26,6 +26,9 @@
 @property (nonatomic, copy) NSString *createManId;       //发布人id
 @property (nonatomic, copy) NSString *linkMan;       //联系人
 @property (nonatomic, copy) NSString *linkPhone;       //联系电话
+@property (nonatomic, copy) NSString *receiveMan;      //收货人
+@property (nonatomic, copy) NSString *receivePhone;       //收货联系电话
+
 
 @property (nonatomic, copy) NSString *sendAddress;       //
 @property (nonatomic, copy) NSString *sendDetailAddress;       //
@@ -51,6 +54,8 @@
 @property (nonatomic, copy) NSString *carType;       //车辆类型
 @property (nonatomic, copy) NSString *carTypeName;       //车辆类型
 @property (nonatomic, assign) double price; //费用
+@property (nonatomic, assign) double servicePrice; //服务费
+
 @property (nonatomic, assign) double distance; //距离
 @property (nonatomic, copy) NSString *invoiceId;       //发票ID
 @property (nonatomic, copy) NSString *note;       //订单备注

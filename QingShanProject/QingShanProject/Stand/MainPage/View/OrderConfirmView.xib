@@ -80,7 +80,7 @@
                     </constraints>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sDi-vz-Ne0">
-                    <rect key="frame" x="78" y="10" width="30" height="30"/>
+                    <rect key="frame" x="95" y="10" width="30" height="30"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="30" id="H37-GK-2qF"/>
                         <constraint firstAttribute="width" constant="30" id="xwl-L7-VRV"/>
@@ -90,7 +90,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qJ6-7Q-K7Y">
-                    <rect key="frame" x="108" y="12" width="204" height="27"/>
+                    <rect key="frame" x="125" y="12" width="187" height="27"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="27" id="aTs-p5-tJf"/>
                     </constraints>
@@ -108,10 +108,10 @@
                 <constraint firstItem="vgp-KC-48U" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="4zt-zC-Cuj"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="qJ6-7Q-K7Y" secondAttribute="trailing" constant="8" id="68v-UP-wtw"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="vgp-KC-48U" secondAttribute="bottom" id="7Wl-hl-b6I"/>
+                <constraint firstItem="sDi-vz-Ne0" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" constant="-50" id="Ahu-Uq-mjC"/>
                 <constraint firstItem="qJ6-7Q-K7Y" firstAttribute="leading" secondItem="sDi-vz-Ne0" secondAttribute="trailing" id="JzB-OH-93H"/>
                 <constraint firstItem="qJ6-7Q-K7Y" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="12" id="TFg-Tj-Hzd"/>
                 <constraint firstItem="vgp-KC-48U" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="Xus-TU-bHa"/>
-                <constraint firstItem="sDi-vz-Ne0" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="78" id="iJC-SY-Msd"/>
                 <constraint firstItem="sDi-vz-Ne0" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="10" id="zMm-hz-LCh"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>

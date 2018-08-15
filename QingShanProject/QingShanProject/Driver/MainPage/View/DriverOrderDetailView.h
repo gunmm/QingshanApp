@@ -26,6 +26,11 @@ typedef void(^OrderTimeOutBlock)(void);
 @property (weak, nonatomic) IBOutlet UIButton *nameBtn;
 
 @property (weak, nonatomic) IBOutlet UIButton *callBtn;
+
+@property (weak, nonatomic) IBOutlet UIButton *reciveNameBtn;
+@property (weak, nonatomic) IBOutlet UIButton *reciveCallBtn;
+
+
 @property (weak, nonatomic) IBOutlet UILabel *priceLabel;
 @property (weak, nonatomic) IBOutlet UIButton *payStatusBtn;
 @property (weak, nonatomic) IBOutlet UILabel *orderDetailLabel;

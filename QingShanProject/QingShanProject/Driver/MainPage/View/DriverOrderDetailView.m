@@ -19,6 +19,12 @@
     _callBtn.layer.borderWidth = 0.5;
     _callBtn.imageView.contentMode = UIViewContentModeScaleAspectFit;
     
+    _reciveCallBtn.layer.cornerRadius = 4;
+    _reciveCallBtn.layer.masksToBounds = YES;
+    _reciveCallBtn.layer.borderColor = mainColor.CGColor;
+    _reciveCallBtn.layer.borderWidth = 0.5;
+    _reciveCallBtn.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    
     _beginBtn.layer.cornerRadius = 4;
     _beginBtn.layer.masksToBounds = YES;
     
@@ -31,6 +37,8 @@
     _payStatusBtn.imageView.contentMode = UIViewContentModeScaleAspectFit;
     
     _nameBtn.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    _reciveNameBtn.imageView.contentMode = UIViewContentModeScaleAspectFit;
+
     
     
     _cancleOrderBtn.layer.cornerRadius = 4;
@@ -47,17 +55,17 @@
 - (void)layoutSubviews {
     CALayer *sublayer =[CALayer layer];
     sublayer.backgroundColor = [UIColor whiteColor].CGColor;
-    sublayer.shadowColor = [UIColor blackColor].CGColor;
+    sublayer.shadowColor = [UIColor grayColor].CGColor;
     sublayer.shadowOpacity = 0.3f;
-    sublayer.shadowRadius = 2.f;
+    sublayer.shadowRadius = 4.f;
     sublayer.shadowOffset = CGSizeMake(0,0);
     sublayer.frame = self.bounds;
     [_bgView.layer addSublayer:sublayer];
     [sublayer setNeedsDisplay];
     CALayer *corLayer = [CALayer layer];
     corLayer.frame = sublayer.bounds;
-    corLayer.cornerRadius = 2;
-    sublayer.cornerRadius = 2;
+    corLayer.cornerRadius = 4;
+    sublayer.cornerRadius = 4;
     corLayer.masksToBounds = YES;
     [sublayer addSublayer:corLayer];
 }
@@ -66,6 +74,7 @@
     _model = model;
     [_timer invalidate];
     [_nameBtn setTitle:[NSString stringWithFormat:@"%@货主",[_model.linkMan substringToIndex:1]] forState:UIControlStateNormal];
+    [_reciveNameBtn setTitle:_model.receiveMan forState:UIControlStateNormal];
     _priceLabel.text = [NSString stringWithFormat:@"¥%.2f",_model.price];
     //支付状态
     if ([_model.freightFeePayStatus isEqualToString:@"1"]) {
@@ -78,6 +87,7 @@
     
     if ([_model.status isEqualToString:@"1"]) { //抢到订单未支付服务费
         _callBtn.hidden = YES;
+        _reciveCallBtn.hidden = YES;
         _serviceFeeBgView.hidden = NO;
         _serviceFeeBtnBgView.hidden = NO;
         
@@ -105,6 +115,7 @@
         
     }else {//抢到订单已支付服务费
         _callBtn.hidden = NO;
+        _reciveCallBtn.hidden = NO;
         _serviceFeeBgView.hidden = YES;
         _serviceFeeBtnBgView.hidden = YES;
         if ([_model.type isEqualToString:@"2"]) { //预约订单
@@ -184,6 +195,12 @@
     NSMutableString *str = [[NSMutableString alloc] initWithFormat:@"telprompt://%@",_model.linkPhone];
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str] options:@{} completionHandler:^(BOOL success) {}];
 }
+
+- (IBAction)reciveCallBtnAct:(id)sender {
+    NSMutableString *str = [[NSMutableString alloc] initWithFormat:@"telprompt://%@",_model.receivePhone];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str] options:@{} completionHandler:^(BOOL success) {}];
+}
+
 
 - (IBAction)beginBtnAct:(UIButton *)sender {
     if (self.beginAppointOrderBlock) {

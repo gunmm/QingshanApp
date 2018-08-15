@@ -22,6 +22,7 @@
 #import "OrderFinishView.h"
 #import "CustomIOS7AlertView.h"
 #import "CommentView.h"
+#import "LinkManView.h"
 
 
 
@@ -45,6 +46,10 @@
 @property (strong, nonatomic) OrderModel *model;
 @property (strong, nonatomic) OrderOnWayView *orderOnWayView;
 @property (strong, nonatomic) OrderFinishView *orderFinishView;
+@property (strong, nonatomic) LinkManView *linkManView;
+
+
+
 
 @property (strong, nonatomic) NSTimer *timer;
 @property (assign, nonatomic) NSInteger nowCount;
@@ -144,6 +149,9 @@
 }
 
 - (void)setView {
+    
+    _linkManView.model = self.model;
+    
     if ([self.model.status isEqualToString:@"2"]) {
         if ([self.model.appointStatus isEqualToString:@"0"]) {
             self.orderOnWayView.hidden = YES;
@@ -254,7 +262,7 @@
 
 
 - (void)initMap {
-    _mapView = [[BMKMapView alloc]initWithFrame:CGRectMake(0, 0, kDeviceWidth, kDeviceHeight-STATUS_AND_NAVBAR_HEIGHT-240)];
+    _mapView = [[BMKMapView alloc]initWithFrame:CGRectMake(0, 0, kDeviceWidth, kDeviceHeight-STATUS_AND_NAVBAR_HEIGHT-320)];
     
     _mapView.zoomLevel = 15;
     _mapView.zoomEnabled = YES;
@@ -272,16 +280,22 @@
 }
 
 - (void)initInfoView {
-    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(5, _mapView.bottom+5, kDeviceWidth-20, 230)];
+    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(5, _mapView.bottom+8, kDeviceWidth-20, 305)];
     [self.view addSubview:bgView];
     
+    
+    _linkManView = [[[NSBundle mainBundle] loadNibNamed:@"LinkManView" owner:nil options:nil] lastObject];
+    _linkManView.frame = CGRectMake(0, 0, kDeviceWidth-10, 70);
+    [bgView addSubview:_linkManView];
+
+    
     _orderOnWayView = [[[NSBundle mainBundle] loadNibNamed:@"OrderOnWayView" owner:nil options:nil] lastObject];
-    _orderOnWayView.frame = CGRectMake(0, 0, kDeviceWidth-10, 230);
+    _orderOnWayView.frame = CGRectMake(0, 77, kDeviceWidth-10, 230);
     [bgView addSubview:_orderOnWayView];
     
     
     _orderFinishView = [[[NSBundle mainBundle] loadNibNamed:@"OrderFinishView" owner:nil options:nil] lastObject];
-    _orderFinishView.frame = CGRectMake(0, 0, kDeviceWidth-10, 230);
+    _orderFinishView.frame = CGRectMake(0, 77, kDeviceWidth-10, 230);
     [bgView addSubview:_orderFinishView];
     _orderFinishView.hidden = YES;
     
