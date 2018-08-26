@@ -21,6 +21,7 @@ typedef void(^PayBtnActBlock)(NSString *payType);
 @property (nonatomic, copy) NSString *payType;
 
 @property (nonatomic, copy) PayBtnActBlock payBtnActBlock;
+@property (weak, nonatomic) IBOutlet UILabel *priceLabel;
 
 
 @end

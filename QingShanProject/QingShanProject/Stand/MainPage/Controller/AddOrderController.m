@@ -332,6 +332,7 @@
             [self.customIOS7AlertView setButtonTitles:nil];
             [self.customIOS7AlertView setContainerView:payDetailView];
             [self.customIOS7AlertView showFromBottom];
+            payDetailView.priceLabel.text = self.confirmView.priceLabel.text;
             
             
             

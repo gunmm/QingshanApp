@@ -71,6 +71,8 @@
 @property (nonatomic, assign) long long createTime;
 @property (nonatomic, assign) long long updateTime;
 @property (nonatomic, assign) long long appointTime;
+@property (nonatomic, assign) long long finishTime;
+
 @property (nonatomic, assign) long long timeOut;
 
 

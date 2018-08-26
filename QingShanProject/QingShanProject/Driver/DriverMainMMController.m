@@ -14,6 +14,7 @@
 #import "DriverOrderListController.h"
 #import "AppDelegate.h"
 #import "SettingViewController.h"
+#import "WalletController.h"
 
 @interface DriverMainMMController ()
 {
@@ -102,7 +103,8 @@
         DriverOrderListController *driverOrderListController = [[DriverOrderListController alloc] init];
         [mainNav pushViewController:driverOrderListController animated:YES];
     }else if (cellIndex == 1) {
-        
+        WalletController *walletController = [[WalletController alloc] init];
+        [mainNav pushViewController:walletController animated:YES];
     }else if (cellIndex == 2) {
         
     }else if (cellIndex == 3) {

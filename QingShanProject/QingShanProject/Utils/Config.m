@@ -74,6 +74,15 @@
     return token;
 }
 
+//设置和获取bankCardNumber
+- (void)setBankCardNumber:(NSString *)bankCardNumber {
+    [self setValue:bankCardNumber key:@"bankCardNumber"];
+}
+
+- (NSString *)getBankCardNumber {
+    return [self getValueWithKey:@"bankCardNumber"];
+}
+
 - (void)setUserId:(NSString *)userId
 {
     [self setValue:userId key:@"user_id"];

@@ -34,6 +34,11 @@
 
 - (NSString *)getToken;
 
+//设置和获取bankCardNumber
+- (void)setBankCardNumber:(NSString *)bankCardNumber;
+
+- (NSString *)getBankCardNumber;
+
 
 //设置和获取userId
 - (void)setUserId:(NSString *)userId;

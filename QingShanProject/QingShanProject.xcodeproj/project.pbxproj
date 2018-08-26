@@ -154,6 +154,17 @@
 		76AB709620A5995300CC3C70 /* search1.png in Resources */ = {isa = PBXBuildFile; fileRef = 76AB709520A5995300CC3C70 /* search1.png */; };
 		76AB709A20A59D8A00CC3C70 /* SelectAddressCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 76AB709720A59D8900CC3C70 /* SelectAddressCell.xib */; };
 		76AB709B20A59D8A00CC3C70 /* SelectAddressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 76AB709820A59D8900CC3C70 /* SelectAddressCell.m */; };
+		76B23F4E21323E0800FB4F42 /* WalletController.m in Sources */ = {isa = PBXBuildFile; fileRef = 76B23F4D21323E0800FB4F42 /* WalletController.m */; };
+		76B23F522132409B00FB4F42 /* WalletListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 76B23F502132409B00FB4F42 /* WalletListCell.m */; };
+		76B23F532132409B00FB4F42 /* WalletListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 76B23F512132409B00FB4F42 /* WalletListCell.xib */; };
+		76B23F562132465C00FB4F42 /* WalletListRes.m in Sources */ = {isa = PBXBuildFile; fileRef = 76B23F552132465C00FB4F42 /* WalletListRes.m */; };
+		76B23F592132479900FB4F42 /* WalletListHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 76B23F582132479900FB4F42 /* WalletListHeadView.m */; };
+		76B23F5B213247A500FB4F42 /* WalletListHeadView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 76B23F5A213247A500FB4F42 /* WalletListHeadView.xib */; };
+		76B23F5E2132840F00FB4F42 /* WithDrawalListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 76B23F5D2132840F00FB4F42 /* WithDrawalListController.m */; };
+		76B23F61213284BB00FB4F42 /* DriverWithdrawalListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 76B23F60213284BB00FB4F42 /* DriverWithdrawalListModel.m */; };
+		76B23F642132853100FB4F42 /* DriverWithdrawalRes.m in Sources */ = {isa = PBXBuildFile; fileRef = 76B23F632132853100FB4F42 /* DriverWithdrawalRes.m */; };
+		76B23F6821328A6400FB4F42 /* WithdrawalListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 76B23F6621328A6400FB4F42 /* WithdrawalListCell.m */; };
+		76B23F6921328A6400FB4F42 /* WithdrawalListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 76B23F6721328A6400FB4F42 /* WithdrawalListCell.xib */; };
 		76B5F05220BF8F9D009D30C1 /* UserInfoRes.m in Sources */ = {isa = PBXBuildFile; fileRef = 76B5F05120BF8F9D009D30C1 /* UserInfoRes.m */; };
 		76B5F05520BF9505009D30C1 /* ImagePreController.m in Sources */ = {isa = PBXBuildFile; fileRef = 76B5F05420BF9505009D30C1 /* ImagePreController.m */; };
 		76B5F05B20BFA7AE009D30C1 /* DetailInfoHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 76B5F05A20BFA7AE009D30C1 /* DetailInfoHeaderView.m */; };
@@ -424,6 +435,25 @@
 		76AB709720A59D8900CC3C70 /* SelectAddressCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectAddressCell.xib; sourceTree = "<group>"; };
 		76AB709820A59D8900CC3C70 /* SelectAddressCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectAddressCell.m; sourceTree = "<group>"; };
 		76AB709920A59D8A00CC3C70 /* SelectAddressCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectAddressCell.h; sourceTree = "<group>"; };
+		76B23F4C21323E0800FB4F42 /* WalletController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WalletController.h; sourceTree = "<group>"; };
+		76B23F4D21323E0800FB4F42 /* WalletController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WalletController.m; sourceTree = "<group>"; };
+		76B23F4F2132409B00FB4F42 /* WalletListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WalletListCell.h; sourceTree = "<group>"; };
+		76B23F502132409B00FB4F42 /* WalletListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WalletListCell.m; sourceTree = "<group>"; };
+		76B23F512132409B00FB4F42 /* WalletListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletListCell.xib; sourceTree = "<group>"; };
+		76B23F542132465C00FB4F42 /* WalletListRes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WalletListRes.h; sourceTree = "<group>"; };
+		76B23F552132465C00FB4F42 /* WalletListRes.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WalletListRes.m; sourceTree = "<group>"; };
+		76B23F572132479900FB4F42 /* WalletListHeadView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WalletListHeadView.h; sourceTree = "<group>"; };
+		76B23F582132479900FB4F42 /* WalletListHeadView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WalletListHeadView.m; sourceTree = "<group>"; };
+		76B23F5A213247A500FB4F42 /* WalletListHeadView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletListHeadView.xib; sourceTree = "<group>"; };
+		76B23F5C2132840F00FB4F42 /* WithDrawalListController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WithDrawalListController.h; sourceTree = "<group>"; };
+		76B23F5D2132840F00FB4F42 /* WithDrawalListController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WithDrawalListController.m; sourceTree = "<group>"; };
+		76B23F5F213284BB00FB4F42 /* DriverWithdrawalListModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DriverWithdrawalListModel.h; sourceTree = "<group>"; };
+		76B23F60213284BB00FB4F42 /* DriverWithdrawalListModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DriverWithdrawalListModel.m; sourceTree = "<group>"; };
+		76B23F622132853100FB4F42 /* DriverWithdrawalRes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DriverWithdrawalRes.h; sourceTree = "<group>"; };
+		76B23F632132853100FB4F42 /* DriverWithdrawalRes.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DriverWithdrawalRes.m; sourceTree = "<group>"; };
+		76B23F6521328A6400FB4F42 /* WithdrawalListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WithdrawalListCell.h; sourceTree = "<group>"; };
+		76B23F6621328A6400FB4F42 /* WithdrawalListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WithdrawalListCell.m; sourceTree = "<group>"; };
+		76B23F6721328A6400FB4F42 /* WithdrawalListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WithdrawalListCell.xib; sourceTree = "<group>"; };
 		76B5F05020BF8F9D009D30C1 /* UserInfoRes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserInfoRes.h; sourceTree = "<group>"; };
 		76B5F05120BF8F9D009D30C1 /* UserInfoRes.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserInfoRes.m; sourceTree = "<group>"; };
 		76B5F05320BF9505009D30C1 /* ImagePreController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImagePreController.h; sourceTree = "<group>"; };
@@ -576,6 +606,10 @@
 				7642E6D020BD344C00D859B7 /* DriverInfoController.m */,
 				766CAAD8211F0E49004FE8F7 /* BankEditController.h */,
 				766CAAD9211F0E49004FE8F7 /* BankEditController.m */,
+				76B23F4C21323E0800FB4F42 /* WalletController.h */,
+				76B23F4D21323E0800FB4F42 /* WalletController.m */,
+				76B23F5C2132840F00FB4F42 /* WithDrawalListController.h */,
+				76B23F5D2132840F00FB4F42 /* WithDrawalListController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -585,6 +619,12 @@
 			children = (
 				76B5F05020BF8F9D009D30C1 /* UserInfoRes.h */,
 				76B5F05120BF8F9D009D30C1 /* UserInfoRes.m */,
+				76B23F542132465C00FB4F42 /* WalletListRes.h */,
+				76B23F552132465C00FB4F42 /* WalletListRes.m */,
+				76B23F622132853100FB4F42 /* DriverWithdrawalRes.h */,
+				76B23F632132853100FB4F42 /* DriverWithdrawalRes.m */,
+				76B23F5F213284BB00FB4F42 /* DriverWithdrawalListModel.h */,
+				76B23F60213284BB00FB4F42 /* DriverWithdrawalListModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -593,6 +633,15 @@
 			isa = PBXGroup;
 			children = (
 				7642E6CD20BD308700D859B7 /* DriverInformation.storyboard */,
+				76B23F4F2132409B00FB4F42 /* WalletListCell.h */,
+				76B23F502132409B00FB4F42 /* WalletListCell.m */,
+				76B23F512132409B00FB4F42 /* WalletListCell.xib */,
+				76B23F572132479900FB4F42 /* WalletListHeadView.h */,
+				76B23F582132479900FB4F42 /* WalletListHeadView.m */,
+				76B23F5A213247A500FB4F42 /* WalletListHeadView.xib */,
+				76B23F6521328A6400FB4F42 /* WithdrawalListCell.h */,
+				76B23F6621328A6400FB4F42 /* WithdrawalListCell.m */,
+				76B23F6721328A6400FB4F42 /* WithdrawalListCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1179,12 +1228,14 @@
 				760C4AFB2118345B007E6953 /* WaitDriverConfirmView.xib in Resources */,
 				7645CB3220C7B1030081280B /* order_cancel.m4a in Resources */,
 				767E55FA20A7C71900CA0CF2 /* TextTableViewCell.xib in Resources */,
+				76B23F6921328A6400FB4F42 /* WithdrawalListCell.xib in Resources */,
 				76AB708320A56D0600CC3C70 /* slidmain_user_head.png in Resources */,
 				767F62A220CD04FB00FBA10A /* RobOrderDetailView.xib in Resources */,
 				7645CB3420C7B1030081280B /* order_strived.m4a in Resources */,
 				762429CB20C52693008292B6 /* EBMuteDetector.mp3 in Resources */,
 				7645CB3020C7B1030081280B /* grab_failed.m4a in Resources */,
 				76F55BCA20AD2D1100882E91 /* RegisterFooterView.xib in Resources */,
+				76B23F532132409B00FB4F42 /* WalletListCell.xib in Resources */,
 				764F891320CFA2AC00CA478D /* PriceDeatilView.xib in Resources */,
 				76CA175720B7F8F100740909 /* icon_driver_car.png in Resources */,
 				7612914F20CE5A1A00F8509B /* comment_star.png in Resources */,
@@ -1215,6 +1266,7 @@
 				76AB709120A5932600CC3C70 /* back3.png in Resources */,
 				762FDAAB20C6C3A900F90F7F /* pay_icon_alipay.png in Resources */,
 				7691D1DC20BA7E5400E54D3C /* city.plist in Resources */,
+				76B23F5B213247A500FB4F42 /* WalletListHeadView.xib in Resources */,
 				762FDAA720C6BD9700F90F7F /* DriverOrderDetailView.xib in Resources */,
 				76757B3E20A5DFCB004CA040 /* NotHaveDataView.xib in Resources */,
 				762FDAAC20C6C3A900F90F7F /* pay_icon_crash.png in Resources */,
@@ -1301,9 +1353,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				762429C720C52693008292B6 /* EBBannerWindow.m in Sources */,
+				76B23F592132479900FB4F42 /* WalletListHeadView.m in Sources */,
 				764054B2209B4D1F0038862A /* DriverMainMMController.m in Sources */,
 				76405470209AED980038862A /* CustomSelectAlertView.m in Sources */,
 				76AB708F20A592AD00CC3C70 /* SelectAddressController.m in Sources */,
+				76B23F642132853100FB4F42 /* DriverWithdrawalRes.m in Sources */,
+				76B23F522132409B00FB4F42 /* WalletListCell.m in Sources */,
 				76DCBB2D2099A226001E4F6D /* ViewController.m in Sources */,
 				76AB709B20A59D8A00CC3C70 /* SelectAddressCell.m in Sources */,
 				765ADE9C20B51486001D96D9 /* NotfiApsModel.m in Sources */,
@@ -1311,6 +1366,7 @@
 				76AB709420A5935900CC3C70 /* MapHeadView.m in Sources */,
 				7653CD4220C3D8AA00DC9D3A /* DriverOrderListCell.m in Sources */,
 				768B77FD20A9760B002CE715 /* LoginModel.m in Sources */,
+				76B23F562132465C00FB4F42 /* WalletListRes.m in Sources */,
 				766CAADD212011CC004FE8F7 /* SettingViewController.m in Sources */,
 				7667A1DC20C8FA2F00A00ECD /* MessageListRes.m in Sources */,
 				7667A1D920C8F93D00A00ECD /* MessageModel.m in Sources */,
@@ -1356,6 +1412,7 @@
 				76F55BC820AD2D0200882E91 /* RegisterFooterView.m in Sources */,
 				766CAADA211F0E49004FE8F7 /* BankEditController.m in Sources */,
 				760C4AF92118344D007E6953 /* WaitDriverConfirmView.m in Sources */,
+				76B23F4E21323E0800FB4F42 /* WalletController.m in Sources */,
 				762FDAB020C6E1B700F90F7F /* RouteAnnotation.m in Sources */,
 				76B7266120B6A24A00A4DB23 /* OrderModel.m in Sources */,
 				767F629D20CD008F00FBA10A /* RobOrderController.m in Sources */,
@@ -1364,10 +1421,12 @@
 				765B05DB20BEAA2C0005DD8A /* UIView+WMFrame.m in Sources */,
 				762429C420C52693008292B6 /* EBBannerViewController.m in Sources */,
 				762429C220C52693008292B6 /* EBBannerView.m in Sources */,
+				76B23F61213284BB00FB4F42 /* DriverWithdrawalListModel.m in Sources */,
 				765B05DC20BEAA2C0005DD8A /* WMPhotoBrowser.m in Sources */,
 				762429C920C52693008292B6 /* EBEmptyWindow.m in Sources */,
 				7612914A20CE590100F8509B /* StarView.m in Sources */,
 				762429CA20C52693008292B6 /* EBMuteDetector.m in Sources */,
+				76B23F6821328A6400FB4F42 /* WithdrawalListCell.m in Sources */,
 				76B5F05B20BFA7AE009D30C1 /* DetailInfoHeaderView.m in Sources */,
 				76B5F05520BF9505009D30C1 /* ImagePreController.m in Sources */,
 				76405471209AED980038862A /* Config.m in Sources */,
@@ -1394,6 +1453,7 @@
 				762429CE20C53766008292B6 /* FinishOrderRes.m in Sources */,
 				76405474209AED980038862A /* Location.m in Sources */,
 				76CA175520B7F1D700740909 /* OAUObjectModel.m in Sources */,
+				76B23F5E2132840F00FB4F42 /* WithDrawalListController.m in Sources */,
 				76405483209AFFDB0038862A /* LoginViewController.m in Sources */,
 				76405476209AED980038862A /* CustomIOS7AlertView.m in Sources */,
 				76405473209AED980038862A /* NavBgImage.m in Sources */,

@@ -86,6 +86,7 @@
             <connections>
                 <outlet property="bgView" destination="Bz7-th-Jbw" id="8Db-u3-e05"/>
                 <outlet property="payBtn" destination="eVO-od-BKf" id="p1Y-eQ-s1G"/>
+                <outlet property="priceLabel" destination="Kmy-Ws-6nZ" id="0Ju-9Z-6xe"/>
             </connections>
             <point key="canvasLocation" x="-36" y="-5"/>
         </view>

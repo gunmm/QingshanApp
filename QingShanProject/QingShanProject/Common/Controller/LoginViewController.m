@@ -72,22 +72,26 @@
     [NetWorking loginPostDataWithParameters:param withUrl:@"login" withBlock:^(id result) {
         LoginResponse *loginResponse = [LoginResponse mj_objectWithKeyValues:result];
         UserModel *loginModel = loginResponse.object;
+        
+        if (!([loginModel.type isEqualToString:@"5"] || [loginModel.type isEqualToString:@"6"])) {
+            [HUDClass showHUDWithText:@"角色错误！"];
+            return;
+        }
+        
+        
         [[Config shareConfig] setUserName:loginModel.phoneNumber];
         [[Config shareConfig] setName:loginModel.nickname];
         [[Config shareConfig] setUserImage:loginModel.personImageUrl];
         [[Config shareConfig] setUserId:loginModel.userId];
         [[Config shareConfig] setType:loginModel.type];
         [[Config shareConfig] setToken:loginModel.accessToken];
-        
+        [[Config shareConfig] setBankCardNumber:loginModel.bankCardNumber];
         if ([loginModel.type isEqualToString:@"5"]) {
             StandMainMMController *standMainVC = [[StandMainMMController alloc] initStandMainMMVC];
             [self.view.window setRootViewController:standMainVC];
         }else if ([loginModel.type isEqualToString:@"6"]) {
             DriverMainMMController *driverMainVC = [[DriverMainMMController alloc] initDriverMainMMVC];
             [self.view.window setRootViewController:driverMainVC];
-        }else {
-            [HUDClass showHUDWithText:@"角色错误！"];
-            return;
         }
         [self registerJpush];
 

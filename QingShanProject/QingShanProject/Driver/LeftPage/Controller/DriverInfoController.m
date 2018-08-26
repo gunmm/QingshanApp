@@ -89,6 +89,7 @@
     _carTypeTextF.text = _userModel.vehicleTypeName;
     _gpsTypeTextF.text = _userModel.gpsTypeName;
     _gpsNumberTextF.text = _userModel.gpsSerialNumber;
+    [[Config shareConfig] setBankCardNumber:_userModel.bankCardNumber];
     
     if ([[[Config shareConfig] getType] isEqualToString:@"5"]) {
         _plateNumberTextF.text = _userModel.mainGoodsName;

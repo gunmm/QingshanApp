@@ -302,7 +302,11 @@
         [weakSelf.customIOS7AlertView setButtonTitles:nil];
         [weakSelf.customIOS7AlertView setContainerView:payDetailView];
         [weakSelf.customIOS7AlertView showFromBottom];
-        
+        CGFloat serviceFee = weakSelf.model.price * 0.03;
+        if (serviceFee > 300) {
+            serviceFee = 300;
+        }
+        payDetailView.priceLabel.text = [NSString stringWithFormat:@"¥ %.2f", serviceFee];
         
         
         payDetailView.payBtnActBlock = ^(NSString *payType) {
