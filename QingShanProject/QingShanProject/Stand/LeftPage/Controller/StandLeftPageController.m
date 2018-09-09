@@ -90,6 +90,13 @@
             self.standLeftSelectBlock(1);
         }
     }
+    
+    if (indexPath.row == 2) {
+        if (self.standLeftSelectBlock) {
+            self.standLeftSelectBlock(2);
+        }
+    }
+    
     if (indexPath.row == 3) {
         if (self.standLeftSelectBlock) {
             self.standLeftSelectBlock(3);

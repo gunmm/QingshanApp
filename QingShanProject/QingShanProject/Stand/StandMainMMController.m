@@ -104,7 +104,8 @@
     }else if (cellIndex == 1) {
         
     }else if (cellIndex == 2) {
-        
+        NSMutableString *str = [[NSMutableString alloc] initWithFormat:@"telprompt://%@",@"0913-2580118"];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str] options:@{} completionHandler:^(BOOL success) {}];
     }else if (cellIndex == 3) {
         UIStoryboard *board = [UIStoryboard storyboardWithName:@"MyInfo" bundle:nil];
         SettingViewController *settingViewController = [board instantiateViewControllerWithIdentifier:@"my_setting"];

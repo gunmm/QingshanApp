@@ -32,7 +32,6 @@
 @property (nonatomic, strong) AddOrderView *addOrderView;
 @property (strong, nonatomic) BMKGeoCodeSearch *geoCodeSearch;
 
-@property (nonatomic, copy) NSString *locationAddressName;
 
 
 @property (nonatomic, assign) CLLocationCoordinate2D sendAddressPt;
@@ -44,7 +43,10 @@
 
 @property (nonatomic, copy) NSString *signSend;
 @property (nonatomic, assign) NSInteger resCount;
-@property (nonatomic, copy) NSString *nowCityString;
+@property (nonatomic, copy) NSString *nowReciverCityString;
+@property (nonatomic, copy) NSString *nowSendCityString;
+@property (nonatomic, copy) NSString *nowLocCityString;
+
 
 @property (nonatomic, strong) MessageBtn *messageBtn;
 
@@ -81,9 +83,9 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    _geoCodeSearch.delegate = nil;
-    _locService.delegate = nil;
-    _mapView.delegate = nil;
+//    _geoCodeSearch.delegate = nil;
+//    _locService.delegate = nil;
+//    _mapView.delegate = nil;
 }
 
 - (void)initNavBar {
@@ -162,10 +164,16 @@
         SelectAddressController *selectAddressVc = [[SelectAddressController alloc] init];
         selectAddressVc.beginSerchString = weakSelf.addOrderView.sendTextField.text;
         selectAddressVc.beginSerchPt = weakSelf.sendAddressPt;
-        selectAddressVc.nowCityString = weakSelf.nowCityString;
-        selectAddressVc.oldArray = weakSelf.geoCodeResultList;
+        selectAddressVc.nowCityString = weakSelf.nowSendCityString;
+        if ([weakSelf.nowSendCityString isEqualToString:weakSelf.nowLocCityString]) {
+            selectAddressVc.oldArray = weakSelf.geoCodeResultList;
+        }
+        
         
         [weakSelf.navigationController presentViewController:selectAddressVc animated:YES completion:nil];
+        selectAddressVc.cityNameBlock = ^(NSString *cityName) {
+            weakSelf.nowSendCityString = cityName;
+        };
         selectAddressVc.cellClickBlock = ^(NSString *name, NSString *address, CLLocationCoordinate2D pt) {
             weakSelf.addOrderView.sendTextField.text = name;
             weakSelf.sendAddressPt = pt;
@@ -177,18 +185,28 @@
     };
     
     _addOrderView.receiveTapActBlock = ^{
+        if (weakSelf.addOrderView.sendTextField.text.length == 0) {
+            [HUDClass showHUDWithText:@"请先选择发货地址！"];
+            return;
+        }
         SelectAddressController *selectAddressVc = [[SelectAddressController alloc] init];
         selectAddressVc.beginSerchString = weakSelf.addOrderView.receiveTextField.text;
         selectAddressVc.beginSerchPt = weakSelf.receiveAddressPt;
-        selectAddressVc.nowCityString = weakSelf.nowCityString;
+        selectAddressVc.nowCityString = weakSelf.nowReciverCityString;
 
         [weakSelf.navigationController presentViewController:selectAddressVc animated:YES completion:nil];
+        
+        selectAddressVc.cityNameBlock = ^(NSString *cityName) {
+            weakSelf.nowReciverCityString = cityName;
+        };
+        
         selectAddressVc.cellClickBlock = ^(NSString *name, NSString *address, CLLocationCoordinate2D pt) {
             weakSelf.addOrderView.receiveTextField.text = name;
             weakSelf.receiveAddressPt = pt;
             if(name.length > 0){
                 AddOrderController *addOrderVc = [[AddOrderController alloc] init];
                 addOrderVc.sendPt = weakSelf.sendAddressPt;
+                addOrderVc.sendCity = weakSelf.nowSendCityString;
                 addOrderVc.sendAddress = weakSelf.addOrderView.sendTextField.text;
                 addOrderVc.sendDetailAddress = weakSelf.sendDetailAddress;
                 addOrderVc.receivePt = weakSelf.receiveAddressPt;
@@ -197,9 +215,10 @@
                 addOrderVc.isNow = weakSelf.addOrderView.isNow;
                 [weakSelf.navigationController presentViewController:addOrderVc animated:YES completion:nil];
                 addOrderVc.backDismissBlock = ^{
-                    weakSelf.addOrderView.receiveTextField.text = @"";
+//                    weakSelf.addOrderView.receiveTextField.text = @"";
                 };
                 addOrderVc.dismissBlock = ^(CLLocationCoordinate2D pt, long long createTime, NSString *orderId) {
+                    [weakSelf startLocation];
                     weakSelf.addOrderView.receiveTextField.text = @"";
                     SeekViewController *seekViewController = [[SeekViewController alloc] init];
                     seekViewController.sendPt = pt;
@@ -281,9 +300,11 @@
             BMKPoiInfo *info = result.poiList[0];
             _geoCodeResultList = result.poiList;
             _addOrderView.sendTextField.text = info.name;
-            _locationAddressName = info.name;
-            _nowCityString = result.addressDetail.city;
-            _sendDetailAddress = info.address;
+            _nowLocCityString = result.addressDetail.city;
+            _nowSendCityString = result.addressDetail.city;
+            _nowReciverCityString = result.addressDetail.city;
+            _sendDetailAddress = result.address;
+//            _sendDetailAddress = [NSString stringWithFormat:@"%@%@%@%@%@", result.addressDetail.province, result.addressDetail.city, result.addressDetail.district, result.addressDetail.streetName, result.addressDetail.streetNumber];
             NSLog(@"address:%@\n des:%@",result.address,result.sematicDescription);
         }
     }else {

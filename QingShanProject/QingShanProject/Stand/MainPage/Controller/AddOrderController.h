@@ -17,6 +17,7 @@ typedef void(^BackDismissBlock)(void);
 
 @interface AddOrderController : BaseViewController
 
+@property (nonatomic, copy) NSString *sendCity;
 
 @property (nonatomic, copy) NSString *sendAddress;
 @property (nonatomic, copy) NSString *receiveAddress;

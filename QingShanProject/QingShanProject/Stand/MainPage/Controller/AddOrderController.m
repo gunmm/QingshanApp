@@ -99,6 +99,7 @@
 - (void)loadDictionaryData {
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
     [param setObject:@"车辆类型" forKey:@"name"];
+    [param setObject:_sendCity forKey:@"cityName"];
     
     
     [NetWorking postDataWithParameters:param withUrl:@"getDictionaryList" withBlock:^(id result) {
@@ -120,12 +121,14 @@
         }
         
         if (self.typeSelectCell) {
-            self.typeSelectCell.contentLabel.text = self.carTypeListTitle[0];
-            CarTypeModel *model = self.carTypeList[0];
-            self.carTypeValueStr = model.keyText;
-            self.starDistance = model.startDistance;
-            self.starPrice = model.startPrice;
-            self.unitPrice = model.unitPrice;
+            if (self.carTypeListTitle.count > 0) {
+                self.typeSelectCell.contentLabel.text = self.carTypeListTitle[0];
+                CarTypeModel *model = self.carTypeList[0];
+                self.carTypeValueStr = model.keyText;
+                self.starDistance = model.startDistance;
+                self.starPrice = model.startPrice;
+                self.unitPrice = model.unitPrice;
+            }
         }
         [self routePlan];
 
@@ -363,6 +366,7 @@
         [orderParam setObject:@"2" forKey:@"type"];
         [orderParam setObject:_appointTimeCell.contentLabel.text forKey:@"appointTime"];
     }
+    [orderParam setObject:_sendCity forKey:@"sendCity"];
     [orderParam setObject:[[Config shareConfig] getUserId] forKey:@"createManId"];
     [orderParam setObject:_nameCell.contentTextF.text forKey:@"linkMan"];
     [orderParam setObject:_phoneCell.contentTextF.text forKey:@"linkPhone"];

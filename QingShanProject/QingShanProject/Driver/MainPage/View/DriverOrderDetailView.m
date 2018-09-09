@@ -160,8 +160,30 @@
         
         if ([_model.status isEqualToString:@"4"]) {
             _orderDetailLabel.text = @"订单完成";
+            _commentBtn.hidden = NO;
         }else if ([_model.status isEqualToString:@"9"]) {
             _orderDetailLabel.text = @"订单取消";
+            _commentBtn.hidden = NO;
+        }else if ([_model.status isEqualToString:@"8"]) {
+            _orderDetailLabel.text = @"订单已被置为异常状态";
+            if (_model.driverComplaintId.length > 0) {
+                [_complainBtn setTitle:@"查看异常处理进度 >" forState:UIControlStateNormal];
+            }
+            _beginBtn.backgroundColor = [UIColor grayColor];
+            [_beginBtn setTitleColor:bgColor forState:UIControlStateNormal];
+            _beginBtn.enabled = NO;
+            
+            _reciverGoodsBtn.backgroundColor = [UIColor grayColor];
+            [_reciverGoodsBtn setTitleColor:bgColor forState:UIControlStateNormal];
+            _reciverGoodsBtn.enabled = NO;
+            
+            _finishBtn.backgroundColor = [UIColor grayColor];
+            [_finishBtn setTitleColor:bgColor forState:UIControlStateNormal];
+            _finishBtn.enabled = NO;
+        }
+        
+        if (_model.driverCommentStar > 0) {
+            [_commentBtn setTitle:@"查看评价 >" forState:UIControlStateNormal];
         }
         
     }
@@ -248,6 +270,20 @@
     }
     
 }
+
+- (IBAction)complainBtnAct:(id)sender {
+    if (self.complainBlock) {
+        self.complainBlock();
+    }
+}
+
+- (IBAction)commentBtnAct:(id)sender {
+    if (self.commentBlock) {
+        self.commentBlock();
+    }
+}
+
+
 
 
 

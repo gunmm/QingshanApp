@@ -35,6 +35,10 @@
     self.loginBtn.layer.masksToBounds = YES;
     self.imageView.contentMode = UIViewContentModeScaleAspectFit;
     
+    if([[Config shareConfig] getUserName].length > 0) {
+        self.usernameTextField.text = [[Config shareConfig] getUserName];
+    }
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {

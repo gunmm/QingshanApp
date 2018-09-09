@@ -143,6 +143,11 @@
         [weakSelf presentViewController:cityVc animated:YES completion:nil];
         [cityVc getBlock:^(NSString *cityName) {
             [weakSelf.selectAddressHeadView.cityBtn setTitle:[NSString stringWithFormat:@"%@市", cityName] forState:UIControlStateNormal];
+            weakSelf.beginSerchString = @"";
+            weakSelf.mapheadView.addressLabel.text = @"";
+            if (weakSelf.cityNameBlock) {
+                weakSelf.cityNameBlock([NSString stringWithFormat:@"%@市", cityName]);
+            }
         }];
     };
 }

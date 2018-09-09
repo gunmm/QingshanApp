@@ -29,7 +29,7 @@
 @property (nonatomic, copy) NSString *receiveMan;      //收货人
 @property (nonatomic, copy) NSString *receivePhone;       //收货联系电话
 
-
+@property (nonatomic, copy) NSString *sendCity;       //发货城市   （用来计算价格）
 @property (nonatomic, copy) NSString *sendAddress;       //
 @property (nonatomic, copy) NSString *sendDetailAddress;       //
 @property (nonatomic, assign) double sendLatitude;       //
@@ -63,8 +63,11 @@
 @property (nonatomic, copy) NSString *commentContent; //评价内容
 @property (nonatomic, assign) double commentStar; //评价星级
 
-@property (nonatomic, copy) NSString *siteComplaint;
-@property (nonatomic, copy) NSString *driverComplaint;
+@property (nonatomic, copy) NSString *driverCommentContent; //评价内容
+@property (nonatomic, assign) double driverCommentStar; //评价星级
+
+@property (nonatomic, copy) NSString *siteComplaintId;
+@property (nonatomic, copy) NSString *driverComplaintId;
 
 @property (nonatomic, copy) NSString *withdrawMoneyStatus;
 

@@ -98,6 +98,8 @@
 }
 
 - (IBAction)callServiceBtnAct:(id)sender {
+    NSMutableString *str = [[NSMutableString alloc] initWithFormat:@"telprompt://%@",SERVICE_PHONE];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str] options:@{} completionHandler:^(BOOL success) {}];
 }
 
 

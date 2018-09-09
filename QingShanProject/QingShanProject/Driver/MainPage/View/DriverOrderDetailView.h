@@ -18,6 +18,10 @@ typedef void(^CancelOrderBlock)(void);
 typedef void(^ServicePayOrderBlock)(void);
 typedef void(^OrderTimeOutBlock)(void);
 
+typedef void(^ComplainBlock)(void);
+typedef void(^CommentBlock)(void);
+
+
 
 
 
@@ -47,6 +51,10 @@ typedef void(^OrderTimeOutBlock)(void);
 @property (weak, nonatomic) IBOutlet UIButton *payBtn;
 
 
+@property (weak, nonatomic) IBOutlet UIButton *complainBtn;
+@property (weak, nonatomic) IBOutlet UIButton *commentBtn;
+
+
 
 
 
@@ -59,9 +67,16 @@ typedef void(^OrderTimeOutBlock)(void);
 @property (nonatomic, copy) BeginAppointOrderBlock beginAppointOrderBlock;
 @property (nonatomic, copy) ReciverGoodsBlock reciverGoodsBlock;
 @property (nonatomic, copy) FinishOrderBlock finishOrderBlock;
+
 @property (nonatomic, copy) CancelOrderBlock cancelOrderBlock;
 @property (nonatomic, copy) ServicePayOrderBlock servicePayOrderBlock;
 @property (nonatomic, copy) OrderTimeOutBlock orderTimeOutBlock;
+
+@property (nonatomic, copy) ComplainBlock complainBlock;
+@property (nonatomic, copy) CommentBlock commentBlock;
+
+
+
 
 
 

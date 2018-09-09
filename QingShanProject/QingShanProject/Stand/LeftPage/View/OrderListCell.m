@@ -70,7 +70,10 @@
         _statusLabel.text = @"已完成 >";
     }else if ([_model.status isEqualToString:@"9"]) {
         _statusLabel.textColor = [UIColor colorWithRed:159.0/255 green:159.0/255 blue:159.0/255 alpha:1];
-        _statusLabel.text = @"已取消";
+        _statusLabel.text = @"已取消 >";
+    }else if ([_model.status isEqualToString:@"8"]) {
+        _statusLabel.textColor = [UIColor grayColor];
+        _statusLabel.text = @"异常订单 >";
     }
     
 }

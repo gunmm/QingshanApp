@@ -15,6 +15,8 @@
 @property (nonatomic, copy) NSString *keyText;
 @property (nonatomic, copy) NSString *valueText;
 @property (nonatomic, copy) NSString *desc;
+@property (nonatomic, copy) NSString *cityName;
+
 
 @property (nonatomic, assign) double startPrice;
 @property (nonatomic, assign) double unitPrice;

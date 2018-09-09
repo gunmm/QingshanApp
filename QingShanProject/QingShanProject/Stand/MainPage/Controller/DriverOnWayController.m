@@ -23,6 +23,10 @@
 #import "CustomIOS7AlertView.h"
 #import "CommentView.h"
 #import "LinkManView.h"
+#import "PriceDeatilView.h"
+#import "ComplaintView.h"
+#import "InvoiceDetailController.h"
+#import "ComplainDetailController.h"
 
 
 
@@ -47,9 +51,9 @@
 @property (strong, nonatomic) OrderOnWayView *orderOnWayView;
 @property (strong, nonatomic) OrderFinishView *orderFinishView;
 @property (strong, nonatomic) LinkManView *linkManView;
+@property (strong, nonatomic) CarTypeModel *orderCarTypeModel;
 
-
-
+@property (strong, nonatomic) UIBarButtonItem *invoiceBtn;
 
 @property (strong, nonatomic) NSTimer *timer;
 @property (assign, nonatomic) NSInteger nowCount;
@@ -67,6 +71,7 @@
     [self initNavBarWithStatus:@""];
     [self initView];
     [self firstLoadData];
+    
 }
 
 
@@ -94,45 +99,48 @@
 
 - (void)initNavBarWithStatus:(NSString *)status {
     
-    if ([status isEqualToString:@"1"]) {
+    if ([status isEqualToString:@"2"]) {
         self.title = @"等待接货";
-        UIBarButtonItem *cancleBtn = [[UIBarButtonItem alloc]initWithTitle:@"取消订单" style:UIBarButtonItemStylePlain target:self action:@selector(cancelBtnClicked)];
-        [cancleBtn setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont systemFontOfSize:14],NSFontAttributeName, nil] forState:UIControlStateNormal];
-        [self.navigationItem setRightBarButtonItem:cancleBtn];
     }else if([status isEqualToString:@"3"]){
         self.title = @"运送中";
-        [self.navigationItem setRightBarButtonItem:nil];
     }else if([status isEqualToString:@"4"]){
         self.title = @"订单完成";
-        [self.navigationItem setRightBarButtonItem:nil];
     }else if([status isEqualToString:@"9"]){
         self.title = @"订单取消";
-        [self.navigationItem setRightBarButtonItem:nil];
+    }else if([status isEqualToString:@"8"]){
+        self.title = @"订单异常";
     }else {
         self.title = @"订单状态";
-        [self.navigationItem setRightBarButtonItem:nil];
     }
     self.view.backgroundColor = [UIColor whiteColor];
     
     
+    _invoiceBtn = [[UIBarButtonItem alloc]initWithTitle:@"查看发票" style:UIBarButtonItemStylePlain target:self action:@selector(invoiceBtnClicked)];
+    [_invoiceBtn setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont systemFontOfSize:14],NSFontAttributeName, nil] forState:UIControlStateNormal];
+    
     
 }
 
-- (void)cancelBtnClicked {
-    [AlertView alertViewWithTitle:@"提示" withMessage:@"确认取消订单" withConfirmTitle:@"确认" withCancelTitle:@"取消" withType:UIAlertControllerStyleAlert withConfirmBlock:^{
-        NSMutableDictionary *param = [NSMutableDictionary dictionary];
-        [param setObject:self.orderId forKey:@"orderId"];
-        
-        [NetWorking postDataWithParameters:param withUrl:@"cancelOrder" withBlock:^(id result) {
-            [HUDClass showHUDWithText:@"订单取消成功！"];
-            [self.navigationController popViewControllerAnimated:YES];
-        } withFailedBlock:^(NSString *errorResult) {
-            
-        }];
-    } withCancelBlock:^{
-        
-    }];
+- (void)invoiceBtnClicked {
+   
+    UIStoryboard *board = [UIStoryboard storyboardWithName:@"StandBoard" bundle:nil];
+    InvoiceDetailController *invoiceDetailController = [board instantiateViewControllerWithIdentifier:@"stand_invoice"];
+    invoiceDetailController.invoiceId = _model.invoiceId;
+    [self.navigationController pushViewController:invoiceDetailController animated:YES];
     
+    
+}
+
+- (void)loadPriceDicModel {
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    [param setObject:self.model.sendCity forKey:@"cityName"];
+    [param setObject:self.model.carType forKey:@"vehicleType"];
+    
+    [NetWorking bgPostDataWithParameters:param withUrl:@"getPriceDicByTypeAndCity" withBlock:^(id result) {
+        NSDictionary *objectDic = [result objectForKey:@"object"];
+        self.orderCarTypeModel = [CarTypeModel mj_objectWithKeyValues:objectDic];
+    } withFailedBlock:^(NSString *errorResult) {
+    }];
 }
 
 - (void)firstLoadData {
@@ -151,7 +159,7 @@
 - (void)setView {
     
     _linkManView.model = self.model;
-    
+    [self.navigationItem setRightBarButtonItem:nil];
     if ([self.model.status isEqualToString:@"2"]) {
         if ([self.model.appointStatus isEqualToString:@"0"]) {
             self.orderOnWayView.hidden = YES;
@@ -177,12 +185,19 @@
         self.orderOnWayView.model = self.model;
         [self routePlan];
     }else if ([self.model.status isEqualToString:@"4"]) {
+        [self loadPriceDicModel];
         self.orderOnWayView.hidden = YES;
         self.orderFinishView.hidden = NO;
+        
         [_timer invalidate];
         self.orderFinishView.model = self.model;
         [self addPoint];
-    }else if ([self.model.status isEqualToString:@"9"]) {
+        if (_model.invoiceId.length > 0) {
+            [self.navigationItem setRightBarButtonItem:_invoiceBtn];
+        }
+        
+    }else if ([self.model.status isEqualToString:@"9"] || [self.model.status isEqualToString:@"8"]) {
+        [self loadPriceDicModel];
         self.orderOnWayView.hidden = YES;
         self.orderFinishView.hidden = NO;
         self.orderFinishView.model = self.model;
@@ -302,53 +317,104 @@
     __weak typeof(self) weakSelf = self;
 
     _orderFinishView.commentBtnActBlock = ^(BOOL hasComment) {
-        CommentView *commentView = [[[NSBundle mainBundle] loadNibNamed:@"CommentView" owner:nil options:nil] lastObject];
-        commentView.hasComment = hasComment;
-        commentView.frame = CGRectMake(0, 0, kDeviceWidth, 303);
-        commentView.closeBtnActBlock = ^{
-            [weakSelf.customIOS7AlertView close];
-        };
-        if (hasComment) {
-            if (weakSelf.model.commentStar == 1) {
-                [commentView.starView.starBtn1 sendActionsForControlEvents:UIControlEventTouchUpInside];
-            }else if (weakSelf.model.commentStar == 2) {
-                [commentView.starView.starBtn2 sendActionsForControlEvents:UIControlEventTouchUpInside];
-            }else if (weakSelf.model.commentStar == 3) {
-                [commentView.starView.starBtn3 sendActionsForControlEvents:UIControlEventTouchUpInside];
-            }else if (weakSelf.model.commentStar == 4) {
-                [commentView.starView.starBtn4 sendActionsForControlEvents:UIControlEventTouchUpInside];
-            }else if (weakSelf.model.commentStar == 5) {
-                [commentView.starView.starBtn5 sendActionsForControlEvents:UIControlEventTouchUpInside];
-            }
-            
-            commentView.contentTextView.text = weakSelf.model.commentContent;
-            commentView.placeHolderLabel.hidden = YES;
-            
-        }
-        
-        commentView.commitBtnActBlock = ^(NSInteger starNumber, NSString *contentStr) {
-            NSMutableDictionary *param = [NSMutableDictionary dictionary];
-            [param setObject:weakSelf.orderId forKey:@"orderId"];
-            [param setObject:[NSNumber numberWithInteger:starNumber] forKey:@"commentStar"];
-            [param setObject:contentStr forKey:@"commentContent"];
-
-            [NetWorking postDataWithParameters:param withUrl:@"commentOrder" withBlock:^(id result) {
-                [HUDClass showHUDWithText:@"评价成功，感谢评价！"];
-                [weakSelf.customIOS7AlertView close];
-                [weakSelf loadData];
-            } withFailedBlock:^(NSString *errorResult) {
-                
-            }];
-        };
-        
-        
-        weakSelf.customIOS7AlertView = [[CustomIOS7AlertView alloc] init];
-        weakSelf.customIOS7AlertView.tapClose = NO;
-        [weakSelf.customIOS7AlertView setButtonTitles:nil];
-        [weakSelf.customIOS7AlertView setContainerView:commentView];
-        [weakSelf.customIOS7AlertView showFromBottom];
+        [weakSelf orderCommitWithHasCommit:hasComment];
     };
     
+    _orderFinishView.priceDetailBtnActBlock = ^(OrderModel *model) {
+        [weakSelf orderPriceDetailWithOrderModel:model];
+    };
+    
+    _orderFinishView.complaintBtnActBlock = ^{
+        if (weakSelf.model.siteComplaintId.length > 0) {
+            UIStoryboard *board = [UIStoryboard storyboardWithName:@"StandBoard" bundle:nil];
+            ComplainDetailController *complainDetailController = [board instantiateViewControllerWithIdentifier:@"stand_complain"];
+            complainDetailController.complainId = weakSelf.model.siteComplaintId;
+            complainDetailController.type = @"1";
+            [self.navigationController pushViewController:complainDetailController animated:YES];
+        }else {
+            [weakSelf orderComplaint];
+        }
+        
+    };
+    
+}
+
+- (void)orderComplaint {
+    ComplaintView *complaintView = [[[NSBundle mainBundle] loadNibNamed:@"ComplaintView" owner:nil options:nil] lastObject];
+    complaintView.frame = CGRectMake(0, 0, kDeviceWidth, 239);
+    complaintView.closeBtnActBlock = ^{
+        [self.customIOS7AlertView close];
+    };
+
+    complaintView.submitBtnActBlock = ^(NSString *contentStr) {
+        NSMutableDictionary *param = [NSMutableDictionary dictionary];
+        [param setObject:[[Config shareConfig] getUserId] forKey:@"createManId"];
+        [param setObject:self.orderId forKey:@"orderId"];
+        [param setObject:@"1" forKey:@"type"];
+        [param setObject:contentStr forKey:@"note"];
+
+        [NetWorking postDataWithParameters:param withUrl:@"addComplain" withBlock:^(id result) {
+            [HUDClass showHUDWithText:@"投诉成功！系统会在五个工作日内处理"];
+            [self.customIOS7AlertView close];
+            [self loadData];
+        } withFailedBlock:^(NSString *errorResult) {
+
+        }];
+    };
+    
+    
+    
+    self.customIOS7AlertView = [[CustomIOS7AlertView alloc] init];
+    self.customIOS7AlertView.tapClose = NO;
+    [self.customIOS7AlertView setButtonTitles:nil];
+    [self.customIOS7AlertView setContainerView:complaintView];
+    [self.customIOS7AlertView showFromBottom];
+}
+
+- (void)orderPriceDetailWithOrderModel:(OrderModel *)model {
+    PriceDeatilView *priceDetailView = [[[NSBundle mainBundle] loadNibNamed:@"PriceDeatilView" owner:nil options:nil] lastObject];
+    priceDetailView.frame = CGRectMake(0, 0, kDeviceWidth, 269);
+    priceDetailView.carTypeModel = self.orderCarTypeModel;
+    priceDetailView.orderModel = self.model;
+    priceDetailView.closeBtnActBlock = ^{
+        [self.customIOS7AlertView close];
+    };
+    self.customIOS7AlertView = [[CustomIOS7AlertView alloc] init];
+    [self.customIOS7AlertView setButtonTitles:nil];
+    [self.customIOS7AlertView setContainerView:priceDetailView];
+    [self.customIOS7AlertView showFromBottom];
+}
+
+- (void)orderCommitWithHasCommit:(BOOL)hasComment {
+    CommentView *commentView = [[[NSBundle mainBundle] loadNibNamed:@"CommentView" owner:nil options:nil] lastObject];
+    commentView.model = self.model;
+    commentView.frame = CGRectMake(0, 0, kDeviceWidth, 303);
+    commentView.closeBtnActBlock = ^{
+        [self.customIOS7AlertView close];
+    };
+    
+    
+    commentView.commitBtnActBlock = ^(NSInteger starNumber, NSString *contentStr) {
+        NSMutableDictionary *param = [NSMutableDictionary dictionary];
+        [param setObject:self.orderId forKey:@"orderId"];
+        [param setObject:[NSNumber numberWithInteger:starNumber] forKey:@"commentStar"];
+        [param setObject:contentStr forKey:@"commentContent"];
+        
+        [NetWorking postDataWithParameters:param withUrl:@"commentOrder" withBlock:^(id result) {
+            [HUDClass showHUDWithText:@"评价成功，感谢评价！"];
+            [self.customIOS7AlertView close];
+            [self loadData];
+        } withFailedBlock:^(NSString *errorResult) {
+            
+        }];
+    };
+    
+    
+    self.customIOS7AlertView = [[CustomIOS7AlertView alloc] init];
+    self.customIOS7AlertView.tapClose = NO;
+    [self.customIOS7AlertView setButtonTitles:nil];
+    [self.customIOS7AlertView setContainerView:commentView];
+    [self.customIOS7AlertView showFromBottom];
 }
 
 

@@ -10,10 +10,18 @@
 #import "OrderModel.h"
 
 typedef void(^CommentBtnActBlock)(BOOL hasComment);
+typedef void(^PriceDetailBtnActBlock)(OrderModel *model);
+typedef void(^ComplaintBtnActBlock)(void);
+
+
 @interface OrderFinishView : UIView
 
 @property (nonatomic, strong) OrderModel *model;
 @property (nonatomic, copy) CommentBtnActBlock commentBtnActBlock;
+@property (nonatomic, copy) PriceDetailBtnActBlock priceDetailBtnActBlock;
+@property (nonatomic, copy) ComplaintBtnActBlock complaintBtnActBlock;
+
+
 
 
 @property (weak, nonatomic) IBOutlet UILabel *plateNumberLabel;

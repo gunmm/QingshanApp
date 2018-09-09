@@ -30,7 +30,7 @@
     sublayer.shadowColor = [UIColor grayColor].CGColor;
     sublayer.shadowOpacity = 0.3f;
     sublayer.shadowRadius = 4.f;
-    sublayer.shadowOffset = CGSizeMake(0,5);
+    sublayer.shadowOffset = CGSizeMake(0,0);
     sublayer.frame = self.bounds;
     [_bgView.layer addSublayer:sublayer];
     [sublayer setNeedsDisplay];
@@ -48,12 +48,24 @@
     if (_model.commentStar > 0) {
         [_commentBtn setTitle:@"查看评价 >" forState:UIControlStateNormal];
     }
-    if ([_model.appointStatus isEqualToString:@"0"] && ![_model.status isEqualToString:@"9"]) {
+    if (_model.siteComplaintId.length > 0) {
+        [_complaintBtn setTitle:@"已投诉" forState:UIControlStateNormal];
+    }
+    
+    
+    if ([_model.appointStatus isEqualToString:@"0"] && ![_model.status isEqualToString:@"9"] && ![_model.status isEqualToString:@"8"]) {
         _waitLabel.hidden = NO;
         _waitLabel.text = @"等待司机开始订单";
     }else if ([_model.status isEqualToString:@"9"]) {
         _waitLabel.hidden = NO;
         _waitLabel.text = @"订单取消";
+        _callBtn.enabled = NO;
+        _serviceBtn.enabled = NO;
+        _complaintBtn.enabled = NO;
+        _commentBtn.enabled = NO;
+    }else if ([_model.status isEqualToString:@"8"]) {
+        _waitLabel.hidden = NO;
+        _waitLabel.text = @"订单已被置为异常状态";
     }
     else {
         _waitLabel.hidden = YES;
@@ -71,10 +83,18 @@
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str] options:@{} completionHandler:^(BOOL success) {}];
 }
 - (IBAction)linkServiceBtnAct:(id)sender {
+    NSMutableString *str = [[NSMutableString alloc] initWithFormat:@"telprompt://%@",SERVICE_PHONE];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str] options:@{} completionHandler:^(BOOL success) {}];
 }
 - (IBAction)complaintBtnAct:(id)sender {
+    if (self.commentBtnActBlock) {
+        self.complaintBtnActBlock();
+    }
 }
 - (IBAction)priceProblemBtnAct:(id)sender {
+    if (self.priceDetailBtnActBlock) {
+        self.priceDetailBtnActBlock(_model);
+    }
 }
 - (IBAction)commentBtnAct:(id)sender {
     BOOL hasCommit = NO;

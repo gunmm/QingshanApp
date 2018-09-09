@@ -46,6 +46,10 @@
     [listBtn setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont systemFontOfSize:15],NSFontAttributeName, nil] forState:UIControlStateNormal];
     
     [self.navigationItem setRightBarButtonItem:listBtn];
+    
+    if ([self.driverWithdrawalStatus isEqualToString:@"0"]) {
+        [self.navigationItem setRightBarButtonItem:nil];
+    }
 }
 
 - (void)listBtnClicked {
@@ -87,6 +91,7 @@
             }else {
                 [self.walletListHeadView.withdrawalBtn setTitle:@"已打款" forState:UIControlStateNormal];
             }
+            
             
         }else{
             [WalletListRes mj_setupObjectClassInArray:^NSDictionary *{

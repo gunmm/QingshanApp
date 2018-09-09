@@ -106,7 +106,8 @@
         WalletController *walletController = [[WalletController alloc] init];
         [mainNav pushViewController:walletController animated:YES];
     }else if (cellIndex == 2) {
-        
+        NSMutableString *str = [[NSMutableString alloc] initWithFormat:@"telprompt://%@",SERVICE_PHONE];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str] options:@{} completionHandler:^(BOOL success) {}];
     }else if (cellIndex == 3) {
         UIStoryboard *board = [UIStoryboard storyboardWithName:@"MyInfo" bundle:nil];
         SettingViewController *settingViewController = [board instantiateViewControllerWithIdentifier:@"my_setting"];

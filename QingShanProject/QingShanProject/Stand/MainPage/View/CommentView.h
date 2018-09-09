@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "StarView.h"
+#import "OrderModel.h"
 
 typedef void(^CloseBtnActBlock)(void);
 typedef void(^CommitBtnActBlock)(NSInteger starNumber, NSString *contentStr);
@@ -26,7 +27,10 @@ typedef void(^CommitBtnActBlock)(NSInteger starNumber, NSString *contentStr);
 @property (nonatomic, copy) CommitBtnActBlock commitBtnActBlock;
 
 @property (nonatomic, assign) NSInteger starNumber;
-@property (nonatomic, assign) BOOL hasComment;
+@property (nonatomic, strong) OrderModel *model;
+
+@property (nonatomic, assign) BOOL isDriver;
+
 
 
 

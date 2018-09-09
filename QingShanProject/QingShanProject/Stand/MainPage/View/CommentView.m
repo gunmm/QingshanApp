@@ -44,22 +44,89 @@
     
     _commitBtn.layer.cornerRadius = 4;
     _commitBtn.layer.masksToBounds = YES;
+    
+    
 }
 
 - (void)layoutSubviews {
     _starView.frame = CGRectMake(0, 61, self.width, 40);
 }
 
+- (void)setModel:(OrderModel *)model {
+    _model = model;
+    NSInteger starNumber = 0;
+    if (_isDriver) {
+        if (_model.driverCommentStar > 0) {
+            self.starView.userInteractionEnabled = NO;
+            self.contentTextView.userInteractionEnabled = NO;
+            self.commitBtn.userInteractionEnabled = NO;
+            [_commitBtn setTitle:@"已提交" forState:UIControlStateNormal];
+            _commitBtn.backgroundColor = [UIColor grayColor];
+            [_commitBtn setTitleColor:bgColor forState:UIControlStateNormal];
+            self.contentTextView.text = self.model.driverCommentContent;
+            starNumber = _model.driverCommentStar;
+            
+            if (starNumber == 1) {
+                [self.starView.starBtn1 sendActionsForControlEvents:UIControlEventTouchUpInside];
+                self.statusLabel.text = @"非常不满意，各方面都很差";
+            }else if (starNumber == 2) {
+                [self.starView.starBtn2 sendActionsForControlEvents:UIControlEventTouchUpInside];
+                self.statusLabel.text = @"不满意，比较差";
+            }else if (starNumber == 3) {
+                [self.starView.starBtn3 sendActionsForControlEvents:UIControlEventTouchUpInside];
+                self.statusLabel.text = @"一般，还需改善";
+            }else if (starNumber == 4) {
+                [self.starView.starBtn4 sendActionsForControlEvents:UIControlEventTouchUpInside];
+                self.statusLabel.text = @"比较满意，仍可改善";
+            }else if (starNumber == 5) {
+                [self.starView.starBtn5 sendActionsForControlEvents:UIControlEventTouchUpInside];
+                self.statusLabel.text = @"非常满意，无可挑剔";
+            }
+            
+            self.placeHolderLabel.hidden = YES;
+        }
+    }else {
+        if (_model.commentStar > 0) {
+            self.starView.userInteractionEnabled = NO;
+            self.contentTextView.userInteractionEnabled = NO;
+            self.commitBtn.userInteractionEnabled = NO;
+            [_commitBtn setTitle:@"已提交" forState:UIControlStateNormal];
+            _commitBtn.backgroundColor = [UIColor grayColor];
+            [_commitBtn setTitleColor:bgColor forState:UIControlStateNormal];
+            self.contentTextView.text = self.model.commentContent;
+            starNumber = _model.commentStar;
+            
+            if (starNumber == 1) {
+                [self.starView.starBtn1 sendActionsForControlEvents:UIControlEventTouchUpInside];
+                self.statusLabel.text = @"非常不满意，各方面都很差";
+            }else if (starNumber == 2) {
+                [self.starView.starBtn2 sendActionsForControlEvents:UIControlEventTouchUpInside];
+                self.statusLabel.text = @"不满意，比较差";
+            }else if (starNumber == 3) {
+                [self.starView.starBtn3 sendActionsForControlEvents:UIControlEventTouchUpInside];
+                self.statusLabel.text = @"一般，还需改善";
+            }else if (starNumber == 4) {
+                [self.starView.starBtn4 sendActionsForControlEvents:UIControlEventTouchUpInside];
+                self.statusLabel.text = @"比较满意，仍可改善";
+            }else if (starNumber == 5) {
+                [self.starView.starBtn5 sendActionsForControlEvents:UIControlEventTouchUpInside];
+                self.statusLabel.text = @"非常满意，无可挑剔";
+            }
+            
+            self.placeHolderLabel.hidden = YES;
+        }
+    }
+    
+    
+    
+    
+ 
+}
 
-- (void)setHasComment:(BOOL)hasComment {
-    _hasComment = hasComment;
-    if (_hasComment) {
-        self.starView.userInteractionEnabled = NO;
-        self.contentTextView.userInteractionEnabled = NO;
-        self.commitBtn.userInteractionEnabled = NO;
-        [_commitBtn setTitle:@"已提交" forState:UIControlStateNormal];
-        _commitBtn.backgroundColor = [UIColor grayColor];
-        [_commitBtn setTitleColor:bgColor forState:UIControlStateNormal];
+- (void)setIsDriver:(BOOL)isDriver {
+    _isDriver = isDriver;
+    if (_isDriver) {
+        _statusLabel.text = @"你的评价会让货主做的更好";
     }
 }
 

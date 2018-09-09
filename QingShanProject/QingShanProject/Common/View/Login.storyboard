@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -34,8 +34,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="appicon1024.png" translatesAutoresizingMaskIntoConstraints="NO" id="mKB-KE-iuK">
-                                <rect key="frame" x="30" y="92" width="260" height="100"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="appicon1024.png" translatesAutoresizingMaskIntoConstraints="NO" id="mKB-KE-iuK">
+                                <rect key="frame" x="29" y="92" width="260" height="100"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="doT-FC-d1a"/>
                                 </constraints>
@@ -95,7 +95,7 @@
                                     <action selector="loginAct:" destination="hOa-ek-GF0" eventType="touchUpInside" id="bXW-nU-9y0"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BNY-aQ-luy">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BNY-aQ-luy">
                                 <rect key="frame" x="15" y="427" width="100" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="6WR-Md-MDZ"/>
@@ -109,7 +109,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z8s-JI-LmU">
-                                <rect key="frame" x="205" y="427" width="100" height="30"/>
+                                <rect key="frame" x="110" y="427" width="100" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="Pym-7p-i0I"/>
                                     <constraint firstAttribute="width" constant="100" id="UWL-x0-aFy"/>
@@ -146,9 +146,9 @@
                             <constraint firstItem="mKB-KE-iuK" firstAttribute="centerX" secondItem="3o8-qP-RHV" secondAttribute="centerX" id="YdO-ov-bj2"/>
                             <constraint firstItem="XUe-JR-ioZ" firstAttribute="top" secondItem="eVS-tM-qzP" secondAttribute="bottom" constant="30" id="ewh-fl-gYA"/>
                             <constraint firstItem="Yj0-Pb-edQ" firstAttribute="trailing" secondItem="mKB-KE-iuK" secondAttribute="trailing" constant="30" id="hFB-EP-JZN"/>
-                            <constraint firstItem="Yj0-Pb-edQ" firstAttribute="trailing" secondItem="z8s-JI-LmU" secondAttribute="trailing" constant="15" id="kNu-XR-uEq"/>
-                            <constraint firstItem="z8s-JI-LmU" firstAttribute="top" secondItem="XUe-JR-ioZ" secondAttribute="bottom" constant="25" id="lpj-IZ-Prm"/>
+                            <constraint firstItem="z8s-JI-LmU" firstAttribute="top" secondItem="XUe-JR-ioZ" secondAttribute="bottom" constant="25" id="hP9-f3-Y1J"/>
                             <constraint firstItem="eVS-tM-qzP" firstAttribute="leading" secondItem="Yj0-Pb-edQ" secondAttribute="leading" id="osn-Xh-X4m"/>
+                            <constraint firstItem="z8s-JI-LmU" firstAttribute="centerX" secondItem="3o8-qP-RHV" secondAttribute="centerX" id="xXW-Ur-Qp3"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Yj0-Pb-edQ"/>
                     </view>

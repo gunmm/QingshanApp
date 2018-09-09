@@ -11,11 +11,13 @@
 
 
 typedef void(^CellClickBlock)(NSString *name, NSString *address, CLLocationCoordinate2D pt);
-
+typedef void(^CityNameBlock)(NSString *cityName);
 
 @interface SelectAddressController : BaseViewController
 
 @property (nonatomic, copy) CellClickBlock cellClickBlock;
+@property (nonatomic, copy) CityNameBlock cityNameBlock;
+
 
 @property (nonatomic, copy) NSString *beginSerchString;
 @property (nonatomic, assign) CLLocationCoordinate2D beginSerchPt;

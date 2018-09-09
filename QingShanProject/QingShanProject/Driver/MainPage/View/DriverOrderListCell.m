@@ -130,8 +130,22 @@
     }else if ([_model.status isEqualToString:@"4"]) {
         _orderStatus.text = @"已完成 >";
     }else if ([_model.status isEqualToString:@"9"]) {
-        _orderStatus.text = @"已取消";
+        _orderStatus.text = @"已取消 >";
         _orderStatus.textColor = [UIColor colorWithRed:159.0/255 green:159.0/255 blue:159.0/255 alpha:1];
+    }else if ([_model.status isEqualToString:@"8"]) {
+        _orderStatus.text = @"已申请投诉 >";
+        _orderStatus.textColor = [UIColor colorWithRed:159.0/255 green:159.0/255 blue:159.0/255 alpha:1];
+        _beginBtn.backgroundColor = [UIColor grayColor];
+        [_beginBtn setTitleColor:bgColor forState:UIControlStateNormal];
+        _beginBtn.enabled = NO;
+        
+        _reciveGoodsBtn.backgroundColor = [UIColor grayColor];
+        [_reciveGoodsBtn setTitleColor:bgColor forState:UIControlStateNormal];
+        _reciveGoodsBtn.enabled = NO;
+        
+        _finishBtn.backgroundColor = [UIColor grayColor];
+        [_finishBtn setTitleColor:bgColor forState:UIControlStateNormal];
+        _finishBtn.enabled = NO;
     }
     
     

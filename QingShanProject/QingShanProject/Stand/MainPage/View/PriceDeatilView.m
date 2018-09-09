@@ -25,39 +25,70 @@
         if ([model.keyText isEqualToString:_carTypeValueStr]) {
             _startPriceKeyLabel.text = [NSString stringWithFormat:@"起步价(%@)", model.valueText];
             _startPriceValueLabel.text = [NSString stringWithFormat:@"¥%.0f", model.startPrice];
-            
+
             _unitPriceKeyLabel.text = [NSString stringWithFormat:@"超过里程(%.0f公里)",(_routeLine.distance/1000 - model.startDistance)>0 ? (_routeLine.distance/1000 - model.startDistance) : 0];
             _unitValueLabel.text = [NSString stringWithFormat:@"¥%.0f", model.unitPrice *((_routeLine.distance/1000 - model.startDistance)>0 ? (_routeLine.distance/1000 - model.startDistance) : 0)];
-            
+
             _priceDetailLabel.text = [NSString stringWithFormat:@"¥ %.0f(总里程%d公里)", ((_routeLine.distance/1000 - model.startDistance)>0 ? (_routeLine.distance/1000 - model.startDistance) : 0) * model.unitPrice + model.startPrice, _routeLine.distance/1000];
             NSString *priceValueStr = [NSString stringWithFormat:@"%.0f", ((_routeLine.distance/1000 - model.startDistance)>0 ? (_routeLine.distance/1000 - model.startDistance) : 0) * model.unitPrice + model.startPrice];
             NSString *distanceStr = [NSString stringWithFormat:@"%d", _routeLine.distance/1000];
             NSString *priceDetailStr = [NSString stringWithFormat:@"¥%@(总里程%@公里)", priceValueStr, distanceStr];
-            
+
 
             //创建富文本字符串
             NSMutableAttributedString *attributedStr = [[NSMutableAttributedString alloc]initWithString:priceDetailStr];
             //设置个位
             [attributedStr addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:20] range:NSMakeRange(0, 1)];
-            
+
             //设置十分位
             [attributedStr addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:30] range:NSMakeRange(1, priceValueStr.length)];
-            
-            
+
+
             [attributedStr addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:20] range:NSMakeRange(1+priceValueStr.length, distanceStr.length+7)];
 
-            
+
 //            //设置十分位 橙色
 //            [attributedStr addAttribute:NSForegroundColorAttributeName value:[UIColor orangeColor] range:NSMakeRange(1, 2)];
-            
-            
+
+
             _priceDetailLabel.attributedText = attributedStr;
         }
     }
-    
-    
-    
+
 }
+
+- (void)setOrderModel:(OrderModel *)orderModel {
+    _orderModel = orderModel;
+    if (_carTypeModel) {
+        _startPriceKeyLabel.text = [NSString stringWithFormat:@"起步价(%@)", _carTypeModel.valueText];
+        _startPriceValueLabel.text = [NSString stringWithFormat:@"¥%.0f", _carTypeModel.startPrice];
+        
+        _unitPriceKeyLabel.text = [NSString stringWithFormat:@"超过里程(%.0f公里)",(_orderModel.distance - _carTypeModel.startDistance)>0 ? (_orderModel.distance - _carTypeModel.startDistance) : 0];
+        _unitValueLabel.text = [NSString stringWithFormat:@"¥%.0f", _carTypeModel.unitPrice *((_orderModel.distance - _carTypeModel.startDistance)>0 ? (_orderModel.distance - _carTypeModel.startDistance) : 0)];
+        
+        _priceDetailLabel.text = [NSString stringWithFormat:@"¥ %.0f(总里程%.0f公里)", ((_orderModel.distance - _carTypeModel.startDistance)>0 ? (_orderModel.distance - _carTypeModel.startDistance) : 0) * _carTypeModel.unitPrice + _carTypeModel.startPrice, _orderModel.distance];
+        NSString *priceValueStr = [NSString stringWithFormat:@"%.0f", ((_orderModel.distance - _carTypeModel.startDistance)>0 ? (_orderModel.distance - _carTypeModel.startDistance) : 0) * _carTypeModel.unitPrice + _carTypeModel.startPrice];
+        NSString *distanceStr = [NSString stringWithFormat:@"%.0f", _orderModel.distance];
+        NSString *priceDetailStr = [NSString stringWithFormat:@"¥%@(总里程%@公里)", priceValueStr, distanceStr];
+        
+        
+        //创建富文本字符串
+        NSMutableAttributedString *attributedStr = [[NSMutableAttributedString alloc]initWithString:priceDetailStr];
+        //设置个位
+        [attributedStr addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:20] range:NSMakeRange(0, 1)];
+        
+        //设置十分位
+        [attributedStr addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:30] range:NSMakeRange(1, priceValueStr.length)];
+        
+        
+        [attributedStr addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:20] range:NSMakeRange(1+priceValueStr.length, distanceStr.length+7)];
+    
+        
+        
+        _priceDetailLabel.attributedText = attributedStr;
+    }
+}
+
 - (IBAction)closeBtnAct:(id)sender {
     if (self.closeBtnActBlock) {
         self.closeBtnActBlock();

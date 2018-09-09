@@ -17,6 +17,8 @@
 
 #define JPUSH_APPKEY @"80be2f2358c278aa0f7def46"
 
+//客服电话
+#define SERVICE_PHONE @"0913-2580118"
 
 
 #pragma mark - 角色表

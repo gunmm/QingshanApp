@@ -21,6 +21,9 @@
 #import <MapKit/MKMapItem.h>
 #import <MapKit/MKTypes.h>
 #import "PayDetailView.h"
+#import "ComplaintView.h"
+#import "CommentView.h"
+#import "ComplainDetailController.h"
 
 
 
@@ -229,7 +232,7 @@
         _timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timerAct) userInfo:nil repeats:YES];
         [self.navigationItem setRightBarButtonItem:self.daohaongBtn];
 
-    }else if ([_model.status isEqualToString:@"4"] || [_model.status isEqualToString:@"9"]){ //已完成 或者已取消
+    }else if ([_model.status isEqualToString:@"4"] || [_model.status isEqualToString:@"9"] || [_model.status isEqualToString:@"8"]){ //已完成 或者已取消  或者被司机要投诉
         [self addPointForMap];
         [_timer invalidate];
         [self.navigationItem setRightBarButtonItem:nil];
@@ -296,57 +299,135 @@
     };
     
     _driverOrderDetailView.servicePayOrderBlock = ^{
-        PayDetailView *payDetailView = [[[NSBundle mainBundle] loadNibNamed:@"PayDetailView" owner:nil options:nil] lastObject];
-        payDetailView.frame = CGRectMake(0, 0, kDeviceWidth, 256);
-        weakSelf.customIOS7AlertView = [[CustomIOS7AlertView alloc] init];
-        [weakSelf.customIOS7AlertView setButtonTitles:nil];
-        [weakSelf.customIOS7AlertView setContainerView:payDetailView];
-        [weakSelf.customIOS7AlertView showFromBottom];
-        CGFloat serviceFee = weakSelf.model.price * 0.03;
-        if (serviceFee > 300) {
-            serviceFee = 300;
-        }
-        payDetailView.priceLabel.text = [NSString stringWithFormat:@"¥ %.2f", serviceFee];
-        
-        
-        payDetailView.payBtnActBlock = ^(NSString *payType) {
-            [weakSelf.customIOS7AlertView close];
-            CGFloat serviceFee = weakSelf.model.price * 0.03;
-            if (serviceFee > 300) {
-                serviceFee = 300;
-            }
-            if ([payType isEqualToString:@"1"]) {
-                //跳转支付宝支付
-                
-                [weakSelf servicePayWithPayType:@"1" withPayId:@"zfb-zfid-0002"];
-            }else if ([payType isEqualToString:@"2"]) {
-                //跳转微信支付
-                [weakSelf servicePayWithPayType:@"2" withPayId:@"wx-wxid-0002"];
-            }
-        };
+        [weakSelf servicePayBlockAct];
     };
     
     _driverOrderDetailView.cancelOrderBlock = ^{
-        [AlertView alertViewWithTitle:@"提示" withMessage:@"确认放弃该订单\n 取消已抢到的订单\n会导致\n信用分降低" withConfirmTitle:@"确认" withCancelTitle:@"取消" withType:UIAlertControllerStyleAlert withConfirmBlock:^{
-            NSMutableDictionary *param = [NSMutableDictionary dictionary];
-            [param setObject:[[Config shareConfig] getUserId] forKey:@"driverId"];
-            [param setObject:weakSelf.model.orderId forKey:@"orderId"];
-
-            [NetWorking postDataWithParameters:param withUrl:@"driverGiveUpOrder" withBlock:^(id result) {
-                [weakSelf.navigationController popViewControllerAnimated:YES];
-            } withFailedBlock:^(NSString *errorResult) {
-
-            }];
-        } withCancelBlock:^{
-            
-        }];
+        [weakSelf cancelBlockAct];
     };
     
     _driverOrderDetailView.orderTimeOutBlock = ^{
         [weakSelf.navigationController popViewControllerAnimated:YES];
     };
     
+    _driverOrderDetailView.complainBlock = ^{
+        if (weakSelf.model.driverComplaintId.length > 0) {
+            UIStoryboard *board = [UIStoryboard storyboardWithName:@"StandBoard" bundle:nil];
+            ComplainDetailController *complainDetailController = [board instantiateViewControllerWithIdentifier:@"stand_complain"];
+            complainDetailController.complainId = weakSelf.model.driverComplaintId;
+            complainDetailController.type = @"2";
+            [self.navigationController pushViewController:complainDetailController animated:YES];
+        }else {
+            [weakSelf complainBlockAct];
+        }
+    };
+    _driverOrderDetailView.commentBlock = ^{
+        [weakSelf commentBlockAct];
+    };
     
+    
+}
+
+- (void)complainBlockAct {
+    
+    [AlertView alertViewWithTitle:@"提示" withMessage:@"发起投诉后订单会被置为投诉状态，等待平台处理" withConfirmTitle:@"继续投诉" withCancelTitle:@"取消" withType:UIAlertControllerStyleAlert withConfirmBlock:^{
+        ComplaintView *complaintView = [[[NSBundle mainBundle] loadNibNamed:@"ComplaintView" owner:nil options:nil] lastObject];
+        complaintView.frame = CGRectMake(0, 0, kDeviceWidth, 239);
+        complaintView.closeBtnActBlock = ^{
+            [self.customIOS7AlertView close];
+        };
+        
+        complaintView.submitBtnActBlock = ^(NSString *contentStr) {
+            NSMutableDictionary *param = [NSMutableDictionary dictionary];
+            [param setObject:[[Config shareConfig] getUserId] forKey:@"createManId"];
+            [param setObject:self.orderId forKey:@"orderId"];
+            [param setObject:@"2" forKey:@"type"];
+            [param setObject:contentStr forKey:@"note"];
+            
+            [NetWorking postDataWithParameters:param withUrl:@"addComplain" withBlock:^(id result) {
+                [HUDClass showHUDWithText:@"投诉成功！系统会在五个工作日内处理"];
+                [self.customIOS7AlertView close];
+                [self loadData];
+            } withFailedBlock:^(NSString *errorResult) {
+                
+            }];
+        };
+        
+        
+        
+        self.customIOS7AlertView = [[CustomIOS7AlertView alloc] init];
+        self.customIOS7AlertView.tapClose = NO;
+        [self.customIOS7AlertView setButtonTitles:nil];
+        [self.customIOS7AlertView setContainerView:complaintView];
+        [self.customIOS7AlertView showFromBottom];
+    } withCancelBlock:^{
+        
+    }];
+   
+}
+
+- (void)commentBlockAct {
+    CommentView *commentView = [[[NSBundle mainBundle] loadNibNamed:@"CommentView" owner:nil options:nil] lastObject];
+    commentView.isDriver = YES;
+    commentView.model = self.model;
+    commentView.frame = CGRectMake(0, 0, kDeviceWidth, 303);
+    commentView.closeBtnActBlock = ^{
+        [self.customIOS7AlertView close];
+    };
+    
+    commentView.commitBtnActBlock = ^(NSInteger starNumber, NSString *contentStr) {
+        NSMutableDictionary *param = [NSMutableDictionary dictionary];
+        [param setObject:self.orderId forKey:@"orderId"];
+        [param setObject:[NSNumber numberWithInteger:starNumber] forKey:@"driverCommentStar"];
+        [param setObject:contentStr forKey:@"driverCommentContent"];
+        
+        [NetWorking postDataWithParameters:param withUrl:@"driverCommentOrder" withBlock:^(id result) {
+            [HUDClass showHUDWithText:@"评价成功，感谢评价！"];
+            [self.customIOS7AlertView close];
+            [self loadData];
+        } withFailedBlock:^(NSString *errorResult) {
+            
+        }];
+    };
+    
+    
+    self.customIOS7AlertView = [[CustomIOS7AlertView alloc] init];
+    self.customIOS7AlertView.tapClose = NO;
+    [self.customIOS7AlertView setButtonTitles:nil];
+    [self.customIOS7AlertView setContainerView:commentView];
+    [self.customIOS7AlertView showFromBottom];
+}
+
+- (void)servicePayBlockAct {
+    
+    PayDetailView *payDetailView = [[[NSBundle mainBundle] loadNibNamed:@"PayDetailView" owner:nil options:nil] lastObject];
+    payDetailView.frame = CGRectMake(0, 0, kDeviceWidth, 256);
+    self.customIOS7AlertView = [[CustomIOS7AlertView alloc] init];
+    [self.customIOS7AlertView setButtonTitles:nil];
+    [self.customIOS7AlertView setContainerView:payDetailView];
+    [self.customIOS7AlertView showFromBottom];
+    CGFloat serviceFee = self.model.price * 0.03;
+    if (serviceFee > 300) {
+        serviceFee = 300;
+    }
+    payDetailView.priceLabel.text = [NSString stringWithFormat:@"¥ %.2f", serviceFee];
+    
+    __weak typeof(self) weakSelf = self;
+    payDetailView.payBtnActBlock = ^(NSString *payType) {
+        [weakSelf.customIOS7AlertView close];
+        CGFloat serviceFee = weakSelf.model.price * 0.03;
+        if (serviceFee > 300) {
+            serviceFee = 300;
+        }
+        if ([payType isEqualToString:@"1"]) {
+            //跳转支付宝支付
+            
+            [weakSelf servicePayWithPayType:@"1" withPayId:@"zfb-zfid-0002"];
+        }else if ([payType isEqualToString:@"2"]) {
+            //跳转微信支付
+            [weakSelf servicePayWithPayType:@"2" withPayId:@"wx-wxid-0002"];
+        }
+    };
 }
 
 - (void)servicePayWithPayType:(NSString *)type withPayId:(NSString *)payId {
@@ -359,6 +440,22 @@
         [self loadData];
         self.nowCount = 0;
     } withFailedBlock:^(NSString *errorResult) {
+        
+    }];
+}
+
+- (void)cancelBlockAct {
+    [AlertView alertViewWithTitle:@"提示" withMessage:@"确认放弃该订单\n 取消已抢到的订单\n会导致\n信用分降低" withConfirmTitle:@"确认" withCancelTitle:@"取消" withType:UIAlertControllerStyleAlert withConfirmBlock:^{
+        NSMutableDictionary *param = [NSMutableDictionary dictionary];
+        [param setObject:[[Config shareConfig] getUserId] forKey:@"driverId"];
+        [param setObject:self.model.orderId forKey:@"orderId"];
+        
+        [NetWorking postDataWithParameters:param withUrl:@"driverGiveUpOrder" withBlock:^(id result) {
+            [self.navigationController popViewControllerAnimated:YES];
+        } withFailedBlock:^(NSString *errorResult) {
+            
+        }];
+    } withCancelBlock:^{
         
     }];
 }
