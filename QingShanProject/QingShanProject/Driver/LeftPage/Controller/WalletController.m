@@ -168,13 +168,6 @@
         [driverWithdrawal setObject:[NSString stringWithFormat:@"%.2f", self.walletListRes.orderAmount] forKey:@"driverWithdrawalAmount"];
         [driverWithdrawal setObject:[[Config shareConfig] getBankCardNumber] forKey:@"toBankNumber"];
         [driverWithdrawal setObject:[[Config shareConfig] getUserId] forKey:@"toUserId"];
-        [driverWithdrawal setObject:@"0" forKey:@"driverWithdrawalStatus"];
-        
-        NSDate *date = [NSDate new];
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-        [driverWithdrawal setObject:[dateFormatter stringFromDate:date] forKey:@"driverWithdrawalTime"];
-
         [param setObject:driverWithdrawal forKey:@"driverWithdrawal"];
         
         [NetWorking postDataWithParameters:param withUrl:@"addDriverWithdrawal" withBlock:^(id result) {

@@ -330,7 +330,7 @@
             ComplainDetailController *complainDetailController = [board instantiateViewControllerWithIdentifier:@"stand_complain"];
             complainDetailController.complainId = weakSelf.model.siteComplaintId;
             complainDetailController.type = @"1";
-            [self.navigationController pushViewController:complainDetailController animated:YES];
+            [weakSelf.navigationController pushViewController:complainDetailController animated:YES];
         }else {
             [weakSelf orderComplaint];
         }

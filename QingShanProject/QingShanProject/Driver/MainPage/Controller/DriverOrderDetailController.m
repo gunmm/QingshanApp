@@ -316,7 +316,7 @@
             ComplainDetailController *complainDetailController = [board instantiateViewControllerWithIdentifier:@"stand_complain"];
             complainDetailController.complainId = weakSelf.model.driverComplaintId;
             complainDetailController.type = @"2";
-            [self.navigationController pushViewController:complainDetailController animated:YES];
+            [weakSelf.navigationController pushViewController:complainDetailController animated:YES];
         }else {
             [weakSelf complainBlockAct];
         }

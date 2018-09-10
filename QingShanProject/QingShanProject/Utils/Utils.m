@@ -11,6 +11,7 @@
 #import <CommonCrypto/CommonDigest.h>
 #import "AppDelegate.h"
 #import "JPUSHService.h"
+#import "Location.h"
 
 
 @implementation Utils
@@ -29,14 +30,10 @@
         server = [NSString stringWithFormat:@"%@:8080", server];
     }
     
-    return [NSString stringWithFormat:@"http://%@/QingShansProject/", server];
+    return [NSString stringWithFormat:@"http://%@/", server];
     
 
-    //return @"http://101.201.252.84:8080/mobile/";
-    
-//    return @"http://192.168.0.81:8080/mobile/";
-    
-//    return @"http://101.201.252.84:8080/mobile/";
+   
 }
 
 
@@ -202,6 +199,7 @@
     }];
     
     [[Config shareConfig] cleanUserInfo];
+    [[Location sharedLocation] stopLocationService];
     
     UIStoryboard *board = [UIStoryboard storyboardWithName:@"Login" bundle:nil];
     UIViewController *controller = [board instantiateViewControllerWithIdentifier:@"login_controller"];
