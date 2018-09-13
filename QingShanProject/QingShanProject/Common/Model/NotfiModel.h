@@ -48,7 +48,13 @@
 
 
 
-//订单被用户取消
+//投诉被确认
+@property (nonatomic, copy) NSString *complainId;
+@property (nonatomic, copy) NSString *complainType;
+
+
+
+
 
 
 

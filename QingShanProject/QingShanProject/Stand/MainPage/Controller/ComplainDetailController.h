@@ -21,4 +21,8 @@
 @property (nonatomic, copy) NSString *type;
 
 
+
+- (void)loadData;
+
+
 @end

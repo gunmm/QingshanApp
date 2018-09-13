@@ -313,6 +313,7 @@
     _theTableView.delegate = self;
     _theTableView.dataSource = self;
     _theTableView.tableFooterView = [UIView new];
+    _theTableView.estimatedRowHeight = 0;
     [self.view addSubview:_theTableView];
     
     __weak typeof(self) weakSelf = self;

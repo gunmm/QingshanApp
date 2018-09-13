@@ -38,7 +38,7 @@
     self.tableView.tableFooterView = [UIView new];
     self.tableView.scrollEnabled = NO;
     
-    UILabel *bottomLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, kDeviceHeight-30-STATUS_AND_NAVBAR_HEIGHT, kDeviceWidth, 20)];
+    UILabel *bottomLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, kDeviceHeight-30-STATUS_AND_NAVBAR_HEIGHT-TABBAR_BOTTOM_HEIGHT, kDeviceWidth, 20)];
     bottomLabel.font = [UIFont systemFontOfSize:12];
     bottomLabel.textColor = [UIColor grayColor];
     bottomLabel.text = @"@Copyright 2018 渭南庆山集团";

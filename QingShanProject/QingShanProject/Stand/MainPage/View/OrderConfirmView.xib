@@ -105,13 +105,13 @@
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstItem="vgp-KC-48U" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="4zt-zC-Cuj"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="qJ6-7Q-K7Y" secondAttribute="trailing" constant="8" id="68v-UP-wtw"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="vgp-KC-48U" secondAttribute="bottom" id="7Wl-hl-b6I"/>
+                <constraint firstAttribute="bottom" secondItem="vgp-KC-48U" secondAttribute="bottom" id="A25-Hw-ieh"/>
                 <constraint firstItem="sDi-vz-Ne0" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" constant="-50" id="Ahu-Uq-mjC"/>
                 <constraint firstItem="qJ6-7Q-K7Y" firstAttribute="leading" secondItem="sDi-vz-Ne0" secondAttribute="trailing" id="JzB-OH-93H"/>
-                <constraint firstItem="qJ6-7Q-K7Y" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="12" id="TFg-Tj-Hzd"/>
-                <constraint firstItem="vgp-KC-48U" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="Xus-TU-bHa"/>
+                <constraint firstItem="vgp-KC-48U" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Qhf-gu-23n"/>
+                <constraint firstAttribute="trailing" secondItem="vgp-KC-48U" secondAttribute="trailing" id="ggO-lx-Xpc"/>
+                <constraint firstItem="qJ6-7Q-K7Y" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="12" id="jid-O6-OEf"/>
                 <constraint firstItem="sDi-vz-Ne0" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="10" id="zMm-hz-LCh"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>

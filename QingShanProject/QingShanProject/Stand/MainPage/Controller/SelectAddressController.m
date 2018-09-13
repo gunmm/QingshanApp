@@ -104,6 +104,7 @@
     _theTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, STATUS_AND_NAVBAR_HEIGHT+2, kDeviceWidth, kDeviceHeight-STATUS_AND_NAVBAR_HEIGHT-2) style:UITableViewStylePlain];
     _theTableView.delegate = self;
     _theTableView.dataSource = self;
+    _theTableView.estimatedRowHeight = 0;
     
     _theTableView.tableFooterView = [UIView new];
     

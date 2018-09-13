@@ -145,6 +145,7 @@
 		7691D1DF20BA878D00E54D3C /* OrderListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7691D1DE20BA878D00E54D3C /* OrderListController.m */; };
 		7691D1E220BAF13D00E54D3C /* CarTypeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7691D1E120BAF13D00E54D3C /* CarTypeModel.m */; };
 		7691D1E520BAF14F00E54D3C /* CarTypeRes.m in Sources */ = {isa = PBXBuildFile; fileRef = 7691D1E420BAF14F00E54D3C /* CarTypeRes.m */; };
+		7693699E214954F900681D8E /* 1024.png in Resources */ = {isa = PBXBuildFile; fileRef = 7693699D214954F900681D8E /* 1024.png */; };
 		7694C62120D120760037C03F /* appicon1024.png in Resources */ = {isa = PBXBuildFile; fileRef = 7694C62020D120760037C03F /* appicon1024.png */; };
 		76A095992142C68A006F0D05 /* InvoiceDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 76A095982142C68A006F0D05 /* InvoiceDetailController.m */; };
 		76A0959B2142C6CC006F0D05 /* StandBoard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 76A0959A2142C6CC006F0D05 /* StandBoard.storyboard */; };
@@ -432,6 +433,7 @@
 		7691D1E120BAF13D00E54D3C /* CarTypeModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CarTypeModel.m; sourceTree = "<group>"; };
 		7691D1E320BAF14F00E54D3C /* CarTypeRes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CarTypeRes.h; sourceTree = "<group>"; };
 		7691D1E420BAF14F00E54D3C /* CarTypeRes.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CarTypeRes.m; sourceTree = "<group>"; };
+		7693699D214954F900681D8E /* 1024.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1024.png; sourceTree = "<group>"; };
 		7694C62020D120760037C03F /* appicon1024.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = appicon1024.png; sourceTree = "<group>"; };
 		76A095972142C68A006F0D05 /* InvoiceDetailController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InvoiceDetailController.h; sourceTree = "<group>"; };
 		76A095982142C68A006F0D05 /* InvoiceDetailController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InvoiceDetailController.m; sourceTree = "<group>"; };
@@ -1069,6 +1071,7 @@
 		76DCBB422099A2B3001E4F6D /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				7693699D214954F900681D8E /* 1024.png */,
 				7656C08621241E1F001537B8 /* recive_man.png */,
 				7656C08721241E20001537B8 /* send_man.png */,
 				766CAAD6211F093C004FE8F7 /* logo.png */,
@@ -1241,6 +1244,7 @@
 				764F892020CFC80600CA478D /* PayListCell.xib in Resources */,
 				7656C08921241E20001537B8 /* send_man.png in Resources */,
 				7612914C20CE591300F8509B /* StarView.xib in Resources */,
+				7693699E214954F900681D8E /* 1024.png in Resources */,
 				7629034920A6A0C500CA4A9E /* end.png in Resources */,
 				76E10D5B210967040090711A /* InvoiceDetailView.xib in Resources */,
 				7612915020CE5A1A00F8509B /* comment_star_highlight.png in Resources */,

@@ -25,6 +25,7 @@
 {
     BMKLocationService *_locService;
     MBProgressHUD *hud;
+    CGFloat fakeToRealHeight;
 }
 
 @property (strong, nonatomic) BMKMapView *mapView;
@@ -152,7 +153,7 @@
 }
 
 - (void)initAddOrderView {
-    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(5, kDeviceHeight-146-STATUS_AND_NAVBAR_HEIGHT-5, kDeviceWidth-10, 146)];
+    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(5, kDeviceHeight-146-STATUS_AND_NAVBAR_HEIGHT-TABBAR_BOTTOM_HEIGHT-5, kDeviceWidth-10, 146)];
     [self.view addSubview:bgView];
     _addOrderView = [[[NSBundle mainBundle] loadNibNamed:@"AddOrderView" owner:nil options:nil] lastObject];
     _addOrderView.frame = CGRectMake(0, 0, kDeviceWidth-10, 146);
@@ -239,7 +240,7 @@
 }
 
 - (void)initBtnView {
-    UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectMake(kDeviceWidth-45, kDeviceHeight-146-STATUS_AND_NAVBAR_HEIGHT-5-45, 40, 40)];
+    UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectMake(kDeviceWidth-45, kDeviceHeight-146-STATUS_AND_NAVBAR_HEIGHT-TABBAR_BOTTOM_HEIGHT-5-45, 40, 40)];
     [NavBgImage showIconFontForView:backBtn iconName:@"\U0000e786" color:[UIColor blackColor] font:30];
     [self.view addSubview:backBtn];
     
@@ -362,18 +363,54 @@
     //结束定位
     [_locService stopUserLocationService];
     
+    _sendAddressPt = userLocation.location.coordinate;
+    
+    
+    
+    [self performSelector:@selector(loadHzmData) withObject:nil afterDelay:.1];
+    
+    
+}
+
+- (void)loadHzmData {
+    //假高度
+    CGFloat fakeHeight = kDeviceHeight - STATUS_AND_NAVBAR_HEIGHT - TABBAR_BOTTOM_HEIGHT - 146 - 10;
+    
+    //定位在位置真的中间点时对应的view点坐标
+    CGPoint centerPoint = [_mapView convertCoordinate:_mapView.centerCoordinate toPointToView:self.view];
+    
+    //两个中心点之间的距离
+    fakeToRealHeight = centerPoint.y - fakeHeight/2;
+    
+    //算出真中心点相对view位置点
+    CGPoint realCenterRelativePoint = CGPointMake(centerPoint.x, centerPoint.y+fakeToRealHeight);
+
+    //算出真中心点经纬度
+    CLLocationCoordinate2D realC2D = [_mapView convertPoint:realCenterRelativePoint toCoordinateFromView:self.view];
+    
+    //真中心点居中
+    _mapView.centerCoordinate = realC2D;
+    NSLog(@"");
+    
+    
+    //算真中心点到位后的view坐标点位置
+    CGPoint realCenterNowPoint = [_mapView convertCoordinate:realC2D toPointToView:self.view];
+    
+    //算假中心点相对应view坐标点
+    CGPoint fakeCenterNowPoint = CGPointMake(realCenterNowPoint.x, realCenterNowPoint.y-fakeToRealHeight);
+    //算假中心点经纬度
+    CLLocationCoordinate2D fakeC2D = [_mapView convertPoint:fakeCenterNowPoint toCoordinateFromView:self.view];
+    
     
     //添加拖动的大头针
     _centerPoint = [[BMKPointAnnotation alloc]init];
-    _centerPoint.coordinate = userLocation.location.coordinate;
+    _centerPoint.coordinate = fakeC2D;
     _centerPoint.title = @"检索中点";
     [_mapView addAnnotation:_centerPoint];
     
-    
-    _sendAddressPt = userLocation.location.coordinate;
-    
     // 经纬度反编码
-    [self reverseLocation:userLocation.location.coordinate];
+    [self reverseLocation:fakeC2D];
+    
     
 }
 
@@ -393,13 +430,22 @@
 
 
 - (void)mapView:(BMKMapView *)mapView onDrawMapFrame:(BMKMapStatus *)status {
-    _centerPoint.coordinate = mapView.centerCoordinate;
+    //算真中心点到位后的view坐标点位置
+    CGPoint realCenterNowPoint = [_mapView convertCoordinate:mapView.centerCoordinate toPointToView:self.view];
+    
+    //算假中心点相对应view坐标点
+    CGPoint fakeCenterNowPoint = CGPointMake(realCenterNowPoint.x, realCenterNowPoint.y-fakeToRealHeight);
+    
+    //算假中心点经纬度
+    CLLocationCoordinate2D fakeC2D = [_mapView convertPoint:fakeCenterNowPoint toCoordinateFromView:self.view];
+    
+    _centerPoint.coordinate = fakeC2D;
 }
 
 - (void)mapView:(BMKMapView *)mapView regionDidChangeAnimated:(BOOL)animated {
     _sendAddressPt = mapView.centerCoordinate;
     if ([_signSend isEqualToString:@"1"]) {
-        [self reverseLocation:mapView.centerCoordinate];
+        [self reverseLocation:_centerPoint.coordinate];
     }else{
         _signSend = @"1";
     }

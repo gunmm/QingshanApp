@@ -330,9 +330,9 @@
 
 - (void)complainBlockAct {
     
-    [AlertView alertViewWithTitle:@"提示" withMessage:@"发起投诉后订单会被置为投诉状态，等待平台处理" withConfirmTitle:@"继续投诉" withCancelTitle:@"取消" withType:UIAlertControllerStyleAlert withConfirmBlock:^{
+    [AlertView alertViewWithTitle:@"提示" withMessage:@"发起投诉后订单会被置为投诉状态，平台介入处理核实信息后会进行退费或处罚操作" withConfirmTitle:@"继续投诉" withCancelTitle:@"取消" withType:UIAlertControllerStyleAlert withConfirmBlock:^{
         ComplaintView *complaintView = [[[NSBundle mainBundle] loadNibNamed:@"ComplaintView" owner:nil options:nil] lastObject];
-        complaintView.frame = CGRectMake(0, 0, kDeviceWidth, 239);
+        complaintView.frame = CGRectMake(0, 0, kDeviceWidth, 239+TABBAR_BOTTOM_HEIGHT);
         complaintView.closeBtnActBlock = ^{
             [self.customIOS7AlertView close];
         };
@@ -370,7 +370,7 @@
     CommentView *commentView = [[[NSBundle mainBundle] loadNibNamed:@"CommentView" owner:nil options:nil] lastObject];
     commentView.isDriver = YES;
     commentView.model = self.model;
-    commentView.frame = CGRectMake(0, 0, kDeviceWidth, 303);
+    commentView.frame = CGRectMake(0, 0, kDeviceWidth, 303+TABBAR_BOTTOM_HEIGHT);
     commentView.closeBtnActBlock = ^{
         [self.customIOS7AlertView close];
     };
@@ -401,7 +401,7 @@
 - (void)servicePayBlockAct {
     
     PayDetailView *payDetailView = [[[NSBundle mainBundle] loadNibNamed:@"PayDetailView" owner:nil options:nil] lastObject];
-    payDetailView.frame = CGRectMake(0, 0, kDeviceWidth, 256);
+    payDetailView.frame = CGRectMake(0, 0, kDeviceWidth, 256+TABBAR_BOTTOM_HEIGHT);
     self.customIOS7AlertView = [[CustomIOS7AlertView alloc] init];
     [self.customIOS7AlertView setButtonTitles:nil];
     [self.customIOS7AlertView setContainerView:payDetailView];
@@ -501,7 +501,7 @@
 }
 
 - (void)initMapView {
-    _mapView = [[BMKMapView alloc] initWithFrame:CGRectMake(0, 0, kDeviceWidth, kDeviceHeight-STATUS_AND_NAVBAR_HEIGHT-291)];
+    _mapView = [[BMKMapView alloc] initWithFrame:CGRectMake(0, 0, kDeviceWidth, kDeviceHeight-STATUS_AND_NAVBAR_HEIGHT-291-TABBAR_BOTTOM_HEIGHT)];
     _mapView.delegate = self;
     _mapView.zoomLevel = 15;
     _mapView.zoomEnabled = YES;

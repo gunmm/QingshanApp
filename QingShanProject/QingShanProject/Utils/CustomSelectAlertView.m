@@ -79,7 +79,7 @@
     
     [self addSubview:cancelBtn];
     
-    self.frame = CGRectMake(0, 0, kDeviceWidth, cancelBtn.frame.origin.y + cancelBtn.frame.size.height);
+    self.frame = CGRectMake(0, 0, kDeviceWidth, cancelBtn.frame.origin.y + cancelBtn.frame.size.height+TABBAR_BOTTOM_HEIGHT);
 }
 
 - (void)selectBtnAct:(UIButton *)btn {

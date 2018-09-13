@@ -34,7 +34,7 @@
     self.loginBtn.layer.cornerRadius = 6;
     self.loginBtn.layer.masksToBounds = YES;
     self.imageView.contentMode = UIViewContentModeScaleAspectFit;
-    
+    self.verionBtnTop.constant = STATUS_HEIGHT;
     if([[Config shareConfig] getUserName].length > 0) {
         self.usernameTextField.text = [[Config shareConfig] getUserName];
     }

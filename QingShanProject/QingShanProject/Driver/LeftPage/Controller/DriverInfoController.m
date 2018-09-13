@@ -77,7 +77,11 @@
 
 - (void)initData {
     _headImageStr = _userModel.personImageUrl;
-    [Utils setImageWithImageView:_headImageView withUrl:_headImageStr];
+    if (_headImageStr.length > 0) {
+        [[Config shareConfig] setUserImage:_headImageStr];
+        [Utils setImageWithImageView:_headImageView withUrl:_headImageStr];
+    }
+    
     _userNameTextF.text = _userModel.nickname;
     _phoneNumberTextF.text = _userModel.phoneNumber;
     _idCardTextF.text = _userModel.userIdCardNumber;

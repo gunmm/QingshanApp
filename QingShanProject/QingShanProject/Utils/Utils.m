@@ -22,7 +22,7 @@
     
     if (0 == server.length)
     {
-        server = @"192.168.1.111:8080";
+        server = @"39.107.113.157:8080";
     }
     
     if (![server containsString:@":"])
@@ -30,7 +30,9 @@
         server = [NSString stringWithFormat:@"%@:8080", server];
     }
     
-    return [NSString stringWithFormat:@"http://%@/", server];
+//    return [NSString stringWithFormat:@"http://%@/", server];
+    return [NSString stringWithFormat:@"http://%@/QingShansProject/", server];
+
     
 
    

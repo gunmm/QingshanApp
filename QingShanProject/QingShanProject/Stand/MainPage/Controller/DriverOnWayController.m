@@ -277,7 +277,7 @@
 
 
 - (void)initMap {
-    _mapView = [[BMKMapView alloc]initWithFrame:CGRectMake(0, 0, kDeviceWidth, kDeviceHeight-STATUS_AND_NAVBAR_HEIGHT-320)];
+    _mapView = [[BMKMapView alloc]initWithFrame:CGRectMake(0, 0, kDeviceWidth, kDeviceHeight-STATUS_AND_NAVBAR_HEIGHT-320-TABBAR_BOTTOM_HEIGHT)];
     
     _mapView.zoomLevel = 15;
     _mapView.zoomEnabled = YES;
@@ -341,7 +341,7 @@
 
 - (void)orderComplaint {
     ComplaintView *complaintView = [[[NSBundle mainBundle] loadNibNamed:@"ComplaintView" owner:nil options:nil] lastObject];
-    complaintView.frame = CGRectMake(0, 0, kDeviceWidth, 239);
+    complaintView.frame = CGRectMake(0, 0, kDeviceWidth, 239+TABBAR_BOTTOM_HEIGHT);
     complaintView.closeBtnActBlock = ^{
         [self.customIOS7AlertView close];
     };
@@ -373,7 +373,7 @@
 
 - (void)orderPriceDetailWithOrderModel:(OrderModel *)model {
     PriceDeatilView *priceDetailView = [[[NSBundle mainBundle] loadNibNamed:@"PriceDeatilView" owner:nil options:nil] lastObject];
-    priceDetailView.frame = CGRectMake(0, 0, kDeviceWidth, 269);
+    priceDetailView.frame = CGRectMake(0, 0, kDeviceWidth, 269+TABBAR_BOTTOM_HEIGHT);
     priceDetailView.carTypeModel = self.orderCarTypeModel;
     priceDetailView.orderModel = self.model;
     priceDetailView.closeBtnActBlock = ^{
@@ -388,7 +388,7 @@
 - (void)orderCommitWithHasCommit:(BOOL)hasComment {
     CommentView *commentView = [[[NSBundle mainBundle] loadNibNamed:@"CommentView" owner:nil options:nil] lastObject];
     commentView.model = self.model;
-    commentView.frame = CGRectMake(0, 0, kDeviceWidth, 303);
+    commentView.frame = CGRectMake(0, 0, kDeviceWidth, 303+TABBAR_BOTTOM_HEIGHT);
     commentView.closeBtnActBlock = ^{
         [self.customIOS7AlertView close];
     };

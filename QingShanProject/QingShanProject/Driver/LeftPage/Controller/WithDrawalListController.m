@@ -134,6 +134,7 @@
     _theTableView.dataSource = self;
     _theTableView.tableFooterView = [UIView new];
     _theTableView.rowHeight = 125;
+    _theTableView.estimatedRowHeight = 0;
     _theTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:_theTableView];
     

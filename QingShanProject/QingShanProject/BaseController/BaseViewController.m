@@ -16,6 +16,7 @@
 #import "OrderFinshController.h"
 #import "DriverOrderDetailController.h"
 #import "ShortSoundPlay.h"
+#import "ComplainDetailController.h"
 
 
 
@@ -377,6 +378,73 @@
                 });
             }else{
                 [[NavBgImage getCurrentVC].navigationController pushViewController:onwayVc animated:YES];
+            }
+        };
+        
+    }else if ([notfiModel.notifyType isEqualToString:@"ComplainHasBeManage"]) {
+        //投诉被处理
+        
+        if ([[NavBgImage getCurrentVC] isMemberOfClass:[ComplainDetailController class]]) {
+            ComplainDetailController *complainDetailController = (ComplainDetailController *)[NavBgImage getCurrentVC];
+            if ([complainDetailController.complainId isEqualToString:notfiModel.complainId]) {
+                [complainDetailController loadData];
+                EBBannerView *banner = [EBBannerView bannerWithBlock:^(EBBannerViewMaker *make) {
+                    make.style = EBBannerViewStyleiOS9;
+                    make.icon = [UIImage imageNamed:@"1024"];
+                    make.title = notfiModel.aps.alert;
+                    make.content = [notfiModel.complainType isEqualToString:@"1"]? @"对司机的投诉已被处理": @"对货主的投诉已被处理";
+                    make.stayDuration = 8;
+                    make.date = dateStr;
+                }];
+                [banner show];
+                NSMutableDictionary *param = [NSMutableDictionary dictionary];
+                [param setObject:notfiModel.messageId forKey:@"messageId"];
+                [NetWorking bgPostDataWithParameters:param withUrl:@"setMessageRead" withBlock:^(id result) {
+                } withFailedBlock:^(NSString *errorResult) {
+                }];
+                return;
+            }
+        }
+        
+        
+        
+        EBBannerView *banner = [EBBannerView bannerWithBlock:^(EBBannerViewMaker *make) {
+            make.style = EBBannerViewStyleiOS9;
+            make.icon = [UIImage imageNamed:@"1024"];
+            make.title = notfiModel.aps.alert;
+            make.content = [notfiModel.complainType isEqualToString:@"1"]? @"对司机的投诉已被处理": @"对货主的投诉已被处理";
+            make.stayDuration = 8;
+            make.date = dateStr;
+        }];
+        [banner show];
+        banner.tapActBlock = ^{
+            NSMutableDictionary *param = [NSMutableDictionary dictionary];
+            [param setObject:notfiModel.messageId forKey:@"messageId"];
+            [NetWorking bgPostDataWithParameters:param withUrl:@"setMessageRead" withBlock:^(id result) {
+            } withFailedBlock:^(NSString *errorResult) {
+            }];
+            
+            UIStoryboard *board = [UIStoryboard storyboardWithName:@"StandBoard" bundle:nil];
+            ComplainDetailController *complainDetailController = [board instantiateViewControllerWithIdentifier:@"stand_complain"];
+            
+            complainDetailController.complainId = notfiModel.complainId;
+            complainDetailController.type = notfiModel.complainType;
+            
+            [[NavBgImage getCurrentVC].view endEditing:YES];
+            if ([NavBgImage judgeCurrentVCIspresented]) {
+                [[NavBgImage getCurrentVC] dismissViewControllerAnimated:YES completion:^{
+                    [[NavBgImage getCurrentVC].navigationController pushViewController:complainDetailController animated:YES];
+                }];
+            }else if ([[NavBgImage getCurrentVC] isMemberOfClass:[StandLeftPageController class]]){
+                StandLeftPageController *standLeftPageController = (StandLeftPageController *)[NavBgImage getCurrentVC];
+                if (standLeftPageController.standLeftCloseBlock) {
+                    standLeftPageController.standLeftCloseBlock();
+                }
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [[NavBgImage getCurrentVC].navigationController pushViewController:complainDetailController animated:YES];
+                });
+            }else{
+                [[NavBgImage getCurrentVC].navigationController pushViewController:complainDetailController animated:YES];
             }
         };
         

@@ -52,7 +52,7 @@
     _createTimeLabel.text = [Utils formatDate:[NSDate dateWithTimeIntervalSince1970:_model.createTime/1000]];
     _complainDetailLabel.text = _model.note;
     
-    _manageManLabel.text = _model.manageMan;
+    _manageManLabel.text = _model.manageManName;
     _manageTimeLabel.text = [Utils formatDate:[NSDate dateWithTimeIntervalSince1970:_model.updateTime/1000]];
     _manageDetailLabel.text = _model.manageDetail;
 }

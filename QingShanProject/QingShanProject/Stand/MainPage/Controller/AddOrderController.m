@@ -173,7 +173,11 @@
 }
 
 - (void)initScrollView {
-    _bgScrollView = [[TouchScrollView alloc] initWithFrame:CGRectMake(0, STATUS_AND_NAVBAR_HEIGHT+2, kDeviceWidth, kDeviceHeight - STATUS_AND_NAVBAR_HEIGHT - 2)];
+    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(0, STATUS_AND_NAVBAR_HEIGHT+2, kDeviceWidth, kDeviceHeight)];
+    bgView.backgroundColor = bgColor;
+    [self.view addSubview:bgView];
+    
+    _bgScrollView = [[TouchScrollView alloc] initWithFrame:CGRectMake(0, STATUS_AND_NAVBAR_HEIGHT+2, kDeviceWidth, kDeviceHeight - STATUS_AND_NAVBAR_HEIGHT-TABBAR_BOTTOM_HEIGHT - 2)];
     _bgScrollView.backgroundColor = bgColor;
     _bgScrollView.bounces = NO;
     if (_bgScrollView.height < (200 + 10 + 44*(_isNow?6:7) + 146 + 20)) {
@@ -181,6 +185,7 @@
     }else{
         _bgScrollView.contentSize = CGSizeMake(kDeviceWidth, _bgScrollView.height);
     }
+//    _bgScrollView.height = _bgScrollView.height + TABBAR_BOTTOM_HEIGHT;
     [self.view addSubview:_bgScrollView];
 }
 
@@ -197,7 +202,7 @@
     
     _confirmView.priceDetailBtnBlock = ^{
         PriceDeatilView *priceDetailView = [[[NSBundle mainBundle] loadNibNamed:@"PriceDeatilView" owner:nil options:nil] lastObject];
-        priceDetailView.frame = CGRectMake(0, 0, kDeviceWidth, 269);
+        priceDetailView.frame = CGRectMake(0, 0, kDeviceWidth, 269+TABBAR_BOTTOM_HEIGHT);
         priceDetailView.carTypeList = weakSelf.carTypeList;
         priceDetailView.carTypeValueStr = weakSelf.carTypeValueStr;
         priceDetailView.routeLine = weakSelf.routeLine;
@@ -215,7 +220,7 @@
         if ([selectType isEqualToString:@"0"]) {
             [AlertView alertViewWithTitle:@"提示" withMessage:@"需要发票 则\n必须预先线上支付运输费用" withConfirmTitle:@"确认" withCancelTitle:@"取消" withType:UIAlertControllerStyleAlert withConfirmBlock:^{
                 InvoiceDetailView *invoiceDetailView = [[[NSBundle mainBundle] loadNibNamed:@"InvoiceDetailView" owner:nil options:nil] lastObject];
-                invoiceDetailView.frame = CGRectMake(0, 0, kDeviceWidth, 355);
+                invoiceDetailView.frame = CGRectMake(0, 0, kDeviceWidth, 355+TABBAR_BOTTOM_HEIGHT);
                 weakSelf.customIOS7AlertView = [[CustomIOS7AlertView alloc] init];
                 weakSelf.customIOS7AlertView.tapClose = NO;
                 [weakSelf.customIOS7AlertView setButtonTitles:nil];
@@ -242,7 +247,7 @@
             }];
         }else {
             InvoiceDetailView *invoiceDetailView = [[[NSBundle mainBundle] loadNibNamed:@"InvoiceDetailView" owner:nil options:nil] lastObject];
-            invoiceDetailView.frame = CGRectMake(0, 0, kDeviceWidth, 355);
+            invoiceDetailView.frame = CGRectMake(0, 0, kDeviceWidth, 355+TABBAR_BOTTOM_HEIGHT);
             invoiceDetailView.paramDictionary = weakSelf.invoiceParam;
             weakSelf.customIOS7AlertView = [[CustomIOS7AlertView alloc] init];
             weakSelf.customIOS7AlertView.tapClose = NO;

@@ -136,7 +136,7 @@
 }
 
 - (void)initMapView {
-    _mapView = [[BMKMapView alloc] initWithFrame:CGRectMake(0, 0, kDeviceWidth, kDeviceHeight-STATUS_AND_NAVBAR_HEIGHT-255)];
+    _mapView = [[BMKMapView alloc] initWithFrame:CGRectMake(0, 0, kDeviceWidth, kDeviceHeight-STATUS_AND_NAVBAR_HEIGHT-255-TABBAR_BOTTOM_HEIGHT)];
     _mapView.delegate = self;
     _mapView.zoomLevel = 15;
     _mapView.zoomEnabled = YES;
