@@ -180,7 +180,7 @@
             weakSelf.sendAddressPt = pt;
             weakSelf.sendDetailAddress = address;
             weakSelf.signSend = @"0";
-            weakSelf.mapView.centerCoordinate = pt;
+            weakSelf.mapView.centerCoordinate = [weakSelf calculateReallyCenterC2DWithFakeC2D:pt];
 
         };
     };
@@ -451,7 +451,19 @@
     }
 }
 
-
+- (CLLocationCoordinate2D)calculateReallyCenterC2DWithFakeC2D:(CLLocationCoordinate2D)FakeC2D {
+    //定位在位置真的中间点时对应的view点坐标
+    CGPoint centerPoint = [_mapView convertCoordinate:FakeC2D toPointToView:self.view];
+    
+    //算出真中心点相对view位置点
+    CGPoint realCenterRelativePoint = CGPointMake(centerPoint.x, centerPoint.y+fakeToRealHeight);
+    
+    //算出真中心点经纬度
+    CLLocationCoordinate2D realC2D = [_mapView convertPoint:realCenterRelativePoint toCoordinateFromView:self.view];
+    
+    return realC2D;
+   
+}
 
 
 
