@@ -16,6 +16,7 @@
 #import "RobOrderController.h"
 #import "SeekViewController.h"
 #import "FinishOrderRes.h"
+#import "ComplainDetailController.h"
 
 @interface MessageListController () <UITableViewDelegate, UITableViewDataSource>
 
@@ -190,6 +191,17 @@
     [NetWorking bgPostDataWithParameters:param withUrl:@"setMessageRead" withBlock:^(id result) {
     } withFailedBlock:^(NSString *errorResult) {
     }];
+    
+    if ([_dataList[indexPath.row].messageType isEqualToString:@"ComplainHasBeManage"]) {
+        UIStoryboard *board = [UIStoryboard storyboardWithName:@"StandBoard" bundle:nil];
+        ComplainDetailController *complainDetailController = [board instantiateViewControllerWithIdentifier:@"stand_complain"];
+        
+        complainDetailController.complainId = _dataList[indexPath.row].orderId;
+        complainDetailController.type = _dataList[indexPath.row].orderType;
+        [self.navigationController pushViewController:complainDetailController animated:YES];
+        return;
+    }
+   
     
     
     if ([[[Config shareConfig] getType] isEqualToString:@"5"]) {

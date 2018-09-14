@@ -68,6 +68,10 @@
         _titleLabel.text = @"订单状态更新";
         _contentLabel.text = @"司机开始处理您的预约订单，点击查看详情";
 
+    }else if ([_model.messageType isEqualToString:@"ComplainHasBeManage"]) {
+        _titleLabel.text = @"投诉被处理";
+        _contentLabel.text = @"您的订单投诉被处理，点击查看详情";
+        
     }
     
     if ([_model.isRead isEqualToString:@"1"]) {
