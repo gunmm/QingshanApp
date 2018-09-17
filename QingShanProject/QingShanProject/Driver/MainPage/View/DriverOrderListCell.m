@@ -55,8 +55,9 @@
     
     [_nameBtn setTitle:[NSString stringWithFormat:@"%@货主",[_model.linkMan substringToIndex:1]] forState:UIControlStateNormal];
     _createTimeLabel.text = [Utils formatDate:[NSDate dateWithTimeIntervalSince1970:_model.createTime/1000]];
-    _sendAddressLabel.text = _model.sendDetailAddress;
-    _reciverAddressLabel.text = _model.receiveDetailAddress;
+    
+    _sendAddressLabel.text = [NSString stringWithFormat:@"%@%@", _model.sendDetailAddress, _model.sendAddress];
+    _reciverAddressLabel.text = [NSString stringWithFormat:@"%@%@", _model.receiveDetailAddress, _model.receiveAddress];
     
     if ([_model.type isEqualToString:@"1"]) {//实时
         _orderType.text = @"实时";

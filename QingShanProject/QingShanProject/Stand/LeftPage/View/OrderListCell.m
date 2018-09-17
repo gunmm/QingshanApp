@@ -31,8 +31,8 @@
     _model = model;
     _carTypeLabel.text = _model.carTypeName;
     _createTimeLabel.text = [Utils formatDate:[NSDate dateWithTimeIntervalSince1970:_model.createTime/1000]];
-    _sendAddressLabel.text = _model.sendAddress;
-    _reciverAddressLabel.text = _model.receiveAddress;
+    _sendAddressLabel.text = [NSString stringWithFormat:@"%@%@", _model.sendDetailAddress, _model.sendAddress];
+    _reciverAddressLabel.text = [NSString stringWithFormat:@"%@%@", _model.receiveDetailAddress, _model.receiveAddress];
     if ([_model.type isEqualToString:@"1"]) {//实时
         _orderTypeLabel.text = @"实时";
         _orderTypeLabel.textColor = [UIColor colorWithRed:255/255.0 green:132/255.0 blue:60/255.0 alpha:1];

@@ -37,6 +37,9 @@
 
 #endif /* Constant_h */
 
+//直辖市数组
+#define DIRECTLY_CITY_ARRAY @[@"北京市", @"上海市", @"天津市", @"重庆市"]
+
 
 
 //接收定位广播

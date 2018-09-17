@@ -59,11 +59,11 @@
         NSString *msgStr = @"";
         if([notfiModel.type isEqualToString:@"1"]){
             typeStr = @"实时";
-            msgStr = [NSString stringWithFormat:@"订单类型：%@\n距离：%.2f公里\n创建时间：%@\n发货地址：%@\n收货地址：%@\n备注：%@\n订单路程：%.2f公里\n费用：%.2f元", typeStr, notfiModel.toSendDistance, notfiModel.createTime,  notfiModel.sendDetailAddress, notfiModel.receiveDetailAddress, notfiModel.note.length > 0 ? notfiModel.note: @"无", notfiModel.distance, notfiModel.price];
+            msgStr = [NSString stringWithFormat:@"订单类型：%@\n距离你：%.2f公里\n创建时间：%@\n发货地址：%@\n收货地址：%@\n备注：%@\n订单路程：%.2f公里\n费用：%.2f元", typeStr, notfiModel.toSendDistance, notfiModel.createTime,  notfiModel.sendDetailAddress, notfiModel.receiveDetailAddress, notfiModel.note.length > 0 ? notfiModel.note: @"无", notfiModel.distance, notfiModel.price];
             [ShortSoundPlay playSoundWithPath:@"voice_now" withType:@"m4a"];
         }else{
             typeStr = @"预约";
-            msgStr = [NSString stringWithFormat:@"订单类型：%@\n距离：%.2f公里\n创建时间：%@\n预约时间：%@\n发货地址：%@\n收货地址：%@\n备注：%@\n订单路程：%.2f公里\n费用：%.2f元", typeStr, notfiModel.toSendDistance, notfiModel.createTime, notfiModel.appointTime, notfiModel.sendDetailAddress, notfiModel.receiveDetailAddress, notfiModel.note.length > 0 ? notfiModel.note: @"无", notfiModel.distance, notfiModel.price];
+            msgStr = [NSString stringWithFormat:@"订单类型：%@\n距离你：%.2f公里\n创建时间：%@\n预约时间：%@\n发货地址：%@\n收货地址：%@\n备注：%@\n订单路程：%.2f公里\n费用：%.2f元", typeStr, notfiModel.toSendDistance, notfiModel.createTime, notfiModel.appointTime, notfiModel.sendDetailAddress, notfiModel.receiveDetailAddress, notfiModel.note.length > 0 ? notfiModel.note: @"无", notfiModel.distance, notfiModel.price];
             [ShortSoundPlay playSoundWithPath:@"voice_booking" withType:@"m4a"];
 
         }

@@ -252,7 +252,23 @@
     BMKPoiInfo *info = _addressArray[indexPath.row];
     if (self.cellClickBlock) {
         [self dismissViewControllerAnimated:YES completion:^{
-            self.cellClickBlock(info.name, info.address, info.pt);
+            NSString *detailAddress = @"";
+            if ([(DIRECTLY_CITY_ARRAY) containsObject:info.city]) {
+                if (info.city && info.area) {
+                    detailAddress = [NSString stringWithFormat:@"%@%@", info.city, info.area];
+                }else {
+                    detailAddress = self.selectAddressHeadView.cityBtn.currentTitle;
+                }
+                
+            }else{
+                if (info.province && info.city && info.area) {
+                    detailAddress = [NSString stringWithFormat:@"%@%@%@", info.province, info.city, info.area];
+                }else {
+                    detailAddress = self.selectAddressHeadView.cityBtn.currentTitle;
+                }
+            }
+            
+            self.cellClickBlock(info.name, detailAddress, info.pt);
         }];
     }
 }

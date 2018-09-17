@@ -15,6 +15,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *manageManLabel;
 @property (weak, nonatomic) IBOutlet UILabel *manageTimeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *manageDetailLabel;
+@property (weak, nonatomic) IBOutlet UILabel *manageDriverLabel;
+@property (weak, nonatomic) IBOutlet UILabel *manageMasterLabel;
+@property (weak, nonatomic) IBOutlet UILabel *manageOrderStatusLabel;
 
 
 @property (nonatomic, copy) NSString *complainId;

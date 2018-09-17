@@ -30,9 +30,14 @@
 @property (nonatomic, copy) NSString *manageManName;   //操作员姓名
 @property (nonatomic, copy) NSString *manageStatus;//处理状态   0:待处理  1：司机减分  2：货主减分   3：拉黑司机   4.拉黑货主
 @property (nonatomic, copy) NSString *manageDetail;//处理详情 (文字描述)
+@property (nonatomic, copy) NSString *manageDriver;               //处理司机 0：不处理  1：评分减一  2：拉黑
+@property (nonatomic, copy) NSString *manageMaster;               //处理货主 0：不处理  1：评分减一  2：拉黑
+@property (nonatomic, copy) NSString *manageOrder;               //处理订单 0：不处理  1：变为取消状态  2：变为异常状态
 
 @property (nonatomic, assign) long long createTime;// 创建时间
 @property (nonatomic, assign) long long updateTime;// 更新时间
+
+
 
 
 

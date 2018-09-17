@@ -55,6 +55,30 @@
     _manageManLabel.text = _model.manageManName;
     _manageTimeLabel.text = [Utils formatDate:[NSDate dateWithTimeIntervalSince1970:_model.updateTime/1000]];
     _manageDetailLabel.text = _model.manageDetail;
+    
+    if ([_model.manageDriver isEqualToString:@"0"]) {
+        _manageDriverLabel.text = @"不作处理";
+    }else if ([_model.manageDriver isEqualToString:@"1"]) {
+        _manageDriverLabel.text = @"大幅度降低评分值";
+    }else {
+        _manageDriverLabel.text = @"拉黑司机，拉黑征信";
+    }
+    
+    if ([_model.manageMaster isEqualToString:@"0"]) {
+        _manageMasterLabel.text = @"不作处理";
+    }else if ([_model.manageMaster isEqualToString:@"1"]) {
+        _manageMasterLabel.text = @"大幅度降低评分值";
+    }else {
+        _manageMasterLabel.text = @"拉黑货主，拉黑征信";
+    }
+    
+    if ([_model.manageOrder isEqualToString:@"0"]) {
+        _manageOrderStatusLabel.text = @"不作处理";
+    }else if ([_model.manageOrder isEqualToString:@"1"]) {
+        _manageOrderStatusLabel.text = @"取消订单，相对应退款";
+    }else {
+        _manageOrderStatusLabel.text = @"订单置为异常，相对应退款";
+    }
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -87,7 +111,7 @@
             label1.numberOfLines = 0;
             [label1 sizeToFit];
             
-            return 80.5 + label1.height;
+            return 167 + label1.height;
         }
         return [super tableView:tableView heightForRowAtIndexPath:indexPath];
     }
