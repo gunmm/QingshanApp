@@ -86,7 +86,7 @@
     self.view.backgroundColor = bgColor;
     _daohaongBtn = [[UIBarButtonItem alloc]initWithTitle:@"导航" style:UIBarButtonItemStylePlain target:self action:@selector(daohangBtnClicked)];
     [_daohaongBtn setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont systemFontOfSize:14],NSFontAttributeName, nil] forState:UIControlStateNormal];
-    [self.navigationItem setRightBarButtonItem:_daohaongBtn];
+//    [self.navigationItem setRightBarButtonItem:_daohaongBtn];
 }
 
 - (void)daohangBtnClicked {

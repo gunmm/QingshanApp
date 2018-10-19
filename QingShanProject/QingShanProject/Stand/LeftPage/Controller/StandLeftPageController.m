@@ -46,6 +46,8 @@
     [NavBgImage showIconFontForView:_walletIconLabel iconName:@"\U0000e671" color:mainColor font:18];
     [NavBgImage showIconFontForView:_serviceIconLabel iconName:@"\U0000e65a" color:mainColor font:22];
     [NavBgImage showIconFontForView:_settingIconLabel iconName:@"\U0000e62b" color:mainColor font:22];
+    [NavBgImage showIconFontForView:_driverManageIconLabel iconName:@"\U0000e604" color:mainColor font:20];
+
 }
 
 - (void)initHeadView {
@@ -102,7 +104,13 @@
             self.standLeftSelectBlock(3);
         }
         
-//        [Utils backToLogin];
+    }
+    
+    if (indexPath.row == 4) {
+        if (self.standLeftSelectBlock) {
+            self.standLeftSelectBlock(4);
+        }
+        
     }
 }
 

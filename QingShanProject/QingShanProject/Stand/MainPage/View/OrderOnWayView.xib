@@ -19,7 +19,6 @@
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="e7z-Ti-3Jh">
                     <rect key="frame" x="0.0" y="0.0" width="310" height="230"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hxm-Zo-INa">
                     <rect key="frame" x="16" y="20" width="100" height="23"/>
@@ -156,7 +155,6 @@
                     </state>
                 </button>
             </subviews>
-            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="5lV-xF-a6U" firstAttribute="top" secondItem="RSA-VO-f7A" secondAttribute="bottom" constant="8" id="0QH-Ma-l2m"/>
                 <constraint firstItem="RSA-VO-f7A" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="20" id="14Y-hH-PbQ"/>

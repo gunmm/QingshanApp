@@ -28,6 +28,9 @@
 @property (nonatomic, copy) NSString *type;  // 0：超级管理员，1：平台管理员，2：平台投诉业务处理人员，3：站点管理员，4：站点业务员，5：货源方，6：司机
 @property (nonatomic, copy) NSString *userIdCardNumber;   //身份证号
 
+@property (nonatomic, copy) NSString *driverType;   //司机类型 //1: 车主司机  2:小司机
+@property (nonatomic, copy) NSString *superDriver;   //父司机
+
 @property (nonatomic, copy) NSString *status;  //状态       司机是否在拉货  1：在拉货 0：未拉货  2：下班
 @property (nonatomic, copy) NSString *vehicleId;   //车辆id
 @property (nonatomic, copy) NSString *plateNumber;  // 车牌号
@@ -64,6 +67,9 @@
 @property (nonatomic, copy) NSString *vehiclePhoto;     // 车辆图片
 @property (nonatomic, copy) NSString *loadWeight;       // 车辆载重
 @property (nonatomic, copy) NSString *vehicleMakeDate;       // 车辆出厂日期
+@property (nonatomic, copy) NSString *vehicleBindingDriverId;       // 车辆当前绑定司机ID
+
+
 
 
 @property (nonatomic, assign) long long createTime;

@@ -95,7 +95,7 @@
                                     <action selector="loginAct:" destination="hOa-ek-GF0" eventType="touchUpInside" id="bXW-nU-9y0"/>
                                 </connections>
                             </button>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BNY-aQ-luy">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BNY-aQ-luy">
                                 <rect key="frame" x="15" y="427" width="100" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="6WR-Md-MDZ"/>
@@ -109,7 +109,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z8s-JI-LmU">
-                                <rect key="frame" x="110" y="427" width="100" height="30"/>
+                                <rect key="frame" x="205" y="427" width="100" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="Pym-7p-i0I"/>
                                     <constraint firstAttribute="width" constant="100" id="UWL-x0-aFy"/>
@@ -145,6 +145,7 @@
                             <constraint firstItem="mKB-KE-iuK" firstAttribute="leading" secondItem="Yj0-Pb-edQ" secondAttribute="leading" constant="30" id="Gh0-R6-eLh"/>
                             <constraint firstItem="BNY-aQ-luy" firstAttribute="leading" secondItem="Yj0-Pb-edQ" secondAttribute="leading" constant="15" id="JTS-mU-nCR"/>
                             <constraint firstItem="rSd-xx-PgD" firstAttribute="leading" secondItem="3o8-qP-RHV" secondAttribute="leading" constant="15" id="MLS-qh-Enm"/>
+                            <constraint firstItem="Yj0-Pb-edQ" firstAttribute="trailing" secondItem="z8s-JI-LmU" secondAttribute="trailing" constant="15" id="Pb0-wi-3Qr"/>
                             <constraint firstItem="BNY-aQ-luy" firstAttribute="top" secondItem="XUe-JR-ioZ" secondAttribute="bottom" constant="25" id="PnT-Ea-XNb"/>
                             <constraint firstItem="eVS-tM-qzP" firstAttribute="trailing" secondItem="Yj0-Pb-edQ" secondAttribute="trailing" id="Ulb-mY-z7l"/>
                             <constraint firstItem="XUe-JR-ioZ" firstAttribute="leading" secondItem="Yj0-Pb-edQ" secondAttribute="leading" constant="10" id="YFz-oX-nYk"/>
@@ -153,7 +154,6 @@
                             <constraint firstItem="Yj0-Pb-edQ" firstAttribute="trailing" secondItem="mKB-KE-iuK" secondAttribute="trailing" constant="30" id="hFB-EP-JZN"/>
                             <constraint firstItem="z8s-JI-LmU" firstAttribute="top" secondItem="XUe-JR-ioZ" secondAttribute="bottom" constant="25" id="hP9-f3-Y1J"/>
                             <constraint firstItem="eVS-tM-qzP" firstAttribute="leading" secondItem="Yj0-Pb-edQ" secondAttribute="leading" id="osn-Xh-X4m"/>
-                            <constraint firstItem="z8s-JI-LmU" firstAttribute="centerX" secondItem="3o8-qP-RHV" secondAttribute="centerX" id="xXW-Ur-Qp3"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Yj0-Pb-edQ"/>
                     </view>

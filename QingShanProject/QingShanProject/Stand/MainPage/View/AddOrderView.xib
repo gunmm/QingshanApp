@@ -18,7 +18,6 @@
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Qn-Ya-8fF">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="146"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MkE-w7-7rA">
                     <rect key="frame" x="16" y="58" width="288" height="81"/>

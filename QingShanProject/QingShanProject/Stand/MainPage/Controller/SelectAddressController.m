@@ -79,8 +79,10 @@
     
     _mapheadView = [[MapHeadView alloc]initWithFrame:CGRectMake(40, (IS_IPHONE_5_8 ? 44 : 20) + 7, kDeviceWidth-54, 30)];
     _mapheadView.addressLabel.userInteractionEnabled = YES;
+    _mapheadView.addressLabel.clearButtonMode = UITextFieldViewModeWhileEditing;
     _mapheadView.addressLabel.delegate = self;
     [self.view addSubview:_mapheadView];
+    
     
     UIView *divisionView = [[UIView alloc]initWithFrame:CGRectMake(0, (IS_IPHONE_5_8 ? 44 : 20)+45, kDeviceWidth, 0.5)];
     divisionView.backgroundColor = devide_line_color;

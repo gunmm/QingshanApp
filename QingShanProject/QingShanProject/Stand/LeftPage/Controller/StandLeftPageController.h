@@ -17,6 +17,7 @@ typedef void(^StandLeftCloseBlock)(void);
 @property (weak, nonatomic) IBOutlet UILabel *walletIconLabel;
 @property (weak, nonatomic) IBOutlet UILabel *serviceIconLabel;
 @property (weak, nonatomic) IBOutlet UILabel *settingIconLabel;
+@property (weak, nonatomic) IBOutlet UILabel *driverManageIconLabel;
 
 
 @property (nonatomic, copy) StandLeftSelectBlock standLeftSelectBlock;

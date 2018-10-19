@@ -15,6 +15,7 @@
 #import "AppDelegate.h"
 #import "SettingViewController.h"
 #import "WalletController.h"
+#import "DriverManageController.h"
 
 @interface DriverMainMMController ()
 {
@@ -109,6 +110,10 @@
         NSMutableString *str = [[NSMutableString alloc] initWithFormat:@"telprompt://%@",SERVICE_PHONE];
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str] options:@{} completionHandler:^(BOOL success) {}];
     }else if (cellIndex == 3) {
+        DriverManageController *driverManageController = [[DriverManageController alloc] init];
+
+        [mainNav pushViewController:driverManageController animated:YES];
+    }else if (cellIndex == 4) {
         UIStoryboard *board = [UIStoryboard storyboardWithName:@"MyInfo" bundle:nil];
         SettingViewController *settingViewController = [board instantiateViewControllerWithIdentifier:@"my_setting"];
         [mainNav pushViewController:settingViewController animated:YES];

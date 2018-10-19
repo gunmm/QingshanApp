@@ -193,16 +193,16 @@
         [_workBtn setTitle:@"开始接单" forState:UIControlStateNormal];
         _workBtn.layer.borderColor = mainColor.CGColor;
         [_workBtn setTitleColor:mainColor forState:UIControlStateNormal];
-        [[Location sharedLocation] stopLocationService];
+//        [[Location sharedLocation] stopLocationService];
 
 
     }else {
         [_workBtn setTitle:@"停止接单" forState:UIControlStateNormal];
         _workBtn.layer.borderColor = [UIColor grayColor].CGColor;
         [_workBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-        [[Location sharedLocation] startLocationService];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onLocationComplete:)
-                                                     name:Location_Complete object:nil];
+//        [[Location sharedLocation] startLocationService];
+//        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onLocationComplete:)
+//                                                     name:Location_Complete object:nil];
 
     }
 

@@ -135,10 +135,10 @@
     if (!_isBackPassword) {
         urlStr = @"register";
         if ([_typeCell.contentText.text isEqualToString:@"货运站点"]) {
-            [param setObject:@"1" forKey:@"type"];
+            [param setObject:@"5" forKey:@"type"];
             
         }else{
-            [param setObject:@"2" forKey:@"type"];
+            [param setObject:@"6" forKey:@"type"];
         }
     }
     [param setObject:_phoneCell.contentText.text forKey:@"phoneNumber"];
@@ -228,7 +228,7 @@
         cell.contentText.secureTextEntry = YES;
         cell.contentTextFRight.constant = 8;
         [NavBgImage showIconFontForView:cell.iconLabel iconName:@"\U0000e640" color:mainColor font:26];
-        [NavBgImage showIconFontForView:cell.operateBtn iconName:@"\U0000e524" color:mainColor font:25];
+        [NavBgImage showIconFontForView:cell.operateBtn iconName:@"\U0000e600" color:mainColor font:25];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
         cell.operationBtnBlock = ^{
@@ -305,12 +305,12 @@
 
 - (void)operatePassWord {
     if (_passwordCell.isTrue) {
-        [NavBgImage showIconFontForView:_passwordCell.operateBtn iconName:@"\U0000e527" color:mainColor font:25];
+        [NavBgImage showIconFontForView:_passwordCell.operateBtn iconName:@"\U0000e601" color:mainColor font:25];
         _passwordCell.contentText.secureTextEntry = NO;
         _prePasswordCell.contentText.secureTextEntry = NO;
 
     }else{
-        [NavBgImage showIconFontForView:_passwordCell.operateBtn iconName:@"\U0000e524" color:mainColor font:25];
+        [NavBgImage showIconFontForView:_passwordCell.operateBtn iconName:@"\U0000e600" color:mainColor font:25];
         _passwordCell.contentText.secureTextEntry = YES;
         _prePasswordCell.contentText.secureTextEntry = YES;
 
