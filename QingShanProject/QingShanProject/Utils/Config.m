@@ -56,6 +56,17 @@
     return [self getValueWithKey:@"type"];
 }
 
+//司机类型 //1: 车主司机  2:小司机
+- (void)setDriverType:(NSString *)driverType {
+    [self setValue:driverType key:@"driverType"];
+}
+
+- (NSString *)getDriverType {
+    return [self getValueWithKey:@"driverType"];
+}
+
+
+
 
 - (void)setToken:(NSString *)token
 {

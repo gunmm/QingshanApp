@@ -90,6 +90,8 @@
         [[Config shareConfig] setType:loginModel.type];
         [[Config shareConfig] setToken:loginModel.accessToken];
         [[Config shareConfig] setBankCardNumber:loginModel.bankCardNumber];
+        [[Config shareConfig] setDriverType:loginModel.driverType];
+
         if ([loginModel.type isEqualToString:@"5"]) {
             StandMainMMController *standMainVC = [[StandMainMMController alloc] initStandMainMMVC];
             [self.view.window setRootViewController:standMainVC];

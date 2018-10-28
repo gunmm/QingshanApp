@@ -85,14 +85,14 @@
     _userNameTextF.text = _userModel.nickname;
     _phoneNumberTextF.text = _userModel.phoneNumber;
     _idCardTextF.text = _userModel.userIdCardNumber;
-    _belongSiteTextF.text = _userModel.belongSiteName;
+    _belongSiteTextF.text = _userModel.belongSiteName.length > 0 ? _userModel.belongSiteName : @"--";
     _scoreTextF.text = [NSString stringWithFormat:@"%.1f", _userModel.score];
     _bankCardTextF.text = _userModel.bankCardNumber;
     
-    _plateNumberTextF.text = _userModel.plateNumber;
-    _carTypeTextF.text = _userModel.vehicleTypeName;
-    _gpsTypeTextF.text = _userModel.gpsTypeName;
-    _gpsNumberTextF.text = _userModel.gpsSerialNumber;
+    _plateNumberTextF.text = _userModel.plateNumber.length > 0 ? _userModel.plateNumber : @"--";
+    _carTypeTextF.text = _userModel.vehicleTypeName.length > 0 ? _userModel.vehicleTypeName : @"--";
+    _gpsTypeTextF.text = _userModel.gpsTypeName.length > 0 ? _userModel.gpsTypeName : @"--";
+    _gpsNumberTextF.text = _userModel.gpsSerialNumber.length > 0 ? _userModel.gpsSerialNumber : @"--";
     [[Config shareConfig] setBankCardNumber:_userModel.bankCardNumber];
     
     if ([[[Config shareConfig] getType] isEqualToString:@"5"]) {

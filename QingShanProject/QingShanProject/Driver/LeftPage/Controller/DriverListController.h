@@ -8,6 +8,11 @@
 
 #import "BaseViewController.h"
 
+typedef void(^ManageListRefrenshBlock)(void);
+
 @interface DriverListController : BaseViewController
+
+@property (nonatomic, copy) ManageListRefrenshBlock manageListRefrenshBlock;
+
 
 @end

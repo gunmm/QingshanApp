@@ -46,8 +46,18 @@
 }
 
 - (void)addAct {
-    DriverListController *driverListController = [[DriverListController alloc] init];
-    [self.navigationController pushViewController:driverListController animated:YES];
+    __weak typeof(self) weakSelf = self;
+    [AlertView alertViewWithTitle:@"提示" withMessage:@"添加个人司机时请车主当面核对好个人司机的身份证号、驾驶证号及特殊资格证号 对车主自行添加的司机，若因证件真伪导致出事故，平台无责任" withConfirmTitle:@"确认" withCancelTitle:@"取消" withType:UIAlertControllerStyleAlert withConfirmBlock:^{
+        DriverListController *driverListController = [[DriverListController alloc] init];
+        [weakSelf.navigationController pushViewController:driverListController animated:YES];
+        
+        driverListController.manageListRefrenshBlock = ^{
+            [weakSelf loadData];
+        };
+    } withCancelBlock:^{
+        
+    }];
+   
 }
 
 - (void)loadData {

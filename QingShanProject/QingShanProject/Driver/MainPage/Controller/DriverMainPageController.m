@@ -16,6 +16,7 @@
 #import "MessageBtn.h"
 #import "MessageListController.h"
 #import "DriverOrderDetailController.h"
+#import "FinishDriverInfoController.h"
 
 @interface DriverMainPageController () <UITableViewDelegate, UITableViewDataSource>
 
@@ -113,6 +114,29 @@
 }
 
 - (void)workBtnClicked {
+    __weak typeof(self) weakSelf = self;
+
+    if ([_userModel.driverType isEqualToString:@"2"]) {
+        if (_userModel.nickname.length == 0 || _userModel.userIdCardNumber.length == 0 || _userModel.driverLicenseNumber.length == 0) {
+            [AlertView alertViewWithTitle:@"提示" withMessage:@"信息未完善，前往完善" withType:UIAlertControllerStyleAlert withConfirmBlock:^{
+                UIStoryboard *board = [UIStoryboard storyboardWithName:@"DriverInformation" bundle:nil];
+                FinishDriverInfoController *finishDriverInfoController = [board instantiateViewControllerWithIdentifier:@"finish_driver_info"];
+                finishDriverInfoController.userModel = self.userModel;
+                [self.navigationController pushViewController:finishDriverInfoController animated:YES];
+                
+                finishDriverInfoController.mainPageRefrenshUserDataBlock = ^{
+                    [weakSelf loadUserData];
+                };
+            }];
+            return;
+        }else if (_userModel.superDriver.length == 0) {
+            [AlertView alertViewWithTitle:@"提示" withMessage:@"绑定已在站点注册车主的车辆后方可接单" withType:UIAlertControllerStyleAlert withConfirmBlock:^{
+                [weakSelf loadUserData];
+            }];
+            return;
+        }
+        
+    }
     
     if ([_workBtn.titleLabel.text isEqualToString:@"开始接单"]) {
         [AlertView alertViewWithTitle:@"确认开始接单" withMessage:@"开始接单后，附近有新的订单将会推送到您的手机" withConfirmTitle:@"确认" withCancelTitle:@"取消" withType:UIAlertControllerStyleAlert withConfirmBlock:^{
@@ -175,6 +199,7 @@
 }
 
 - (void)loadUserData {
+    _workBtn.hidden = YES;
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
     [param setObject:[[Config shareConfig] getUserId] forKey:@"userId"];
     
@@ -182,6 +207,7 @@
         UserInfoRes *userInfoRes = [UserInfoRes mj_objectWithKeyValues:result];
         self.userModel = userInfoRes.object;
         [self setDataWithModel];
+        self.workBtn.hidden = NO;
     } withFailedBlock:^(NSString *errorResult) {
         
     }];
@@ -189,7 +215,7 @@
 
 - (void)setDataWithModel {
 
-    if ([_userModel.status isEqualToString:@"2"]) {
+    if ([_userModel.status isEqualToString:@"2"] || [_userModel.status isEqualToString:@"3"]) {
         [_workBtn setTitle:@"开始接单" forState:UIControlStateNormal];
         _workBtn.layer.borderColor = mainColor.CGColor;
         [_workBtn setTitleColor:mainColor forState:UIControlStateNormal];

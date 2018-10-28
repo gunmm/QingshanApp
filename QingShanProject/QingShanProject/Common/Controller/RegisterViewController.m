@@ -49,6 +49,7 @@
     self.navigationController.navigationBar.hidden = NO;
 }
 
+
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [_timer invalidate];

@@ -47,44 +47,119 @@
     [self.driverPhoneBtn setTitle:_model.phoneNumber forState:UIControlStateNormal];
     self.driverIdCardLabel.text = _model.userIdCardNumber;
     self.driverLicenseLabel.text = _model.driverLicenseNumber;
-    self.driverQualificationLabel.text = _model.driverQualificationNumber;
+    self.driverQualificationLabel.text = _model.driverQualificationNumber.length > 0 ? _model.driverQualificationNumber : @"--";
     self.driverScoreLabel.text = [NSString stringWithFormat:@"%.1f", _model.score];
     
     _driverDeatilBtnView = [[[NSBundle mainBundle] loadNibNamed:@"DriverDeatilBtnView" owner:nil options:nil] lastObject];
     _driverDeatilBtnView.backgroundColor = bgColor;
+
     _driverDeatilBtnView.frame = CGRectMake(0, 0, kDeviceWidth, 200);
-    self.tableView.tableFooterView = _driverDeatilBtnView;
+    
+    UIView *footerBgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kDeviceWidth, 200)];
+    [footerBgView addSubview:_driverDeatilBtnView];
+    self.tableView.tableFooterView = footerBgView;
     
     [self setBtnViewData];
     
     
     __weak typeof(self) weakSelf = self;
     _driverDeatilBtnView.changeDriverBlock = ^{
-        [AlertView alertViewWithTitle:@"提示" withMessage:[NSString stringWithFormat:@"确认将司机切换为：%@", weakSelf.model.nickname] withConfirmTitle:@"确认" withCancelTitle:@"取消" withType:UIAlertControllerStyleAlert withConfirmBlock:^{
-            if (weakSelf.refreshDriverBlock) {
-                weakSelf.refreshDriverBlock();
-            }
+        if (weakSelf.isAddSmallDriver) {
+            [weakSelf addDriverAct];
+        }else {
+            [weakSelf changeDriverAct];
+        }
+        
+    };
+    
+    _driverDeatilBtnView.deleteDriverBlock = ^{
+        [AlertView alertViewWithTitle:@"提示" withMessage:[NSString stringWithFormat:@"确认删除司机：%@ 删除之前请先确认该司机所有订单运费和手续费已被提现", weakSelf.model.nickname] withConfirmTitle:@"确认" withCancelTitle:@"取消" withType:UIAlertControllerStyleAlert withConfirmBlock:^{
             NSMutableDictionary *param = [NSMutableDictionary dictionary];
-            [param setObject:[[Config shareConfig] getUserId] forKey:@"driverId"];
+            [param setObject:[[Config shareConfig] getUserId] forKey:@"bigDriverId"];
             [param setObject:weakSelf.model.userId forKey:@"smallDriverId"];
-            [NetWorking postDataWithParameters:param withUrl:@"pointDriverForVehicle" withBlock:^(id result) {
-                [HUDClass showHUDWithText:@"切换成功！"];
+            [NetWorking postDataWithParameters:param withUrl:@"bigDriverDeleteSmallDriver" withBlock:^(id result) {
+                [HUDClass showHUDWithText:@"删除成功！"];
                 [weakSelf loadData];
+                if (weakSelf.refreshDriverBlock) {
+                    weakSelf.refreshDriverBlock();
+                }
+                [weakSelf.navigationController popViewControllerAnimated:YES];
             } withFailedBlock:^(NSString *errorResult) {
-                [HUDClass showHUDWithText:@"切换失败！请重试"];
             }];
             
             
         } withCancelBlock:^{
             
         }];
-    };
+        
     
-    _driverDeatilBtnView.deleteDriverBlock = ^{
-        if (weakSelf.refreshDriverBlock) {
-            weakSelf.refreshDriverBlock();
-        }
     };
+}
+
+- (void)addDriverAct {
+    __weak typeof(self) weakSelf = self;
+    [AlertView alertViewWithTitle:@"提示" withMessage:[NSString stringWithFormat:@"确认发送添加验证码给司机：%@ ", weakSelf.model.nickname] withConfirmTitle:@"确认" withCancelTitle:@"取消" withType:UIAlertControllerStyleAlert withConfirmBlock:^{
+        
+        //发送验证码给目标司机
+        NSMutableDictionary *param = [NSMutableDictionary dictionary];
+        [param setObject:weakSelf.model.phoneNumber forKey:@"phoneNumber"];
+        [param setObject:@"1" forKey:@"type"];
+        
+        [NetWorking loginPostDataWithParameters:param withUrl:@"getCode" withBlock:^(id result) {
+            NSString *securityCode = [result objectForKey:@"object"];
+            [HUDClass showHUDWithText:@"验证码发送成功！"];
+            [AlertView alertViewWithTitle:@"提示" withMessage:@"验证码发送成功！请联系司机索要验证码" withPlaceholder:@"司机收到的验证码" withType:UIAlertControllerStyleAlert withKeykeyboardType:UIKeyboardTypeNumberPad withTextBlock:^(NSString *text) {
+                if ([securityCode isEqualToString:text]) {
+                    //车主绑定司机
+                    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+                    [param setObject:[[Config shareConfig] getUserId] forKey:@"bigDriverId"];
+                    [param setObject:weakSelf.model.userId forKey:@"smallDriverId"];
+                    [NetWorking postDataWithParameters:param withUrl:@"bigDriverBindSmallDriver" withBlock:^(id result) {
+                        [HUDClass showHUDWithText:@"添加成功！"];
+                        [weakSelf loadData];
+                        if (self.refreshDriverBlock) {
+                            self.refreshDriverBlock();
+                        }
+                        [weakSelf.navigationController popViewControllerAnimated:YES];
+                    } withFailedBlock:^(NSString *errorResult) {
+                        [HUDClass showHUDWithText:@"添加失败！请重试"];
+                    }];
+                }else{
+                    [HUDClass showHUDWithText:@"验证码错误！"];
+                }
+            } withCancelBlock:^{
+                
+            }];
+            
+            
+        } withFailedBlock:^(NSString *errorResult) {
+        }];
+        
+        
+    } withCancelBlock:^{
+        
+    }];
+}
+
+- (void)changeDriverAct {
+    [AlertView alertViewWithTitle:@"提示" withMessage:[NSString stringWithFormat:@"确认将司机切换为：%@", self.model.nickname] withConfirmTitle:@"确认" withCancelTitle:@"取消" withType:UIAlertControllerStyleAlert withConfirmBlock:^{
+        NSMutableDictionary *param = [NSMutableDictionary dictionary];
+        [param setObject:[[Config shareConfig] getUserId] forKey:@"driverId"];
+        [param setObject:self.model.userId forKey:@"smallDriverId"];
+        [NetWorking postDataWithParameters:param withUrl:@"pointDriverForVehicle" withBlock:^(id result) {
+            [HUDClass showHUDWithText:@"切换成功！"];
+            [self loadData];
+            if (self.refreshDriverBlock) {
+                self.refreshDriverBlock();
+            }
+        } withFailedBlock:^(NSString *errorResult) {
+            [HUDClass showHUDWithText:@"切换失败！请重试"];
+        }];
+        
+        
+    } withCancelBlock:^{
+        
+    }];
 }
 
 - (void)loadData {
@@ -102,17 +177,28 @@
 
 
 - (void)setBtnViewData {
-    if ([_model.vehicleBindingDriverId isEqualToString:_model.userId]) {
-        _driverDeatilBtnView.changeBtn.enabled = NO;
-        _driverDeatilBtnView.changeBtn.backgroundColor = [UIColor grayColor];
-        [_driverDeatilBtnView.changeBtn setTitleColor:bgColor forState:UIControlStateNormal];
-        [_driverDeatilBtnView.changeBtn setTitle:@"当前司机" forState:UIControlStateNormal];
+    
+    if (_isAddSmallDriver) {
+        _driverDeatilBtnView.deleteBtn.hidden = YES;
+        [_driverDeatilBtnView.changeBtn setTitle:@"添加" forState:UIControlStateNormal];
     }else {
-        _driverDeatilBtnView.changeBtn.enabled = YES;
-        _driverDeatilBtnView.changeBtn.backgroundColor = mainColor;
-        [_driverDeatilBtnView.changeBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [_driverDeatilBtnView.changeBtn setTitle:@"切换" forState:UIControlStateNormal];
+        if ([_model.vehicleBindingDriverId isEqualToString:_model.userId]) {
+            _driverDeatilBtnView.changeBtn.enabled = NO;
+            _driverDeatilBtnView.changeBtn.backgroundColor = [UIColor grayColor];
+            [_driverDeatilBtnView.changeBtn setTitleColor:bgColor forState:UIControlStateNormal];
+            [_driverDeatilBtnView.changeBtn setTitle:@"当前司机" forState:UIControlStateNormal];
+        }else {
+            _driverDeatilBtnView.changeBtn.enabled = YES;
+            _driverDeatilBtnView.changeBtn.backgroundColor = mainColor;
+            [_driverDeatilBtnView.changeBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            [_driverDeatilBtnView.changeBtn setTitle:@"切换" forState:UIControlStateNormal];
+        }
+        
+        if ([_model.userId isEqualToString:[[Config shareConfig] getUserId]]) {
+            _driverDeatilBtnView.deleteBtn.hidden = YES;
+        }
     }
+   
     
 }
 

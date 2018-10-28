@@ -26,6 +26,9 @@ typedef void(^RefreshDriverBlock)(void);
 
 @property (nonatomic, copy) RefreshDriverBlock refreshDriverBlock;
 
+@property (nonatomic, assign) BOOL isAddSmallDriver;
+
+
 
 
 @end

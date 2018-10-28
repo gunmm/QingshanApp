@@ -14,7 +14,7 @@
         <scene sceneID="UNZ-iM-GNs">
             <objects>
                 <navigationController storyboardIdentifier="login_controller" id="WOi-Pu-qSh" customClass="BaseNavController" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="VRg-yp-gaR">
+                    <navigationBar key="navigationBar" hidden="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="VRg-yp-gaR">
                         <rect key="frame" x="0.0" y="20" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

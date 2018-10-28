@@ -12,11 +12,10 @@
 
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
-        self.backgroundColor = bgColor;
         
         CALayer *sublayer =[CALayer layer];
         sublayer.backgroundColor = [UIColor whiteColor].CGColor;
-        sublayer.shadowColor = [UIColor blackColor].CGColor;
+        sublayer.shadowColor = [UIColor grayColor].CGColor;
         sublayer.shadowOpacity = 0.3f;
         sublayer.shadowRadius = 4.f;
         sublayer.shadowOffset = CGSizeMake(0,0);

@@ -323,6 +323,11 @@
         return;
     }
     
+    if (_remarkCell.contentTextF.text.length == 0) {
+        [HUDClass showHUDWithText:@"货物备注不能为空！"];
+        return;
+    }
+    
     if ([_confirmView.priceLabel.text isEqualToString:@"计价中"]) {
         [HUDClass showHUDWithText:@"正在计算价格！"];
         return;
@@ -697,8 +702,8 @@
         }
         TextTableViewCell *cell = [[[NSBundle mainBundle] loadNibNamed:@"TextTableViewCell" owner:nil options:nil] lastObject];
         _remarkCell = cell;
-        cell.keyLabel.text = @"备注";
-        cell.contentTextF.placeholder = @"备注";
+        cell.keyLabel.text = @"货物备注";
+        cell.contentTextF.placeholder = @"例：10吨铁";
         [NavBgImage showIconFontForView:cell.iconLabel iconName:@"\U0000e648" color:[NavBgImage getColorByString:@"备注"] font:25];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;

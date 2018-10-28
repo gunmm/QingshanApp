@@ -145,6 +145,7 @@
 		7691D1E220BAF13D00E54D3C /* CarTypeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7691D1E120BAF13D00E54D3C /* CarTypeModel.m */; };
 		7691D1E520BAF14F00E54D3C /* CarTypeRes.m in Sources */ = {isa = PBXBuildFile; fileRef = 7691D1E420BAF14F00E54D3C /* CarTypeRes.m */; };
 		7693699E214954F900681D8E /* 1024.png in Resources */ = {isa = PBXBuildFile; fileRef = 7693699D214954F900681D8E /* 1024.png */; };
+		76942CC721857CE200A991A3 /* FinishDriverInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 76942CC621857CE200A991A3 /* FinishDriverInfoController.m */; };
 		7694C62120D120760037C03F /* appicon1024.png in Resources */ = {isa = PBXBuildFile; fileRef = 7694C62020D120760037C03F /* appicon1024.png */; };
 		769F8E082172EBBD0062D117 /* iconfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 769F8E072172EBBC0062D117 /* iconfont.ttf */; };
 		769F8E0B217309C20062D117 /* DriverManageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 769F8E0A217309C20062D117 /* DriverManageController.m */; };
@@ -441,6 +442,8 @@
 		7691D1E320BAF14F00E54D3C /* CarTypeRes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CarTypeRes.h; sourceTree = "<group>"; };
 		7691D1E420BAF14F00E54D3C /* CarTypeRes.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CarTypeRes.m; sourceTree = "<group>"; };
 		7693699D214954F900681D8E /* 1024.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1024.png; sourceTree = "<group>"; };
+		76942CC521857CE200A991A3 /* FinishDriverInfoController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FinishDriverInfoController.h; sourceTree = "<group>"; };
+		76942CC621857CE200A991A3 /* FinishDriverInfoController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FinishDriverInfoController.m; sourceTree = "<group>"; };
 		7694C62020D120760037C03F /* appicon1024.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = appicon1024.png; sourceTree = "<group>"; };
 		769F8E072172EBBC0062D117 /* iconfont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = iconfont.ttf; sourceTree = "<group>"; };
 		769F8E09217309C20062D117 /* DriverManageController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DriverManageController.h; sourceTree = "<group>"; };
@@ -649,6 +652,8 @@
 				7642E6D020BD344C00D859B7 /* DriverInfoController.m */,
 				766CAAD8211F0E49004FE8F7 /* BankEditController.h */,
 				766CAAD9211F0E49004FE8F7 /* BankEditController.m */,
+				76942CC521857CE200A991A3 /* FinishDriverInfoController.h */,
+				76942CC621857CE200A991A3 /* FinishDriverInfoController.m */,
 				76B23F4C21323E0800FB4F42 /* WalletController.h */,
 				76B23F4D21323E0800FB4F42 /* WalletController.m */,
 				76B23F5C2132840F00FB4F42 /* WithDrawalListController.h */,
@@ -1479,6 +1484,7 @@
 				768B77F720A934B1002CE715 /* HttpClient.m in Sources */,
 				760307FE2143917B00481FAE /* InvoiceModel.m in Sources */,
 				76467FE720AEBBCC0052AC66 /* SeekViewController.m in Sources */,
+				76942CC721857CE200A991A3 /* FinishDriverInfoController.m in Sources */,
 				76405472209AED980038862A /* AlertView.m in Sources */,
 				76B7265E20B69D2200A4DB23 /* DriverOnWayController.m in Sources */,
 				764054AF209B49C50038862A /* StandMainPageController.m in Sources */,

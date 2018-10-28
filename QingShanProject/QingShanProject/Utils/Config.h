@@ -28,6 +28,10 @@
 
 - (NSString *)getType;
 
+//司机类型 //1: 车主司机  2:小司机
+- (void)setDriverType:(NSString *)driverType;
+- (NSString *)getDriverType;
+
 
 //设置和获取accessToken
 - (void)setToken:(NSString *)token;

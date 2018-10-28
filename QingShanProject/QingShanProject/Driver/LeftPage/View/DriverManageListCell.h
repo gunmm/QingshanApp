@@ -22,4 +22,7 @@ typedef void(^PointBtnActBlock)(UserModel *pointUserModel);
 
 
 @property (nonatomic, copy) PointBtnActBlock pointBtnActBlock;
+
+@property (nonatomic, assign) BOOL isUnBindPage;
+
 @end

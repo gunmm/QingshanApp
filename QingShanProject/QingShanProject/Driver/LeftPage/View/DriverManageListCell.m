@@ -35,16 +35,22 @@
     [_phoneBtn setTitle:_model.phoneNumber forState:UIControlStateNormal];
     [Utils setImageWithImageView:_headImageView withUrl:_model.personImageUrl];
     
-    if ([_model.vehicleBindingDriverId isEqualToString:_model.userId]) {
-        _pointBtn.enabled = NO;
-        _pointBtn.backgroundColor = [UIColor grayColor];
-        [_pointBtn setTitleColor:bgColor forState:UIControlStateNormal];
-        [_pointBtn setTitle:@"当前司机" forState:UIControlStateNormal];
+   
+    
+    if (_isUnBindPage) {
+        [_pointBtn setTitle:@"添加" forState:UIControlStateNormal];
     }else{
-        _pointBtn.enabled = YES;
-        _pointBtn.backgroundColor = mainColor;
-        [_pointBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [_pointBtn setTitle:@"切换" forState:UIControlStateNormal];
+        if ([_model.vehicleBindingDriverId isEqualToString:_model.userId]) {
+            _pointBtn.enabled = NO;
+            _pointBtn.backgroundColor = [UIColor grayColor];
+            [_pointBtn setTitleColor:bgColor forState:UIControlStateNormal];
+            [_pointBtn setTitle:@"当前司机" forState:UIControlStateNormal];
+        }else{
+            _pointBtn.enabled = YES;
+            _pointBtn.backgroundColor = mainColor;
+            [_pointBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            [_pointBtn setTitle:@"切换" forState:UIControlStateNormal];
+        }
     }
 
     

@@ -70,8 +70,19 @@
 
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (!_isDriver && indexPath.row == 1) {
-        return 0;
+    
+    
+    
+    if (_isDriver) {
+        if ([[[Config shareConfig] getDriverType] isEqualToString:@"2"]) {
+            if (indexPath.row == 1 || indexPath.row == 3) {
+                return 0;
+            }
+        }
+    }else{
+        if (indexPath.row == 1 || indexPath.row == 3) {
+            return 0;
+        }
     }
     
     return 44;
