@@ -83,7 +83,7 @@
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str] options:@{} completionHandler:^(BOOL success) {}];
 }
 - (IBAction)linkServiceBtnAct:(id)sender {
-    NSMutableString *str = [[NSMutableString alloc] initWithFormat:@"telprompt://%@",SERVICE_PHONE];
+    NSMutableString *str = [[NSMutableString alloc] initWithFormat:@"telprompt://%@",[[Config shareConfig] getServicePhone]];
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str] options:@{} completionHandler:^(BOOL success) {}];
 }
 - (IBAction)complaintBtnAct:(id)sender {

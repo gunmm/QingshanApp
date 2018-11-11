@@ -21,6 +21,9 @@ typedef void(^OrderTimeOutBlock)(void);
 typedef void(^ComplainBlock)(void);
 typedef void(^CommentBlock)(void);
 
+typedef void(^AgreementContentBlock)(void);
+
+
 
 
 
@@ -54,6 +57,12 @@ typedef void(^CommentBlock)(void);
 @property (weak, nonatomic) IBOutlet UIButton *complainBtn;
 @property (weak, nonatomic) IBOutlet UIButton *commentBtn;
 
+@property (weak, nonatomic) IBOutlet UIButton *selectBtn;
+@property (weak, nonatomic) IBOutlet UIButton *selectContentBtn;
+
+@property (nonatomic, assign) BOOL isSelect;
+
+
 
 
 
@@ -74,6 +83,9 @@ typedef void(^CommentBlock)(void);
 
 @property (nonatomic, copy) ComplainBlock complainBlock;
 @property (nonatomic, copy) CommentBlock commentBlock;
+
+@property (nonatomic, copy) AgreementContentBlock agreementContentBlock;
+
 
 
 

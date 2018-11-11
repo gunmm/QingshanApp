@@ -28,6 +28,35 @@
     [self setToken:@""];
 }
 
+//客服电话
+- (void)setServicePhone:(NSString *)servicePhone {
+    [self setValue:servicePhone key:@"servicePhone"];
+}
+
+- (NSString *)getServicePhone {
+    return [self getValueWithKey:@"servicePhone"];
+
+}
+
+//设置货主协议
+- (void)setMasterAgreement:(NSString *)masterAgreement {
+    [self setValue:masterAgreement key:@"masterAgreement"];
+}
+
+- (NSString *)getMasterAgreement {
+    return [self getValueWithKey:@"masterAgreement"];
+}
+
+
+//设置车主协议
+- (void)setDriverAgreement:(NSString *)driverAgreement {
+    [self setValue:driverAgreement key:@"driverAgreement"];
+}
+
+- (NSString *)getDriverAgreement {
+    return [self getValueWithKey:@"driverAgreement"];
+}
+
 //设置和获取用户图像
 - (void)setUserImage:(NSString *)userImage {
     [self setValue:userImage key:@"user_image"];

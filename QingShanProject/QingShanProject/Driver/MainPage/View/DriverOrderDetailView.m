@@ -47,6 +47,9 @@
     _payBtn.layer.cornerRadius = 4;
     _payBtn.layer.masksToBounds = YES;
     
+    _isSelect = YES;
+    [NavBgImage showIconFontForView:_selectBtn iconName:@"\U0000e793" color:[UIColor colorWithRed:66.0/255 green:67.0/255 blue:81.0/255 alpha:1] font:18];
+    
     
     
     
@@ -317,6 +320,26 @@
         
     }];
 }
+
+
+- (IBAction)selectBtnAct:(UIButton *)sender {
+    if (_isSelect) {
+        _isSelect = NO;
+        [NavBgImage showIconFontForView:_selectBtn iconName:@"\U0000e793" color:devide_line_color font:18];
+    }else{
+        _isSelect = YES;
+        [NavBgImage showIconFontForView:_selectBtn iconName:@"\U0000e793" color:[UIColor colorWithRed:66.0/255 green:67.0/255 blue:81.0/255 alpha:1] font:18];
+        
+    }
+}
+
+- (IBAction)contentBtnAct:(id)sender {
+    if (self.agreementContentBlock) {
+        self.agreementContentBlock();
+    }
+}
+
+
 
 
 - (void)dealloc {

@@ -13,6 +13,24 @@
 
 + (instancetype)shareConfig;
 
+
+//客服电话
+- (void)setServicePhone:(NSString *)servicePhone;
+
+- (NSString *)getServicePhone;
+
+
+//设置货主协议
+- (void)setMasterAgreement:(NSString *)masterAgreement;
+
+- (NSString *)getMasterAgreement;
+
+
+//设置车主协议
+- (void)setDriverAgreement:(NSString *)driverAgreement;
+
+- (NSString *)getDriverAgreement;
+
 //设置和获取用户图像
 - (void)setUserImage:(NSString *)userImage;
 

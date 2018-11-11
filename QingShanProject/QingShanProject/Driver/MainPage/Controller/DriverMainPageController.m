@@ -47,6 +47,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self initNavBar];
+    [self loadAgreementData];
     [self loadUserData];
     [self initData];
     [self initView];
@@ -208,6 +209,20 @@
         self.userModel = userInfoRes.object;
         [self setDataWithModel];
         self.workBtn.hidden = NO;
+    } withFailedBlock:^(NSString *errorResult) {
+        
+    }];
+}
+
+- (void)loadAgreementData {
+    [NetWorking bgPostDataWithParameters:@{} withUrl:@"orderAgreement" withBlock:^(id result) {
+        NSDictionary *object = [result objectForKey:@"object"];
+        NSString *driverAgreement = [object objectForKey:@"driverAgreement"];
+        NSString *servicePhone = [object objectForKey:@"servicePhone"];
+
+        [[Config shareConfig] setDriverAgreement:driverAgreement];
+        [[Config shareConfig] setServicePhone:servicePhone];
+
     } withFailedBlock:^(NSString *errorResult) {
         
     }];

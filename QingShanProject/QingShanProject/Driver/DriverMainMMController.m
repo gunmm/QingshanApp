@@ -107,7 +107,7 @@
         WalletController *walletController = [[WalletController alloc] init];
         [mainNav pushViewController:walletController animated:YES];
     }else if (cellIndex == 2) {
-        NSMutableString *str = [[NSMutableString alloc] initWithFormat:@"telprompt://%@",SERVICE_PHONE];
+        NSMutableString *str = [[NSMutableString alloc] initWithFormat:@"telprompt://%@",[[Config shareConfig] getServicePhone]];
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str] options:@{} completionHandler:^(BOOL success) {}];
     }else if (cellIndex == 3) {
         DriverManageController *driverManageController = [[DriverManageController alloc] init];

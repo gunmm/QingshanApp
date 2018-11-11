@@ -200,6 +200,10 @@
         [weakSelf confirmAct];
     };
     
+    _confirmView.agreementContentBlock = ^{
+        [AlertView preAlertViewWithTitle:@"货主下单协议" withMessage:[[Config shareConfig] getMasterAgreement] withType:UIAlertControllerStyleAlert withConfirmBlock:^{}];
+    };
+    
     _confirmView.priceDetailBtnBlock = ^{
         PriceDeatilView *priceDetailView = [[[NSBundle mainBundle] loadNibNamed:@"PriceDeatilView" owner:nil options:nil] lastObject];
         priceDetailView.frame = CGRectMake(0, 0, kDeviceWidth, 269+TABBAR_BOTTOM_HEIGHT);

@@ -285,6 +285,10 @@
     [bgView addSubview:_driverOrderDetailView];
     
     __weak typeof(self) weakSelf = self;
+    
+    _driverOrderDetailView.agreementContentBlock = ^{
+        [AlertView preAlertViewWithTitle:@"司机抢单协议" withMessage:[[Config shareConfig] getDriverAgreement] withType:UIAlertControllerStyleAlert withConfirmBlock:^{}];
+    };
 
     _driverOrderDetailView.beginAppointOrderBlock = ^{
         [weakSelf beginAppointOrder];
@@ -400,6 +404,11 @@
 
 - (void)servicePayBlockAct {
     
+    if (!_driverOrderDetailView.isSelect) {
+        [AlertView preAlertViewWithTitle:@"请先同意协议" withMessage:@"" withType:UIAlertControllerStyleAlert withConfirmBlock:^{}];
+        return;
+    }
+   
     PayDetailView *payDetailView = [[[NSBundle mainBundle] loadNibNamed:@"PayDetailView" owner:nil options:nil] lastObject];
     payDetailView.frame = CGRectMake(0, 0, kDeviceWidth, 256+TABBAR_BOTTOM_HEIGHT);
     self.customIOS7AlertView = [[CustomIOS7AlertView alloc] init];

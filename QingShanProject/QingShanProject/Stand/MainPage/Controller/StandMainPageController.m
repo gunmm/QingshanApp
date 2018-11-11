@@ -69,6 +69,8 @@
     // Do any additional setup after loading the view.
     [self initNavBar];
     [self initView];
+    [self loadAgreementData];
+    
     
 }
 
@@ -135,6 +137,21 @@
         }else{
             self.messageBtn.redView.hidden = NO;
         }
+    } withFailedBlock:^(NSString *errorResult) {
+        
+    }];
+}
+
+- (void)loadAgreementData {
+    [NetWorking bgPostDataWithParameters:@{} withUrl:@"orderAgreement" withBlock:^(id result) {
+        NSDictionary *object = [result objectForKey:@"object"];
+        NSString *masterAgreement = [object objectForKey:@"masterAgreement"];
+        NSString *servicePhone = [object objectForKey:@"servicePhone"];
+
+        [[Config shareConfig] setMasterAgreement:masterAgreement];
+        [[Config shareConfig] setServicePhone:servicePhone];
+
+        
     } withFailedBlock:^(NSString *errorResult) {
         
     }];

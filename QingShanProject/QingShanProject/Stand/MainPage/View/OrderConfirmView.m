@@ -67,6 +67,9 @@
 
 
 - (IBAction)contentBtbAct:(UIButton *)sender {
+    if (self.agreementContentBlock) {
+        self.agreementContentBlock();
+    }
 }
 
 - (IBAction)priceDetailBtnAct:(UIButton *)sender {

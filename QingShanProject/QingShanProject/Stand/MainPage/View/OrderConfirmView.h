@@ -12,6 +12,9 @@ typedef void(^ConfirmBlock)(void);
 typedef void(^PriceDetailBtnBlock)(void);
 typedef void(^InvoiceBtnBlock)(NSString *selectType);
 
+typedef void(^AgreementContentBlock)(void);
+
+
 
 
 @interface OrderConfirmView : UIView
@@ -27,6 +30,9 @@ typedef void(^InvoiceBtnBlock)(NSString *selectType);
 @property (nonatomic, copy) ConfirmBlock confirmBlock;
 @property (nonatomic, copy) PriceDetailBtnBlock priceDetailBtnBlock;
 @property (nonatomic, copy) InvoiceBtnBlock invoiceBtnBlock;
+
+@property (nonatomic, copy) AgreementContentBlock agreementContentBlock;
+
 
 
 @property (weak, nonatomic) IBOutlet UIButton *invoiceBtn;
