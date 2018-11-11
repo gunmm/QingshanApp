@@ -78,6 +78,8 @@
 		7642E6D320BD41F700D859B7 /* choice_imgbg.png in Resources */ = {isa = PBXBuildFile; fileRef = 7642E6D220BD41F700D859B7 /* choice_imgbg.png */; };
 		7642E6D520BD456600D859B7 /* choice_imgbg2.png in Resources */ = {isa = PBXBuildFile; fileRef = 7642E6D420BD456600D859B7 /* choice_imgbg2.png */; };
 		7642E6D820BD510800D859B7 /* ImageCropperController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7642E6D720BD510800D859B7 /* ImageCropperController.m */; };
+		76442F4E219861CE0038FF7B /* CheckUpdateModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 76442F4B219861CE0038FF7B /* CheckUpdateModel.m */; };
+		76442F4F219861CE0038FF7B /* CheckUpRes.m in Sources */ = {isa = PBXBuildFile; fileRef = 76442F4C219861CE0038FF7B /* CheckUpRes.m */; };
 		7645CB2720C78B400081280B /* chengkeface.png in Resources */ = {isa = PBXBuildFile; fileRef = 7645CB2620C78B400081280B /* chengkeface.png */; };
 		7645CB3020C7B1030081280B /* grab_failed.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 7645CB2920C7B1030081280B /* grab_failed.m4a */; };
 		7645CB3120C7B1030081280B /* grab_successed.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 7645CB2A20C7B1030081280B /* grab_successed.m4a */; };
@@ -334,6 +336,10 @@
 		7642E6D420BD456600D859B7 /* choice_imgbg2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = choice_imgbg2.png; sourceTree = "<group>"; };
 		7642E6D620BD510800D859B7 /* ImageCropperController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImageCropperController.h; sourceTree = "<group>"; };
 		7642E6D720BD510800D859B7 /* ImageCropperController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImageCropperController.m; sourceTree = "<group>"; };
+		76442F4A219861CD0038FF7B /* CheckUpdateModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckUpdateModel.h; sourceTree = "<group>"; };
+		76442F4B219861CE0038FF7B /* CheckUpdateModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckUpdateModel.m; sourceTree = "<group>"; };
+		76442F4C219861CE0038FF7B /* CheckUpRes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckUpRes.m; sourceTree = "<group>"; };
+		76442F4D219861CE0038FF7B /* CheckUpRes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckUpRes.h; sourceTree = "<group>"; };
 		7645CB2620C78B400081280B /* chengkeface.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chengkeface.png; sourceTree = "<group>"; };
 		7645CB2920C7B1030081280B /* grab_failed.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = grab_failed.m4a; sourceTree = "<group>"; };
 		7645CB2A20C7B1030081280B /* grab_successed.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = grab_successed.m4a; sourceTree = "<group>"; };
@@ -1144,6 +1150,10 @@
 		76DCBB432099B89C001E4F6D /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				76442F4A219861CD0038FF7B /* CheckUpdateModel.h */,
+				76442F4B219861CE0038FF7B /* CheckUpdateModel.m */,
+				76442F4D219861CE0038FF7B /* CheckUpRes.h */,
+				76442F4C219861CE0038FF7B /* CheckUpRes.m */,
 				768B77FB20A9760B002CE715 /* LoginModel.h */,
 				768B77FC20A9760B002CE715 /* LoginModel.m */,
 				768B77FE20A978A6002CE715 /* LoginResponse.h */,
@@ -1536,11 +1546,13 @@
 				7691D1E220BAF13D00E54D3C /* CarTypeModel.m in Sources */,
 				762429C620C52693008292B6 /* EBBannerViewMaker.m in Sources */,
 				762429A420C4CD86008292B6 /* DriverOrderListController.m in Sources */,
+				76442F4E219861CE0038FF7B /* CheckUpdateModel.m in Sources */,
 				76DCBB2A2099A225001E4F6D /* AppDelegate.m in Sources */,
 				7645CB3C20C7CE730081280B /* JZLocationConverter.m in Sources */,
 				7642E6D120BD344C00D859B7 /* DriverInfoController.m in Sources */,
 				7691D1D020BA723B00E54D3C /* SelectAddressHeadView.m in Sources */,
 				769F8E0E217315000062D117 /* DriverListController.m in Sources */,
+				76442F4F219861CE0038FF7B /* CheckUpRes.m in Sources */,
 				762429CE20C53766008292B6 /* FinishOrderRes.m in Sources */,
 				76405474209AED980038862A /* Location.m in Sources */,
 				76CA175520B7F1D700740909 /* OAUObjectModel.m in Sources */,

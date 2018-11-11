@@ -103,9 +103,8 @@
         //发送验证码给目标司机
         NSMutableDictionary *param = [NSMutableDictionary dictionary];
         [param setObject:weakSelf.model.phoneNumber forKey:@"phoneNumber"];
-        [param setObject:@"1" forKey:@"type"];
         
-        [NetWorking loginPostDataWithParameters:param withUrl:@"getCode" withBlock:^(id result) {
+        [NetWorking postDataWithParameters:param withUrl:@"sendCodeToSmallDriver" withBlock:^(id result) {
             NSString *securityCode = [result objectForKey:@"object"];
             [HUDClass showHUDWithText:@"验证码发送成功！"];
             [AlertView alertViewWithTitle:@"提示" withMessage:@"验证码发送成功！请联系司机索要验证码" withPlaceholder:@"司机收到的验证码" withType:UIAlertControllerStyleAlert withKeykeyboardType:UIKeyboardTypeNumberPad withTextBlock:^(NSString *text) {
@@ -128,7 +127,6 @@
                     [HUDClass showHUDWithText:@"验证码错误！"];
                 }
             } withCancelBlock:^{
-                
             }];
             
             
