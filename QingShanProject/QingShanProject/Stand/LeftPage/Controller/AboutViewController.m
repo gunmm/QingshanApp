@@ -44,11 +44,13 @@
     bottomLabel.text = @"@Copyright 2018 渭南庆山集团";
     bottomLabel.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:bottomLabel];
+    
+    [_phoneBtn setTitle:[[Config shareConfig] getServicePhone] forState:UIControlStateNormal];
 }
 
 - (IBAction)urlBtnAct:(id)sender {
     if (@available(iOS 10.0, *)) {
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.tongtongw.com"] options:@{} completionHandler:^(BOOL success) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://39.107.113.157/"] options:@{} completionHandler:^(BOOL success) {
         }];
     } else {
         // Fallback on earlier versions

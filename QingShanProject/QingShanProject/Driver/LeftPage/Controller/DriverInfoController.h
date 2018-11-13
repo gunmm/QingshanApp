@@ -31,6 +31,8 @@ typedef void(^InfoEditBlock)(void);
 
 @property (weak, nonatomic) IBOutlet UIButton *editBankBtn;
 
+@property (weak, nonatomic) IBOutlet UITextField *jiashizhengTextF;
+@property (weak, nonatomic) IBOutlet UITextField *zigezhengTextF;
 
 
 

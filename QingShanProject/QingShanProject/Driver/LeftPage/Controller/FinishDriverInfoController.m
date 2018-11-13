@@ -24,6 +24,13 @@
     [self initData];
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    if (self.mainPageRefrenshUserDataBlock) {
+        self.mainPageRefrenshUserDataBlock();
+    }
+}
+
 - (void)initView {
     self.title = @"信息完善";
     self.view.backgroundColor = bgColor;
@@ -72,9 +79,6 @@
             
             [NetWorking postDataWithParameters:param withUrl:@"updateUserInfo" withBlock:^(id result) {
                 [HUDClass showHUDWithText:@"信息更新成功！"];
-                if (weakSelf.mainPageRefrenshUserDataBlock) {
-                    weakSelf.mainPageRefrenshUserDataBlock();
-                }
                 [weakSelf.navigationController popViewControllerAnimated:YES];
             } withFailedBlock:^(NSString *errorResult) {
                 
@@ -87,6 +91,8 @@
     };
     
 }
+
+
 
 - (void)initData {
     if (self.userModel.nickname.length > 0) {

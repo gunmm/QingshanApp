@@ -326,7 +326,7 @@
 }
 
 - (void)selectType {
-    NSArray *titleArray = @[@"货运站点",
+    NSArray *titleArray = @[
                             @"货运司机"
                             ];
     __weak RegisterViewController *weakSelf = self;

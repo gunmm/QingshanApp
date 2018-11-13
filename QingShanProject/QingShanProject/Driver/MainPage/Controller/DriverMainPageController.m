@@ -115,30 +115,16 @@
 }
 
 - (void)workBtnClicked {
+    //w弹出完善信息页面
+    [self pushAddInfoPage];
     __weak typeof(self) weakSelf = self;
 
-    if ([_userModel.driverType isEqualToString:@"2"]) {
-        if (_userModel.nickname.length == 0 || _userModel.userIdCardNumber.length == 0 || _userModel.driverLicenseNumber.length == 0) {
-            [AlertView alertViewWithTitle:@"提示" withMessage:@"信息未完善，前往完善" withType:UIAlertControllerStyleAlert withConfirmBlock:^{
-                UIStoryboard *board = [UIStoryboard storyboardWithName:@"DriverInformation" bundle:nil];
-                FinishDriverInfoController *finishDriverInfoController = [board instantiateViewControllerWithIdentifier:@"finish_driver_info"];
-                finishDriverInfoController.userModel = self.userModel;
-                [self.navigationController pushViewController:finishDriverInfoController animated:YES];
-                
-                finishDriverInfoController.mainPageRefrenshUserDataBlock = ^{
-                    [weakSelf loadUserData];
-                };
-            }];
-            return;
-        }else if (_userModel.superDriver.length == 0) {
-            [AlertView alertViewWithTitle:@"提示" withMessage:@"绑定已在站点注册车主的车辆后方可接单" withType:UIAlertControllerStyleAlert withConfirmBlock:^{
-                [weakSelf loadUserData];
-            }];
-            return;
-        }
-        
+    if (_userModel.superDriver.length == 0 && [_userModel.driverType isEqualToString:@"2"]) {
+        [AlertView alertViewWithTitle:@"提示" withMessage:@"绑定已在站点注册车主的车辆后方可接单" withType:UIAlertControllerStyleAlert withConfirmBlock:^{
+            [weakSelf loadUserData];
+        }];
+        return;
     }
-    
     if ([_workBtn.titleLabel.text isEqualToString:@"开始接单"]) {
         [AlertView alertViewWithTitle:@"确认开始接单" withMessage:@"开始接单后，附近有新的订单将会推送到您的手机" withConfirmTitle:@"确认" withCancelTitle:@"取消" withType:UIAlertControllerStyleAlert withConfirmBlock:^{
             [self updateDriverStatusWithStatus:@"0"];
@@ -209,9 +195,35 @@
         self.userModel = userInfoRes.object;
         [self setDataWithModel];
         self.workBtn.hidden = NO;
+        [[Config shareConfig] setName:self.userModel.nickname];
+        [[Config shareConfig] setUserImage:self.userModel.personImageUrl];
+        
+         //w弹出完善信息页面
+        [self pushAddInfoPage];
     } withFailedBlock:^(NSString *errorResult) {
         
     }];
+}
+
+- (void)pushAddInfoPage {
+    __weak typeof(self) weakSelf = self;
+
+    if ([_userModel.driverType isEqualToString:@"2"]) {
+        if (_userModel.nickname.length == 0 || _userModel.userIdCardNumber.length == 0 || _userModel.driverLicenseNumber.length == 0) {
+            [AlertView alertViewWithTitle:@"提示" withMessage:@"信息未完善，前往完善" withType:UIAlertControllerStyleAlert withConfirmBlock:^{
+                UIStoryboard *board = [UIStoryboard storyboardWithName:@"DriverInformation" bundle:nil];
+                FinishDriverInfoController *finishDriverInfoController = [board instantiateViewControllerWithIdentifier:@"finish_driver_info"];
+                finishDriverInfoController.userModel = self.userModel;
+                [self.navigationController pushViewController:finishDriverInfoController animated:YES];
+                
+                finishDriverInfoController.mainPageRefrenshUserDataBlock = ^{
+                    [weakSelf loadUserData];
+                };
+            }];
+            return;
+        }
+        
+    }
 }
 
 - (void)loadAgreementData {

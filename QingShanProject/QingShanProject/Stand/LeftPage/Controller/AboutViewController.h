@@ -10,5 +10,6 @@
 
 @interface AboutViewController : BaseTableViewController
 @property (weak, nonatomic) IBOutlet UILabel *versionLabel;
+@property (weak, nonatomic) IBOutlet UIButton *phoneBtn;
 
 @end

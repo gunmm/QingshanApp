@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -179,7 +179,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="关于" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0fG-Kj-2a5">
-                                                    <rect key="frame" x="16" y="11" width="50" height="22"/>
+                                                    <rect key="frame" x="16" y="11" width="50" height="21.5"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="50" id="NqI-Ws-nCA"/>
                                                     </constraints>
@@ -203,7 +203,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="清空缓存" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wdR-er-elI">
-                                                    <rect key="frame" x="16" y="11" width="70" height="22"/>
+                                                    <rect key="frame" x="16" y="11" width="70" height="21.5"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="70" id="U97-KM-aNq"/>
                                                     </constraints>
@@ -212,7 +212,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.2M" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9VU-Tq-2eZ">
-                                                    <rect key="frame" x="251" y="11" width="50" height="21"/>
+                                                    <rect key="frame" x="251" y="11" width="50" height="21.5"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="50" id="dfh-X1-JHx"/>
                                                     </constraints>
@@ -243,7 +243,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="消息推送" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WYX-DP-dcw">
-                                                    <rect key="frame" x="16" y="11" width="70" height="22"/>
+                                                    <rect key="frame" x="16" y="11" width="70" height="21.5"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="70" id="YRD-5a-KUn"/>
                                                     </constraints>
@@ -252,7 +252,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="已开启" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SsX-Su-KGg">
-                                                    <rect key="frame" x="252" y="11" width="52" height="22"/>
+                                                    <rect key="frame" x="252" y="11" width="52" height="21.5"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="52" id="I6V-8F-u1G"/>
                                                     </constraints>
@@ -279,7 +279,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="推送提示音" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jE5-69-naU">
-                                                    <rect key="frame" x="16" y="11" width="90" height="21"/>
+                                                    <rect key="frame" x="16" y="11" width="90" height="21.5"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="90" id="xjb-Et-Vts"/>
                                                     </constraints>
@@ -288,7 +288,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="已开启" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MG3-9x-p5T">
-                                                    <rect key="frame" x="252" y="11" width="52" height="22"/>
+                                                    <rect key="frame" x="252" y="11" width="52" height="21.5"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="52" id="RTQ-v7-ZRx"/>
                                                     </constraints>
@@ -319,7 +319,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="退出登录" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iWE-hQ-vPz">
-                                                    <rect key="frame" x="11" y="11" width="298" height="22"/>
+                                                    <rect key="frame" x="11" y="11" width="298" height="21.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -499,6 +499,7 @@
                         </connections>
                     </tableView>
                     <connections>
+                        <outlet property="phoneBtn" destination="SF3-wQ-t2F" id="1Av-Vo-Ycv"/>
                         <outlet property="versionLabel" destination="TAq-6y-Io3" id="03S-Xj-1Jf"/>
                     </connections>
                 </tableViewController>

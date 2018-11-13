@@ -93,6 +93,11 @@
     _carTypeTextF.text = _userModel.vehicleTypeName.length > 0 ? _userModel.vehicleTypeName : @"--";
     _gpsTypeTextF.text = _userModel.gpsTypeName.length > 0 ? _userModel.gpsTypeName : @"--";
     _gpsNumberTextF.text = _userModel.gpsSerialNumber.length > 0 ? _userModel.gpsSerialNumber : @"--";
+    
+    _jiashizhengTextF.text = _userModel.driverLicenseNumber.length > 0 ? _userModel.driverLicenseNumber : @"--";
+    
+    _zigezhengTextF.text = _userModel.driverQualificationNumber.length > 0 ? _userModel.driverQualificationNumber : @"--";
+
     [[Config shareConfig] setBankCardNumber:_userModel.bankCardNumber];
     
     if ([[[Config shareConfig] getType] isEqualToString:@"5"]) {
@@ -249,9 +254,12 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 0 && indexPath.row == 6 && [[[Config shareConfig] getType] isEqualToString:@"5"]) {
+    if (indexPath.section == 0 && (indexPath.row == 6 || indexPath.row == 7 || indexPath.row == 8) && [[[Config shareConfig] getType] isEqualToString:@"5"]) {
+        return 0;
+    }else if (indexPath.section == 0 && indexPath.row == 8 && [[[Config shareConfig] getDriverType] isEqualToString:@"2"]) {
         return 0;
     }
+
     return [super tableView:tableView heightForRowAtIndexPath:indexPath];
 }
 
