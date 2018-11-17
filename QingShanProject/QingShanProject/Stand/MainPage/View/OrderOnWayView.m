@@ -54,7 +54,7 @@
 - (void)setModel:(OrderModel *)model
 {
     _model = model;
-    [_nameBtn setTitle:[NSString stringWithFormat:@"%@师傅",[_model.nickname substringToIndex:1]] forState:UIControlStateNormal];
+    [_nameBtn setTitle:_model.nickname forState:UIControlStateNormal];
     _plateNumberLabel.text = _model.plateNumber;
     _scoreLabel.text = [NSString stringWithFormat:@"%.1f", _model.score];
     

@@ -17,6 +17,7 @@
 #import "MessageListController.h"
 #import "DriverOrderDetailController.h"
 #import "FinishDriverInfoController.h"
+#import "UMShareUtils.h"
 
 @interface DriverMainPageController () <UITableViewDelegate, UITableViewDataSource>
 
@@ -32,7 +33,10 @@
 @property (nonatomic, assign) double lastLatitude;
 @property (nonatomic, assign) double lastLongitude;
 @property (nonatomic, assign) NSInteger numberCount;
-@property (nonatomic, strong) MessageBtn *messageBtn;
+@property (nonatomic, strong) UIButton *messageBtn;
+@property (nonatomic, strong) UIView *redView;
+
+
 
 
 
@@ -81,8 +85,7 @@
     self.view.backgroundColor = [UIColor whiteColor];
     
     //初始化按钮
-    UIButton *personBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 44, 44)];
-    personBtn.contentEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 15);
+    UIButton *personBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [NavBgImage showIconFontForView:personBtn iconName:@"\U0000e62f" color:mainColor font:25];
 
     [personBtn addTarget:self action:@selector(personAct) forControlEvents:UIControlEventTouchUpInside];
@@ -90,18 +93,38 @@
     self.navigationItem.leftBarButtonItem = personItem;
     
     
-  
-    
-    _messageBtn = [[MessageBtn alloc]initWithFrame:CGRectMake(0, 0, 44, 44)];
-    _messageBtn.contentEdgeInsets = UIEdgeInsetsMake(0, 30, 0, 0);
+
+    _messageBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     _messageBtn.titleLabel.textAlignment = NSTextAlignmentRight;
     [NavBgImage showIconFontForView:_messageBtn iconName:@"\U0000e617" color:mainColor font:25];
     
+    
+    _redView = [[UIView alloc] initWithFrame:CGRectMake(22, 7, 6, 6)];
+    _redView.layer.cornerRadius = 3;
+    _redView.layer.masksToBounds = YES;
+    _redView.backgroundColor = [UIColor redColor];
+    _redView.hidden = YES;
+    [_messageBtn addSubview:_redView];
+    
     [_messageBtn addTarget:self action:@selector(messageAct) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *messageItem = [[UIBarButtonItem alloc] initWithCustomView:_messageBtn];
-    self.navigationItem.rightBarButtonItem = messageItem;
+    
+    
+    UIButton *shareBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    shareBtn.titleLabel.textAlignment = NSTextAlignmentRight;
+    [NavBgImage showIconFontForView:shareBtn iconName:@"\U0000e63f" color:mainColor font:23];
+    
+    [shareBtn addTarget:self action:@selector(shareBtnClicked) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *shareItem = [[UIBarButtonItem alloc] initWithCustomView:shareBtn];
+    
+    self.navigationItem.rightBarButtonItems = @[shareItem, messageItem];
 
 }
+
+- (void)shareBtnClicked {
+    [[UMShareUtils shareConfig] shareWeb];
+}
+
 
 - (void)messageAct {
     MessageListController *messageListController = [[MessageListController alloc] init];
@@ -176,9 +199,9 @@
     
     [NetWorking bgPostDataWithParameters:param withUrl:@"queryUnreadMessageCount" withBlock:^(id result) {
         if ([[result objectForKey:@"object"] isEqualToString:@"0"]) {
-            self.messageBtn.redView.hidden = YES;
+            self.redView.hidden = YES;
         }else{
-            self.messageBtn.redView.hidden = NO;
+            self.redView.hidden = NO;
         }
     } withFailedBlock:^(NSString *errorResult) {
         

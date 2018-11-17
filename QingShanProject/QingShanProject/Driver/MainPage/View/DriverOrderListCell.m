@@ -53,7 +53,9 @@
 - (void)setModel:(OrderModel *)model {
     _model = model;
     
-    [_nameBtn setTitle:[NSString stringWithFormat:@"%@货主",[_model.linkMan substringToIndex:1]] forState:UIControlStateNormal];
+//    [_nameBtn setTitle:[NSString stringWithFormat:@"%@货主",[_model.linkMan substringToIndex:1]] forState:UIControlStateNormal];
+    [_nameBtn setTitle:_model.linkMan forState:UIControlStateNormal];
+
     _createTimeLabel.text = [Utils formatDate:[NSDate dateWithTimeIntervalSince1970:_model.createTime/1000]];
     
     _sendAddressLabel.text = [NSString stringWithFormat:@"%@%@", _model.sendDetailAddress, _model.sendAddress];

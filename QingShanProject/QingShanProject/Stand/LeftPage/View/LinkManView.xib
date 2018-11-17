@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -34,9 +34,8 @@
                     </constraints>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J6P-tQ-icg">
-                    <rect key="frame" x="41" y="8" width="70" height="20"/>
+                    <rect key="frame" x="41" y="8" width="0.0" height="20"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="70" id="GLA-3m-ly4"/>
                         <constraint firstAttribute="height" constant="20" id="zA9-AX-IU0"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
@@ -44,9 +43,8 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gqn-PD-7gc">
-                    <rect key="frame" x="41" y="42" width="70" height="20"/>
+                    <rect key="frame" x="41" y="42" width="0.0" height="20"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="70" id="3ks-1x-6W2"/>
                         <constraint firstAttribute="height" constant="20" id="7zK-fD-uC7"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
@@ -61,7 +59,7 @@
                     </constraints>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="14x-4M-NZv">
-                    <rect key="frame" x="122" y="6" width="103" height="24"/>
+                    <rect key="frame" x="52" y="6" width="103" height="24"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="103" id="2gG-R9-G3l"/>
                         <constraint firstAttribute="height" constant="24" id="LCG-Tf-u7V"/>
@@ -75,7 +73,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CxR-19-DTT">
-                    <rect key="frame" x="122" y="40" width="103" height="24"/>
+                    <rect key="frame" x="52" y="40" width="103" height="24"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="24" id="n0B-nW-TP0"/>
                         <constraint firstAttribute="width" constant="103" id="tHk-Rf-yRr"/>

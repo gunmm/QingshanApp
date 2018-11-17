@@ -16,6 +16,8 @@
 #import <AFNetworking/AFNetworking.h>
 #import "CheckUpdateModel.h"
 #import "CheckUpRes.h"
+#import <UMSocialCore/UMSocialCore.h>
+
 
 
 
@@ -69,10 +71,33 @@
     //注册jpush
     [self registerJPushWithOptions:launchOptions];
     
+    //s初始化友盟
+    [self setUMConfig];
+    
+    
     [self checkUpdate];
 
     
     return YES;
+}
+
+- (void)setUMConfig {
+    /* 打开调试日志 */
+    [[UMSocialManager defaultManager] openLog:YES];
+    
+    /* 设置友盟appkey */
+    [[UMSocialManager defaultManager] setUmSocialAppkey:@"5befc44ab465f56a950002cd"];
+    [self configUSharePlatforms];
+
+}
+
+- (void)configUSharePlatforms
+{
+    /* 设置微信的appKey和appSecret */
+    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_WechatSession appKey:@"wxe600d3b9236082f4" appSecret:@"5befc44ab465f56a950002cd" redirectURL:@"http://mobile.umeng.com/social"];
+
+    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_QQ appKey:@"1107903051"/*设置QQ平台的appID*/  appSecret:nil redirectURL:@"http://mobile.umeng.com/social"];
+  
 }
 
 /**
@@ -211,6 +236,17 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
     
     [center postNotification:notification];
     
+}
+
+// 支持所有iOS系统
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+{
+    //6.3的新的API调用，是为了兼容国外平台(例如:新版facebookSDK,VK等)的调用[如果用6.2的api调用会没有回调],对国内平台没有影响
+    BOOL result = [[UMSocialManager defaultManager] handleOpenURL:url sourceApplication:sourceApplication annotation:annotation];
+    if (!result) {
+        // 其他如支付等SDK的回调
+    }
+    return result;
 }
 
 @end

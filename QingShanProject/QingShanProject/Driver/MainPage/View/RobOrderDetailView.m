@@ -44,7 +44,7 @@
 
 - (void)setModel:(OrderModel *)model {
     _model = model;
-    [_nameBtn setTitle:[NSString stringWithFormat:@"%@货主",[_model.linkMan substringToIndex:1]] forState:UIControlStateNormal];
+    [_nameBtn setTitle:_model.linkMan forState:UIControlStateNormal];
     if ([_model.type isEqualToString:@"1"]) {
         _typeLabel.text = @"实时";
         _typeLabel.textColor = [UIColor colorWithRed:255/255.0 green:132/255.0 blue:60/255.0 alpha:1];

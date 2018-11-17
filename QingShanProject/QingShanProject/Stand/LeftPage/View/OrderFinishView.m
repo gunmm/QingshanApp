@@ -71,7 +71,7 @@
         _waitLabel.hidden = YES;
     }
     _plateNumberLabel.text = _model.plateNumber.length > 0 ? _model.plateNumber : @"未被接单";
-    [_driverBtn setTitle:_model.nickname.length > 0 ? [NSString stringWithFormat:@"%@师傅",[_model.nickname substringToIndex:1]] : @"" forState:UIControlStateNormal];
+    [_driverBtn setTitle:_model.nickname.length > 0 ? _model.nickname : @"" forState:UIControlStateNormal];
     _carTypeLabel.text = _model.carTypeName;
     _scoreLabel.text = [NSString stringWithFormat:@"%.1f", _model.score];
     _priceLabl.text = [NSString stringWithFormat:@"¥%.0f",_model.price];

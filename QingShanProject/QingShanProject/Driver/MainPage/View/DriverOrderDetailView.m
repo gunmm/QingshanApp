@@ -76,7 +76,9 @@
 - (void)setModel:(OrderModel *)model {
     _model = model;
     [_timer invalidate];
-    [_nameBtn setTitle:[NSString stringWithFormat:@"%@货主",[_model.linkMan substringToIndex:1]] forState:UIControlStateNormal];
+//    [_nameBtn setTitle:[NSString stringWithFormat:@"%@货主",[_model.linkMan substringToIndex:1]] forState:UIControlStateNormal];
+    [_nameBtn setTitle:_model.linkMan forState:UIControlStateNormal];
+
     [_reciveNameBtn setTitle:_model.receiveMan forState:UIControlStateNormal];
     _priceLabel.text = [NSString stringWithFormat:@"¥%.2f",_model.price];
     //支付状态
