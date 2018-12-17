@@ -31,6 +31,7 @@
 }
 
 - (void)initView {
+    self.title = @"登录";
     self.loginBtn.layer.cornerRadius = 6;
     self.loginBtn.layer.masksToBounds = YES;
     self.imageView.contentMode = UIViewContentModeScaleAspectFit;
@@ -43,8 +44,13 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    self.navigationController.navigationBar.hidden = YES;
-    self.title = @"登录";
+    [self.navigationController setNavigationBarHidden:YES animated:animated];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:animated];
+
 }
 
 - (IBAction)loginAct:(UIButton *)sender {

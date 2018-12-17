@@ -819,7 +819,8 @@
         
         
     } else {
-        NSLog(@"error code:%u", error);
+        [HUDClass showHUDWithText:@"路线规划失败！请重试"];
+        [self dismissViewControllerAnimated:YES completion:nil];
     }
 }
 
