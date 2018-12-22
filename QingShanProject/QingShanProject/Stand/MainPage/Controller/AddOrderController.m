@@ -21,6 +21,7 @@
 #import "PayDetailView.h"
 #import "TouchScrollView.h"
 #import "InvoiceDetailView.h"
+#import "GaodeRoadPlainModel.h"
 
 
 
@@ -59,9 +60,7 @@
 @property (nonatomic, assign) double unitPrice;
 @property (strong, nonatomic) CustomIOS7AlertView *customIOS7AlertView;
 
-
-
-
+@property (strong, nonatomic) CarTypeModel *currentCarTypeModel;
 
 @property (nonatomic, strong) BMKDrivingRouteLine *routeLine;
 
@@ -128,6 +127,7 @@
                 self.starDistance = model.startDistance;
                 self.starPrice = model.startPrice;
                 self.unitPrice = model.unitPrice;
+                self.currentCarTypeModel = model;
             }
         }
         [self routePlan];
@@ -738,25 +738,17 @@
 }
 
 - (void)selectType {
-   
     __weak typeof(self) weakSelf = self;
     [[CustomSelectAlertView alloc] initAlertWithTitleArray:self.carTypeListTitle withBtnSelectBlock:^(NSInteger tagg) {
-        weakSelf.confirmView.priceLabel.text = @"计价中";
-
-        weakSelf.typeSelectCell.contentLabel.text = weakSelf.carTypeListTitle[tagg-1];
         CarTypeModel *model = weakSelf.carTypeList[tagg-1];
+        weakSelf.confirmView.priceLabel.text = @"计价中";
+        weakSelf.typeSelectCell.contentLabel.text = weakSelf.carTypeListTitle[tagg-1];
         weakSelf.carTypeValueStr = model.keyText;
         weakSelf.starDistance = model.startDistance;
         weakSelf.starPrice = model.startPrice;
         weakSelf.unitPrice = model.unitPrice;
-        
-        if (weakSelf.routeLine) {
-            double price = ((self.routeLine.distance/1000 - self.starDistance)>0 ? (self.routeLine.distance/1000 - self.starDistance) : 0) * self.unitPrice + self.starPrice;
-            weakSelf.confirmView.priceLabel.text = [NSString stringWithFormat:@"¥ %ld",(long)price];
-        }else {
-            [weakSelf routePlan];
-        }
-
+        weakSelf.currentCarTypeModel = model;
+        [weakSelf routePlan];
     }];
 }
 
@@ -770,36 +762,84 @@
 
 - (void)routePlan
 {
-    _routeSearch = [[BMKRouteSearch alloc] init];
-    _routeSearch.delegate = self;
+//    _routeSearch = [[BMKRouteSearch alloc] init];
+//    _routeSearch.delegate = self;
+//
+//    BMKDrivingRoutePlanOption *options = [[BMKDrivingRoutePlanOption alloc] init];
+//
+//    options.drivingRequestTrafficType = BMK_DRIVING_REQUEST_TRAFFICE_TYPE_PATH_AND_TRAFFICE;
+//
+//    BMKPlanNode *start = [[BMKPlanNode alloc] init];
+//
+//    start.pt = _sendPt;
+//
+//    BMKPlanNode *end = [[BMKPlanNode alloc] init];
+//
+//    CLLocationCoordinate2D endCor = _receivePt;
+//
+//
+//
+//
+//
+//    end.pt = endCor;
+//
+//    options.from = start;
+//    options.to = end;
     
-    BMKDrivingRoutePlanOption *options = [[BMKDrivingRoutePlanOption alloc] init];
+//    BOOL suc = [_routeSearch drivingSearch:options];
+//
+//    if (suc) {
+//        NSLog(@"路线查找成功");
+//    }
     
-    options.drivingRequestTrafficType = BMK_DRIVING_REQUEST_TRAFFICE_TYPE_PATH_AND_TRAFFICE;
+    NSString *originStr = [NSString stringWithFormat:@"%.6f,%.6f", _sendPt.longitude, _sendPt.latitude];
+    NSString *destinationStr = [NSString stringWithFormat:@"%.6f,%.6f", _receivePt.longitude, _receivePt.latitude];
+
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    [param setObject:@"d5efbdf1663f07482e57e4e6d93c6edf" forKey:@"key"];
+
+    [param setObject:self.currentCarTypeModel.width forKey:@"width"]; //车辆宽度
+    [param setObject:self.currentCarTypeModel.strategy forKey:@"strategy"];  //驾车选择策略
+    [param setObject:self.currentCarTypeModel.size forKey:@"size"];   //车辆大小  1：微型车，2：轻型车（默认值），3：中型车，4：重型车
+    [param setObject:self.currentCarTypeModel.weight forKey:@"weight"];   //货车核定载重
+    [param setObject:self.currentCarTypeModel.axis forKey:@"axis"];   //车辆轴数
+    [param setObject:originStr forKey:@"origin"];  //
+    [param setObject:destinationStr forKey:@"destination"];
+    [param setObject:self.currentCarTypeModel.height forKey:@"height"];  //车辆高度
+    [param setObject:self.currentCarTypeModel.load forKey:@"load"];   //车辆总重
+
+
     
-    BMKPlanNode *start = [[BMKPlanNode alloc] init];
     
-    start.pt = _sendPt;
-    
-    BMKPlanNode *end = [[BMKPlanNode alloc] init];
-    
-    CLLocationCoordinate2D endCor = _receivePt;
-   
-    
-    
-    
-    
-    end.pt = endCor;
-    
-    options.from = start;
-    options.to = end;
-    
-    BOOL suc = [_routeSearch drivingSearch:options];
-    
-    if (suc) {
-        NSLog(@"路线查找成功");
-    }
-    
+  
+
+    [NetWorking regularBgGetDataWithParameters:param withUrl:@"https://restapi.amap.com/v4/direction/truck" withBlock:^(id result) {
+        if ([[result objectForKey:@"errcode"] integerValue] == 0) {
+            NSDictionary *data = [result objectForKey:@"data"];
+            NSDictionary *route = [data objectForKey:@"route"];
+            NSArray *paths = [route objectForKey:@"paths"];
+            if (paths.count > 0) {
+                NSDictionary *path = paths[0];
+                GaodeRoadPlainModel *gaodeRoadPlainModel = [GaodeRoadPlainModel mj_objectWithKeyValues:path];
+                
+                double price = ((gaodeRoadPlainModel.distance/1000 - self.starDistance)>0 ? (gaodeRoadPlainModel.distance/1000 - self.starDistance) : 0) * self.unitPrice + self.starPrice;
+                self.confirmView.priceLabel.text = [NSString stringWithFormat:@"¥ %ld",(long)price];
+                self.confirmView.priceDetailBtn.hidden = NO;
+                
+                
+                BMKDrivingRouteLine *drivingRouteLine = [BMKDrivingRouteLine new];
+                drivingRouteLine.distance = gaodeRoadPlainModel.distance;
+                self.routeLine = drivingRouteLine;
+            }
+        }
+        else {
+            [HUDClass showHUDWithText:@"路线规划失败！请重试"];
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }
+        NSLog(@"");
+    } withFailedBlock:^(NSString *errorResult) {
+        
+    }];
 }
 
 #pragma mark - BMKRouteSearchDelegate

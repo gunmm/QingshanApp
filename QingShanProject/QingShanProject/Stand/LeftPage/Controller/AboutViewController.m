@@ -50,7 +50,7 @@
 
 - (IBAction)urlBtnAct:(id)sender {
     if (@available(iOS 10.0, *)) {
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://39.107.113.157/"] options:@{} completionHandler:^(BOOL success) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://39.107.113.157/homePage/index.html"] options:@{} completionHandler:^(BOOL success) {
         }];
     } else {
         // Fallback on earlier versions

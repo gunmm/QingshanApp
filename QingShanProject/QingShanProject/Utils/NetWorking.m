@@ -147,4 +147,44 @@
 }
 
 
+//常规get请求
++ (void)regularBgGetDataWithParameters:(NSDictionary *)paramets withUrl:(NSString *)urlstr withBlock:(SuccessBlock)block withFailedBlock:(FailedBlock)fBlock {
+    //创建manger
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    [manager GET:urlstr parameters:paramets progress:^(NSProgress * _Nonnull downloadProgress) {
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        block(responseObject);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSLog(@"error---%@",error);
+        if ([[error.userInfo allKeys]containsObject:@"NSLocalizedDescription"]) {
+            fBlock([error.userInfo objectForKey:@"NSLocalizedDescription"]);
+        }else{
+            fBlock(@"error");
+        }
+    }];
+}
+
+//常规post请求
++ (void)regularBgPostDataWithParameters:(NSDictionary *)paramets withUrl:(NSString *)urlstr withBlock:(SuccessBlock)block withFailedBlock:(FailedBlock)fBlock {
+    //创建manger
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    
+    [manager POST:urlstr parameters:paramets progress:^(NSProgress * _Nonnull uploadProgress) {
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        block(responseObject);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSLog(@"error---%@",error);
+        if ([[error.userInfo allKeys]containsObject:@"NSLocalizedDescription"]) {
+            fBlock([error.userInfo objectForKey:@"NSLocalizedDescription"]);
+        }else{
+            fBlock(@"error");
+        }
+    }];
+}
+
+
 @end

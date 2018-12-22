@@ -22,5 +22,13 @@
 @property (nonatomic, assign) double unitPrice;
 @property (nonatomic, assign) double startDistance;
 
+@property (nonatomic, copy) NSString *width; //车辆宽度
+@property (nonatomic, copy) NSString *size;   //车辆大小  1：微型车，2：轻型车（默认值），3：中型车，4：重型车
+@property (nonatomic, copy) NSString *weight;   //货车核定载重
+@property (nonatomic, copy) NSString *axis;   //车辆轴数
+@property (nonatomic, copy) NSString *height;  //车辆高度
+@property (nonatomic, copy) NSString *load;   //车辆总重
+@property (nonatomic, copy) NSString *strategy;  //驾车选择策略
+
 @end
 

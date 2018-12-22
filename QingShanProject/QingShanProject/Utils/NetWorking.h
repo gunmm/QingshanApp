@@ -24,6 +24,11 @@ typedef void (^FailedBlock)(NSString *errorResult);
 //后台post请求
 + (void)bgPostDataWithParameters:(NSDictionary *)paramets withUrl:(NSString *)urlstr withBlock:(SuccessBlock)block withFailedBlock:(FailedBlock)fBlock;
 
+//常规get请求
++ (void)regularBgGetDataWithParameters:(NSDictionary *)paramets withUrl:(NSString *)urlstr withBlock:(SuccessBlock)block withFailedBlock:(FailedBlock)fBlock;
+
+//常规post请求
++ (void)regularBgPostDataWithParameters:(NSDictionary *)paramets withUrl:(NSString *)urlstr withBlock:(SuccessBlock)block withFailedBlock:(FailedBlock)fBlock;
 
 
 @end

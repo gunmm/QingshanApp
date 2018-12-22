@@ -18,6 +18,7 @@
 @interface LoginViewController ()
 
 @property NSInteger jpushCount;
+@property (weak, nonatomic) IBOutlet UIButton *versionBtn;
 
 
 @end
@@ -36,6 +37,9 @@
     self.loginBtn.layer.masksToBounds = YES;
     self.imageView.contentMode = UIViewContentModeScaleAspectFit;
     self.verionBtnTop.constant = STATUS_HEIGHT;
+    NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
+    NSString *appCurVersion = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
+    [_versionBtn setTitle:appCurVersion forState:UIControlStateNormal];
     if([[Config shareConfig] getUserName].length > 0) {
         self.usernameTextField.text = [[Config shareConfig] getUserName];
     }

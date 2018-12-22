@@ -18,6 +18,8 @@
 #import "DriverOrderDetailController.h"
 #import "FinishDriverInfoController.h"
 #import "UMShareUtils.h"
+#import "FindOrderView.h"
+#import "FindOrderController.h"
 
 @interface DriverMainPageController () <UITableViewDelegate, UITableViewDataSource>
 
@@ -381,11 +383,11 @@
 
 - (void)initView {
     [self initTableView];
-
+    [self initFindOrderView];
 }
 
 - (void)initTableView {
-    _theTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kDeviceWidth, kDeviceHeight - STATUS_AND_NAVBAR_HEIGHT) style:UITableViewStylePlain];
+    _theTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kDeviceWidth, kDeviceHeight - STATUS_AND_NAVBAR_HEIGHT - TABBAR_BOTTOM_HEIGHT - 40) style:UITableViewStylePlain];
     _theTableView.delegate = self;
     _theTableView.dataSource = self;
     _theTableView.tableFooterView = [UIView new];
@@ -402,7 +404,21 @@
         weakSelf.currentpage++;
         [weakSelf performSelector:@selector(loadDataWithType:) withObject:@"2" afterDelay:1];
     }];
+}
+
+- (void)initFindOrderView {
+    FindOrderView *findOrderView = [[[NSBundle mainBundle] loadNibNamed:@"FindOrderView" owner:nil options:nil] lastObject];
+    findOrderView.frame = CGRectMake(0, 0, kDeviceWidth, 40);
     
+    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(0, _theTableView.bottom, kDeviceWidth, 40)];
+    [bgView addSubview:findOrderView];
+    [self.view addSubview:bgView];
+    
+    __weak typeof(self) weakSelf = self;
+    findOrderView.findOrderBtnActBlock = ^{
+        FindOrderController *findOrderController = [FindOrderController new];
+        [weakSelf.navigationController pushViewController:findOrderController animated:YES];
+    };
 }
 
 #pragma mark -------<UITableViewDelegate, UITableViewDataSource>
@@ -458,7 +474,6 @@
     DriverOrderDetailController *driverOrderDetailController = [[DriverOrderDetailController alloc] init];
     driverOrderDetailController.orderId = _dataList[indexPath.row].orderId;
     [self.navigationController pushViewController:driverOrderDetailController animated:YES];
-    
 }
 
 
