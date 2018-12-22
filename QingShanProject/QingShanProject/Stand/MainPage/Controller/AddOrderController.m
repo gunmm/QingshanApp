@@ -798,15 +798,15 @@
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
     [param setObject:@"d5efbdf1663f07482e57e4e6d93c6edf" forKey:@"key"];
 
-    [param setObject:self.currentCarTypeModel.width forKey:@"width"]; //车辆宽度
-    [param setObject:self.currentCarTypeModel.strategy forKey:@"strategy"];  //驾车选择策略
-    [param setObject:self.currentCarTypeModel.size forKey:@"size"];   //车辆大小  1：微型车，2：轻型车（默认值），3：中型车，4：重型车
-    [param setObject:self.currentCarTypeModel.weight forKey:@"weight"];   //货车核定载重
-    [param setObject:self.currentCarTypeModel.axis forKey:@"axis"];   //车辆轴数
+    [param setObject:self.currentCarTypeModel.width? :@"" forKey:@"width"]; //车辆宽度
+    [param setObject:self.currentCarTypeModel.strategy? :@"" forKey:@"strategy"];  //驾车选择策略
+    [param setObject:self.currentCarTypeModel.size? :@"" forKey:@"size"];   //车辆大小  1：微型车，2：轻型车（默认值），3：中型车，4：重型车
+    [param setObject:self.currentCarTypeModel.weight? :@"" forKey:@"weight"];   //货车核定载重
+    [param setObject:self.currentCarTypeModel.axis? :@"" forKey:@"axis"];   //车辆轴数
     [param setObject:originStr forKey:@"origin"];  //
     [param setObject:destinationStr forKey:@"destination"];
-    [param setObject:self.currentCarTypeModel.height forKey:@"height"];  //车辆高度
-    [param setObject:self.currentCarTypeModel.load forKey:@"load"];   //车辆总重
+    [param setObject:self.currentCarTypeModel.height? :@"" forKey:@"height"];  //车辆高度
+    [param setObject:self.currentCarTypeModel.load? :@"" forKey:@"load"];   //车辆总重
 
 
     
