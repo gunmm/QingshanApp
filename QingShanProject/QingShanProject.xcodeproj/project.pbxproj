@@ -103,6 +103,8 @@
 		764F892020CFC80600CA478D /* PayListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 764F891E20CFC80600CA478D /* PayListCell.xib */; };
 		7653CD4220C3D8AA00DC9D3A /* DriverOrderListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7653CD4020C3D8AA00DC9D3A /* DriverOrderListCell.m */; };
 		7653CD4320C3D8AA00DC9D3A /* DriverOrderListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7653CD4120C3D8AA00DC9D3A /* DriverOrderListCell.xib */; };
+		76563AA321D9ACCD00D223D6 /* iconfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 76563AA221D9ACCD00D223D6 /* iconfont.ttf */; };
+		76563AA721D9B04A00D223D6 /* findGoods.png in Resources */ = {isa = PBXBuildFile; fileRef = 76563AA621D9B04A00D223D6 /* findGoods.png */; };
 		7656C08821241E20001537B8 /* recive_man.png in Resources */ = {isa = PBXBuildFile; fileRef = 7656C08621241E1F001537B8 /* recive_man.png */; };
 		7656C08921241E20001537B8 /* send_man.png in Resources */ = {isa = PBXBuildFile; fileRef = 7656C08721241E20001537B8 /* send_man.png */; };
 		7658206920C66EE6000B7C5D /* DriverOrderDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7658206820C66EE6000B7C5D /* DriverOrderDetailController.m */; };
@@ -218,7 +220,6 @@
 		76DA51C5219FF49800939299 /* libSocialQQ.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 76DA51BA219FF49800939299 /* libSocialQQ.a */; };
 		76DA51C6219FF49800939299 /* libUMSocialLog.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 76DA51BC219FF49800939299 /* libUMSocialLog.a */; };
 		76DA51C9219FF66B00939299 /* UMShareUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 76DA51C8219FF66B00939299 /* UMShareUtils.m */; };
-		76DA51CB21A0211E00939299 /* iconfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 76DA51CA21A0211E00939299 /* iconfont.ttf */; };
 		76DCBB2A2099A225001E4F6D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 76DCBB292099A225001E4F6D /* AppDelegate.m */; };
 		76DCBB2D2099A226001E4F6D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 76DCBB2C2099A226001E4F6D /* ViewController.m */; };
 		76DCBB302099A226001E4F6D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 76DCBB2E2099A226001E4F6D /* Main.storyboard */; };
@@ -396,6 +397,8 @@
 		7653CD3F20C3D8AA00DC9D3A /* DriverOrderListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DriverOrderListCell.h; sourceTree = "<group>"; };
 		7653CD4020C3D8AA00DC9D3A /* DriverOrderListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DriverOrderListCell.m; sourceTree = "<group>"; };
 		7653CD4120C3D8AA00DC9D3A /* DriverOrderListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DriverOrderListCell.xib; sourceTree = "<group>"; };
+		76563AA221D9ACCD00D223D6 /* iconfont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = iconfont.ttf; sourceTree = "<group>"; };
+		76563AA621D9B04A00D223D6 /* findGoods.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = findGoods.png; sourceTree = "<group>"; };
 		7656C08621241E1F001537B8 /* recive_man.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = recive_man.png; sourceTree = "<group>"; };
 		7656C08721241E20001537B8 /* send_man.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = send_man.png; sourceTree = "<group>"; };
 		7658206720C66EE6000B7C5D /* DriverOrderDetailController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DriverOrderDetailController.h; sourceTree = "<group>"; };
@@ -578,7 +581,6 @@
 		76DA51BC219FF49800939299 /* libUMSocialLog.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libUMSocialLog.a; sourceTree = "<group>"; };
 		76DA51C7219FF66B00939299 /* UMShareUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UMShareUtils.h; sourceTree = "<group>"; };
 		76DA51C8219FF66B00939299 /* UMShareUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UMShareUtils.m; sourceTree = "<group>"; };
-		76DA51CA21A0211E00939299 /* iconfont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = iconfont.ttf; sourceTree = "<group>"; };
 		76DCBB252099A225001E4F6D /* QingShanProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QingShanProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		76DCBB282099A225001E4F6D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		76DCBB292099A225001E4F6D /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -1233,7 +1235,7 @@
 		76DCBB402099A2B3001E4F6D /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				76DA51CA21A0211E00939299 /* iconfont.ttf */,
+				76563AA221D9ACCD00D223D6 /* iconfont.ttf */,
 				7691D1DB20BA7E5400E54D3C /* city.plist */,
 				7640547E209AEEA60038862A /* Color.h */,
 				7640547C209AEE640038862A /* Constant.h */,
@@ -1289,6 +1291,7 @@
 		76DCBB422099A2B3001E4F6D /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				76563AA621D9B04A00D223D6 /* findGoods.png */,
 				7693699D214954F900681D8E /* 1024.png */,
 				7656C08621241E1F001537B8 /* recive_man.png */,
 				7656C08721241E20001537B8 /* send_man.png */,
@@ -1474,7 +1477,6 @@
 				76B7266D20B6B03500A4DB23 /* icon_phone.png in Resources */,
 				76B7266920B6A97700A4DB23 /* OrderOnWayView.xib in Resources */,
 				764F892020CFC80600CA478D /* PayListCell.xib in Resources */,
-				76DA51CB21A0211E00939299 /* iconfont.ttf in Resources */,
 				7656C08921241E20001537B8 /* send_man.png in Resources */,
 				7612914C20CE591300F8509B /* StarView.xib in Resources */,
 				7693699E214954F900681D8E /* 1024.png in Resources */,
@@ -1487,6 +1489,8 @@
 				7645CB2720C78B400081280B /* chengkeface.png in Resources */,
 				7656C08821241E20001537B8 /* recive_man.png in Resources */,
 				76DCBB352099A229001E4F6D /* LaunchScreen.storyboard in Resources */,
+				76563AA321D9ACCD00D223D6 /* iconfont.ttf in Resources */,
+				76563AA721D9B04A00D223D6 /* findGoods.png in Resources */,
 				7694C62120D120760037C03F /* appicon1024.png in Resources */,
 				7642E6C620BCEDBA00D859B7 /* icon_complaint.png in Resources */,
 				7612915520CE5D0D00F8509B /* CommentView.xib in Resources */,

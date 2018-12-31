@@ -20,6 +20,8 @@
     [super awakeFromNib];
     [_findOrderBtn setBackgroundColor:bgColor];
     [_findOrderBtn setTitleColor:mainColor forState:UIControlStateNormal];
+    [_findOrderBtn setImage:[NavBgImage imageWithImage:[UIImage imageNamed:@"findGoods.png"] TintColor:mainColor] forState:UIControlStateNormal];
+    _findOrderBtn.imageView.contentMode = UIViewContentModeScaleAspectFit;
 }
 
 - (IBAction)findOrderBtnAct:(id)sender {

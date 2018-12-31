@@ -11,6 +11,22 @@
 
 @implementation NavBgImage
 
+#pragma mark---------用图片颜色
++ (UIImage *)imageWithImage:(UIImage *)image TintColor:(UIColor *)tintColor
+{
+    UIGraphicsBeginImageContextWithOptions(image.size, NO, 0.0f);
+    [tintColor setFill];
+    CGRect bounds = CGRectMake(0, 0, image.size.width, image.size.height);
+    UIRectFill(bounds);
+    
+    [image drawInRect:bounds blendMode:kCGBlendModeDestinationIn alpha:1.0f];
+    
+    UIImage *tintedImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return tintedImage;
+}
+
 #pragma mark---------用颜色创建图片
 +(UIImage*) createImageWithColor:(UIColor*) color
 {

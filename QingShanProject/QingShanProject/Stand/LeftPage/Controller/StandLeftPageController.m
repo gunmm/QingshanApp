@@ -25,8 +25,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [Utils setImageWithImageView:_headView.headImageView withUrl:[[Config shareConfig] getUserImage]];
-
+    [Utils setImageWithImageView:_headView.headImageView withUrl:[[Config shareConfig] getUserImage]?:@""];
     _headView.nickNameLabel.text = [[Config shareConfig] getName];
 
 }

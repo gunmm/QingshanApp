@@ -12,6 +12,8 @@
 
 @interface NavBgImage : UIImage
 
++ (UIImage *)imageWithImage:(UIImage *)image TintColor:(UIColor *)tintColor;
+
 //用颜色创建图片
 + (UIImage *)createImageWithColor:(UIColor*) color;
 

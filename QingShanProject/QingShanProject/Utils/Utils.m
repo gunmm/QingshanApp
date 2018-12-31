@@ -187,7 +187,7 @@
     UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     
-    NSData *data = UIImageJPEGRepresentation(newImage, 1);
+    NSData *data = UIImageJPEGRepresentation(newImage, 0.1);
     NSString *base64Code = [data base64EncodedStringWithOptions:0];
 
     return base64Code;
